@@ -1,13 +1,13 @@
 {
-  "name": "@valve-tech/chain-source",
+  "name": "@valve-tech/viem-errors",
   "version": "0.4.0",
-  "description": "Canonical EVM chain-observation primitive: a unified push-or-poll source for new blocks, mempool snapshots, on-demand receipt + tx lookups, and capability disclosure (HTTP / WS / per-method gating). Used as the shared foundation by @valve-tech/gas-oracle and @valve-tech/tx-tracker; consumable directly by anyone building their own derived view on chain state. viem-native. Part of the valve-tech/evm-toolkit synchronized release line — implementation lands in subsequent 0.3.x releases per docs/tx-tracker-spec.md.",
+  "description": "Cause-chain-aware error utilities for viem-based dapps. Detect EIP-1193 user rejections (4001 / class name / message regex), extract decoded custom Solidity error names from anywhere in viem's nested cause chain, map raw RPC/wallet/contract errors to short user-friendly messages with overridable patterns, and route wagmi-style onError sinks through one helper. Pure functions, no runtime dependencies. Part of the valve-tech/evm-toolkit synchronized release line.",
   "license": "MIT",
-  "homepage": "https://github.com/valve-tech/evm-toolkit/tree/main/packages/chain-source#readme",
+  "homepage": "https://github.com/valve-tech/evm-toolkit/tree/main/packages/viem-errors#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/valve-tech/evm-toolkit.git",
-    "directory": "packages/chain-source"
+    "directory": "packages/viem-errors"
   },
   "bugs": {
     "url": "https://github.com/valve-tech/evm-toolkit/issues"
@@ -16,10 +16,12 @@
     "ethereum",
     "evm",
     "viem",
-    "rpc",
-    "mempool",
-    "subscription",
-    "chain-observer"
+    "wagmi",
+    "errors",
+    "user-rejection",
+    "eip-1193",
+    "custom-error",
+    "wallet"
   ],
   "type": "module",
   "main": "dist/index.js",
