@@ -57,6 +57,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   rather than waiting for the next chain block. `subscribeMempool` is
   intentionally not deduped — txs come and go between blocks even on
   a static head, so every successful snapshot remains fresh data.
+- **The poll cycle now head-probe-gates the full block fetch.** Each
+  tick runs a cheap `eth_blockNumber` probe in parallel with the
+  mempool fetch; only when the probe shows the head has advanced (or
+  the probe failed and we're falling through defensively) does the
+  cycle issue the expensive `eth_getBlockByNumber('latest', true)`
+  (1–5MB on busy chains). On a static head with the default 10 s
+  interval, the per-tick RPC weight drops from "full block + mempool
+  + probe" to "probe + mempool". Mempool fetch still runs every
+  cycle. Closes the efficiency-regression risk for the upcoming
+  gas-oracle migration to consume `ChainSource` (the soon-to-be-
+  deprecated `gas-oracle.blockGatedPolling` option had this behavior
+  in v0.5.0; it now lives at the source layer where every consumer
+  benefits).
 
 ### Notes
 

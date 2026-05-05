@@ -132,6 +132,118 @@ test('unsubscribeBlocks stops further delivery', async () => {
   expect(cb).toHaveBeenCalledTimes(1)
 })
 
+test('tick skips eth_getBlockByNumber when eth_blockNumber probe shows static head', async () => {
+  const block = sampleBlock('0x10')
+  const { client, calls } = fakeClient({
+    responses: {
+      eth_blockNumber: () => '0x10',
+      eth_getBlockByNumber: () => block,
+      txpool_content: () => ({ pending: {}, queued: {} }),
+    },
+  })
+  const source = createChainSource({ client })
+
+  await source.pollOnce()
+  await source.pollOnce()
+
+  // Two ticks; head static at 0x10. The eth_blockNumber probe runs on
+  // every tick (2x), but eth_getBlockByNumber only runs on the first
+  // (head was unknown then) — the second tick's probe matches the
+  // last-seen number and the expensive full-block fetch is skipped.
+  const probeCalls = calls.filter((c) => c.method === 'eth_blockNumber').length
+  const blockCalls = calls.filter((c) => c.method === 'eth_getBlockByNumber').length
+  expect(probeCalls).toBe(2)
+  expect(blockCalls).toBe(1)
+})
+
+test('tick fetches eth_getBlockByNumber every cycle when head advances', async () => {
+  const blockA = { ...sampleBlock('0x10'), hash: '0xaaa' }
+  const blockB = { ...sampleBlock('0x11'), hash: '0xbbb' }
+  let probeI = 0
+  let blockI = 0
+  const { client, calls } = fakeClient({
+    responses: {
+      eth_blockNumber: () => (probeI++ === 0 ? '0x10' : '0x11'),
+      eth_getBlockByNumber: () => (blockI++ === 0 ? blockA : blockB),
+      txpool_content: () => ({ pending: {}, queued: {} }),
+    },
+  })
+  const source = createChainSource({ client })
+
+  await source.pollOnce()
+  await source.pollOnce()
+
+  // Head advances each tick — both block fetches run.
+  const blockCalls = calls.filter((c) => c.method === 'eth_getBlockByNumber').length
+  expect(blockCalls).toBe(2)
+})
+
+test('tick fetches eth_getBlockByNumber when probe fails (defensive fallthrough)', async () => {
+  const block = sampleBlock('0x10')
+  const { client, calls } = fakeClient({
+    responses: {
+      eth_blockNumber: () => {
+        throw new Error('probe gated')
+      },
+      eth_getBlockByNumber: () => block,
+      txpool_content: () => ({ pending: {}, queued: {} }),
+    },
+  })
+  const source = createChainSource({ client })
+
+  await source.pollOnce()
+  await source.pollOnce()
+
+  // Probe fails on every tick — we'd rather pay one extra fetch than
+  // block on a flaky upstream that can't even report eth_blockNumber.
+  // Both ticks run the full block fetch.
+  const blockCalls = calls.filter((c) => c.method === 'eth_getBlockByNumber').length
+  expect(blockCalls).toBe(2)
+})
+
+test('tick still fetches mempool when head is static (txs change between blocks)', async () => {
+  const block = sampleBlock('0x10')
+  const { client, calls } = fakeClient({
+    responses: {
+      eth_blockNumber: () => '0x10',
+      eth_getBlockByNumber: () => block,
+      txpool_content: () => ({ pending: {}, queued: {} }),
+    },
+  })
+  const source = createChainSource({ client })
+
+  await source.pollOnce()
+  await source.pollOnce()
+
+  // Two mempool fetches even though the block fetch was skipped on
+  // tick 2 — head-probe gating only covers the block fan-out. Mempool
+  // fan-out runs every cycle because txs come and go between blocks.
+  const txpoolCalls = calls.filter((c) => c.method === 'txpool_content').length
+  expect(txpoolCalls).toBeGreaterThanOrEqual(2)
+})
+
+test('head-probe gate state resets on stop — restart re-fetches the same block', async () => {
+  const block = sampleBlock('0x10')
+  const { client, calls } = fakeClient({
+    responses: {
+      eth_blockNumber: () => '0x10',
+      eth_getBlockByNumber: () => block,
+      txpool_content: () => ({ pending: {}, queued: {} }),
+    },
+  })
+  const source = createChainSource({ client })
+
+  await source.pollOnce()
+  source.stop()
+  await source.pollOnce()
+
+  // Stop clears lastSeenBlockNumber along with the dedup state, so
+  // the post-restart probe doesn't think the head is "still" what it
+  // was before. Both ticks run the full fetch.
+  const blockCalls = calls.filter((c) => c.method === 'eth_getBlockByNumber').length
+  expect(blockCalls).toBe(2)
+})
+
 test('subscribeBlocks dedups: same block.hash across two ticks emits once', async () => {
   const block = sampleBlock('0x10')
   const { client } = fakeClient({
