@@ -4,22 +4,21 @@
  * After the wallet returns a hash, an SDK has to:
  *   1. Await the receipt.
  *   2. Distinguish `success` from `reverted`.
- *   3. Fire `onMined` (success) or `onFailed` with a typed revert error
- *      (reverted), so any UI wired against `WriteHookParams` flips to a
- *      terminal state.
+ *   3. Fire `onConfirmed` (success) or `onFailed` with a typed revert
+ *      error (reverted), plus `onPhase` for the same transition, so any
+ *      UI wired against `WriteHookParams` flips to a terminal state.
  *
  * Without a helper for this, every SDK re-implements the receipt-await +
- * status-check + typed-error-throw block — that's the same drift trap
+ * status-check + typed-error-throw block — the same drift trap
  * `sendTransactionWithHooks` was added to fix on the wallet side.
  *
- * Drop detection (tx vanished from mempool without inclusion) is
- * intentionally NOT in this helper. Honestly distinguishing "still
- * propagating" from "permanently dropped" requires observing the tx
- * across many blocks with a configurable timeout policy — that's
- * `@valve-tech/tx-tracker`'s job. This helper does ONE receipt-await;
- * if the underlying `waitForTransactionReceipt` itself fires (via
- * its own timeout / abort), the resulting error fires `onFailed` and
- * is re-thrown.
+ * Drop detection (tx vanished from mempool without inclusion) and
+ * replacement detection are deliberately NOT in this helper. They
+ * require observing the tx across many blocks with a configurable
+ * timeout policy and nonce-watching — that's
+ * `@valve-tech/tx-tracker`'s job. The `WriteHookParams` contract
+ * defines `onDropped` / `onReplaced` so consumers can wire them once;
+ * this helper just doesn't fire them.
  */
 
 import type { Hex, TransactionReceipt } from 'viem'
@@ -89,15 +88,18 @@ export async function awaitReceiptWithHooks(
   } catch (err) {
     const failure = err instanceof Error ? err : new Error(String(err))
     hooks?.onFailed?.(failure)
+    hooks?.onPhase?.({ phase: 'failed', error: failure, hash })
     throw failure
   }
 
   if (receipt.status === 'reverted') {
     const revert = new ContractRevertedError(hash, receipt)
     hooks?.onFailed?.(revert)
+    hooks?.onPhase?.({ phase: 'failed', error: revert, hash, receipt })
     throw revert
   }
 
-  hooks?.onMined?.(receipt)
+  hooks?.onConfirmed?.(receipt)
+  hooks?.onPhase?.({ phase: 'confirmed', hash, receipt })
   return receipt
 }

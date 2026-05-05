@@ -37,16 +37,29 @@ describe('awaitReceiptWithHooks', () => {
       expect(receipt.transactionHash).toBe(HASH)
     })
 
-    it('fires onMined exactly once with the receipt', async () => {
-      const onMined = vi.fn()
+    it('fires onConfirmed exactly once with the receipt', async () => {
+      const onConfirmed = vi.fn()
       await awaitReceiptWithHooks({
         publicClient: okClient('success'),
         hash: HASH,
-        hooks: { onMined },
+        hooks: { onConfirmed },
       })
-      expect(onMined).toHaveBeenCalledOnce()
-      const [arg] = onMined.mock.calls[0]!
+      expect(onConfirmed).toHaveBeenCalledOnce()
+      const [arg] = onConfirmed.mock.calls[0]!
       expect((arg as TransactionReceipt).status).toBe('success')
+    })
+
+    it("fires onPhase with phase='confirmed' on success, including hash + receipt", async () => {
+      const onPhase = vi.fn()
+      await awaitReceiptWithHooks({
+        publicClient: okClient('success'),
+        hash: HASH,
+        hooks: { onPhase },
+      })
+      expect(onPhase).toHaveBeenCalledOnce()
+      const [event] = onPhase.mock.calls[0]!
+      expect(event).toMatchObject({ phase: 'confirmed', hash: HASH })
+      expect((event as { receipt: TransactionReceipt }).receipt.status).toBe('success')
     })
 
     it('does NOT fire onFailed on success', async () => {
@@ -93,16 +106,33 @@ describe('awaitReceiptWithHooks', () => {
       expect(arg).toBeInstanceOf(ContractRevertedError)
     })
 
-    it('does NOT fire onMined on revert', async () => {
-      const onMined = vi.fn()
+    it("fires onPhase with phase='failed' on revert, including hash + receipt + error", async () => {
+      const onPhase = vi.fn()
       await expect(
         awaitReceiptWithHooks({
           publicClient: okClient('reverted'),
           hash: HASH,
-          hooks: { onMined },
+          hooks: { onPhase },
         }),
       ).rejects.toThrow()
-      expect(onMined).not.toHaveBeenCalled()
+      expect(onPhase).toHaveBeenCalledOnce()
+      const [event] = onPhase.mock.calls[0]!
+      expect(event).toMatchObject({ phase: 'failed', hash: HASH })
+      const failedEvent = event as { phase: 'failed'; error: Error; receipt: TransactionReceipt }
+      expect(failedEvent.error).toBeInstanceOf(ContractRevertedError)
+      expect(failedEvent.receipt.status).toBe('reverted')
+    })
+
+    it('does NOT fire onConfirmed on revert', async () => {
+      const onConfirmed = vi.fn()
+      await expect(
+        awaitReceiptWithHooks({
+          publicClient: okClient('reverted'),
+          hash: HASH,
+          hooks: { onConfirmed },
+        }),
+      ).rejects.toThrow()
+      expect(onConfirmed).not.toHaveBeenCalled()
     })
   })
 

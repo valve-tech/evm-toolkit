@@ -20,19 +20,24 @@ import type { Hex } from 'viem'
  * Canonical lifecycle states for a tracked transaction.
  *
  * Lifecycle:
- *   preparing → awaiting-signature → pending → mined | failed | dropped
+ *   preparing → awaiting-signature → pending → confirmed | failed | dropped
  *                                            ↘ replaced (on speed-up)
  *
  * The two pre-hash states (`preparing`, `awaitingSignature`) carry no
  * `hash` and cannot be receipt-polled. They exist so the UI has
  * something to show during gas-estimation + wallet-sign — without them
  * the strip would stay blank until after the wallet returns.
+ *
+ * Naming: `confirmed` (not `mined`) matches the user-facing UI label
+ * and the `WritePhase` / `onConfirmed` hook surface. The receipt has
+ * arrived and the tx succeeded; consumers that need block-confirmation
+ * counts can layer that on top.
  */
 export const TX_STATUS = {
   preparing:         'preparing',
   awaitingSignature: 'awaiting-signature',
   pending:           'pending',
-  mined:             'mined',
+  confirmed:         'confirmed',
   failed:            'failed',
   replaced:          'replaced',
   dropped:           'dropped',

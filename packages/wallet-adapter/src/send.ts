@@ -100,6 +100,7 @@ export async function sendTransactionWithHooks(
   let hash: Hex
   try {
     hooks?.onAwaitingSignature?.()
+    hooks?.onPhase?.({ phase: 'awaiting-signature' })
     hash = await wallet.sendTransaction(request)
   } catch (err) {
     const failure = isUserRejectionError(err)
@@ -108,10 +109,12 @@ export async function sendTransactionWithHooks(
         ? err
         : new Error(String(err))
     hooks?.onFailed?.(failure)
+    hooks?.onPhase?.({ phase: 'failed', error: failure })
     throw failure
   }
 
   onTransactionHash?.(hash)
   hooks?.onTransactionHash?.(hash)
+  hooks?.onPhase?.({ phase: 'pending', hash })
   return hash
 }

@@ -15,7 +15,7 @@ describe('TX_STATUS', () => {
     expect(TX_STATUS.preparing).toBe('preparing')
     expect(TX_STATUS.awaitingSignature).toBe('awaiting-signature')
     expect(TX_STATUS.pending).toBe('pending')
-    expect(TX_STATUS.mined).toBe('mined')
+    expect(TX_STATUS.confirmed).toBe('confirmed')
     expect(TX_STATUS.failed).toBe('failed')
     expect(TX_STATUS.replaced).toBe('replaced')
     expect(TX_STATUS.dropped).toBe('dropped')
@@ -28,7 +28,7 @@ describe('TX_STATUS', () => {
 
   it('TrackedTxStatus accepts each declared status', () => {
     expectTypeOf<TrackedTxStatus>().toEqualTypeOf<
-      'preparing' | 'awaiting-signature' | 'pending' | 'mined' | 'failed' | 'replaced' | 'dropped'
+      'preparing' | 'awaiting-signature' | 'pending' | 'confirmed' | 'failed' | 'replaced' | 'dropped'
     >()
   })
 })

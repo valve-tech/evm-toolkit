@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from 'vitest'
 import type { Hex } from 'viem'
 import { sendTransactionWithHooks, WalletRejectedError } from './send.js'
 import type { WalletAdapter, WalletSendTransactionRequest } from './wallet.js'
+import type { WritePhaseEvent } from './hooks.js'
 
 const REQUEST: WalletSendTransactionRequest = {
   to: '0x1111111111111111111111111111111111111111' as Hex,
@@ -225,6 +226,53 @@ describe('sendTransactionWithHooks', () => {
     }
     await sendTransactionWithHooks({ wallet, request })
     expect(send).toHaveBeenCalledExactlyOnceWith(request)
+  })
+
+  describe('onPhase (single-callback shape)', () => {
+    it("fires phase='awaiting-signature' before sendTransaction, then phase='pending' with hash after", async () => {
+      const phases: Array<{ phase: string; hash?: string }> = []
+      await sendTransactionWithHooks({
+        wallet: okWallet('0xabc'),
+        request: REQUEST,
+        hooks: { onPhase: (e: WritePhaseEvent) => phases.push({ phase: e.phase, hash: 'hash' in e ? e.hash : undefined }) },
+      })
+      expect(phases).toEqual([
+        { phase: 'awaiting-signature', hash: undefined },
+        { phase: 'pending', hash: '0xabc' },
+      ])
+    })
+
+    it("fires phase='failed' with the WalletRejectedError when wallet rejects", async () => {
+      const onPhase = vi.fn()
+      const wallet: WalletAdapter = {
+        sendTransaction: vi.fn(async () => {
+          throw Object.assign(new Error('User rejected'), { code: 4001 })
+        }),
+      }
+      await expect(
+        sendTransactionWithHooks({ wallet, request: REQUEST, hooks: { onPhase } }),
+      ).rejects.toBeInstanceOf(WalletRejectedError)
+
+      // Two phases fired: awaiting-signature, then failed.
+      expect(onPhase).toHaveBeenCalledTimes(2)
+      const second = onPhase.mock.calls[1]![0] as { phase: string; error: Error }
+      expect(second.phase).toBe('failed')
+      expect(second.error).toBeInstanceOf(WalletRejectedError)
+    })
+
+    it('fires both onPhase and the matching named hook on each transition', async () => {
+      const onAwaitingSignature = vi.fn()
+      const onTransactionHash = vi.fn()
+      const onPhase = vi.fn()
+      await sendTransactionWithHooks({
+        wallet: okWallet('0xabc'),
+        request: REQUEST,
+        hooks: { onAwaitingSignature, onTransactionHash, onPhase },
+      })
+      expect(onAwaitingSignature).toHaveBeenCalledOnce()
+      expect(onTransactionHash).toHaveBeenCalledExactlyOnceWith('0xabc')
+      expect(onPhase).toHaveBeenCalledTimes(2)
+    })
   })
 })
 

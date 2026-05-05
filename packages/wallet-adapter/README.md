@@ -9,18 +9,25 @@ all agree on the same surface:
 
 1. **`WalletAdapter`** — the contract an SDK accepts in lieu of
    coupling to wagmi / ethers / viem direct / a smart account.
-2. **`WriteHookParams`** — full per-call lifecycle: `onAwaitingSignature`
-   (pre-wallet) → `onTransactionHash` (hash returned) → `onMined`
-   (success) | `onFailed` (rejection / revert / network error).
+2. **`WriteHookParams`** — every phase a tracked tx can be in. Six
+   named hooks (`onAwaitingSignature`, `onTransactionHash`,
+   `onConfirmed`, `onFailed`, `onDropped`, `onReplaced`) plus a
+   complementary single-callback shape (`onPhase(event)`) with a
+   discriminated-union payload. Fire-ers fire BOTH shapes for every
+   transition — exactly once each — so wiring named hooks doesn't
+   preclude `onPhase` and vice versa.
 3. **`sendTransactionWithHooks(options)`** — wallet-side helper. Fires
-   the pre-wallet and post-hash hooks, converts wallet rejections to a
-   typed `WalletRejectedError`, returns the on-chain hash. Fires
-   `onFailed` on any thrown error before re-throwing.
+   the pre-wallet (`onAwaitingSignature`, `onPhase('awaiting-signature')`)
+   and post-hash (`onTransactionHash`, `onPhase('pending', { hash })`)
+   transitions. Converts wallet rejections to a typed
+   `WalletRejectedError`, fires `onFailed` + `onPhase('failed', { error })`,
+   then throws.
 4. **`awaitReceiptWithHooks(options)`** — chain-side helper. Awaits
-   `waitForTransactionReceipt`, fires `onMined` on success or
-   `onFailed` with a typed `ContractRevertedError` on `status:
-   reverted`. Other receipt-await errors (network / RPC) re-thrown
-   unchanged after firing `onFailed`.
+   `waitForTransactionReceipt`, fires `onConfirmed` +
+   `onPhase('confirmed', { hash, receipt })` on success, or `onFailed`
+   + `onPhase('failed', ...)` with a typed `ContractRevertedError` on
+   `status: 'reverted'`. Other receipt-await errors re-thrown unchanged
+   after firing the failure hooks.
 5. **`TX_STATUS` / `TrackedTx`** — vocabulary for "this transaction is
    in flight" UIs (toast strips, inline indicators, history panes) so
    they can sit on top of any tracker without redefining state names.
@@ -32,12 +39,16 @@ only runtime dependency is `@valve-tech/viem-errors` for the
 rejection-detection check; viem is a peer dependency for the `Hex`
 and `TransactionReceipt` types.
 
-**Drop detection (tx vanished from mempool without inclusion) is NOT
-in this contract.** Honestly distinguishing "still propagating" from
-"permanently dropped" requires observing the tx across many blocks
-with a configurable timeout policy — that's `@valve-tech/tx-tracker`'s
-job. This package covers the one-shot lifecycle of a single send +
-receipt-await.
+**`onDropped` and `onReplaced` are part of the contract; the helpers
+in this package don't fire them.** Honestly distinguishing "still
+propagating" from "permanently dropped" requires observing the tx
+across many blocks with a configurable timeout policy, and detecting
+replacement requires nonce-watching across the same nonce — that's
+`@valve-tech/tx-tracker`'s job (per-tx state machine). The contract
+defines the hooks here so consumers wire one set of callbacks; the
+tracker fires them when it ships. Wiring `onDropped` / `onReplaced`
+against `awaitReceiptWithHooks` is harmless but they will not fire
+from this package.
 
 ## Why
 
@@ -103,7 +114,7 @@ export class MyClient {
         hash,
         hooks: params,
       })
-      // protocol-specific work here (decode logs, etc.) — onMined already fired
+      // protocol-specific work here (decode logs, etc.) — onConfirmed already fired
       return { hash, receipt }
     } catch (err) {
       if (err instanceof WalletRejectedError) {
@@ -134,7 +145,7 @@ export class MyClient {
 
 `awaitReceiptWithHooks` guarantees:
 
-- On `receipt.status === 'success'`: fires `onMined(receipt)` and
+- On `receipt.status === 'success'`: fires `onConfirmed(receipt)` and
   resolves with the receipt.
 - On `receipt.status === 'reverted'`: fires `onFailed` with a
   `ContractRevertedError` (carrying `hash` + the full `receipt` for
@@ -173,7 +184,9 @@ function subtitle(tx: TrackedTx): string {
 | `WalletAdapter` | type | `{ address?, sendTransaction(req), readContract?(req) }` |
 | `WalletSendTransactionRequest` | type | EIP-1559 send shape — `{ to, data, value?, chainId, maxFeePerGas?, maxPriorityFeePerGas? }` |
 | `WalletReadContractRequest` | type | `{ address, abi, functionName, args?, chainId? }` |
-| `WriteHookParams` | type | `{ onAwaitingSignature?, onTransactionHash?, onMined?, onFailed? }` |
+| `WriteHookParams` | type | six named hooks (`onAwaitingSignature`, `onTransactionHash`, `onConfirmed`, `onFailed`, `onDropped`, `onReplaced`) + `onPhase(event)` |
+| `WritePhase` | type | `'preparing' \| 'awaiting-signature' \| 'pending' \| 'confirmed' \| 'failed' \| 'dropped' \| 'replaced'` |
+| `WritePhaseEvent` | type | discriminated union of phase + payload |
 | `sendTransactionWithHooks(opts)` | function | `{ wallet, request, hooks?, onTransactionHash? } → Promise<Hex>`. Wallet-side helper. |
 | `awaitReceiptWithHooks(opts)` | function | `{ publicClient, hash, hooks? } → Promise<TransactionReceipt>`. Chain-side helper. |
 | `WalletRejectedError` | class | `Error` subclass with `cause: Error`. Thrown by `sendTransactionWithHooks` on user rejection. |
@@ -186,24 +199,26 @@ function subtitle(tx: TrackedTx): string {
 
 ## Design notes
 
-- **One hook contract, four named callbacks.** `WriteHookParams`
-  describes the full one-shot lifecycle: pre-wallet
-  (`onAwaitingSignature`), post-hash (`onTransactionHash`), terminal
-  success (`onMined`), terminal failure (`onFailed`). Two helpers
-  split who fires what: `sendTransactionWithHooks` owns the
-  wallet-side hooks; `awaitReceiptWithHooks` owns the chain-side
-  hooks. No `onPhase` / `WritePhase` shape — if a third phase ever
-  becomes genuinely necessary, that's a design conversation at that
-  point, not a fork shipped pre-emptively.
-- **`onFailed` is the unified failure callback.** Wallet rejection,
-  on-chain revert, and network errors all flow through it. Use
-  `instanceof` against `WalletRejectedError` / `ContractRevertedError`
-  to discriminate; everything else is a plain `Error`.
-- **Drop detection lives in `tx-tracker`, not here.** A one-shot
-  helper that calls `waitForTransactionReceipt` once cannot honestly
-  distinguish "still propagating" from "permanently dropped" —
-  ongoing observation across many blocks with a configurable timeout
-  policy is the per-tx state machine's responsibility.
+- **One hook contract, two complementary shapes.** `WriteHookParams`
+  describes every phase a tracked tx can be in. Six named callbacks
+  cover the common transitions; `onPhase(event)` provides the same
+  information as a discriminated-union single-callback shape for
+  state-machine consumers. Fire-ers fire BOTH shapes for every
+  transition — exactly once each. Wiring named hooks doesn't preclude
+  `onPhase` and vice versa.
+- **`onFailed` is the unified failure callback for revert / rejection /
+  network errors.** Wallet rejection, on-chain revert, and network
+  errors all flow through it. `instanceof` against
+  `WalletRejectedError` / `ContractRevertedError` discriminates the
+  source. Distinct from `onDropped` (no inclusion observed) and
+  `onReplaced` (different tx mined for the same nonce) — those are
+  their own terminal states with their own typed payloads.
+- **`onDropped` and `onReplaced` are part of the contract; this
+  package's helpers don't fire them.** Detecting drop vs replacement
+  requires multi-block observation with nonce-watching — that's
+  `@valve-tech/tx-tracker`'s job. The hooks live in `WriteHookParams`
+  so consumers wire one set of callbacks; the tracker fires them when
+  it ships.
 - **`TX_FLOW` is intentionally empty.** Every protocol's flow names
   (`fulfillIntent`, `addFunds`, `mintNFT`, etc.) are its own concern.
   Extend the `TxFlow` type via your own union.

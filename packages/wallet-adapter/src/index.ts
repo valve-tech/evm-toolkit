@@ -8,7 +8,11 @@ export type {
   WalletReadContractRequest,
 } from './wallet.js'
 
-export type { WriteHookParams } from './hooks.js'
+export type {
+  WriteHookParams,
+  WritePhase,
+  WritePhaseEvent,
+} from './hooks.js'
 
 export {
   TX_STATUS,
