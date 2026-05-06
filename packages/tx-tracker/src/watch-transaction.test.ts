@@ -36,7 +36,7 @@ interface StubSource extends ChainSource {
 const DEFAULT_CAPS: Capabilities = {
   newHeads: 'poll-only',
   newPendingTransactions: 'poll-only',
-  txpoolContent: 'unavailable',
+  txpoolContent: 'gated',
   receiptByHash: 'unavailable',
   reprobeOnReconnect: false,
 }
