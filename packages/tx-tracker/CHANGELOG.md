@@ -6,6 +6,21 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.8.0] — 2026-05-06
+
+### Added
+- `lostSignalPolicy: { strategy: 'receipt-poll-fallback', pollEveryBlocks: N }` runtime. Closes the type-vs-runtime gap from v0.3.x — when a tracked subscription is in a degraded state, the tracker fetches `getReceipt` every N block ticks and emits `seen-in-block` with `source: 'receipt-poll'` on hit. Capability gate: requires `receiptByHash === 'available'`.
+- `withReceipts: true` opt-in receipt enrichment on `TrackOptions`. When set, the tracker pre-fetches the receipt before the per-record block decision and attaches it to `seen-in-block` events via the new `TxEventSeenInBlock.receipt` field. One emit per inclusion — receipt is on the first event, not a follow-up.
+- `tracker.group(hashes, options?)` — cross-tx correlation (spec §18.1). Emits `group-progress` / `group-complete` / `group-failed` / `group-stopped` derived from per-member event streams. Replacement does NOT auto-promote.
+- `watchTransaction({ client, hash, ... })` — one-shot callback convenience export.
+- `waitForTransaction({ client, hash, ... })` — Promise variant of `watchTransaction`. Resolves with discriminated-union outcome (`mined` / `dropped` / `replaced` / `failed`).
+- `waitForPending({ client, hash, timeoutBlocks })` — Promise that resolves on first `seen-in-mempool`; rejects with typed `WaitForPendingTimeoutError` if the hash isn't observed within `timeoutBlocks`.
+- `replaceTransaction({ original, walletClient, newGas })` — same-nonce replacement primitive. Caller-provides-newGas keeps tx-tracker independent of `@valve-tech/gas-oracle`.
+
+### Changed
+- `onBlock` is now async to support pre-fetching receipts before the per-record decision. Stale-block guard added against the resulting interleave window so a delayed pre-fetch can't clobber state advanced by a concurrent block tick.
+- `decideBlockObservation` accepts an optional `prefetchedReceipts: ReadonlyMap<Hash, TransactionReceipt>` parameter (backward-compatible — existing callsites omit it).
+
 ## [0.7.0] — 2026-05-06
 
 > **The implementation lands.** This is the first release of
