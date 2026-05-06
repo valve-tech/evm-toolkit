@@ -118,6 +118,12 @@ export { createTxGroup } from './group.js'
 export { watchTransaction } from './watch-transaction.js'
 export type { WatchTransactionOptions } from './watch-transaction.js'
 
+export { waitForTransaction } from './wait-for-transaction.js'
+export type {
+  WaitForTransactionOptions,
+  WaitForTransactionOutcome,
+} from './wait-for-transaction.js'
+
 export {
   buildGroupComplete,
   buildGroupFailed,
