@@ -113,11 +113,7 @@ export const probeCapabilities = async (
   // downstream consumers (the source itself doesn't author editorial
   // events; see §3.2 of the spec).
   return {
-    newHeads: subscribeShape === 'subscription'
-      ? 'subscription'
-      : subscribeShape === 'poll-only'
-        ? 'poll-only'
-        : 'unavailable',
+    newHeads: subscribeShape,
     newPendingTransactions:
       // If subscribe is unavailable, fall back to whether txpool_content
       // is available (poll fallback for mempool watch). If both are

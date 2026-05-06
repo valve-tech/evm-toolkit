@@ -193,4 +193,26 @@ test('probeCapabilities — WS subscribe live-probe failure downgrades to poll-o
 
   expect(caps.newHeads).toBe('poll-only')
   expect(onError).toHaveBeenCalledWith('eth_subscribe', expect.any(Error))
+  expect(caps.newPendingTransactions).toBe('poll-only')
+  expect(caps.reprobeOnReconnect).toBe(false)
+})
+
+test('probeCapabilities — WS subscribe failure without onError downgrades silently', async () => {
+  const client = {
+    request: vi.fn(async ({ method }: { method: string }) => {
+      if (method === 'txpool_content') return { pending: {}, queued: {} }
+      if (method === 'eth_getTransactionReceipt') return null
+      throw new Error(`unexpected ${method}`)
+    }),
+    transport: {
+      type: 'webSocket',
+      subscribe: vi.fn(async () => {
+        throw new Error('eth_subscribe rejected')
+      }),
+    },
+  } as unknown as PublicClient
+
+  await expect(probeCapabilities(client)).resolves.toMatchObject({
+    newHeads: 'poll-only',
+  })
 })
