@@ -224,7 +224,7 @@ export const createTxGroup = (
 
   return {
     events,
-    subscribe: (cb) => subs.subscribe(cb),
+    subscribe: (cb: (event: TxGroupEvent) => void) => subs.subscribe(cb),
     snapshot,
     stop,
   }
