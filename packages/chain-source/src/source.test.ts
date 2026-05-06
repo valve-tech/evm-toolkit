@@ -48,6 +48,79 @@ const sampleBlock = (number: string): BlockResult => ({
   transactions: [],
 })
 
+/**
+ * Drain all pending microtasks and one macro-task turn. Used in WS
+ * subscribe tests to wait for fire-and-forget async chains
+ * (`readyPromise.then(tryOpenBlockSubscription)`) to settle before
+ * asserting on side-effects.
+ */
+const flush = (): Promise<void> =>
+  new Promise((resolve) => setTimeout(resolve, 0))
+
+interface FakeWsSubscribeHandlers {
+  onData: (data: unknown) => void
+  onError: (err: unknown) => void
+}
+
+interface FakeWsClientOptions {
+  /**
+   * Called for every `transport.subscribe` invocation (probe + live).
+   * `params` is the subscription params array (e.g. `['newHeads']`).
+   * Return `{ unsubscribe }` to succeed, or throw to simulate a
+   * transport-level rejection.
+   */
+  onSubscribe?: (
+    params: unknown[],
+    handlers: FakeWsSubscribeHandlers,
+  ) => { unsubscribe: () => void }
+  /**
+   * Block fixtures keyed by `eth_getBlockByNumber` tag. Supports
+   * `'latest'` and hex block numbers.
+   */
+  blocks?: Record<string, BlockResult>
+}
+
+/**
+ * Build a fake PublicClient whose transport has a working
+ * `transport.subscribe` function — simulating a viem WebSocket
+ * transport. Used by WS-path tests in `subscribeBlocks` and (later)
+ * `subscribeMempool`.
+ *
+ * The probe that `probeCapabilities` fires on construction resolves via
+ * the same `onSubscribe` callback; it calls unsubscribe immediately, so
+ * it doesn't interfere with the lazily-opened block subscription.
+ */
+const makeFakeWsClient = (opts: FakeWsClientOptions = {}): PublicClient => {
+  const blocks = opts.blocks ?? {}
+  const onSubscribe = opts.onSubscribe
+
+  const subscribe = vi.fn(
+    async (arg: {
+      params: unknown[]
+      onData: (data: unknown) => void
+      onError: (err: unknown) => void
+    }): Promise<{ unsubscribe: () => void }> => {
+      if (!onSubscribe) return { unsubscribe: vi.fn() }
+      return onSubscribe(arg.params, { onData: arg.onData, onError: arg.onError })
+    },
+  )
+
+  return {
+    transport: { type: 'webSocket', subscribe },
+    request: vi.fn(async ({ method, params }: RpcCall) => {
+      if (method === 'eth_getBlockByNumber') {
+        const tag = (params as [string])[0]
+        return blocks[tag] ?? null
+      }
+      // Capability probe methods: return permissive stubs so the probe
+      // doesn't throw and saturate onError before the test proper starts.
+      if (method === 'txpool_content') return { pending: {}, queued: {} }
+      if (method === 'eth_getTransactionReceipt') return null
+      return null
+    }),
+  } as unknown as PublicClient
+}
+
 test('subscribeBlocks fires after pollOnce when a block is fetched', async () => {
   const block = sampleBlock('0x10')
   const { client } = fakeClient({
@@ -646,4 +719,462 @@ test('the interval callback fires additional ticks after start', async () => {
   } finally {
     vi.useRealTimers()
   }
+})
+
+test('subscribeBlocks — WS path emits via subscribe when newHeads === subscription', async () => {
+  // Tracks the live subscription's onData — set twice (probe + live) but
+  // after await source.ready() + start() + flush() the live subscription's
+  // handler is the current value.
+  let onDataHandler: ((data: { number: string }) => void) | null = null
+  // The WS onData handler fetches the full block at 'latest'. The poll tick
+  // also fetches 'latest'. We use a stateful counter to ensure the tick's
+  // block fetch returns null (preventing lastEmittedBlockHash from being set
+  // early), while the onData fetch returns the real block — this exercises
+  // the full WS emit path including lines 240-247 in source.ts.
+  let blockFetchCount = 0
+  const blockFixture: BlockResult = {
+    number: '0x10',
+    hash: '0xblockhash10',
+    transactions: [],
+    parentHash: '0x0',
+    timestamp: '0x0',
+    baseFeePerGas: '0x0',
+    gasLimit: '0x0',
+    gasUsed: '0x0',
+  }
+  const subscribe = vi.fn(
+    async (arg: {
+      params: unknown[]
+      onData: (data: unknown) => void
+      onError: (err: unknown) => void
+    }): Promise<{ unsubscribe: () => void }> => {
+      if (arg.params[0] === 'newHeads') onDataHandler = arg.onData as (data: { number: string }) => void
+      return { unsubscribe: vi.fn() }
+    },
+  )
+  const client = {
+    transport: { type: 'webSocket', subscribe },
+    request: vi.fn(async ({ method }: RpcCall) => {
+      if (method === 'eth_getBlockByNumber') {
+        // First call is from the poll tick — return null so the dedup state
+        // stays unset. Subsequent calls (from onData) return the real block.
+        blockFetchCount++
+        return blockFetchCount === 1 ? null : blockFixture
+      }
+      if (method === 'txpool_content') return { pending: {}, queued: {} }
+      if (method === 'eth_getTransactionReceipt') return null
+      return null
+    }),
+  } as unknown as PublicClient
+  const source = createChainSource({ client })
+  await source.ready()
+
+  const received: BlockResult[] = []
+  source.subscribeBlocks((b) => received.push(b))
+  source.start()
+
+  // Wait for the lazy block subscription to land (readyPromise.then chain).
+  await flush()
+  expect(onDataHandler).not.toBeNull()
+
+  // Push a head event via the WS handler; onData fetches 'latest' + emits.
+  // At this point lastEmittedBlockHash is still undefined (poll got null),
+  // so the dedup check passes and blockSubs.emit fires — covering lines 240-247.
+  onDataHandler!({ number: '0x10' })
+  await flush()
+
+  expect(received).toHaveLength(1)
+  expect(received[0].hash).toBe('0xblockhash10')
+  source.stop()
+})
+
+test('subscribeBlocks — WS subscribe failure falls back to poll without error', async () => {
+  const onError = vi.fn()
+  const client = makeFakeWsClient({
+    onSubscribe: () => {
+      throw new Error('subscribe rejected')
+    },
+    blocks: {
+      latest: {
+        number: '0x20',
+        hash: '0xblockhash20',
+        transactions: [],
+        parentHash: '0x0',
+        timestamp: '0x0',
+        baseFeePerGas: '0x0',
+        gasLimit: '0x0',
+        gasUsed: '0x0',
+      },
+    },
+  })
+  const source = createChainSource({ client, onError, pollIntervalMs: 5 })
+  await source.ready()
+
+  const received: BlockResult[] = []
+  source.subscribeBlocks((b) => received.push(b))
+  source.start()
+  await flush()
+
+  // Should NOT throw; should have logged via onError; should still be polling.
+  expect(onError).toHaveBeenCalledWith('eth_subscribe', expect.any(Error))
+  // Allow at least one tick.
+  await new Promise((r) => setTimeout(r, 12))
+  expect(received.length).toBeGreaterThan(0)
+  source.stop()
+})
+
+test('subscribeBlocks — lazy subscribe throw after probe success downgrades to poll-only', async () => {
+  // Probe succeeds (first subscribe call returns normally). The lazy
+  // subscription attempt (second subscribe call) throws — this exercises
+  // the catch block in tryOpenBlockSubscription (lines 253-255 in source.ts).
+  let subscribeCallCount = 0
+  const onError = vi.fn()
+  const blockFixture: BlockResult = {
+    number: '0x20',
+    hash: '0xws-lazy-fail',
+    transactions: [],
+    parentHash: '0x0',
+    timestamp: '0x0',
+    baseFeePerGas: '0x0',
+    gasLimit: '0x0',
+    gasUsed: '0x0',
+  }
+  const subscribe = vi.fn(async (): Promise<{ unsubscribe: () => void }> => {
+    subscribeCallCount++
+    if (subscribeCallCount === 1) {
+      // Probe call — succeed and immediately return so unsubscribe is callable.
+      return { unsubscribe: vi.fn() }
+    }
+    // Lazy block subscription call — throw to exercise the catch path.
+    throw new Error('lazy subscribe rejected')
+  })
+  const client = {
+    transport: { type: 'webSocket', subscribe },
+    request: vi.fn(async ({ method }: RpcCall) => {
+      if (method === 'eth_getBlockByNumber') return blockFixture
+      if (method === 'txpool_content') return { pending: {}, queued: {} }
+      if (method === 'eth_getTransactionReceipt') return null
+      return null
+    }),
+  } as unknown as PublicClient
+  const source = createChainSource({ client, onError, pollIntervalMs: 5 })
+  await source.ready()
+
+  // Probe succeeded → capability is 'subscription'.
+  expect(source.capabilities().newHeads).toBe('subscription')
+
+  const received: BlockResult[] = []
+  source.subscribeBlocks((b) => received.push(b))
+  source.start()
+  await flush()
+
+  // Lazy subscribe threw → onError fired + capability downgraded to poll-only.
+  expect(onError).toHaveBeenCalledWith('eth_subscribe', expect.any(Error))
+  expect(source.capabilities().newHeads).toBe('poll-only')
+  // Poll loop still delivers blocks.
+  await new Promise((r) => setTimeout(r, 12))
+  expect(received.length).toBeGreaterThan(0)
+  source.stop()
+})
+
+test('stop — unsubscribe throw routes to onError', async () => {
+  // blockSubscriptionHandle.unsubscribe() throwing exercises the catch block
+  // in stop(). The error should be routed to onError and stop should complete
+  // without propagating the throw.
+  //
+  // subscribe is called twice: once by the capability probe (its unsubscribe
+  // must NOT throw — we want the probe to succeed so the live path opens),
+  // and once by tryOpenBlockSubscription (its unsubscribe DOES throw when
+  // stop() is called later).
+  let subscribeCallCount = 0
+  const onError = vi.fn()
+  let capturedOnData: ((data: unknown) => void) | null = null
+  const subscribe = vi.fn(
+    async (arg: {
+      params: unknown[]
+      onData: (data: unknown) => void
+      onError: (err: unknown) => void
+    }): Promise<{ unsubscribe: () => void }> => {
+      subscribeCallCount++
+      if (subscribeCallCount === 1) {
+        // Probe call — probe unsubscribes immediately; must not throw.
+        return { unsubscribe: vi.fn() }
+      }
+      // Live subscription — unsubscribe throws when stop() calls it.
+      capturedOnData = arg.onData
+      return {
+        unsubscribe: vi.fn(() => {
+          throw new Error('unsubscribe failed')
+        }),
+      }
+    },
+  )
+  const client = {
+    transport: { type: 'webSocket', subscribe },
+    request: vi.fn(async ({ method }: RpcCall) => {
+      if (method === 'txpool_content') return { pending: {}, queued: {} }
+      if (method === 'eth_getTransactionReceipt') return null
+      return null
+    }),
+  } as unknown as PublicClient
+  const source = createChainSource({ client, onError })
+  await source.ready()
+  source.start()
+  await flush()
+
+  // Live subscription is open (capturedOnData was set by the lazy subscribe).
+  expect(capturedOnData).not.toBeNull()
+
+  // stop() calls unsubscribe(), which throws — should route to onError.
+  expect(() => source.stop()).not.toThrow()
+  expect(onError).toHaveBeenCalledWith('eth_unsubscribe', expect.any(Error))
+})
+
+test('subscribeBlocks — WS stream-level onError routes to options.onError', async () => {
+  // Exercises the onError callback passed to transport.subscribe for the live
+  // subscription (line 251 in source.ts). This fires when the WS transport
+  // itself encounters a stream-level error AFTER the subscription is open.
+  let capturedStreamOnError: ((err: unknown) => void) | null = null
+  let subscribeCallCount = 0
+  const onError = vi.fn()
+  const subscribe = vi.fn(
+    async (arg: {
+      params: unknown[]
+      onData: (data: unknown) => void
+      onError: (err: unknown) => void
+    }): Promise<{ unsubscribe: () => void }> => {
+      subscribeCallCount++
+      if (subscribeCallCount === 1) {
+        // Probe call — succeed normally.
+        return { unsubscribe: vi.fn() }
+      }
+      // Live subscription — capture the stream-level onError.
+      capturedStreamOnError = arg.onError
+      return { unsubscribe: vi.fn() }
+    },
+  )
+  const client = {
+    transport: { type: 'webSocket', subscribe },
+    request: vi.fn(async ({ method }: RpcCall) => {
+      if (method === 'txpool_content') return { pending: {}, queued: {} }
+      if (method === 'eth_getTransactionReceipt') return null
+      return null
+    }),
+  } as unknown as PublicClient
+  const source = createChainSource({ client, onError })
+  await source.ready()
+  source.start()
+  await flush()
+
+  expect(capturedStreamOnError).not.toBeNull()
+
+  // Simulate the WS transport firing a stream-level error.
+  capturedStreamOnError!(new Error('stream error'))
+
+  expect(onError).toHaveBeenCalledWith('eth_subscribe.newHeads', expect.any(Error))
+  source.stop()
+})
+
+test('subscribeBlocks — WS onData with unparseable block number still emits', async () => {
+  // Exercises the try/catch for BigInt(block.number) inside onData (lines
+  // 241-246 in source.ts). A block with a non-hex number field should still
+  // emit the block — the catch leaves lastSeenBlockNumber untouched rather
+  // than propagating.
+  let subscribeCallCount = 0
+  let capturedOnData: ((data: unknown) => void) | null = null
+  const badBlock: BlockResult = {
+    number: 'not-a-hex-number',
+    hash: '0xbadnumblock',
+    transactions: [],
+    parentHash: '0x0',
+    timestamp: '0x0',
+    baseFeePerGas: '0x0',
+    gasLimit: '0x0',
+    gasUsed: '0x0',
+  }
+  const subscribe = vi.fn(
+    async (arg: {
+      params: unknown[]
+      onData: (data: unknown) => void
+      onError: (err: unknown) => void
+    }): Promise<{ unsubscribe: () => void }> => {
+      subscribeCallCount++
+      if (subscribeCallCount === 1) return { unsubscribe: vi.fn() }
+      capturedOnData = arg.onData
+      return { unsubscribe: vi.fn() }
+    },
+  )
+  let blockFetchesForOnData = 0
+  const client = {
+    transport: { type: 'webSocket', subscribe },
+    request: vi.fn(async ({ method }: RpcCall) => {
+      if (method === 'eth_getBlockByNumber') {
+        blockFetchesForOnData++
+        // First fetch is from the poll tick — return null so
+        // lastEmittedBlockHash is unset when onData fires.
+        return blockFetchesForOnData === 1 ? null : badBlock
+      }
+      if (method === 'txpool_content') return { pending: {}, queued: {} }
+      if (method === 'eth_getTransactionReceipt') return null
+      return null
+    }),
+  } as unknown as PublicClient
+  const source = createChainSource({ client })
+  await source.ready()
+
+  const received: BlockResult[] = []
+  source.subscribeBlocks((b) => received.push(b))
+  source.start()
+  await flush()
+
+  expect(capturedOnData).not.toBeNull()
+  // onData fires — fetchBlock returns badBlock whose number can't be parsed
+  // by BigInt. The catch swallows the error and blockSubs.emit still fires.
+  capturedOnData!(null)
+  await flush()
+
+  expect(received).toHaveLength(1)
+  expect(received[0].hash).toBe('0xbadnumblock')
+  source.stop()
+})
+
+test('subscribeBlocks — WS onData when fetchBlock returns null does not emit', async () => {
+  // Exercises the `if (!block) return` early-exit in handleHeadNotification.
+  // fetchBlock returns null (e.g. upstream error) — the subscriber must not
+  // receive an event.
+  let subscribeCallCount = 0
+  let capturedOnData: ((data: unknown) => void) | null = null
+  const subscribe = vi.fn(
+    async (arg: {
+      params: unknown[]
+      onData: (data: unknown) => void
+      onError: (err: unknown) => void
+    }): Promise<{ unsubscribe: () => void }> => {
+      subscribeCallCount++
+      if (subscribeCallCount === 1) return { unsubscribe: vi.fn() }
+      capturedOnData = arg.onData
+      return { unsubscribe: vi.fn() }
+    },
+  )
+  const client = {
+    transport: { type: 'webSocket', subscribe },
+    request: vi.fn(async ({ method }: RpcCall) => {
+      // All eth_getBlockByNumber calls return null — including the onData fetch.
+      if (method === 'txpool_content') return { pending: {}, queued: {} }
+      if (method === 'eth_getTransactionReceipt') return null
+      return null
+    }),
+  } as unknown as PublicClient
+  const source = createChainSource({ client })
+  await source.ready()
+
+  const received: BlockResult[] = []
+  source.subscribeBlocks((b) => received.push(b))
+  source.start()
+  await flush()
+
+  expect(capturedOnData).not.toBeNull()
+  capturedOnData!(null)
+  await flush()
+
+  // fetchBlock returned null — no emission.
+  expect(received).toHaveLength(0)
+  source.stop()
+})
+
+test('subscribeBlocks — WS onData deduplication prevents double-emit for same hash', async () => {
+  // Exercises the false branch of `if (block.hash !== lastEmittedBlockHash)`
+  // in handleHeadNotification — when the block hash matches what was already
+  // emitted, blockSubs.emit must NOT fire again.
+  let subscribeCallCount = 0
+  let capturedOnData: ((data: unknown) => void) | null = null
+  const block: BlockResult = {
+    number: '0x30',
+    hash: '0xdupehash',
+    transactions: [],
+    parentHash: '0x0',
+    timestamp: '0x0',
+    baseFeePerGas: '0x0',
+    gasLimit: '0x0',
+    gasUsed: '0x0',
+  }
+  const subscribe = vi.fn(
+    async (arg: {
+      params: unknown[]
+      onData: (data: unknown) => void
+      onError: (err: unknown) => void
+    }): Promise<{ unsubscribe: () => void }> => {
+      subscribeCallCount++
+      if (subscribeCallCount === 1) return { unsubscribe: vi.fn() }
+      capturedOnData = arg.onData
+      return { unsubscribe: vi.fn() }
+    },
+  )
+  const client = {
+    transport: { type: 'webSocket', subscribe },
+    request: vi.fn(async ({ method }: RpcCall) => {
+      if (method === 'eth_getBlockByNumber') return block
+      if (method === 'txpool_content') return { pending: {}, queued: {} }
+      if (method === 'eth_getTransactionReceipt') return null
+      return null
+    }),
+  } as unknown as PublicClient
+  const source = createChainSource({ client })
+  await source.ready()
+
+  const received: BlockResult[] = []
+  source.subscribeBlocks((b) => received.push(b))
+  source.start()
+  // Wait for the poll tick to emit the first block and set lastEmittedBlockHash.
+  await flush()
+
+  expect(capturedOnData).not.toBeNull()
+  // First onData call — block hash matches lastEmittedBlockHash set by poll.
+  capturedOnData!(null)
+  await flush()
+  // Second onData call — same hash again.
+  capturedOnData!(null)
+  await flush()
+
+  // Poll emitted one. WS onData calls are both deduped (same hash).
+  // Exactly one emission total.
+  expect(received).toHaveLength(1)
+  source.stop()
+})
+
+test('subscribeBlocks — WS stream onError without options.onError does not throw', async () => {
+  // Exercises the false branch of `options.onError?.()` in the stream-level
+  // onError callback — when no onError handler is provided, the optional chain
+  // short-circuits without throwing.
+  let subscribeCallCount = 0
+  let capturedStreamOnError: ((err: unknown) => void) | null = null
+  const subscribe = vi.fn(
+    async (arg: {
+      params: unknown[]
+      onData: (data: unknown) => void
+      onError: (err: unknown) => void
+    }): Promise<{ unsubscribe: () => void }> => {
+      subscribeCallCount++
+      if (subscribeCallCount === 1) return { unsubscribe: vi.fn() }
+      capturedStreamOnError = arg.onError
+      return { unsubscribe: vi.fn() }
+    },
+  )
+  const client = {
+    transport: { type: 'webSocket', subscribe },
+    request: vi.fn(async ({ method }: RpcCall) => {
+      if (method === 'txpool_content') return { pending: {}, queued: {} }
+      if (method === 'eth_getTransactionReceipt') return null
+      return null
+    }),
+  } as unknown as PublicClient
+  // No onError provided — tests the optional-chain false branch.
+  const source = createChainSource({ client })
+  await source.ready()
+  source.start()
+  await flush()
+
+  expect(capturedStreamOnError).not.toBeNull()
+  expect(() => capturedStreamOnError!(new Error('stream error'))).not.toThrow()
+  source.stop()
 })

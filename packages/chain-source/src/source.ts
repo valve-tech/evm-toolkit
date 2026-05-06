@@ -181,6 +181,7 @@ export const createChainSource = (
   let timer: ReturnType<typeof setInterval> | null = null
   let started = false
   let cachedCapabilities: Capabilities = PROBING_DEFAULT
+  let blockSubscriptionHandle: { unsubscribe: () => void } | null = null
   // Dedup key for the block stream — by hash, not number, so that a
   // same-height reorg (different hash, same number) still surfaces as
   // a fresh observation. Reset on stop() so a paused-then-resumed
@@ -199,6 +200,66 @@ export const createChainSource = (
 
   const errSink = (method: string) =>
     options.onError ? (err: unknown) => options.onError!(method, err) : undefined
+
+  /**
+   * Open one `eth_subscribe('newHeads')` lazily — called once the probe
+   * has resolved and confirmed `newHeads === 'subscription'`. Head
+   * notifications are piped through the existing `fetchBlock + dedup-
+   * by-hash` machinery so push and poll coexist safely. Failure
+   * downgrades the cached capability to `'poll-only'` and surfaces via
+   * `onError`; the existing poll cycle continues unchanged.
+   */
+  /**
+   * Fetch the full block at 'latest' and emit it through the existing
+   * dedup machinery. Called from the WS `newHeads` subscription's
+   * `onData` handler. Extracted from the IIFE to give v8 coverage a
+   * stable function boundary to track.
+   */
+  const handleHeadNotification = async (): Promise<void> => {
+    const block = await fetchBlock(
+      options.client,
+      'latest',
+      errSink('eth_getBlockByNumber'),
+    )
+    if (!block) return
+    if (block.hash !== lastEmittedBlockHash) {
+      lastEmittedBlockHash = block.hash
+      try {
+        lastSeenBlockNumber = BigInt(block.number)
+      } catch {
+        // Unparseable block number — leave gate state untouched so the
+        // next poll tick re-fetches rather than skipping on garbage state.
+      }
+      blockSubs.emit(block)
+    }
+  }
+
+  const tryOpenBlockSubscription = async (): Promise<void> => {
+    if (cachedCapabilities.newHeads !== 'subscription') return
+    // Cast through unknown: TypeScript's transport type doesn't model the
+    // WebSocket-specific subscribe method. The capability probe has already
+    // confirmed subscribe is present and working before we reach this point.
+    const transport = options.client.transport as unknown as {
+      subscribe: (arg: {
+        params: unknown[]
+        onData: (data: unknown) => void
+        onError: (err: unknown) => void
+      }) => Promise<{ unsubscribe: () => void }>
+    }
+    try {
+      blockSubscriptionHandle = await transport.subscribe({
+        params: ['newHeads'],
+        // Head notifications: fetch the full block at the tip and emit
+        // through the existing dedup machinery. Hash dedup in blockSubs
+        // already handles WS-vs-poll race and same-height reorgs.
+        onData: () => void handleHeadNotification(),
+        onError: (err) => options.onError?.('eth_subscribe.newHeads', err),
+      })
+    } catch (err) {
+      options.onError?.('eth_subscribe', err)
+      cachedCapabilities = { ...cachedCapabilities, newHeads: 'poll-only' }
+    }
+  }
 
   // Eager capability probe. Fire-and-forget; consumers that need a
   // guaranteed-completed probe await source.ready().
@@ -269,9 +330,20 @@ export const createChainSource = (
       timer = setInterval(() => {
         void tick()
       }, pollIntervalMs)
+      // Open WS subscribe lazily once the probe has landed. Fire-and-
+      // forget; failures fall through to the existing poll loop.
+      void readyPromise.then(() => tryOpenBlockSubscription())
     },
 
     stop: () => {
+      if (blockSubscriptionHandle) {
+        try {
+          blockSubscriptionHandle.unsubscribe()
+        } catch (err) {
+          options.onError?.('eth_unsubscribe', err)
+        }
+        blockSubscriptionHandle = null
+      }
       if (timer !== null) {
         clearInterval(timer)
         timer = null
