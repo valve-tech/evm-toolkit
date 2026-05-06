@@ -5,6 +5,18 @@ All notable changes to `@valve-tech/gas-oracle` are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- **`skills/gas-oracle-integration/SKILL.md`** — appended a "Tx
+  tracking — composing with `@valve-tech/tx-tracker`" section that
+  redirects per-tx tracking questions to the sibling package and
+  documents the shared-`ChainSource` composition pattern. The skill
+  `description` trigger phrases now also catch composition questions,
+  but per-tx work explicitly defers to the tx-tracker skill. Ships
+  in the npm tarball.
+
 ## [0.6.0] — 2026-05-05
 
 ### Added

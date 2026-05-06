@@ -49,6 +49,15 @@ adapters (callback / async iterator / snapshot).
 yarn add @valve-tech/tx-tracker @valve-tech/chain-source viem
 ```
 
+## For AI agents
+
+This package ships an [`AGENTS.md`](AGENTS.md) reference and a
+[`skills/`](skills/) directory for Claude Code / Cursor skill files
+shipped in the npm tarball. After install, both are reachable at:
+
+- `node_modules/@valve-tech/tx-tracker/AGENTS.md`
+- `node_modules/@valve-tech/tx-tracker/skills/tx-tracker-integration/SKILL.md`
+
 ## License
 
 MIT

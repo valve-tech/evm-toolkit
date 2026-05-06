@@ -48,6 +48,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   block: filled-in block number).
 - **`subscribeAll(cb)`** — global stream of every event the tracker
   emits, useful for indexers piping to a single sink.
+- **`AGENTS.md`** + **`skills/tx-tracker-integration/SKILL.md`** for AI
+  agents working in downstream projects that import the package. Both
+  ship in the npm tarball; the SKILL.md trigger phrases catch
+  "track this transaction," "watch tx hash," "stuck transaction," and
+  composition questions with `@valve-tech/gas-oracle`.
 
 ### Notes
 
