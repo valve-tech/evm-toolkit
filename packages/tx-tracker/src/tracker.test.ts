@@ -26,7 +26,7 @@
  *   8. **Lifecycle** — `start` / `stop` / `Stopped` event semantics.
  *   9. **Capability disclosure** — `capabilities()` mirrors source.
  */
-import { test, expect } from 'vitest'
+import { test, expect, vi } from 'vitest'
 
 import type {
   BlockResult,
@@ -56,10 +56,43 @@ const DEFAULT_CAPS: Capabilities = {
   reprobeOnReconnect: true,
 }
 
-const makeSource = (initialCaps?: Capabilities): StubSource => {
+interface MakeSourceOptions {
+  initialCaps?: Capabilities
+  /**
+   * Per-hash receipt fixtures for `getReceipt`. When provided, the
+   * stub resolves with the matching receipt (or null for hashes not
+   * in the map). When absent, `getReceipt` always returns null.
+   */
+  receiptMap?: Record<string, TransactionReceipt>
+  /**
+   * Override `getReceipt` entirely with a custom implementation.
+   * Takes precedence over `receiptMap`.
+   */
+  getReceiptImpl?: (hash: string) => Promise<TransactionReceipt | null>
+}
+
+const makeSource = (
+  initialCapsOrOptions?: Capabilities | MakeSourceOptions,
+): StubSource => {
+  // Accept either the legacy `Capabilities` positional arg or a structured options object.
+  let opts: MakeSourceOptions
+  if (
+    initialCapsOrOptions == null ||
+    ('newHeads' in initialCapsOrOptions && 'receiptByHash' in initialCapsOrOptions)
+  ) {
+    opts = { initialCaps: initialCapsOrOptions as Capabilities | undefined }
+  } else {
+    opts = initialCapsOrOptions as MakeSourceOptions
+  }
+
   const blockSubs = new Set<(b: BlockResult) => void>()
   const mempoolSubs = new Set<(s: NormalizedMempool) => void>()
-  let caps: Capabilities = initialCaps ?? DEFAULT_CAPS
+  let caps: Capabilities = opts.initialCaps ?? DEFAULT_CAPS
+
+  const getReceiptFn = opts.getReceiptImpl
+    ?? ((hash: string): Promise<TransactionReceipt | null> =>
+        Promise.resolve(opts.receiptMap?.[hash] ?? null))
+
   return {
     start: () => {},
     stop: () => {},
@@ -76,7 +109,7 @@ const makeSource = (initialCaps?: Capabilities): StubSource => {
     getBlock: async (): Promise<BlockResult | null> => null,
     getFeeHistory: async (): Promise<FeeHistoryResult | null> => null,
     getMempoolSnapshot: async (): Promise<NormalizedMempool | null> => null,
-    getReceipt: async (): Promise<TransactionReceipt | null> => null,
+    getReceipt: getReceiptFn,
     getTransaction: async (): Promise<RawTx | null> => null,
     capabilities: () => caps,
     emitBlock: (block) => {
@@ -1263,5 +1296,500 @@ test('findReplacement falls back to raw nonce when BigInt(nonce) throws', () => 
     (replaceEvents[0] as import('./events.js').TxEventReplacedBy)
       .replacementHash,
   ).toBe('0xrep')
+  tracker.stop()
+})
+
+// ---------- receipt-poll-fallback tests ----------
+
+const flush = () => new Promise<void>((r) => setTimeout(r, 0))
+
+test('receipt-poll-fallback — emits seen-in-block from receipt-poll on degraded signal', async () => {
+  // capabilities show signal lost — newHeads unavailable, receiptByHash
+  // available. The fallback policy should kick in.
+  const degradedCaps: Capabilities = {
+    newHeads: 'unavailable',
+    newPendingTransactions: 'unavailable',
+    txpoolContent: 'gated',
+    receiptByHash: 'available',
+    reprobeOnReconnect: false,
+  }
+  const source = makeSource({
+    initialCaps: degradedCaps,
+    receiptMap: {
+      '0xtarget': {
+        transactionHash: '0xtarget',
+        blockHash: '0xblockfromreceipt',
+        blockNumber: '0x42',
+        status: '0x1',
+      },
+    },
+  })
+
+  const tracker = createTxTracker({
+    source,
+    chainId: 1,
+    lostSignalPolicy: { strategy: 'receipt-poll-fallback', pollEveryBlocks: 1 },
+  })
+  tracker.start()
+
+  const events: import('./events.js').TxEvent[] = []
+  tracker.subscribe('0xtarget', (e) => events.push(e), { emitInitial: false })
+
+  source.emitBlock({
+    number: '0x10',
+    hash: '0xtip10',
+    parentHash: '0x9',
+    timestamp: '0x0',
+    baseFeePerGas: '0x0',
+    gasLimit: '0x0',
+    gasUsed: '0x0',
+    transactions: [],
+  })
+  await flush()
+
+  const seen = events.find(
+    (e): e is import('./events.js').TxEventSeenInBlock =>
+      e.kind === 'seen-in-block' && e.source === 'receipt-poll',
+  )
+  expect(seen).toBeDefined()
+  expect(seen!.blockHash).toBe('0xblockfromreceipt')
+  expect(seen!.blockNumber).toBe(0x42n)
+  tracker.stop()
+})
+
+test('receipt-poll-fallback — capability gate downgrades to emit-uncertain when receiptByHash unavailable', async () => {
+  const onError = vi.fn()
+  const degradedCaps: Capabilities = {
+    newHeads: 'unavailable',
+    newPendingTransactions: 'unavailable',
+    txpoolContent: 'gated',
+    receiptByHash: 'unavailable',
+    reprobeOnReconnect: false,
+  }
+  const source = makeSource({ initialCaps: degradedCaps })
+
+  const tracker = createTxTracker({
+    source,
+    chainId: 1,
+    lostSignalPolicy: { strategy: 'receipt-poll-fallback', pollEveryBlocks: 1 },
+    onError,
+  })
+  tracker.start()
+
+  tracker.subscribe('0xt', () => {}, { emitInitial: false })
+  source.emitBlock({
+    number: '0x10',
+    hash: '0xtip10',
+    parentHash: '0x9',
+    timestamp: '0x0',
+    baseFeePerGas: '0x0',
+    gasLimit: '0x0',
+    gasUsed: '0x0',
+    transactions: [],
+  })
+  await flush()
+
+  expect(onError).toHaveBeenCalledWith(
+    'tx-tracker.receipt-poll-fallback',
+    expect.objectContaining({ message: expect.stringContaining('receiptByHash unavailable') }),
+  )
+  tracker.stop()
+})
+
+test('receipt-poll-fallback — gate warning fires only once across multiple ticks', async () => {
+  // The `receiptPollGateWarned` flag must prevent duplicate warnings
+  // on every block tick when receiptByHash is unavailable.
+  const onError = vi.fn()
+  const degradedCaps: Capabilities = {
+    newHeads: 'unavailable',
+    newPendingTransactions: 'unavailable',
+    txpoolContent: 'gated',
+    receiptByHash: 'unavailable',
+    reprobeOnReconnect: false,
+  }
+  const source = makeSource({ initialCaps: degradedCaps })
+
+  const tracker = createTxTracker({
+    source,
+    chainId: 1,
+    lostSignalPolicy: { strategy: 'receipt-poll-fallback', pollEveryBlocks: 1 },
+    onError,
+  })
+  tracker.start()
+  tracker.subscribe('0xt', () => {}, { emitInitial: false })
+
+  source.emitBlock({
+    number: '0x10', hash: '0xb1', parentHash: '0x0',
+    timestamp: '0x0', baseFeePerGas: '0x0', gasLimit: '0x0', gasUsed: '0x0', transactions: [],
+  })
+  await flush()
+  source.emitBlock({
+    number: '0x11', hash: '0xb2', parentHash: '0xb1',
+    timestamp: '0x0', baseFeePerGas: '0x0', gasLimit: '0x0', gasUsed: '0x0', transactions: [],
+  })
+  await flush()
+
+  const warnCalls = onError.mock.calls.filter(
+    ([method]) => method === 'tx-tracker.receipt-poll-fallback',
+  )
+  expect(warnCalls).toHaveLength(1)
+  tracker.stop()
+})
+
+test('receipt-poll-fallback — pollEveryBlocks > 1 skips ticks until threshold reached', async () => {
+  const degradedCaps: Capabilities = {
+    newHeads: 'unavailable',
+    newPendingTransactions: 'unavailable',
+    txpoolContent: 'gated',
+    receiptByHash: 'available',
+    reprobeOnReconnect: false,
+  }
+  const source = makeSource({
+    initialCaps: degradedCaps,
+    receiptMap: {
+      '0xhash': {
+        transactionHash: '0xhash',
+        blockHash: '0xreceiptblock',
+        blockNumber: '0x5',
+        status: '0x1',
+      },
+    },
+  })
+
+  const tracker = createTxTracker({
+    source,
+    chainId: 1,
+    lostSignalPolicy: { strategy: 'receipt-poll-fallback', pollEveryBlocks: 3 },
+  })
+  tracker.start()
+
+  const events: import('./events.js').TxEvent[] = []
+  tracker.subscribe('0xhash', (e) => events.push(e), { emitInitial: false })
+
+  // Block 1 — tick=1/3, should not poll yet
+  source.emitBlock({
+    number: '0x1', hash: '0xb1', parentHash: '0x0',
+    timestamp: '0x0', baseFeePerGas: '0x0', gasLimit: '0x0', gasUsed: '0x0', transactions: [],
+  })
+  await flush()
+  expect(events.filter((e) => e.kind === 'seen-in-block')).toHaveLength(0)
+
+  // Block 2 — tick=2/3, still no poll
+  source.emitBlock({
+    number: '0x2', hash: '0xb2', parentHash: '0xb1',
+    timestamp: '0x0', baseFeePerGas: '0x0', gasLimit: '0x0', gasUsed: '0x0', transactions: [],
+  })
+  await flush()
+  expect(events.filter((e) => e.kind === 'seen-in-block')).toHaveLength(0)
+
+  // Block 3 — tick=3/3, should poll and emit
+  source.emitBlock({
+    number: '0x3', hash: '0xb3', parentHash: '0xb2',
+    timestamp: '0x0', baseFeePerGas: '0x0', gasLimit: '0x0', gasUsed: '0x0', transactions: [],
+  })
+  await flush()
+  const seenEvents = events.filter((e) => e.kind === 'seen-in-block')
+  expect(seenEvents).toHaveLength(1)
+  tracker.stop()
+})
+
+test('receipt-poll-fallback — getReceipt returning null emits nothing', async () => {
+  // Receipt not yet included — getReceipt returns null. No seen-in-block.
+  const degradedCaps: Capabilities = {
+    newHeads: 'unavailable',
+    newPendingTransactions: 'unavailable',
+    txpoolContent: 'gated',
+    receiptByHash: 'available',
+    reprobeOnReconnect: false,
+  }
+  const source = makeSource({ initialCaps: degradedCaps }) // no receiptMap → returns null
+
+  const tracker = createTxTracker({
+    source,
+    chainId: 1,
+    lostSignalPolicy: { strategy: 'receipt-poll-fallback', pollEveryBlocks: 1 },
+  })
+  tracker.start()
+
+  const events: import('./events.js').TxEvent[] = []
+  tracker.subscribe('0xunmined', (e) => events.push(e), { emitInitial: false })
+
+  source.emitBlock({
+    number: '0x1', hash: '0xb1', parentHash: '0x0',
+    timestamp: '0x0', baseFeePerGas: '0x0', gasLimit: '0x0', gasUsed: '0x0', transactions: [],
+  })
+  await flush()
+
+  expect(events.filter((e) => e.kind === 'seen-in-block')).toHaveLength(0)
+  tracker.stop()
+})
+
+test('receipt-poll-fallback — getReceipt throwing routes through onError', async () => {
+  const onError = vi.fn()
+  const degradedCaps: Capabilities = {
+    newHeads: 'unavailable',
+    newPendingTransactions: 'unavailable',
+    txpoolContent: 'gated',
+    receiptByHash: 'available',
+    reprobeOnReconnect: false,
+  }
+  const source = makeSource({
+    initialCaps: degradedCaps,
+    getReceiptImpl: () => Promise.reject(new Error('network failure')),
+  })
+
+  const tracker = createTxTracker({
+    source,
+    chainId: 1,
+    lostSignalPolicy: { strategy: 'receipt-poll-fallback', pollEveryBlocks: 1 },
+    onError,
+  })
+  tracker.start()
+
+  const events: import('./events.js').TxEvent[] = []
+  tracker.subscribe('0xerr', (e) => events.push(e), { emitInitial: false })
+
+  source.emitBlock({
+    number: '0x1', hash: '0xb1', parentHash: '0x0',
+    timestamp: '0x0', baseFeePerGas: '0x0', gasLimit: '0x0', gasUsed: '0x0', transactions: [],
+  })
+  await flush()
+
+  expect(onError).toHaveBeenCalledWith(
+    'tx-tracker.getReceipt',
+    expect.objectContaining({ message: 'network failure' }),
+  )
+  expect(events.filter((e) => e.kind === 'seen-in-block')).toHaveLength(0)
+  tracker.stop()
+})
+
+test('receipt-poll-fallback — bad receipt blockNumber routes through onError', async () => {
+  const onError = vi.fn()
+  const degradedCaps: Capabilities = {
+    newHeads: 'unavailable',
+    newPendingTransactions: 'unavailable',
+    txpoolContent: 'gated',
+    receiptByHash: 'available',
+    reprobeOnReconnect: false,
+  }
+  const source = makeSource({
+    initialCaps: degradedCaps,
+    receiptMap: {
+      '0xbad': {
+        transactionHash: '0xbad',
+        blockHash: '0xreceiptblock',
+        blockNumber: 'not-a-hex',
+        status: '0x1',
+      },
+    },
+  })
+
+  const tracker = createTxTracker({
+    source,
+    chainId: 1,
+    lostSignalPolicy: { strategy: 'receipt-poll-fallback', pollEveryBlocks: 1 },
+    onError,
+  })
+  tracker.start()
+
+  const events: import('./events.js').TxEvent[] = []
+  tracker.subscribe('0xbad', (e) => events.push(e), { emitInitial: false })
+
+  source.emitBlock({
+    number: '0x1', hash: '0xb1', parentHash: '0x0',
+    timestamp: '0x0', baseFeePerGas: '0x0', gasLimit: '0x0', gasUsed: '0x0', transactions: [],
+  })
+  await flush()
+
+  expect(onError).toHaveBeenCalledWith(
+    'tx-tracker.receipt-poll-fallback',
+    expect.objectContaining({ message: expect.stringContaining('bad receipt blockNumber') }),
+  )
+  expect(events.filter((e) => e.kind === 'seen-in-block')).toHaveLength(0)
+  tracker.stop()
+})
+
+test("receipt-poll-fallback — policy 'emit-uncertain' skips receipt poll path", async () => {
+  // When the default lostSignalPolicy is 'emit-uncertain', runReceiptPollFallback
+  // must early-return without attempting getReceipt.
+  const getReceiptImpl = vi.fn(() => Promise.resolve(null))
+  const source = makeSource({ getReceiptImpl })
+
+  const tracker = createTxTracker({
+    source,
+    chainId: 1,
+    lostSignalPolicy: 'emit-uncertain',
+  })
+  tracker.start()
+
+  tracker.subscribe('0xskip', () => {}, { emitInitial: false })
+  source.emitBlock({
+    number: '0x1', hash: '0xb1', parentHash: '0x0',
+    timestamp: '0x0', baseFeePerGas: '0x0', gasLimit: '0x0', gasUsed: '0x0', transactions: [],
+  })
+  await flush()
+
+  expect(getReceiptImpl).not.toHaveBeenCalled()
+  tracker.stop()
+})
+
+test("receipt-poll-fallback — policy 'silent' skips receipt poll path", async () => {
+  // When the default lostSignalPolicy is 'silent', runReceiptPollFallback
+  // must early-return without attempting getReceipt.
+  const getReceiptImpl = vi.fn(() => Promise.resolve(null))
+  const source = makeSource({ getReceiptImpl })
+
+  const tracker = createTxTracker({
+    source,
+    chainId: 1,
+    lostSignalPolicy: 'silent',
+  })
+  tracker.start()
+
+  tracker.subscribe('0xskip', () => {}, { emitInitial: false })
+  source.emitBlock({
+    number: '0x1', hash: '0xb1', parentHash: '0x0',
+    timestamp: '0x0', baseFeePerGas: '0x0', gasLimit: '0x0', gasUsed: '0x0', transactions: [],
+  })
+  await flush()
+
+  expect(getReceiptImpl).not.toHaveBeenCalled()
+  tracker.stop()
+})
+
+test('receipt-poll-fallback — getTxStatus reflects receipt-poll inclusion', async () => {
+  // After a receipt-poll hit, getTxStatus().lastSeenInBlock must carry
+  // the receipt data so callers can confirm the tx without listening to events.
+  const degradedCaps: Capabilities = {
+    newHeads: 'unavailable',
+    newPendingTransactions: 'unavailable',
+    txpoolContent: 'gated',
+    receiptByHash: 'available',
+    reprobeOnReconnect: false,
+  }
+  const source = makeSource({
+    initialCaps: degradedCaps,
+    receiptMap: {
+      '0xstatus': {
+        transactionHash: '0xstatus',
+        blockHash: '0xstatusblock',
+        blockNumber: '0x7',
+        status: '0x1',
+      },
+    },
+  })
+
+  const tracker = createTxTracker({
+    source,
+    chainId: 1,
+    lostSignalPolicy: { strategy: 'receipt-poll-fallback', pollEveryBlocks: 1 },
+  })
+  tracker.start()
+
+  tracker.subscribe('0xstatus', () => {}, { emitInitial: false })
+  source.emitBlock({
+    number: '0x10', hash: '0xtip', parentHash: '0x0',
+    timestamp: '0x0', baseFeePerGas: '0x0', gasLimit: '0x0', gasUsed: '0x0', transactions: [],
+  })
+  await flush()
+
+  const status = tracker.getTxStatus('0xstatus')
+  expect(status?.lastSeenInBlock?.blockHash).toBe('0xstatusblock')
+  expect(status?.lastSeenInBlock?.blockNumber).toBe(7n)
+  expect(status?.lastSeenInBlock?.source).toBe('receipt-poll')
+  tracker.stop()
+})
+
+test('receipt-poll-fallback — does not overwrite higher-authority block-poll inclusion at same height', async () => {
+  // If a tx was already included via block-poll at blockNumber 100, a
+  // receipt-poll returning blockNumber 100 should NOT overwrite the existing
+  // lastSeenInBlock (block-poll has higher authority). But a receipt at a newer
+  // height is allowed to update the record.
+  const source = makeSource({
+    receiptMap: {
+      '0xhighauth': {
+        transactionHash: '0xhighauth',
+        blockHash: '0xolderblock',
+        blockNumber: '0x64', // 100
+        status: '0x1',
+      },
+    },
+  })
+
+  const tracker = createTxTracker({
+    source,
+    chainId: 1,
+    lostSignalPolicy: { strategy: 'receipt-poll-fallback', pollEveryBlocks: 1 },
+  })
+  tracker.start()
+
+  const events: import('./events.js').TxEvent[] = []
+  tracker.subscribe('0xhighauth', (e) => events.push(e), { emitInitial: false })
+
+  // Block-poll inclusion at block 100 with subscription source
+  source.emitBlock(makeBlock(100n, '0xb100', [
+    { hash: '0xhighauth', from: '0xs', nonce: '0x1' },
+  ]))
+  await flush()
+
+  // Now the tracker has lastSeenInBlock at 100 from subscription.
+  // Receipt-poll returns the same block 100 — should not overwrite.
+  source.emitBlock(makeBlock(101n, '0xb101', [], '0xb100'))
+  await flush()
+
+  // Only two events: first inclusion + confirmation bump (both subscription source)
+  const seenEvents = events.filter(
+    (e): e is import('./events.js').TxEventSeenInBlock => e.kind === 'seen-in-block',
+  )
+  // The existing block-poll confirmation bump at 101 would be source 'subscription'.
+  // No receipt-poll seen-in-block should be emitted at block 100 (not newer than lastSeenInBlock).
+  const receiptPollEvents = seenEvents.filter((e) => e.source === 'receipt-poll')
+  expect(receiptPollEvents).toHaveLength(0)
+  tracker.stop()
+})
+
+test('receipt-poll-fallback — stop() clears block counter and gate flag', async () => {
+  // After stop(), a fresh start must reset the pollCounter and gateWarned flag.
+  // This test drives stop() while receipt-poll state exists, then verifies
+  // the tracker is clean enough to not leak state into a subsequent run.
+  const onError = vi.fn()
+  const degradedCaps: Capabilities = {
+    newHeads: 'unavailable',
+    newPendingTransactions: 'unavailable',
+    txpoolContent: 'gated',
+    receiptByHash: 'unavailable',
+    reprobeOnReconnect: false,
+  }
+  const source = makeSource({ initialCaps: degradedCaps })
+
+  const tracker = createTxTracker({
+    source,
+    chainId: 1,
+    lostSignalPolicy: { strategy: 'receipt-poll-fallback', pollEveryBlocks: 1 },
+    onError,
+  })
+  tracker.start()
+  tracker.subscribe('0xreset', () => {}, { emitInitial: false })
+
+  source.emitBlock({
+    number: '0x1', hash: '0xb1', parentHash: '0x0',
+    timestamp: '0x0', baseFeePerGas: '0x0', gasLimit: '0x0', gasUsed: '0x0', transactions: [],
+  })
+  await flush()
+  // Warning fires once for the gate.
+  expect(onError).toHaveBeenCalledTimes(1)
+
+  tracker.stop()
+
+  // After stop(), tracked records are cleared. Restart and re-subscribe.
+  tracker.start()
+  tracker.subscribe('0xreset', () => {}, { emitInitial: false })
+  source.emitBlock({
+    number: '0x2', hash: '0xb2', parentHash: '0xb1',
+    timestamp: '0x0', baseFeePerGas: '0x0', gasLimit: '0x0', gasUsed: '0x0', transactions: [],
+  })
+  await flush()
+  // The gate should have fired again (flag was reset by stop()).
+  expect(onError).toHaveBeenCalledTimes(2)
   tracker.stop()
 })

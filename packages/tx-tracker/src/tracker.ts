@@ -43,10 +43,12 @@ import type {
   EventSource,
   NormalizedMempool,
   RawTx,
+  TransactionReceipt,
 } from '@valve-tech/chain-source'
 import { Subscriptions } from '@valve-tech/chain-source'
 
 import {
+  buildSeenInBlock,
   buildSignalDegraded,
   buildSignalRecovered,
   buildStarted,
@@ -94,10 +96,11 @@ import {
  * Lost-signal policy (spec §8). `'emit-uncertain'` is the default
  * — every transition to a degraded source emits `signal-degraded`.
  * `'silent'` keeps the events to itself; `'receipt-poll-fallback'`
- * is reserved for relay/settlement consumers and is not yet
- * implemented (the type is accepted but the runtime falls back to
- * `'emit-uncertain'`; a follow-up PR adds the per-block receipt
- * fetch path).
+ * fetches `eth_getTransactionReceipt` every `pollEveryBlocks` block
+ * ticks and emits `seen-in-block` with `source: 'receipt-poll'` on a
+ * hit. Requires `capabilities().receiptByHash === 'available'`;
+ * when unavailable, downgrades to emit-uncertain semantics with a
+ * one-shot warning via `onError`.
  */
 export type LostSignalPolicy =
   | 'emit-uncertain'
@@ -382,6 +385,11 @@ export const createTxTracker = (options: CreateTxTrackerOptions): TxTracker => {
   let lastCaps: Capabilities = source.capabilities()
   let nextSubId = 1
 
+  // Receipt-poll-fallback state (spec §8). These vars track the
+  // per-record tick counters and the one-shot capability-gate warning.
+  let blocksSinceLastReceiptPoll = new Map<Hash, number>()
+  let receiptPollGateWarned = false
+
   // -------------------------------------------------------------
   // Helpers
   // -------------------------------------------------------------
@@ -477,6 +485,114 @@ export const createTxTracker = (options: CreateTxTrackerOptions): TxTracker => {
   }
 
   // -------------------------------------------------------------
+  // Receipt-poll-fallback path (spec §8)
+  // -------------------------------------------------------------
+
+  /**
+   * Per-record receipt poll. Runs once per block tick for every
+   * tracked hash whose `lostSignalPolicy` is `'receipt-poll-fallback'`.
+   * Uses `source.getReceipt(hash)` — requires capability
+   * `receiptByHash: 'available'`. When the capability is absent,
+   * downgrades to emit-uncertain semantics and fires a one-shot
+   * warning through `onError`.
+   *
+   * The `blocksSinceLastReceiptPoll` counter is per-hash so different
+   * hashes can have independent cadences (e.g. when a per-subscription
+   * override is introduced in a future PR). Today the tracker-level
+   * default policy applies to all records.
+   *
+   * `lastSeenInBlock` is only updated when the receipt-poll returns a
+   * block number **strictly newer** than the currently cached
+   * `lastSeenInBlock.blockNumber` — this prevents receipt-poll
+   * (lower authority) from overwriting a block-poll / subscription
+   * observation that already recorded the same height with higher
+   * authority.
+   */
+  const runReceiptPollFallback = async (
+    record: TrackedRecord,
+    tipBlockNumber: bigint,
+  ): Promise<void> => {
+    const policy = record.lostSignalPolicy ?? defaultLostSignalPolicy
+    if (typeof policy !== 'object' || policy.strategy !== 'receipt-poll-fallback') {
+      return
+    }
+
+    // Capability gate: if receiptByHash is unavailable, warn once and
+    // fall back to emit-uncertain semantics (the signal-degraded path
+    // already handles caller awareness).
+    if (source.capabilities().receiptByHash !== 'available') {
+      if (!receiptPollGateWarned) {
+        receiptPollGateWarned = true
+        onError?.(
+          'tx-tracker.receipt-poll-fallback',
+          new Error(
+            'receipt-poll-fallback requested but capability receiptByHash unavailable; falling back to emit-uncertain semantics',
+          ),
+        )
+      }
+      return
+    }
+
+    // Tick counter — only fetch every `pollEveryBlocks` ticks.
+    const ticksSince = (blocksSinceLastReceiptPoll.get(record.hash) ?? 0) + 1
+    if (ticksSince < policy.pollEveryBlocks) {
+      blocksSinceLastReceiptPoll.set(record.hash, ticksSince)
+      return
+    }
+    blocksSinceLastReceiptPoll.set(record.hash, 0)
+
+    let receipt: TransactionReceipt | null = null
+    try {
+      receipt = await source.getReceipt(record.hash)
+    } catch (err) {
+      onError?.('tx-tracker.getReceipt', err)
+      return
+    }
+    if (!receipt) return
+
+    let receiptBlockNumber: bigint
+    try {
+      receiptBlockNumber = BigInt(receipt.blockNumber)
+    } catch {
+      onError?.(
+        'tx-tracker.receipt-poll-fallback',
+        new Error(`bad receipt blockNumber: ${receipt.blockNumber}`),
+      )
+      return
+    }
+
+    // Only update when the receipt carries a block we haven't recorded
+    // from a higher-authority path at the same or later height.
+    const existingBlock = record.status.lastSeenInBlock
+    if (existingBlock && existingBlock.blockNumber >= receiptBlockNumber) {
+      return
+    }
+
+    emit(
+      record,
+      buildSeenInBlock({
+        hash: record.hash,
+        chainId,
+        source: 'receipt-poll',
+        at: { blockNumber: tipBlockNumber, timestamp: latestTipTimestamp },
+        blockHash: receipt.blockHash,
+        blockNumber: receiptBlockNumber,
+        transactionIndex: 0, // not exposed via receipt; kept 0 for spec consistency
+        confirmations: 1,
+      }),
+    )
+    // Mirror state-machine bookkeeping so getTxStatus reflects inclusion.
+    record.status.lastSeenInBlock = {
+      blockHash: receipt.blockHash,
+      blockNumber: receiptBlockNumber,
+      transactionIndex: 0,
+      confirmations: 1,
+      source: 'receipt-poll',
+    }
+    record.status.lastObservedAtBlock = tipBlockNumber
+  }
+
+  // -------------------------------------------------------------
   // Block path — runs on every source block emit
   // -------------------------------------------------------------
 
@@ -560,6 +676,18 @@ export const createTxTracker = (options: CreateTxTrackerOptions): TxTracker => {
       })
       applyObservationResult(record, result)
       for (const event of result.events) emit(record, event)
+    }
+
+    // Receipt-poll-fallback: dispatch non-blocking per-record receipt
+    // fetches. These run AFTER the synchronous block-observation loop
+    // so any block-poll inclusion emitted above is already reflected in
+    // `record.status.lastSeenInBlock` before the poll fires. The void
+    // dispatch intentionally does not await — onBlock must stay
+    // synchronous from the caller's perspective; receipt fetches settle
+    // in the background and emit asynchronously.
+    // `latestTip` is always set to `newTip` above before this loop runs.
+    for (const record of tracked.values()) {
+      void runReceiptPollFallback(record, latestTip.number)
     }
   }
 
@@ -1139,6 +1267,9 @@ export const createTxTracker = (options: CreateTxTrackerOptions): TxTracker => {
     bulkSubs.clear()
     blockRing = []
     latestTip = null
+    // Reset receipt-poll-fallback state so a subsequent start() begins clean.
+    blocksSinceLastReceiptPoll = new Map()
+    receiptPollGateWarned = false
   }
 
   // Eager lifecycle: subscribe immediately on construction. Lazy
