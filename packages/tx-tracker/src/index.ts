@@ -125,6 +125,12 @@ export type {
 } from './wait-for-transaction.js'
 
 export {
+  waitForPending,
+  WaitForPendingTimeoutError,
+} from './wait-for-pending.js'
+export type { WaitForPendingOptions } from './wait-for-pending.js'
+
+export {
   buildGroupComplete,
   buildGroupFailed,
   buildGroupProgress,
