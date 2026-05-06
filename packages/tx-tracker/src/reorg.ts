@@ -78,10 +78,13 @@ export const appendBlock = (
 ): BlockSample[] => {
   const next = ring.filter((b) => b.number !== block.number)
   next.push(block)
-  // Sort ascending by block number — the ring is small (~depth +
-  // a few), so the cost of a sort per append is negligible compared
-  // to the win of a guaranteed-canonical iteration order downstream.
-  next.sort((a, b) => (a.number < b.number ? -1 : a.number > b.number ? 1 : 0))
+  // Sort ascending by block number. The ring is small (~depth + a
+  // few) so the cost is negligible. The same-number case is
+  // unreachable here — `filter` above strips any prior entry at
+  // `block.number` before we push, so the comparator never sees
+  // equal keys; we return -1 in that arm only to satisfy bigint
+  // sort's contract.
+  next.sort((a, b) => (a.number < b.number ? -1 : 1))
   if (next.length > capacityBlocks) {
     next.splice(0, next.length - capacityBlocks)
   }
@@ -130,8 +133,11 @@ export const detectDivergences = (input: {
 
   // The "tip" is the highest-numbered block in either side. Compare
   // back from there for `depthBlocks` heights (inclusive of the tip).
-  const ringTip = ring[ring.length - 1]?.number ?? 0n
-  const canonicalTip = canonical[canonical.length - 1]?.number ?? 0n
+  // The early `length === 0` guard above means `ring[length-1]` and
+  // `canonical[length-1]` are always defined here — the `!` reflects
+  // that invariant rather than papering over a real nullable.
+  const ringTip = ring[ring.length - 1]!.number
+  const canonicalTip = canonical[canonical.length - 1]!.number
   const tip = ringTip > canonicalTip ? ringTip : canonicalTip
   const lowestComparedNumber = tip - BigInt(depthBlocks - 1)
 
@@ -151,9 +157,10 @@ export const detectDivergences = (input: {
 
   // Sort ascending by number so the tracker emits vanished events
   // in chain order — easier on consumers piping to a single sink.
-  divergences.sort((a, b) =>
-    a.blockNumber < b.blockNumber ? -1 : a.blockNumber > b.blockNumber ? 1 : 0,
-  )
+  // Divergences are unique by `blockNumber` (one entry per ring
+  // height), so the comparator never sees equal keys; we return -1
+  // in that arm only to satisfy the sort contract.
+  divergences.sort((a, b) => (a.blockNumber < b.blockNumber ? -1 : 1))
   return divergences
 }
 

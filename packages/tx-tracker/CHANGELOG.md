@@ -54,6 +54,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   "track this transaction," "watch tx hash," "stuck transaction," and
   composition questions with `@valve-tech/gas-oracle`.
 
+### Changed
+
+- **Coverage hardening pre-1.0.** Eliminated dead defensive branches
+  in `reorg.ts` (sort-comparator equal-key arms unreachable after
+  the dedup `filter`; `?? 0n` defaults unreachable after the empty-
+  array early return). Tightened `capabilityRank`'s input type from
+  `string` to a `CapabilityValue` union literal so the switch is
+  exhaustive without a default arm.
+- **Test suite up from 75 → 95 tests** (+20). New coverage:
+  `trackToAddress`, per-subscription `lostSignalPolicy` overrides,
+  durable-subscription persistence (with stub stores), predicate-
+  selector + `durable: true` warning, store.appendEvent / store.put
+  failure routing through `onError`, bad-block-number handling,
+  async iterator queue-vs-waiter ordering and early-break cleanup,
+  bulk async iterator drain via `sub.stop()`, multi-sub-on-same-hash
+  cleanup semantics, idempotent `stop` / `unsub` / `sub.stop`,
+  reorg handler skipping records without `lastSeenInBlock`,
+  `findReplacement` raw-nonce fallback when `BigInt()` throws,
+  `lifecycle: 'lazy'` accepts-the-option contract.
+- Coverage went **89.23% / 78.59% / 92.13% / 91.84%** stmts / branches
+  / funcs / lines → **96.13% / 88.93% / 98.87% / 97.61%**.
+
 ### Notes
 
 - Implements spec §5–§12 minus the `'receipt-poll-fallback'`

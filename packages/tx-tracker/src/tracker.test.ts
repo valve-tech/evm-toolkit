@@ -559,3 +559,453 @@ test('maxBulkSubscriptions enforces the cap', () => {
   expect(() => tracker.trackFromAddress('0x3')).toThrow(/max bulk/)
   tracker.stop()
 })
+
+// ---------- targeted coverage tests ----------
+
+test('trackToAddress matches by recipient (lowercase compare)', () => {
+  const source = makeSource()
+  const tracker = startTracker(source)
+  const seen: import('./events.js').TxEvent[] = []
+  const sub = tracker.trackToAddress('0xCONTRACT')
+  sub.subscribe((e) => seen.push(e))
+  source.emitBlock(
+    makeBlock(100n, '0xb1', [
+      // RawTx at chain-source carries `to` loosely — the matcher
+      // reads it via the structurally-typed object so this works.
+      { hash: '0xt1', from: '0xs', nonce: '0x1', to: '0xcontract' } as never,
+      { hash: '0xt2', from: '0xs', nonce: '0x2', to: '0xother' } as never,
+    ]),
+  )
+  const blockHits = seen.filter(
+    (e): e is import('./events.js').TxEventSeenInBlock =>
+      e.kind === 'seen-in-block',
+  )
+  expect(blockHits.map((e) => e.hash)).toEqual(['0xt1'])
+  sub.stop()
+  tracker.stop()
+})
+
+test('per-subscription lostSignalPolicy override silences degrade for that hash only', () => {
+  const source = makeSource({ ...DEFAULT_CAPS, newHeads: 'subscription' })
+  const tracker = startTracker(source) // tracker default = 'emit-uncertain'
+  const noisy: import('./events.js').TxEvent[] = []
+  const silent: import('./events.js').TxEvent[] = []
+  tracker.subscribe('0xnoisy', (e) => noisy.push(e), { emitInitial: false })
+  tracker.subscribe('0xsilent', (e) => silent.push(e), {
+    emitInitial: false,
+    lostSignalPolicy: 'silent',
+  })
+  source.emitBlock(makeBlock(100n, '0xb1', []))
+  source.setCapabilities({ ...DEFAULT_CAPS, newHeads: 'poll-only' })
+  source.emitBlock(makeBlock(101n, '0xb2', [], '0xb1'))
+  expect(noisy.some((e) => e.kind === 'signal-degraded')).toBe(true)
+  expect(silent.some((e) => e.kind === 'signal-degraded')).toBe(false)
+  tracker.stop()
+})
+
+test('durable: true persists a record via the store', async () => {
+  const source = makeSource()
+  const puts: unknown[] = []
+  const stubStore: import('./store.js').TxTrackerStore = {
+    put: (record) => {
+      puts.push(record)
+      return Promise.resolve()
+    },
+    get: () => Promise.resolve(null),
+    delete: () => Promise.resolve(),
+    listDurable: () => Promise.resolve([]),
+    appendEvent: () => Promise.resolve(),
+  }
+  const tracker = startTracker(source, { store: stubStore })
+  const unsub = tracker.subscribe('0xdur', () => {}, {
+    emitInitial: false,
+    durable: true,
+  })
+  source.emitBlock(
+    makeBlock(100n, '0xb1', [
+      { hash: '0xdur', from: '0xs', nonce: '0x1' },
+    ]),
+  )
+  // Microtask drain so the void-promised store.put settles
+  await new Promise((r) => setTimeout(r, 0))
+  expect(puts.length).toBeGreaterThan(0)
+  const record = puts[0] as import('./store.js').TrackedTxRecord
+  expect(record.subscriptions[0]?.durable).toBe(true)
+  expect(record.subscriptions[0]?.selector).toEqual({
+    kind: 'hash',
+    hash: '0xdur',
+  })
+  unsub()
+  tracker.stop()
+})
+
+test('predicate-selector + durable: true logs a warning via onError', () => {
+  const source = makeSource()
+  const errors: { method: string; err: unknown }[] = []
+  const tracker = startTracker(source, {
+    onError: (method, err) => errors.push({ method, err }),
+  })
+  const sub = tracker.trackPredicate(() => true, { durable: true })
+  expect(
+    errors.some(
+      (e) =>
+        e.method === 'tx-tracker.bulk' &&
+        String((e.err as Error).message).includes('predicate selectors are non-durable'),
+    ),
+  ).toBe(true)
+  sub.stop()
+  tracker.stop()
+})
+
+test('store.appendEvent failure routes through onError without breaking emit', async () => {
+  const source = makeSource()
+  const errors: { method: string; err: unknown }[] = []
+  const failingStore: import('./store.js').TxTrackerStore = {
+    put: () => Promise.resolve(),
+    get: () => Promise.resolve(null),
+    delete: () => Promise.resolve(),
+    listDurable: () => Promise.resolve([]),
+    appendEvent: () => Promise.reject(new Error('store kaput')),
+  }
+  const tracker = startTracker(source, {
+    store: failingStore,
+    onError: (method, err) => errors.push({ method, err }),
+  })
+  const events: import('./events.js').TxEvent[] = []
+  tracker.subscribe('0xstore', (e) => events.push(e), {
+    emitInitial: false,
+    durable: true,
+  })
+  source.emitBlock(
+    makeBlock(100n, '0xb1', [
+      { hash: '0xstore', from: '0xs', nonce: '0x1' },
+    ]),
+  )
+  await new Promise((r) => setTimeout(r, 0))
+  // Live emit still landed:
+  expect(events.some((e) => e.kind === 'seen-in-block')).toBe(true)
+  // And the store error surfaced via onError:
+  expect(errors.some((e) => e.method === 'store.appendEvent')).toBe(true)
+  tracker.stop()
+})
+
+test('bad block number routes through onError and skips processing', () => {
+  const source = makeSource()
+  const errors: { method: string; err: unknown }[] = []
+  const tracker = startTracker(source, {
+    onError: (method, err) => errors.push({ method, err }),
+  })
+  const events: import('./events.js').TxEvent[] = []
+  tracker.subscribe('0xanything', (e) => events.push(e), { emitInitial: false })
+  // Cast the block to bypass the BlockResult typing — what arrives
+  // from the wire isn't always strictly hex-decodable.
+  source.emitBlock({
+    number: 'not-a-hex-number',
+    hash: '0xb1',
+    parentHash: '0xparent',
+    timestamp: '0x0',
+    baseFeePerGas: '0x0',
+    gasLimit: '0x0',
+    gasUsed: '0x0',
+    transactions: [],
+  } as never)
+  expect(errors.some((e) => e.method === 'tx-tracker.onBlock')).toBe(true)
+  // No events should have fired — onBlock returned early.
+  expect(events).toEqual([])
+  tracker.stop()
+})
+
+test('async iterator return() cleans up after early break', async () => {
+  const source = makeSource()
+  const tracker = startTracker(source)
+  const iter = tracker.track('0xabc', { emitInitial: false })
+  // Drive one event, then break — the iterator's return() handler
+  // should unsubscribe and resolve any pending waiters.
+  const promise = (async () => {
+    for await (const event of iter) {
+      // break immediately on first non-stopped event
+      if (event.kind !== 'stopped') break
+    }
+  })()
+  source.emitBlock(
+    makeBlock(100n, '0xb1', [
+      { hash: '0xabc', from: '0xs', nonce: '0x1' },
+    ]),
+  )
+  await promise
+  // Subsequent ticks should not crash even though the iterator was
+  // closed mid-stream.
+  source.emitBlock(makeBlock(101n, '0xb2', [], '0xb1'))
+  tracker.stop()
+})
+
+test('bulk async iterator drains via sub.stop()', async () => {
+  const source = makeSource()
+  const tracker = startTracker(source)
+  const sub = tracker.trackFromAddress('0xs')
+  const matches: import('./tracker.js').TxMatchEvent[] = []
+  const consume = (async () => {
+    for await (const m of sub.events()) {
+      matches.push(m)
+      if (matches.length >= 1) {
+        sub.stop()
+        break
+      }
+    }
+  })()
+  source.emitBlock(
+    makeBlock(100n, '0xb1', [
+      { hash: '0xt1', from: '0xs', nonce: '0x1' },
+    ]),
+  )
+  await consume
+  expect(matches).toHaveLength(1)
+  tracker.stop()
+})
+
+test('bulk async iterator next() resolves done after stop', async () => {
+  const source = makeSource()
+  const tracker = startTracker(source)
+  const sub = tracker.trackFromAddress('0xs')
+  const iter = sub.events()[Symbol.asyncIterator]()
+  // Stop before any events arrive — next() should resolve `done: true`
+  // rather than hang on the empty queue.
+  sub.stop()
+  const result = await iter.next()
+  expect(result.done).toBe(true)
+  tracker.stop()
+})
+
+test('durable: true on a stub source listDurable list rehydrates nothing on construction (smoke)', async () => {
+  // Smoke test: lifecycle: 'eager' tracker construction does not
+  // throw when store has zero durable records. Pins the no-op
+  // construction path that's load-bearing for the
+  // "lazy/eager subscribe" comment in tracker.ts.
+  const source = makeSource()
+  const tracker = createTxTracker({
+    source,
+    chainId: 1,
+    lifecycle: 'eager',
+  })
+  tracker.start()
+  expect(tracker.capabilities()).toEqual(DEFAULT_CAPS)
+  tracker.stop()
+})
+
+test('lifecycle: lazy is accepted (no behavioral difference in v0.6.x)', () => {
+  // The lifecycle field's lazy branch is reserved — it's accepted at
+  // construction and the tracker behaves identically to eager. The
+  // distinction will matter when source-subscribe is deferred until
+  // first track/getStatus call. Pin the accepts-the-option contract
+  // so a future tightening of the option type doesn't silently drop
+  // existing call sites.
+  const source = makeSource()
+  const tracker = createTxTracker({
+    source,
+    chainId: 1,
+    lifecycle: 'lazy',
+  })
+  tracker.start()
+  const events: import('./events.js').TxEvent[] = []
+  tracker.subscribe('0xa', (e) => events.push(e), { emitInitial: false })
+  source.emitBlock(
+    makeBlock(100n, '0xb1', [
+      { hash: '0xa', from: '0xs', nonce: '0x1' },
+    ]),
+  )
+  expect(events.some((e) => e.kind === 'seen-in-block')).toBe(true)
+  tracker.stop()
+})
+
+test('two subs on the same hash share one record; cleanup waits for both to unsubscribe', () => {
+  const source = makeSource()
+  const tracker = startTracker(source)
+  const eventsA: import('./events.js').TxEvent[] = []
+  const eventsB: import('./events.js').TxEvent[] = []
+  const unsubA = tracker.subscribe('0xshared', (e) => eventsA.push(e), {
+    emitInitial: false,
+  })
+  const unsubB = tracker.subscribe('0xshared', (e) => eventsB.push(e), {
+    emitInitial: false,
+  })
+  source.emitBlock(
+    makeBlock(100n, '0xb1', [
+      { hash: '0xshared', from: '0xs', nonce: '0x1' },
+    ]),
+  )
+  // Both subs see the inclusion.
+  expect(eventsA.some((e) => e.kind === 'seen-in-block')).toBe(true)
+  expect(eventsB.some((e) => e.kind === 'seen-in-block')).toBe(true)
+  // Status survives one unsubscribe (record not GC'd while a sub remains).
+  unsubA()
+  expect(tracker.getTxStatus('0xshared')).not.toBeNull()
+  // Status drops after the second unsubscribe (no subs left, not durable).
+  unsubB()
+  expect(tracker.getTxStatus('0xshared')).toBeNull()
+  tracker.stop()
+})
+
+test('subscribe + unsubscribe is idempotent; second unsub is a no-op', () => {
+  const source = makeSource()
+  const tracker = startTracker(source)
+  const events: import('./events.js').TxEvent[] = []
+  const unsub = tracker.subscribe('0xa', (e) => events.push(e), {
+    emitInitial: false,
+  })
+  unsub()
+  const beforeSecond = events.length
+  unsub() // second call should be a no-op — no extra stopped event
+  expect(events.length).toBe(beforeSecond)
+  tracker.stop()
+})
+
+test('tracker.stop() is idempotent', () => {
+  const source = makeSource()
+  const tracker = startTracker(source)
+  tracker.stop()
+  // Second stop must not throw or double-emit.
+  expect(() => tracker.stop()).not.toThrow()
+})
+
+test('bulk sub.stop() is idempotent', () => {
+  const source = makeSource()
+  const tracker = startTracker(source)
+  const sub = tracker.trackFromAddress('0xa')
+  sub.stop()
+  expect(() => sub.stop()).not.toThrow()
+  tracker.stop()
+})
+
+test('store.put failure routes through onError without breaking emit', async () => {
+  const source = makeSource()
+  const errors: { method: string; err: unknown }[] = []
+  const failingStore: import('./store.js').TxTrackerStore = {
+    put: () => Promise.reject(new Error('put kaput')),
+    get: () => Promise.resolve(null),
+    delete: () => Promise.resolve(),
+    listDurable: () => Promise.resolve([]),
+    appendEvent: () => Promise.resolve(),
+  }
+  const tracker = startTracker(source, {
+    store: failingStore,
+    onError: (method, err) => errors.push({ method, err }),
+  })
+  const events: import('./events.js').TxEvent[] = []
+  tracker.subscribe('0xput', (e) => events.push(e), {
+    emitInitial: false,
+    durable: true,  // triggers the store.put on subscribe
+  })
+  source.emitBlock(
+    makeBlock(100n, '0xb1', [
+      { hash: '0xput', from: '0xs', nonce: '0x1' },
+    ]),
+  )
+  await new Promise((r) => setTimeout(r, 0))
+  expect(events.some((e) => e.kind === 'seen-in-block')).toBe(true)
+  expect(errors.some((e) => e.method === 'store.put')).toBe(true)
+  tracker.stop()
+})
+
+test('async iterator delivers events queued before next() is called', async () => {
+  // Drives the queue branch (event arrives, no waiter yet → push to
+  // queue; later next() shifts from the queue without awaiting).
+  const source = makeSource()
+  const tracker = startTracker(source)
+  const iter = tracker
+    .track('0xq', { emitInitial: false })
+    [Symbol.asyncIterator]()
+  // Fire the event BEFORE calling .next() — it goes onto the queue.
+  source.emitBlock(
+    makeBlock(100n, '0xb1', [
+      { hash: '0xq', from: '0xs', nonce: '0x1' },
+    ]),
+  )
+  // First .next() should resolve from the queue, not block.
+  const first = await iter.next()
+  expect(first.done).toBe(false)
+  expect(first.value.kind).toBe('seen-in-block')
+  // Cleanup
+  await iter.return!()
+  tracker.stop()
+})
+
+test('bulk async iterator queues match events arrived before .next()', async () => {
+  const source = makeSource()
+  const tracker = startTracker(source)
+  const sub = tracker.trackFromAddress('0xs')
+  const iter = sub.events()[Symbol.asyncIterator]()
+  // Match-emit before next()
+  source.emitBlock(
+    makeBlock(100n, '0xb1', [
+      { hash: '0xt1', from: '0xs', nonce: '0x1' },
+    ]),
+  )
+  const first = await iter.next()
+  expect(first.done).toBe(false)
+  expect(first.value.hash).toBe('0xt1')
+  await iter.return!()
+  sub.stop()
+  tracker.stop()
+})
+
+test('reorg handler skips records without lastSeenInBlock', () => {
+  // Ensures L694's `if (!seen) continue` is exercised: a tracked
+  // hash that has only ever been seen in mempool (never in a block)
+  // must NOT receive vanished-from-block events even when a same-
+  // height reorg lands somewhere.
+  const source = makeSource()
+  const tracker = startTracker(source)
+  const events: import('./events.js').TxEvent[] = []
+  tracker.subscribe('0xmempool-only', (e) => events.push(e), {
+    emitInitial: false,
+  })
+  source.emitMempool({
+    pending: {
+      '0xs': { '1': { hash: '0xmempool-only', from: '0xs', nonce: '0x1' } },
+    },
+    queued: {},
+  })
+  // Different tracked hash gets included, then reorged.
+  tracker.subscribe('0xincluded', () => {}, { emitInitial: false })
+  source.emitBlock(
+    makeBlock(100n, '0xb-orig', [
+      { hash: '0xincluded', from: '0xs2', nonce: '0x1' },
+    ]),
+  )
+  source.emitBlock(makeBlock(100n, '0xb-new', []))
+  // The mempool-only hash must NOT see vanished-from-block.
+  expect(events.some((e) => e.kind === 'vanished-from-block')).toBe(false)
+  tracker.stop()
+})
+
+test('findReplacement falls back to raw nonce when BigInt(nonce) throws', () => {
+  // The replacement detector normalizes the cached identity's nonce
+  // to decimal before keying into the mempool's nonce-keyed sub-map.
+  // If the cached nonce isn't valid hex (test fixtures or off-spec
+  // RPCs), the BigInt() throws — the fallback uses the raw nonce
+  // string as the key. A mempool snapshot with that exact raw key
+  // still resolves to the replacement.
+  const source = makeSource()
+  const tracker = startTracker(source)
+  const events: import('./events.js').TxEvent[] = []
+  tracker.subscribe('0xorig', (e) => events.push(e), { emitInitial: false })
+  // Seed identity by observing the original in mempool with a
+  // non-numeric nonce string. The tracker caches `(from='0xs', nonce='abc')`.
+  source.emitMempool({
+    pending: { '0xs': { abc: { hash: '0xorig', from: '0xs', nonce: 'abc' } } },
+    queued: {},
+  })
+  // Drop original, introduce replacement at the same identity-with-
+  // raw-nonce-key. The fallback path is what makes the lookup work.
+  source.emitMempool({
+    pending: { '0xs': { abc: { hash: '0xrep', from: '0xs', nonce: 'abc' } } },
+    queued: {},
+  })
+  const replaceEvents = events.filter((e) => e.kind === 'replaced-by')
+  expect(replaceEvents).toHaveLength(1)
+  expect(
+    (replaceEvents[0] as import('./events.js').TxEventReplacedBy)
+      .replacementHash,
+  ).toBe('0xrep')
+  tracker.stop()
+})

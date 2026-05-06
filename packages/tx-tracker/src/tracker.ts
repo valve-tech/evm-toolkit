@@ -284,8 +284,8 @@ const diffCapabilities = (
     'receiptByHash',
   ]
   for (const key of keys) {
-    const before = capabilityRank(prev[key] as string)
-    const after = capabilityRank(next[key] as string)
+    const before = capabilityRank(prev[key] as CapabilityValue)
+    const after = capabilityRank(next[key] as CapabilityValue)
     if (after < before) degraded.push(key)
     else if (after > before) recovered.push(key)
   }
@@ -295,20 +295,25 @@ const diffCapabilities = (
 /**
  * Map capability values onto an ordinal so degradation/recovery can
  * be detected with a single comparison. Higher = more authoritative.
+ * Inputs are constrained to the actual `Capabilities[key]` union
+ * literals, so the switch is exhaustive — no default arm needed.
  */
-const capabilityRank = (value: string): number => {
+type CapabilityValue =
+  | 'subscription'
+  | 'available'
+  | 'poll-only'
+  | 'gated'
+  | 'unavailable'
+
+const capabilityRank = (value: CapabilityValue): number => {
   switch (value) {
     case 'subscription':
-      return 2
     case 'available':
       return 2
     case 'poll-only':
       return 1
     case 'gated':
-      return 0
     case 'unavailable':
-      return 0
-    default:
       return 0
   }
 }
