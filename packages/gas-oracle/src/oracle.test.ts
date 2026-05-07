@@ -4,7 +4,7 @@ import type { BlockResult, ChainSource, NormalizedMempool } from '@valve-tech/ch
 
 import { createGasOracle, reducePollInputs } from './oracle.js'
 import type { OraclePollInputs } from './transport.js'
-import type { GasOracleState } from './types.js'
+import { PriorityModel, Trend, type GasOracleState } from './types.js'
 
 /* -------------------------------------------------------------------------- */
 /*  reducePollInputs (pure function)                                          */
@@ -54,7 +54,7 @@ describe('reducePollInputs', () => {
     expect(next!.blockNumber).toBe(0x1234n)
     expect(next!.baseFee).toBe(baseFeeGwei)
     expect(next!.tiers.slow).toBeDefined()
-    expect(next!.mempool.pendingCount).toBe(0)
+    expect(next!.mempool.pendingCount).toBe(0n)
     expect(next!.blob).toBeNull()
   })
 
@@ -74,6 +74,9 @@ describe('reducePollInputs', () => {
       }),
       chainId: 1,
       prev: null,
+      // Asserting merged-distribution semantics — explicit `flat` so the
+      // legacy txs participate in paying-lane percentiles.
+      priorityModel: PriorityModel.flat,
     })
     expect(next!.tiers.fast.maxPriorityFeePerGas).toBe(100_000_000_000n)
     expect(next!.tiers.instant.maxPriorityFeePerGas).toBe(100_000_000_000n)
@@ -116,7 +119,16 @@ describe('reducePollInputs', () => {
       }).block,
       txPool: null,
     }
-    const next = reducePollInputs({ inputs, chainId: 1, prev: null })
+    const next = reducePollInputs({
+      inputs,
+      chainId: 1,
+      prev: null,
+      // Single legacy tx — under the eip1559 default it would be filtered
+      // out of paying-lane percentiles. The assertion is about whether
+      // block.transactions is read at all (vs feeHistory.reward), so
+      // pin the model to flat.
+      priorityModel: PriorityModel.flat,
+    })
     // Single sample → every tier reads that tip
     expect(next!.tiers.standard.maxPriorityFeePerGas).toBe(100_000_000_000n)
   })
@@ -135,8 +147,8 @@ describe('reducePollInputs', () => {
       },
     }
     const next = reducePollInputs({ inputs, chainId: 1, prev: null })
-    expect(next!.mempool.pendingCount).toBe(1)
-    expect(next!.mempool.queuedCount).toBe(1)
+    expect(next!.mempool.pendingCount).toBe(1n)
+    expect(next!.mempool.queuedCount).toBe(1n)
     expect(next!.mempool.pendingGasDemand).toBe(21000n)
   })
 
@@ -172,7 +184,7 @@ describe('reducePollInputs', () => {
     expect(second!.blob).not.toBeNull()
     // Trend was computed from a 2-element history (prev → current)
     // rather than a singleton — verifies the prev-arm took effect.
-    expect(['rising', 'falling', 'stable']).toContain(second!.blob!.blobBaseFeeTrend)
+    expect([Trend.rising, Trend.falling, Trend.stable]).toContain(second!.blob!.blobBaseFeeTrend)
   })
 
   it('defaults blobGasUsed to 0 when block has excessBlobGas but not blobGasUsed', () => {
@@ -243,12 +255,20 @@ describe('reducePollInputs', () => {
       }),
       chainId: 1,
       prev: null,
+      // Cap-anchor test uses legacy txs to seed lastPublishedTips —
+      // explicit `flat` so paying-lane tiers pick them up.
+      priorityModel: PriorityModel.flat,
     })!
     expect(prev.lastPublishedTips!.standard).toBe(5_000_000_000n)
 
     const nextInputs = blockOnly()
     nextInputs.block!.number = '0x1235'
-    const next = reducePollInputs({ inputs: nextInputs, chainId: 1, prev })!
+    const next = reducePollInputs({
+      inputs: nextInputs,
+      chainId: 1,
+      prev,
+      priorityModel: PriorityModel.flat,
+    })!
     expect(next.tiers.standard.maxPriorityFeePerGas).toBe(4_375_000_000n)
     expect(next.lastPublishedTips!.standard).toBe(4_375_000_000n)
   })
@@ -264,6 +284,8 @@ describe('reducePollInputs', () => {
       }),
       chainId: 1,
       prev: null,
+      // Same reason as the suppress-whipsaw test above: legacy-only fixture.
+      priorityModel: PriorityModel.flat,
     })!
 
     const nextInputs = blockOnly({
@@ -272,7 +294,12 @@ describe('reducePollInputs', () => {
       ],
     })
     nextInputs.block!.number = '0x1235'
-    const next = reducePollInputs({ inputs: nextInputs, chainId: 1, prev })!
+    const next = reducePollInputs({
+      inputs: nextInputs,
+      chainId: 1,
+      prev,
+      priorityModel: PriorityModel.flat,
+    })!
     expect(next.tiers.standard.maxPriorityFeePerGas).toBe(50_000_000_000n)
   })
 
@@ -290,6 +317,56 @@ describe('reducePollInputs', () => {
     expect(next.ring[0].number).toBe(0x1234n)
     expect(next.ring[0].tips).toHaveLength(1)
     expect(next.ring[0].tips[0].tip).toBe(100_000_000_000n)
+  })
+
+  it('preserves mempoolSamples on the published state', () => {
+    // Two paying-lane mempool txs at 5 gwei and 8 gwei — the samples
+    // that fed the tier computation must be retained on the resulting
+    // state so downstream replacement/classification helpers can read
+    // the live distribution without re-fetching txpool_content.
+    const inputs: OraclePollInputs = {
+      feeHistory: null,
+      block: blockOnly().block,
+      txPool: {
+        pending: {
+          '0xaaa': {
+            '1': {
+              maxPriorityFeePerGas: hex(5_000_000_000n),
+              maxFeePerGas: hex(baseFeeGwei + 5_000_000_000n),
+              gas: '0x5208',
+              type: '0x2',
+              hash: '0xm1',
+              from: '0xaaa',
+              nonce: '0x1',
+            },
+          },
+          '0xbbb': {
+            '1': {
+              maxPriorityFeePerGas: hex(8_000_000_000n),
+              maxFeePerGas: hex(baseFeeGwei + 8_000_000_000n),
+              gas: '0x5208',
+              type: '0x2',
+              hash: '0xm2',
+              from: '0xbbb',
+              nonce: '0x1',
+            },
+          },
+        },
+        queued: {},
+      },
+    }
+    const next = reducePollInputs({ inputs, chainId: 1, prev: null })!
+    expect(next.mempoolSamples).toHaveLength(2)
+    const tips = next.mempoolSamples.map((s) => s.tip).sort((a, b) => (a < b ? -1 : 1))
+    expect(tips).toEqual([5_000_000_000n, 8_000_000_000n])
+    expect(next.mempoolSamples.every((s) => s.txType === 2)).toBe(true)
+  })
+
+  it('returns an empty mempoolSamples array when txPool is absent', () => {
+    // The "no mempool data" branch — assert the field is still present
+    // and non-undefined so consumers can call array methods safely.
+    const next = reducePollInputs({ inputs: blockOnly(), chainId: 1, prev: null })!
+    expect(next.mempoolSamples).toEqual([])
   })
 })
 
@@ -398,7 +475,7 @@ describe('createGasOracle', () => {
     const oracle = createGasOracle({
       client,
       chainId: 1,
-      pollIntervalMs: 100,
+      pollIntervalMs: 100n,
       pauseWhenIdle: false,
     })
 
@@ -428,7 +505,7 @@ describe('createGasOracle', () => {
     const oracle = createGasOracle({
       client,
       chainId: 1,
-      pollIntervalMs: 100,
+      pollIntervalMs: 100n,
       pauseWhenIdle: false,
     })
 
@@ -454,7 +531,7 @@ describe('createGasOracle', () => {
       if (method === 'eth_getBlockByNumber') return okBlock()
       return null
     })
-    const oracle = createGasOracle({ client, chainId: 1, pollIntervalMs: 100 })
+    const oracle = createGasOracle({ client, chainId: 1, pollIntervalMs: 100n })
 
     // Drive the first cycle deterministically — `start()` is fire-and-forget
     // so the cycle promise isn't awaitable through it.
@@ -476,7 +553,7 @@ describe('createGasOracle', () => {
       if (method === 'eth_getBlockByNumber') return okBlock()
       return null
     })
-    const oracle = createGasOracle({ client, chainId: 1, pollIntervalMs: 100 })
+    const oracle = createGasOracle({ client, chainId: 1, pollIntervalMs: 100n })
 
     const seen: GasOracleState[] = []
     const unsubscribe = oracle.subscribe((state) => seen.push(state))
@@ -696,7 +773,7 @@ describe('createGasOracle', () => {
       ] as never,
     })
 
-    const buildOracle = (priorityModel: 'flat' | 'eip1559') => {
+    const buildOracle = (priorityModel: PriorityModel) => {
       const { client } = stubClient((method) => {
         if (method === 'eth_getBlockByNumber') return mixedBlock()
         return null
@@ -704,8 +781,8 @@ describe('createGasOracle', () => {
       return createGasOracle({ client, chainId: 1, priorityModel })
     }
 
-    const flat = await buildOracle('flat').pollOnce()
-    const eip = await buildOracle('eip1559').pollOnce()
+    const flat = await buildOracle(PriorityModel.flat).pollOnce()
+    const eip = await buildOracle(PriorityModel.eip1559).pollOnce()
 
     expect(flat).not.toBeNull()
     expect(eip).not.toBeNull()
@@ -726,7 +803,7 @@ describe('createGasOracle', () => {
       if (method === 'eth_getBlockByNumber') return okBlock()
       return null
     })
-    const oracle = createGasOracle({ client, chainId: 1, pollIntervalMs: 100 })
+    const oracle = createGasOracle({ client, chainId: 1, pollIntervalMs: 100n })
 
     oracle.start()
     await flush()
@@ -754,7 +831,7 @@ describe('createGasOracle', () => {
       if (method === 'eth_getBlockByNumber') return okBlock()
       return null
     })
-    const oracle = createGasOracle({ client, chainId: 1, pollIntervalMs: 100 })
+    const oracle = createGasOracle({ client, chainId: 1, pollIntervalMs: 100n })
     oracle.start()
     await flush()
     // No cycle yet — only the probe ran.
@@ -791,7 +868,7 @@ describe('createGasOracle', () => {
     const oracle = createGasOracle({
       client,
       chainId: 1,
-      pollIntervalMs: 100,
+      pollIntervalMs: 100n,
       blockGatedPolling: false,
     })
     oracle.start()
@@ -862,7 +939,7 @@ describe('createGasOracle', () => {
         chainId: 1,
         pauseWhenHidden: true,
         pauseWhenIdle: false,
-        pollIntervalMs: 100,
+        pollIntervalMs: 100n,
       })
       oracle.start()
       await flush()
@@ -891,7 +968,7 @@ describe('createGasOracle', () => {
         chainId: 1,
         pauseWhenHidden: true,
         pauseWhenIdle: true,
-        pollIntervalMs: 100,
+        pollIntervalMs: 100n,
       })
       oracle.start()
       const unsub = oracle.subscribe(() => {})
@@ -918,7 +995,7 @@ describe('createGasOracle', () => {
         chainId: 1,
         pauseWhenHidden: true,
         pauseWhenIdle: true,
-        pollIntervalMs: 100,
+        pollIntervalMs: 100n,
       })
       oracle.start()
       const unsub = oracle.subscribe(() => {})
@@ -949,7 +1026,7 @@ describe('createGasOracle', () => {
         chainId: 1,
         pauseWhenHidden: true,
         pauseWhenIdle: true,
-        pollIntervalMs: 100,
+        pollIntervalMs: 100n,
       })
       oracle.start()
       docRef.hidden = false
@@ -975,7 +1052,7 @@ describe('createGasOracle', () => {
         chainId: 1,
         pauseWhenHidden: true,
         pauseWhenIdle: false,
-        pollIntervalMs: 100,
+        pollIntervalMs: 100n,
       })
       oracle.start()
       // First make it hidden then visible
@@ -1007,7 +1084,7 @@ describe('createGasOracle', () => {
     const oracle = createGasOracle({
       client,
       chainId: 1,
-      pollIntervalMs: 100,
+      pollIntervalMs: 100n,
       blockGatedPolling: false,
       staleAfter: 250,
     })
@@ -1069,7 +1146,7 @@ describe('createGasOracle', () => {
     const oracle = createGasOracle({
       client,
       chainId: 1,
-      pollIntervalMs: 100,
+      pollIntervalMs: 100n,
       blockGatedPolling: false,
       staleAfter: 250,
     })
@@ -1102,7 +1179,7 @@ describe('createGasOracle', () => {
     const oracle = createGasOracle({
       client,
       chainId: 1,
-      pollIntervalMs: 100,
+      pollIntervalMs: 100n,
       blockGatedPolling: false,
       staleAfter: 250,
     })
@@ -1137,7 +1214,7 @@ describe('createGasOracle', () => {
     const oracle = createGasOracle({
       client,
       chainId: 1,
-      pollIntervalMs: 100,
+      pollIntervalMs: 100n,
       pauseWhenIdle: false,
       blockGatedPolling: false,
     })
@@ -1169,7 +1246,7 @@ describe('createGasOracle', () => {
     const oracle = createGasOracle({
       client,
       chainId: 1,
-      pollIntervalMs: 100,
+      pollIntervalMs: 100n,
       pauseWhenIdle: false,
     })
     oracle.start()
@@ -1202,7 +1279,7 @@ describe('createGasOracle', () => {
     const oracle = createGasOracle({
       client,
       chainId: 1,
-      pollIntervalMs: 100,
+      pollIntervalMs: 100n,
       pauseWhenIdle: false,
     })
     oracle.start()
@@ -1264,7 +1341,7 @@ describe('createGasOracle', () => {
     const oracle = createGasOracle({
       client,
       chainId: 1,
-      pollIntervalMs: 100,
+      pollIntervalMs: 100n,
       pauseWhenIdle: false,
       blockGatedPolling: false,
       pauseWhenHidden: true,
@@ -1530,7 +1607,7 @@ describe('sampleGasFees', () => {
     const state = await sampleGasFees({
       client,
       chainId: 369,
-      priorityModel: 'flat',
+      priorityModel: PriorityModel.flat,
       priorityFeeDecayCap: 100_000_000n,
     })
     expect(state?.chainId).toBe(369)

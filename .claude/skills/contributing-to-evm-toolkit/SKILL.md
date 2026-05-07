@@ -170,6 +170,49 @@ matter most for this codebase:
   is fixture-driven. New behavior = new tests, not just regression
   coverage.
 
+## Project style — no magic strings
+
+Every string-union type lands as a const-namespace pair: the value object (`as const`) and the derived type alias share the identifier. Call sites reference the const, never the bare literal.
+
+```ts
+export const PriorityModel = {
+  flat: 'flat',
+  eip1559: 'eip1559',
+} as const
+export type PriorityModel = (typeof PriorityModel)[keyof typeof PriorityModel]
+
+// At call sites:
+if (model === PriorityModel.flat) { ... }     // ✓
+if (model === 'flat') { ... }                  // ✗ — magic string
+```
+
+Examples in the codebase: `PriorityModel`, `TierName`, `Trend`, `TxType` (gas-oracle), more emerging across other packages over time. When you add a new string-union type, this is the shape.
+
+## Project style — bigint discipline
+
+Numeric values that participate in math are `bigint`. Convert to `number` only at JS-platform-API boundaries:
+
+- `arr[Number(i)]` for array indexing where `i: bigint`
+- `setInterval(_, Number(ms))` for timers
+- `BigInt(arr.length)` to lift array length into bigint math
+
+```ts
+// ✓ — math in bigint, conversion only at array access
+const samplesLen = BigInt(sorted.length)
+let gasFromTop = 0n
+for (let i = 0n; i < rank; i += 1n) {
+  gasFromTop += sorted[Number(i)].gas
+}
+
+// ✗ — number propagates through arithmetic
+let gasFromTop = 0
+for (let i = 0; i < rank; i += 1) {
+  gasFromTop += Number(sorted[i].gas)
+}
+```
+
+**Carve-out**: identifier-like fields that never participate in math stay `number`: `chainId`, EIP-2718 type bytes (`TxType` values, `RawTx.type`).
+
 ## Pre-PR checks — run all of these from the workspace root
 
 ```bash

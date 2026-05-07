@@ -12,19 +12,14 @@
  * (`subscription` / `poll-only` / `available` / `gated` /
  * `unavailable`) lives in the per-method spec table (§7).
  *
- * **What this probe deliberately does NOT do:** issue a real
- * `eth_subscribe` against the upstream. The viem transport's
- * `subscribe` API surface varies across versions and engaging it just
- * to immediately tear it down is wasteful + can leak handles on
- * misbehaving providers. We detect WS-subscribe capability
- * structurally (`typeof transport.subscribe === 'function'`) and let
- * the actual subscribe attempt happen lazily when a consumer calls
- * `source.subscribeBlocks` / `subscribeMempool`. If the runtime
- * subscribe fails, the source emits a `signal-degraded`-shaped fact
- * (or downstream consumers do — chain-source itself doesn't author
- * editorial events). This is the v0.3.x posture; future revisions
- * may upgrade to live-probing if a provider is found that lies
- * structurally.
+ * **WS subscribe live-probe (v0.8.0+):** at probe time we issue one
+ * opportunistic `eth_subscribe('newHeads')` round-trip and immediately
+ * unsubscribe. This upgrades the v0.3.x structural check
+ * (`typeof transport.subscribe === 'function'`) to a truthful answer —
+ * some transports wrap but can't actually open a subscription, and the
+ * downstream wiring added in v0.8.0 needs the probe's answer to be
+ * accurate before attempting to wire a live subscription. A failure
+ * downgrades to `'poll-only'` and surfaces via `onError`.
  */
 
 import type { PublicClient } from 'viem'
@@ -38,23 +33,46 @@ interface ProbeOptions {
 }
 
 /**
- * Inspect the client's transport surface to decide whether push
- * subscriptions are possible. The capability is structural — the
- * subscribe attempt itself is deferred to the actual subscribeBlocks /
- * subscribeMempool call so we don't pay an early eth_subscribe just
- * to learn the answer.
+ * Inspect the client's transport surface and perform one opportunistic
+ * `newHeads` round-trip to confirm the transport can actually open a
+ * subscription. A structural check alone (`typeof subscribe === 'function'`)
+ * is insufficient — some transports wrap-but-can't-subscribe.
  *
- * Returns `'subscription'` when the transport exposes a `subscribe`
- * function (canonical viem WS shape), `'unavailable'` otherwise.
- * `'poll-only'` is reserved for the future live-probe variant where
- * we can distinguish "transport supports subscribe but upstream
- * rejected this method" from "transport doesn't subscribe at all."
+ * - `'subscription'` — transport exposes `subscribe` **and** the probe call
+ *   succeeded; push-based event flow is available.
+ * - `'poll-only'` — transport exposes `subscribe` but the probe threw; the
+ *   upstream rejected `eth_subscribe`, so we fall back to polling.
+ * - `'unavailable'` — transport has no `subscribe` function at all; HTTP-only.
  */
-const probeSubscribeShape = (
+const probeSubscribeShape = async (
   client: PublicClient,
-): 'subscription' | 'unavailable' => {
-  const transport = client.transport as { subscribe?: unknown }
-  return typeof transport.subscribe === 'function' ? 'subscription' : 'unavailable'
+  onError?: (method: string, err: unknown) => void,
+): Promise<'subscription' | 'poll-only' | 'unavailable'> => {
+  const transport = client.transport as {
+    subscribe?: (...args: unknown[]) => Promise<{ unsubscribe: () => void }>
+  }
+  if (typeof transport.subscribe !== 'function') return 'unavailable'
+  // Live probe: open and immediately close a newHeads subscription. Cheap;
+  // the upstream sees one eth_subscribe + one eth_unsubscribe and we get a
+  // truthful answer to "does this transport.subscribe actually work?"
+  try {
+    const sub = await transport.subscribe({
+      params: ['newHeads'],
+      // No-op stubs: the transport.subscribe contract requires both
+      // callbacks. The probe unsubscribes immediately, so on most
+      // upstreams these never fire — but some viem transports invoke
+      // onData / onError synchronously during subscribe (queued head
+      // event or setup error). Both paths must be a safe no-op so the
+      // probe's only signal is the resolved/rejected outer promise.
+      onData: () => {},
+      onError: () => {},
+    } as unknown as Parameters<typeof transport.subscribe>[0])
+    sub.unsubscribe()
+    return 'subscription'
+  } catch (err) {
+    if (onError) onError('eth_subscribe', err)
+    return 'poll-only'
+  }
 }
 
 /**
@@ -66,7 +84,7 @@ export const probeCapabilities = async (
   client: PublicClient,
   options: ProbeOptions = {},
 ): Promise<Capabilities> => {
-  const subscribeShape = probeSubscribeShape(client)
+  const subscribeShape = await probeSubscribeShape(client, options.onError)
 
   // 1. txpool_content — distinguishes 'available' / 'gated'. Many
   // public RPCs return 405 / method-not-found for this method.

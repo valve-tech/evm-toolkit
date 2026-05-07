@@ -53,16 +53,16 @@ export type {
   RawTx,
   TipPercentiles,
   TierRecommendation,
-  TierName,
-  Trend,
   MempoolStats,
   BlobStats,
   BlockSample,
   GasOracleState,
   TipSample,
-  PriorityModel,
   PollOptions,
 } from './types.js'
+
+// Const-namespace pairs (value + type share the identifier — see types.ts).
+export { PriorityModel, TierName, TIER_LADDER, Trend, TxType } from './types.js'
 
 // Mempool inspection
 export {
@@ -84,3 +84,29 @@ export type {
   BlockPositionQuery,
   BlockPositionResult,
 } from './block-position.js'
+
+// Replacement helpers (same-nonce EIP-1559)
+export {
+  minimumReplacementFee,
+  bumpForReplacement,
+  recommendBumpTier,
+  BumpStrategy,
+  ReplacementBumpPercent,
+} from './replacement.js'
+export type {
+  RecommendBumpTierOptions,
+  ReplacementGas,
+} from './replacement.js'
+
+// Tip classification (inverse of tipForBlockPosition)
+export { classifyTip, type ClassifyTipResult } from './classify-tip.js'
+
+// Inclusion labels (UI copy with optional locale overrides)
+export { defaultInclusionLabels, inclusionLabel } from './inclusion-labels.js'
+
+// Chain presets (per-chain config overrides for createGasOracle)
+export {
+  chainPresets,
+  presetForChainId,
+  type ChainPreset,
+} from './presets.js'

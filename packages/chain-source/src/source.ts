@@ -27,12 +27,23 @@
  *     Callers that need a guaranteed-fresh result can `await
  *     source.ready()` before reading `capabilities()`.
  *
- * Push subscriptions (eth_subscribe) are not yet wired in v0.3.x —
- * the `Capabilities.newHeads` / `newPendingTransactions` fields
- * disclose what *would* be available structurally, but the source
- * always falls back to its interval poll cycle in this revision.
- * Future revisions add WS push without changing the consumer-facing
- * `subscribeBlocks` / `subscribeMempool` shape.
+ * Push subscriptions (eth_subscribe):
+ *
+ *   - As of v0.8.0, when capabilities.newHeads === 'subscription' (probed at
+ *     construction via probeCapabilities), the source opens a live
+ *     eth_subscribe('newHeads') lazily on the first start(). Head events
+ *     are piped through the existing fetchBlock + dedup-by-hash machinery
+ *     so push and poll coexist safely. On subscribe failure, the cached
+ *     capability downgrades to 'poll-only', surfaces via onError, and the
+ *     poll cycle continues unchanged.
+ *   - When capabilities.newPendingTransactions === 'subscription', the source
+ *     opens a live eth_subscribe('newPendingTransactions') lazily on the first
+ *     start(). Push notifications carry a hash only — the source fetches the
+ *     full tx via eth_getTransactionByHash and emits a single-tx
+ *     NormalizedMempool snapshot. On subscribe failure, the cached capability
+ *     downgrades to poll-only (or unavailable when txpool_content is also
+ *     gated). Push and poll coexist — mempool snapshots are intentionally
+ *     not deduped (txs come and go between blocks even on a static head).
  */
 
 import type { PublicClient } from 'viem'
@@ -181,6 +192,22 @@ export const createChainSource = (
   let timer: ReturnType<typeof setInterval> | null = null
   let started = false
   let cachedCapabilities: Capabilities = PROBING_DEFAULT
+  /**
+   * Narrow the viem transport to its WebSocket-specific `subscribe` shape once.
+   * viem's `Transport` type does not model this method; we structurally narrow
+   * through `unknown` here and reuse the result in both `tryOpen*Subscription`
+   * functions rather than redeclaring the cast in each.
+   */
+  const wsTransport = options.client.transport as unknown as {
+    subscribe: (arg: {
+      params: unknown[]
+      onData: (data: unknown) => void
+      onError: (err: unknown) => void
+    }) => Promise<{ unsubscribe: () => void }>
+  }
+
+  let blockSubscriptionHandle: { unsubscribe: () => void } | null = null
+  let mempoolSubscriptionHandle: { unsubscribe: () => void } | null = null
   // Dedup key for the block stream — by hash, not number, so that a
   // same-height reorg (different hash, same number) still surfaces as
   // a fresh observation. Reset on stop() so a paused-then-resumed
@@ -199,6 +226,140 @@ export const createChainSource = (
 
   const errSink = (method: string) =>
     options.onError ? (err: unknown) => options.onError!(method, err) : undefined
+
+  /**
+   * Fetch the full block at 'latest' and pipe it through the existing
+   * dedup machinery. Called from the WS `newHeads` subscription's
+   * `onData` handler whenever a head notification arrives.
+   */
+  const handleHeadNotification = async (): Promise<void> => {
+    const block = await fetchBlock(
+      options.client,
+      'latest',
+      errSink('eth_getBlockByNumber'),
+    )
+    if (!block) return
+    if (block.hash !== lastEmittedBlockHash) {
+      lastEmittedBlockHash = block.hash
+      try {
+        lastSeenBlockNumber = BigInt(block.number)
+      } catch {
+        // Unparseable block number — leave gate state untouched so the
+        // next poll tick re-fetches rather than skipping on garbage state.
+      }
+      blockSubs.emit(block)
+    }
+  }
+
+  /**
+   * Open one `eth_subscribe('newHeads')` lazily — called once the probe
+   * has resolved and confirmed `newHeads === 'subscription'`. Head
+   * notifications are piped through `handleHeadNotification` + the
+   * existing dedup machinery so push and poll coexist safely. Failure
+   * downgrades the cached capability to `'poll-only'` and surfaces via
+   * `onError`; the existing poll cycle continues unchanged.
+   *
+   * No idempotency flag is needed here: start() is already gated by the
+   * outer `started` flag (preventing double-subscription within one start
+   * cycle), and stop()/start() resume legitimately requires this function
+   * to run again — stop() sets blockSubscriptionHandle = null so the next
+   * call opens a fresh subscription cleanly.
+   */
+  const tryOpenBlockSubscription = async (): Promise<void> => {
+    if (cachedCapabilities.newHeads !== 'subscription') return
+    try {
+      blockSubscriptionHandle = await wsTransport.subscribe({
+        params: ['newHeads'],
+        // Head notifications: fetch the full block at the tip and emit
+        // through the existing dedup machinery. Hash dedup in blockSubs
+        // already handles WS-vs-poll race and same-height reorgs.
+        onData: () => void handleHeadNotification(),
+        onError: (err) => options.onError?.('eth_subscribe.newHeads', err),
+      })
+    } catch (err) {
+      options.onError?.('eth_subscribe.newHeads', err)
+      cachedCapabilities = { ...cachedCapabilities, newHeads: 'poll-only' }
+    }
+  }
+
+  /**
+   * Fetch the full transaction by hash and emit a single-tx
+   * NormalizedMempool snapshot into mempoolSubs. Called from the WS
+   * `newPendingTransactions` subscription's `onData` handler for each
+   * hash-only push notification.
+   *
+   * Hash-only normalization: the WS payload carries only a hash; this
+   * function fetches the full tx and wraps it in the canonical
+   * NormalizedMempool shape so consumers see one consistent type
+   * regardless of whether the data arrived via push or poll.
+   */
+  const handleMempoolNotification = async (hash: string): Promise<void> => {
+    const tx = await fetchTransaction(
+      options.client,
+      hash,
+      errSink('eth_getTransactionByHash'),
+    )
+    if (!tx?.from || !tx.nonce) return
+    const sender = tx.from.toLowerCase()
+    let nonceKey: string
+    try {
+      nonceKey = BigInt(tx.nonce).toString(10)
+    } catch {
+      // Unparseable nonce — use the raw value rather than dropping the
+      // tx entirely; downstream lookup helpers handle unexpected keys.
+      nonceKey = tx.nonce
+    }
+    const snapshot: NormalizedMempool = {
+      pending: { [sender]: { [nonceKey]: tx } },
+      queued: {},
+    }
+    mempoolSubs.emit(snapshot)
+  }
+
+  /**
+   * Open one `eth_subscribe('newPendingTransactions')` lazily — called
+   * once the probe has resolved and confirmed
+   * `newPendingTransactions === 'subscription'`. Push notifications carry
+   * a hash only; each hash is piped through `handleMempoolNotification`
+   * which fetches the full tx and emits a single-tx NormalizedMempool
+   * snapshot. Push and poll coexist — mempool snapshots are
+   * intentionally not deduped. Failure downgrades the cached capability
+   * and surfaces via `onError`; the poll cycle continues unchanged.
+   *
+   * No idempotency flag is needed here: start() is already gated by the
+   * outer `started` flag (preventing double-subscription within one
+   * start cycle), and stop()/start() resume legitimately requires this
+   * function to run again — stop() sets mempoolSubscriptionHandle = null
+   * so the next call opens a fresh subscription cleanly.
+   */
+  const tryOpenMempoolSubscription = async (): Promise<void> => {
+    if (!fetchMempool) return
+    if (cachedCapabilities.newPendingTransactions !== 'subscription') return
+    try {
+      mempoolSubscriptionHandle = await wsTransport.subscribe({
+        params: ['newPendingTransactions'],
+        // Push notifications carry a hash (string) on most providers;
+        // some send full-tx objects — extract .hash as a fallback.
+        onData: (data: unknown) => {
+          const hash =
+            typeof data === 'string' ? data : (data as { hash?: string }).hash
+          if (!hash) return
+          void handleMempoolNotification(hash)
+        },
+        onError: (err) =>
+          options.onError?.('eth_subscribe.newPendingTransactions', err),
+      })
+    } catch (err) {
+      options.onError?.('eth_subscribe.newPendingTransactions', err)
+      cachedCapabilities = {
+        ...cachedCapabilities,
+        newPendingTransactions:
+          cachedCapabilities.txpoolContent === 'available'
+            ? 'poll-only'
+            : 'unavailable',
+      }
+    }
+  }
 
   // Eager capability probe. Fire-and-forget; consumers that need a
   // guaranteed-completed probe await source.ready().
@@ -269,9 +430,29 @@ export const createChainSource = (
       timer = setInterval(() => {
         void tick()
       }, pollIntervalMs)
+      // Open WS subscribes lazily once the probe has landed. Fire-and-
+      // forget; failures fall through to the existing poll loop.
+      void readyPromise.then(() => tryOpenBlockSubscription())
+      void readyPromise.then(() => tryOpenMempoolSubscription())
     },
 
     stop: () => {
+      if (blockSubscriptionHandle) {
+        try {
+          blockSubscriptionHandle.unsubscribe()
+        } catch (err) {
+          options.onError?.('eth_unsubscribe', err)
+        }
+        blockSubscriptionHandle = null
+      }
+      if (mempoolSubscriptionHandle) {
+        try {
+          mempoolSubscriptionHandle.unsubscribe()
+        } catch (err) {
+          options.onError?.('eth_unsubscribe', err)
+        }
+        mempoolSubscriptionHandle = null
+      }
       if (timer !== null) {
         clearInterval(timer)
         timer = null

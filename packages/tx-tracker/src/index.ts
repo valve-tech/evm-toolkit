@@ -49,6 +49,8 @@ export type {
   TxMatchEvent,
   TxSubscription,
   LostSignalPolicy,
+  GroupOptions,
+  TxGroupSubscription,
 } from './tracker.js'
 
 export {
@@ -110,3 +112,42 @@ export {
   matchAll,
 } from './selectors.js'
 export type { BulkMatchPayload, CompiledSelector } from './selectors.js'
+
+export { createTxGroup } from './group.js'
+
+export { watchTransaction } from './watch-transaction.js'
+export type { WatchTransactionOptions } from './watch-transaction.js'
+
+export { waitForTransaction } from './wait-for-transaction.js'
+export type {
+  WaitForTransactionOptions,
+  WaitForTransactionOutcome,
+} from './wait-for-transaction.js'
+
+export {
+  waitForPending,
+  WaitForPendingTimeoutError,
+} from './wait-for-pending.js'
+export type { WaitForPendingOptions } from './wait-for-pending.js'
+
+export {
+  buildGroupComplete,
+  buildGroupFailed,
+  buildGroupProgress,
+  buildGroupStopped,
+} from './group-events.js'
+export type {
+  TxGroupEvent,
+  TxGroupEventComplete,
+  TxGroupEventEnvelope,
+  TxGroupEventFailed,
+  TxGroupEventProgress,
+  TxGroupEventStopped,
+} from './group-events.js'
+
+export { replaceTransaction } from './replace-transaction.js'
+export type {
+  ReplaceTransactionNewGas,
+  ReplaceTransactionOptions,
+  ReplaceTransactionOriginal,
+} from './replace-transaction.js'

@@ -6,6 +6,16 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.8.0] — 2026-05-06
+
+### Added
+- WS subscribe path for `subscribeBlocks`. When `capabilities.newHeads === 'subscription'`, the source opens `eth_subscribe('newHeads')` lazily on `start()` and pipes head events through the existing fetchBlock + dedup-by-hash machinery. Push and poll coexist safely.
+- WS subscribe path for `subscribeMempool` with hash-only normalization. Push delivers a hash; the source fetches the full tx via `getTransaction` and emits a single-tx `NormalizedMempool` snapshot so consumers see one shape regardless of source.
+- Live-probe at capability-detection time. `probeCapabilities` now performs one opportunistic `eth_subscribe('newHeads')` round-trip to confirm the transport actually supports subscribe, returning `'subscription' | 'poll-only' | 'unavailable'` truthfully. Failure downgrades to `'poll-only'` and surfaces via `onError`.
+
+### Changed
+- Internal: extracted shared `wsTransport` cast; consolidated WS-subscribe error method names to `'eth_subscribe.<channel>'` for both setup-failure and stream-error paths.
+
 ## [0.7.0] — 2026-05-06
 
 ### Notes

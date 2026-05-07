@@ -10,6 +10,8 @@ working in a project that imports the package — it grounds you in the
 right configuration choices for the user's chain and the right
 integration shape for their codebase.
 
+> **v0.8.0 default change**: `priorityModel` now defaults to `PriorityModel.eip1559` (was `flat`). Examples that previously omitted the field silently get the new default. Set `PriorityModel.flat` explicitly for PulseChain (chain 369) — or use `...chainPresets.pulsechain`.
+
 ## Decision tree: which integration to use
 
 ```
@@ -30,13 +32,13 @@ Is the user already passing a viem PublicClient around?
 
 | Chain | `chainId` | `priorityModel` | `baseFeeLivenessBlocks` | Notes |
 |---|---|---|---|---|
-| Ethereum mainnet | 1 | `'eip1559'` | 6 | Validators burn base fee. |
-| Base | 8453 | `'eip1559'` | 6 | Same as ETH. |
-| Arbitrum One | 42161 | `'eip1559'` | 6 | |
-| Optimism | 10 | `'eip1559'` | 6 | |
-| PulseChain mainnet | 369 | `'flat'` | 6 | Validators charge tips. |
-| PulseChain testnet v4 | 943 | `'flat'` | 6 | |
-| Unknown / unsure | — | `'flat'` | 6 | Conservative; never under-counts. |
+| Ethereum mainnet | 1 | `PriorityModel.eip1559` (default) | 6 | Validators burn base fee. |
+| Base | 8453 | `PriorityModel.eip1559` (default) | 6 | Same as ETH. |
+| Arbitrum One | 42161 | `PriorityModel.eip1559` (default) | 6 | |
+| Optimism | 10 | `PriorityModel.eip1559` (default) | 6 | |
+| PulseChain mainnet | 369 | `PriorityModel.flat` | 6 | Validators charge tips. Use `...chainPresets.pulsechain`. |
+| PulseChain testnet v4 | 943 | `PriorityModel.flat` | 6 | |
+| Unknown / unsure | — | `PriorityModel.eip1559` (default) | 6 | Default is correct unless you've verified the chain is extractive. |
 
 `priorityFeeDecayCap`: leave at default (`WAD/8` = 12.5%/block, EIP-1559
 parity) unless you have a specific reason to tighten/loosen.
@@ -59,11 +61,12 @@ When reviewing user code, watch for these and suggest fixes:
    be missing. Fix: `await oracle.pollOnce()` after `start()` to seed
    state synchronously, then it's safe to call `getState()`.
 
-4. **Using `priorityModel: 'eip1559'` on PulseChain or other tip-charging
-   chains.** Cuts the distribution to type-2+ samples only, but
-   PulseChain validators don't honor the type byte — they sort by tip
-   regardless. Result: under-published tier values, your tx loses to
-   legacy spam.
+4. **Using `PriorityModel.eip1559` on PulseChain or other tip-charging
+   chains.** This is now the default — silent footgun on chain 369
+   unless you set `PriorityModel.flat` (or use `...chainPresets.pulsechain`).
+   It cuts the distribution to type-2+ samples only, but PulseChain
+   validators don't honor the type byte — they sort by tip regardless.
+   Result: under-published tier values, your tx loses to legacy spam.
 
 5. **`keepMempoolSnapshot: true` on a chain whose RPC gates
    `txpool_content`** (most public RPCs). Wastes a poll cycle's RPC
@@ -88,6 +91,96 @@ import { withGasOracle } from '@valve-tech/gas-oracle/viem-transport'
 ```
 
 `package.json` will show `"@valve-tech/gas-oracle": "^0.2.x"` in dependencies.
+
+## Replacement workflow — bumping a stuck tx
+
+When the user has a stuck tx and asks how to bump / speed it up,
+recommend the `recommendBumpTier` + `bumpForReplacement` pair. This is
+the canonical caller pattern; don't roll your own +10% math:
+
+```ts
+import {
+  recommendBumpTier,
+  bumpForReplacement,
+  BumpStrategy,
+} from '@valve-tech/gas-oracle'
+
+const tier = recommendBumpTier(
+  state,
+  { priorityTip: stuck.maxPriorityFeePerGas, identifier: { hash: stuck.hash } },
+  { strategy: BumpStrategy.cheapestThatLands },  // default
+)
+if (tier === null) return  // already paying above top tier — caller's call
+
+const target = state.tiers[tier]
+const gas = bumpForReplacement(
+  { maxFeePerGas: stuck.maxFeePerGas, maxPriorityFeePerGas: stuck.maxPriorityFeePerGas },
+  { maxFeePerGas: target.maxFeePerGas, maxPriorityFeePerGas: target.maxPriorityFeePerGas },
+)
+walletClient.sendTransaction({ ...stuck, ...gas })
+```
+
+`recommendBumpTier` reads `state.mempoolSamples` to compute outpace
+correction (when an `identifier` is supplied) on top of the EIP-1559
++10% protocol floor. `bumpForReplacement` returns a gas object that
+satisfies BOTH the protocol floor and the target tier — never one or
+the other.
+
+## Tip classification
+
+Inverse of `tipForBlockPosition`. Given a tip, ask "where would this
+land?" instead of "what tip do I need to land here?":
+
+```ts
+import { classifyTip } from '@valve-tech/gas-oracle'
+
+const result = classifyTip(state, myTip)
+// result.tier                 — TierName | null (null if below slow)
+// result.requiredForNextTier  — bigint floor of next tier above (null at instant)
+// result.percentile           — bigint 0-100 (0 = top, 100 = bottom)
+// result.rank                 — bigint 0-indexed from top
+// result.gasFromTop           — bigint accumulated gas above this tip
+```
+
+Useful for "your fee is low — bump?" UX nudges and for showing a
+user where their existing in-flight tx sits vs. live competition.
+
+## UI labels
+
+Branded / localized inclusion-time copy without forking the package:
+
+```ts
+import { defaultInclusionLabels, inclusionLabel, TierName } from '@valve-tech/gas-oracle'
+
+defaultInclusionLabels[TierName.standard]   // 'Next block'
+
+const es = { [TierName.standard]: 'Próximo bloque' }
+inclusionLabel(TierName.standard, es)        // 'Próximo bloque'
+inclusionLabel(TierName.slow, es)            // falls back to default English
+```
+
+Pass partial overrides — anything not in the override map falls back
+to the package default.
+
+## Chain presets
+
+For PulseChain (and any future entries we ship), use the preset entry
+points instead of typing `chainId` + `priorityModel` by hand:
+
+```ts
+import { createGasOracle, chainPresets, presetForChainId } from '@valve-tech/gas-oracle'
+
+// Static — caller knows which chain at code-time:
+createGasOracle({ client, ...chainPresets.pulsechain })
+
+// Dynamic — caller has chainId at runtime (e.g. from wallet):
+const preset = presetForChainId(chainId)
+createGasOracle({ client, chainId, ...preset })
+```
+
+`presetForChainId` returns `undefined` for unknown chains; spreading
+`undefined` into the options object is a no-op, so the call still works
+on a chain we haven't preset (it just gets the package defaults).
 
 ## Where to find more
 

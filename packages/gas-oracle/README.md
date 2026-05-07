@@ -28,7 +28,7 @@ yarn add @valve-tech/gas-oracle viem
 ```ts
 import { createPublicClient, http, parseEther } from 'viem'
 import { mainnet } from 'viem/chains'
-import { createGasOracle } from '@valve-tech/gas-oracle'
+import { createGasOracle, PriorityModel } from '@valve-tech/gas-oracle'
 
 const client = createPublicClient({ chain: mainnet, transport: http() })
 
@@ -36,7 +36,7 @@ const oracle = createGasOracle({
   client,
   chainId: 1,
   priorityFeeDecayCap: parseEther('0.125'), // 12.5%/block, EIP-1559 parity
-  priorityModel: 'eip1559',                 // 'flat' for chains whose validators charge tips instead of burning them
+  // priorityModel defaults to PriorityModel.eip1559 — explicit only if you need to override
 })
 
 oracle.subscribe((state) => {
@@ -73,7 +73,7 @@ Tier mapping in the gas-weighted percentile distribution:
 
 `slow` always reads from the full distribution (legacy + 1559) so legacy
 senders can still find the lane they actually live in. Under
-`priorityModel: 'eip1559'`, the paying-lane tiers (`standard`/`fast`/
+`PriorityModel.eip1559`, the paying-lane tiers (`standard`/`fast`/
 `instant`) draw from type-2+ samples only — legacy spam can't suppress
 them.
 
@@ -95,19 +95,32 @@ priorityFeeDecayCap: null                  // uncapped — track raw mempool
 Validated at construction; out-of-range values throw. Upside is always
 unclamped — real spikes propagate immediately.
 
-### `priorityModel`
+### Choosing `priorityModel`
 
-Where the chain's inclusion logic draws its priority cutoff in the
-EIP-2718 type space:
+The default is `PriorityModel.eip1559` and is correct for every chain whose validators honor the EIP-2718 type byte and the EIP-1559 fee-market shape. **You should only override this if you've verified your target chain's validators are extractive** — that is, they ignore the type byte and maximize fee per gas regardless of tx envelope.
 
-- `'flat'` — every tx contributes equally to the gas-weighted
+The canonical example is **PulseChain (chain 369)**: extractive validators mean the percentile math has to draw from the full tx distribution (`PriorityModel.flat`) instead of filtering to type-2+ samples. Setting the wrong model here silently under-prices, and your tx stalls.
+
+For chains we know about, the `chainPresets` entry-point handles this for you:
+
+```ts
+import { createGasOracle, chainPresets } from '@valve-tech/gas-oracle'
+
+const oracle = createGasOracle({
+  client,
+  ...chainPresets.pulsechain,   // chainId: 369, priorityModel: PriorityModel.flat
+})
+```
+
+Mechanics:
+
+- `PriorityModel.flat` — every tx contributes equally to the gas-weighted
   distribution. Right for extractive validators (PulseChain, etc.)
   that ignore the type byte and just maximize fee per gas.
-- `'eip1559'` — type 2+ samples drive the paying-lane tiers (standard/
-  fast/instant); `slow` still draws from the full distribution. Right
-  for chains that honor EIP-1559 ordering (Ethereum, most L2s).
-
-Default `'flat'` (most conservative — never under-counts spam).
+- `PriorityModel.eip1559` — type 2+ samples drive the paying-lane tiers
+  (standard/fast/instant); `slow` still draws from the full
+  distribution. Right for chains that honor EIP-1559 ordering
+  (Ethereum, most L2s).
 
 ### `baseFeeLivenessBlocks`
 
@@ -240,12 +253,12 @@ For callers who need a single fee snapshot without a long-lived
 oracle (typical tx-submit flow):
 
 ```ts
-import { sampleGasFees } from '@valve-tech/gas-oracle'
+import { sampleGasFees, PriorityModel } from '@valve-tech/gas-oracle'
 
 const snapshot = await sampleGasFees({
   client,
   chainId: 1,
-  priorityModel: 'eip1559',
+  priorityModel: PriorityModel.eip1559,
 })
 const tip = snapshot?.tiers.fast.maxPriorityFeePerGas
 ```
@@ -309,6 +322,90 @@ the same union `computeTiers` reads. The viem-actions extension
 exposes `client.tipForBlockPosition(query)` which assembles this
 distribution for you from the oracle's state.
 
+## Replacement workflow
+
+When a tx gets stuck and you need to bump it past the EIP-1559 protocol
+replacement floor (and optionally past the live mempool distribution):
+
+```ts
+import {
+  createGasOracle,
+  recommendBumpTier,
+  bumpForReplacement,
+  BumpStrategy,
+} from '@valve-tech/gas-oracle'
+
+// 1. Pick a tier to bump to:
+const tier = recommendBumpTier(
+  state,
+  { priorityTip: stuckTx.maxPriorityFeePerGas, identifier: { hash: stuckTx.hash } },
+  { strategy: BumpStrategy.cheapestThatLands },
+)
+
+if (tier === null) {
+  // Stuck tx is already paying above the top of the tier ladder, or
+  // the snapshot has no tip data. Caller's call: hold, or push instant.
+  return
+}
+
+// 2. Compute the gas object that satisfies both the protocol floor and the target tier:
+const target = state.tiers[tier]
+const gas = bumpForReplacement(
+  { maxFeePerGas: stuckTx.maxFeePerGas, maxPriorityFeePerGas: stuckTx.maxPriorityFeePerGas },
+  { maxFeePerGas: target.maxFeePerGas, maxPriorityFeePerGas: target.maxPriorityFeePerGas },
+)
+
+// 3. Send the replacement
+walletClient.sendTransaction({ ...stuckTx, ...gas })
+```
+
+## Tip classification
+
+Inverse of `tipForBlockPosition`: given a tip, find where it lands in the
+live distribution and which named tier it falls in.
+
+```ts
+import { classifyTip } from '@valve-tech/gas-oracle'
+
+const result = classifyTip(state, myTip)
+// result.tier            — TierName | null (null if below slow)
+// result.requiredForNextTier — bigint floor of next tier above (null at instant)
+// result.percentile      — bigint 0-100 (0 = top, 100 = bottom)
+// result.rank            — bigint 0-indexed from top
+// result.gasFromTop      — bigint accumulated gas above this tip
+```
+
+## UI labels
+
+```ts
+import { defaultInclusionLabels, inclusionLabel, TierName } from '@valve-tech/gas-oracle'
+
+defaultInclusionLabels[TierName.standard]   // 'Next block'
+
+// Locale / branded copy via partial overrides — no fork:
+const es = { [TierName.standard]: 'Próximo bloque' }
+inclusionLabel(TierName.standard, es)        // 'Próximo bloque'
+inclusionLabel(TierName.slow, es)            // falls back to default English
+```
+
+## Chain presets
+
+```ts
+import { createGasOracle, chainPresets, presetForChainId } from '@valve-tech/gas-oracle'
+
+// Static — direct preset access
+createGasOracle({ client, ...chainPresets.pulsechain })
+
+// Dynamic — runtime lookup by chainId
+const preset = presetForChainId(chainId)
+createGasOracle({ client, chainId, ...preset })
+```
+
+PulseChain (chain 369) is the only entry shipped today. Adding more
+requires verifying the chain's actual validator behavior against
+block-level data; the default (eip1559) is correct for every chain we
+haven't proven otherwise.
+
 ## viem integration
 
 ### Subpath: `@valve-tech/gas-oracle/viem-actions`
@@ -317,12 +414,13 @@ Extension surface for callers who want explicit access to tier shapes:
 
 ```ts
 import { gasOracleActions } from '@valve-tech/gas-oracle/viem-actions'
+import { PriorityModel } from '@valve-tech/gas-oracle'
 
 const client = createPublicClient({ chain: mainnet, transport: http() })
   .extend(gasOracleActions({
     chainId: 1,
     priorityFeeDecayCap: parseEther('0.125'),
-    priorityModel: 'eip1559',
+    priorityModel: PriorityModel.eip1559,
   }))
 
 await client.getGasTiers()                            // full snapshot
@@ -343,11 +441,12 @@ work better* — `useFeeData`, `walletClient.sendTransaction({...})`,
 
 ```ts
 import { withGasOracle } from '@valve-tech/gas-oracle/viem-transport'
+import { PriorityModel } from '@valve-tech/gas-oracle'
 
 const transport = withGasOracle(http(rpcUrl), {
   chainId: 1,
   priorityFeeDecayCap: parseEther('0.125'),
-  priorityModel: 'eip1559',
+  priorityModel: PriorityModel.eip1559,
   intercept: {
     eth_gasFeeEstimate: true,           // additive (default on)
     eth_maxPriorityFeePerGas: 'fast',   // tier required for standard methods

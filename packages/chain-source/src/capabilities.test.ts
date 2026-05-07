@@ -5,7 +5,7 @@ import { probeCapabilities } from './capabilities.js'
 
 interface StubTransport {
   type: string
-  subscribe?: unknown
+  subscribe?: (...args: unknown[]) => Promise<{ unsubscribe: () => void }>
 }
 
 interface StubResponses {
@@ -44,14 +44,20 @@ test('http-only transport reports reprobeOnReconnect as false', async () => {
 })
 
 test('webSocket transport with subscribe support reports newHeads + newPendingTransactions as subscription', async () => {
-  const client = stubClient({ type: 'webSocket', subscribe: () => {} })
+  const client = stubClient({
+    type: 'webSocket',
+    subscribe: async () => ({ unsubscribe: () => {} }),
+  })
   const caps = await probeCapabilities(client)
   expect(caps.newHeads).toBe('subscription')
   expect(caps.newPendingTransactions).toBe('subscription')
 })
 
 test('webSocket transport reports reprobeOnReconnect as true', async () => {
-  const client = stubClient({ type: 'webSocket', subscribe: () => {} })
+  const client = stubClient({
+    type: 'webSocket',
+    subscribe: async () => ({ unsubscribe: () => {} }),
+  })
   const caps = await probeCapabilities(client)
   expect(caps.reprobeOnReconnect).toBe(true)
 })
@@ -140,4 +146,84 @@ test('probeCapabilities routes receipt-probe failures to onError', async () => {
       ([method]) => method === 'eth_getTransactionReceipt',
     ),
   ).toBe(true)
+})
+
+test('probeCapabilities — WS subscribe live-probe success', async () => {
+  let subscribeCalls = 0
+  const fakeUnsub = vi.fn()
+  // Some viem transports invoke onData / onError synchronously during
+  // subscribe (queued head event or setup error). The probe must treat
+  // both as safe no-ops; this mock exercises both callback paths.
+  const client = {
+    request: vi.fn(async ({ method }: { method: string }) => {
+      if (method === 'txpool_content') return { pending: {}, queued: {} }
+      if (method === 'eth_getTransactionReceipt') return null
+      throw new Error(`unexpected ${method}`)
+    }),
+    transport: {
+      type: 'webSocket',
+      subscribe: vi.fn(
+        async (arg: {
+          params: unknown[]
+          onData: (data: unknown) => void
+          onError: (err: unknown) => void
+        }) => {
+          subscribeCalls++
+          arg.onData('synthetic-head')
+          arg.onError(new Error('synthetic-setup-error'))
+          return { unsubscribe: fakeUnsub }
+        },
+      ),
+    },
+  } as unknown as PublicClient
+
+  const caps = await probeCapabilities(client)
+
+  expect(caps.newHeads).toBe('subscription')
+  expect(subscribeCalls).toBe(1)
+  expect(fakeUnsub).toHaveBeenCalledOnce()
+})
+
+test('probeCapabilities — WS subscribe live-probe failure downgrades to poll-only', async () => {
+  const onError = vi.fn()
+  const client = {
+    request: vi.fn(async ({ method }: { method: string }) => {
+      if (method === 'txpool_content') return { pending: {}, queued: {} }
+      if (method === 'eth_getTransactionReceipt') return null
+      throw new Error(`unexpected ${method}`)
+    }),
+    transport: {
+      type: 'webSocket',
+      subscribe: vi.fn(async () => {
+        throw new Error('eth_subscribe rejected')
+      }),
+    },
+  } as unknown as PublicClient
+
+  const caps = await probeCapabilities(client, { onError })
+
+  expect(caps.newHeads).toBe('poll-only')
+  expect(onError).toHaveBeenCalledWith('eth_subscribe', expect.any(Error))
+  expect(caps.newPendingTransactions).toBe('poll-only')
+  expect(caps.reprobeOnReconnect).toBe(false)
+})
+
+test('probeCapabilities — WS subscribe failure without onError downgrades silently', async () => {
+  const client = {
+    request: vi.fn(async ({ method }: { method: string }) => {
+      if (method === 'txpool_content') return { pending: {}, queued: {} }
+      if (method === 'eth_getTransactionReceipt') return null
+      throw new Error(`unexpected ${method}`)
+    }),
+    transport: {
+      type: 'webSocket',
+      subscribe: vi.fn(async () => {
+        throw new Error('eth_subscribe rejected')
+      }),
+    },
+  } as unknown as PublicClient
+
+  await expect(probeCapabilities(client)).resolves.toMatchObject({
+    newHeads: 'poll-only',
+  })
 })

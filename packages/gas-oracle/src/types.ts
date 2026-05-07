@@ -50,13 +50,37 @@ export interface TierRecommendation {
   maxFeePerBlobGas: bigint | null
 }
 
-export type Trend = 'rising' | 'falling' | 'stable'
+export const Trend = {
+  rising: 'rising',
+  falling: 'falling',
+  stable: 'stable',
+} as const
+export type Trend = (typeof Trend)[keyof typeof Trend]
 
-export type TierName = 'slow' | 'standard' | 'fast' | 'instant'
+export const TierName = {
+  slow: 'slow',
+  standard: 'standard',
+  fast: 'fast',
+  instant: 'instant',
+} as const
+export type TierName = (typeof TierName)[keyof typeof TierName]
+
+/**
+ * Canonical tier ordering, slow → instant. Used by helpers that walk the
+ * tier ladder (e.g., `classifyTip` finds the highest tier whose floor a
+ * tip clears; `recommendBumpTier` finds the cheapest tier that clears
+ * the protocol floor + outpace floor). Ordering is load-bearing.
+ */
+export const TIER_LADDER: readonly TierName[] = [
+  TierName.slow,
+  TierName.standard,
+  TierName.fast,
+  TierName.instant,
+] as const
 
 export interface MempoolStats {
-  pendingCount: number
-  queuedCount: number
+  pendingCount: bigint
+  queuedCount: bigint
   /** Sum of `tx.gas` across all pending txs — congestion proxy. */
   pendingGasDemand: bigint
   /** Latest block's gas limit, useful for "pending demand vs. block capacity". */
@@ -113,7 +137,25 @@ export interface TipSample {
  * Future cutoffs can be added (e.g. `'eip4844'` for blob-only priority)
  * without re-interpreting existing values.
  */
-export type PriorityModel = 'flat' | 'eip1559'
+export const PriorityModel = {
+  flat: 'flat',
+  eip1559: 'eip1559',
+} as const
+export type PriorityModel = (typeof PriorityModel)[keyof typeof PriorityModel]
+
+/**
+ * EIP-2718 transaction type bytes. Identifier values — never participate
+ * in arithmetic, so they stay `number` per the package-wide bigint
+ * carve-out.
+ */
+export const TxType = {
+  legacy: 0,
+  eip2930: 1,
+  eip1559: 2,
+  blob: 3,
+  setCodeAuthorization: 4,
+} as const
+export type TxType = (typeof TxType)[keyof typeof TxType]
 
 /**
  * Producer-side toggles: which RPCs the oracle calls upstream each cycle.
@@ -174,6 +216,15 @@ export interface GasOracleState {
    * §7-§9.
    */
   ring: BlockSample[]
+  /**
+   * Live mempool samples used to compute this snapshot's tiers.
+   * Producer-local — wire publishers should strip before serializing
+   * (same convention as `ring`). Consumed by replacement / classification
+   * helpers (e.g., `recommendBumpTier`'s outpace correction) for live-
+   * distribution analysis without re-fetching mempool data. Each poll
+   * replaces this field; no cumulative growth.
+   */
+  mempoolSamples: TipSample[]
   lastPublishedTips?: Record<TierName, bigint>
   lastPublishedBlockNumber?: bigint
 }

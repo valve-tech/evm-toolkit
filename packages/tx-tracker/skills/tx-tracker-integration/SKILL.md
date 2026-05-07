@@ -158,6 +158,36 @@ import { createGasOracle } from '@valve-tech/gas-oracle'
 dependencies, and almost always `"@valve-tech/chain-source"` alongside
 it (the tracker requires a source).
 
+## Speed-up workflow (cross-package)
+
+For callers tracking a tx via `@valve-tech/tx-tracker` who want to bump
+it when it stalls or drops, pair with `@valve-tech/gas-oracle`'s
+`recommendBumpTier` + `bumpForReplacement` helpers:
+
+```ts
+import { recommendBumpTier, bumpForReplacement } from '@valve-tech/gas-oracle'
+
+// tx-tracker tells you the tx is stuck:
+tracker.on('stuck', (stuck) => {
+  const tier = recommendBumpTier(
+    gasOracleState,
+    { priorityTip: stuck.maxPriorityFeePerGas, identifier: { hash: stuck.hash } },
+  )
+  if (tier === null) return  // Already paying above top tier — caller's call
+
+  const target = gasOracleState.tiers[tier]
+  const gas = bumpForReplacement(
+    { maxFeePerGas: stuck.maxFeePerGas, maxPriorityFeePerGas: stuck.maxPriorityFeePerGas },
+    { maxFeePerGas: target.maxFeePerGas, maxPriorityFeePerGas: target.maxPriorityFeePerGas },
+  )
+  walletClient.sendTransaction({ ...stuck, ...gas })
+})
+```
+
+Outpace correction (passing `identifier`) reads `gasOracleState.mempoolSamples`
+to compute the tip needed to outpace the stuck tx in the live
+distribution, on top of the EIP-1559 +10% protocol floor.
+
 ## Where to find more
 
 - Full API + types: `node_modules/@valve-tech/tx-tracker/AGENTS.md`
