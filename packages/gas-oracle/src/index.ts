@@ -100,3 +100,6 @@ export type {
 
 // Tip classification (inverse of tipForBlockPosition)
 export { classifyTip, type ClassifyTipResult } from './classify-tip.js'
+
+// Inclusion labels (UI copy with optional locale overrides)
+export { defaultInclusionLabels, inclusionLabel } from './inclusion-labels.js'
