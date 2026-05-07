@@ -142,7 +142,7 @@ const buildGasFeeEstimate = (
     baseFeeTrend: state.baseFeeTrend,
     blockNumber: toHex(state.blockNumber),
     lastUpdated: toHex(state.timestamp),
-    mempoolPendingCount: toHex(state.mempool.pendingCount),
+    mempoolPendingCount: Number(state.mempool.pendingCount),
     tiers,
   }
   if (state.blob) out.blobBaseFee = toHex(state.blob.blobBaseFee)
