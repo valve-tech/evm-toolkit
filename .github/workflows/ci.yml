@@ -59,3 +59,9 @@ jobs:
 
       - name: Test
         run: yarn test
+
+      # Catches the v0.9.2 class of bug: a new package was added under
+      # packages/ but release.yml never got a Publish step for it, so
+      # the OIDC release workflow ran green and silently skipped it.
+      - name: Verify release coverage
+        run: yarn verify:release-coverage

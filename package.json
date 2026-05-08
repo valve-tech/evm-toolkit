@@ -23,7 +23,9 @@
     "typecheck:examples": "yarn workspace @valve-tech/gas-oracle run typecheck:examples",
     "lint": "yarn workspaces foreach --all --exclude @valve-tech/evm-toolkit run lint",
     "test": "yarn workspaces foreach --all --exclude @valve-tech/evm-toolkit run test",
-    "test:coverage": "yarn workspaces foreach --all --exclude @valve-tech/evm-toolkit run test:coverage"
+    "test:coverage": "yarn workspaces foreach --all --exclude @valve-tech/evm-toolkit run test:coverage",
+    "verify:clean": "rm -rf packages/*/dist packages/*/tsconfig.tsbuildinfo && yarn build && yarn lint && yarn typecheck && yarn typecheck:examples && yarn test",
+    "verify:release-coverage": "node scripts/verify-release-coverage.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
