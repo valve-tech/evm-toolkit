@@ -729,7 +729,7 @@ export const createTxTracker = (options: CreateTxTrackerOptions): TxTracker => {
     // event from the loop below. Reordering here is load-bearing —
     // see the test "trackFromAddress autoTrackMatched: true creates
     // per-hash subscriptions."
-    runBulkOnBlock(txs, eventSource)
+    runBulkOnBlock(txs)
 
     // withReceipts F2 — pre-fetch receipts for hashes that (a) request
     // receipt enrichment and (b) are about to be included in this block.
@@ -1006,7 +1006,7 @@ export const createTxTracker = (options: CreateTxTrackerOptions): TxTracker => {
     }
 
     // Bulk subscriptions on the mempool path.
-    runBulkOnMempool(byHash, eventSource)
+    runBulkOnMempool(byHash)
   }
 
   /**
@@ -1054,7 +1054,7 @@ export const createTxTracker = (options: CreateTxTrackerOptions): TxTracker => {
    * per-iteration "is it stopped?" guards here. The early return
    * on size===0 keeps the hot path cheap when no bulk subs exist.
    */
-  const runBulkOnBlock = (txs: RawTx[], _eventSource: EventSource): void => {
+  const runBulkOnBlock = (txs: RawTx[]): void => {
     if (bulkSubs.size === 0) return
     const compiled = [...bulkSubs.values()].map((sub) => sub.compiled)
     fanOutBulkMatches(matchAll(txs, compiled), 'block-poll')
@@ -1062,7 +1062,6 @@ export const createTxTracker = (options: CreateTxTrackerOptions): TxTracker => {
 
   const runBulkOnMempool = (
     byHash: Map<Hash, { bucket: 'pending' | 'queued'; tx: RawTx }>,
-    _eventSource: EventSource,
   ): void => {
     if (bulkSubs.size === 0) return
     const compiled = [...bulkSubs.values()].map((sub) => sub.compiled)
