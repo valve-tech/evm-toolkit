@@ -17,3 +17,12 @@ export type {
   TrackedTx,
   TxFlow,
 } from './types.js'
+
+// ─── Provider + hook ───────────────────────────────────────────────────────
+
+export {
+  TxFlightProvider,
+  type TxFlightProviderProps,
+} from './provider.js'
+
+export { useTxFlight, type UseTxFlightReturn } from './use-tx-flight.js'

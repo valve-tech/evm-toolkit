@@ -1,0 +1,65 @@
+'use client'
+
+/**
+ * @fileoverview `useTxFlight(id?)` — the consumer's entry point to a
+ * Provider's store.
+ *
+ * Resolution order for the id:
+ *   1. Explicit argument — `useTxFlight('settings-page')`.
+ *   2. Ambient context from the nearest `<TxFlightProvider>`.
+ *   3. Fallback `'default'`.
+ *
+ * Throws if no Provider has registered a store for the resolved id.
+ *
+ * For Task 5 the hook surface is `txs` + `addManual` + `remove` +
+ * `clear` + `get`. The wallet-adapter (`addWithWalletAdapter`) and
+ * tx-tracker (`addByHash`) integrations land in Tasks 7 and 8 and
+ * extend this surface.
+ */
+
+import { useSyncExternalStore } from 'react'
+import type { TrackedTx } from '@valve-tech/wallet-adapter'
+
+import { _getStoreForId, _useTxFlightContext } from './provider.js'
+import type { AddManualInput } from './types.js'
+
+export interface UseTxFlightReturn {
+  /** Reactive snapshot — re-renders when state changes. */
+  txs: readonly TrackedTx[]
+  /** Add a fully-formed TrackedTx. Returns the supplied id. */
+  addManual: (input: AddManualInput) => string
+  /** Remove an entry by id. No-op if not found. */
+  remove: (id: string) => void
+  /** Empty the strip (terminal + non-terminal). */
+  clear: () => void
+  /** Imperative read; doesn't subscribe to re-renders. */
+  get: (id: string) => TrackedTx | null
+}
+
+export const useTxFlight = (id?: string): UseTxFlightReturn => {
+  const ambient = _useTxFlightContext()
+  const resolvedId = id ?? ambient?.id ?? 'default'
+  const store = _getStoreForId(resolvedId)
+  if (!store) {
+    throw new Error(
+      `[@valve-tech/tx-flight-react] No <TxFlightProvider id="${resolvedId}"> found in tree`,
+    )
+  }
+
+  const txs = useSyncExternalStore(store.subscribe, store.getTxs, store.getTxs)
+
+  return {
+    txs,
+    addManual: (input) => {
+      store.dispatch.addWithTx(input.tx, null)
+      return input.tx.id
+    },
+    remove: (txId) => {
+      store.dispatch.remove(txId)
+    },
+    clear: () => {
+      store.dispatch.clear()
+    },
+    get: (txId) => store.getState().txs.get(txId) ?? null,
+  }
+}
