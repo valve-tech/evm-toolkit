@@ -6,14 +6,24 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.3] — 2026-05-08
+
+**First OIDC-driven publish for this package**, jumping straight
+from the 0.0.1 name-claim. Package contents are identical to
+v0.9.2's intended tarball — v0.9.2's workflow run completed
+successfully but skipped this package because
+`.github/workflows/release.yml` had no `Publish` step for it
+(scaffolding oversight). v0.9.3 adds that step and republishes
+all six packages from the same tag.
+
 ## [0.9.2] — 2026-05-08
 
-Synchronized release — no changes to this package itself.
-Companion fix to v0.9.1: the root `build` script now uses
-`yarn workspaces foreach --topological-dev` so the sibling-package
-`devDependencies` added in v0.9.1 actually drive build ordering
-in CI. v0.9.2 is the first version of the v0.9.x line to reach
-npm for this package.
+*Not published — the Release workflow's build step succeeded but
+the workflow file had no publish step for `@valve-tech/tx-flight-react`,
+so the tarball was never uploaded. Superseded by v0.9.3, which
+adds the missing workflow step and is this package's first real
+OIDC-driven publish.* Synchronized release; no changes to this
+package itself.
 
 ## [0.9.1] — 2026-05-08
 

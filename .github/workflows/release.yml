@@ -165,3 +165,9 @@ jobs:
           cd packages/tx-tracker
           yarn pack --out=/tmp/tx-tracker.tgz
           npm publish /tmp/tx-tracker.tgz --access public --provenance
+
+      - name: Publish @valve-tech/tx-flight-react
+        run: |
+          cd packages/tx-flight-react
+          yarn pack --out=/tmp/tx-flight-react.tgz
+          npm publish /tmp/tx-flight-react.tgz --access public --provenance

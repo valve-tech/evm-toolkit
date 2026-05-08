@@ -6,6 +6,30 @@ this file. Per-package details live in each `packages/*/CHANGELOG.md`.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.3] — 2026-05-08
+
+Third recovery release for v0.9.0. v0.9.2 finally got the build
+ordering right and the OIDC publish workflow ran end-to-end — but
+five of the six packages published, not six: the workflow file
+`.github/workflows/release.yml` had no `Publish @valve-tech/tx-flight-react`
+step (oversight when the new package was scaffolded). v0.9.3 adds
+that step so all six packages publish in lockstep, and is the
+first synchronized version to land on npm for **every** package
+in the v0.9.x line, including `tx-flight-react` (which had been
+stuck at the 0.0.1 name-claim).
+
+- **`.github/workflows/release.yml`**: added a sixth publish step
+  (`yarn pack` + `npm publish --provenance`) for
+  `@valve-tech/tx-flight-react`, ordered last so any future
+  ordering-sensitive tooling sees its three workspace siblings
+  publish first.
+- **chain-source**, **gas-oracle**, **tx-tracker**, **viem-errors**,
+  **wallet-adapter**: synced no-op (republish at 0.9.3 — package
+  contents identical to their already-published 0.9.2 tarballs).
+- **tx-flight-react**: synced no-op against 0.9.2's intended
+  contents — but this is its *first* OIDC-driven publish at the
+  v0.9.x line, jumping straight from the 0.0.1 name-claim.
+
 ## [0.9.2] — 2026-05-08
 
 Second recovery release for v0.9.0. The v0.9.1 attempt added the
@@ -15,8 +39,10 @@ fix the workspace **build ordering**: the root `build` script used
 `dependencies` entries — not `devDependencies` — so `tx-flight-react`
 still ran before `wallet-adapter` / `tx-tracker` were emitted, and
 the Build step failed identically. Switched to `--topological-dev`
-in the root `build` script. v0.9.2 is the first version of the
-v0.9.x line to actually reach npm.
+in the root `build` script. v0.9.2 published five of the six
+packages on npm, but `tx-flight-react` remained at 0.0.1 because
+the release workflow had no publish step for it. *Superseded by
+v0.9.3 for the partial-publish recovery.*
 
 - **root**: `package.json#scripts.build` now uses
   `--topological-dev`, so workspace `devDependencies` participate

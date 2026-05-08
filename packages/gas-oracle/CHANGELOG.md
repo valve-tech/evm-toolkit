@@ -5,13 +5,23 @@ All notable changes to `@valve-tech/gas-oracle` are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.9.3] — 2026-05-08
+
+Synchronized release — no changes to this package. Republished at
+0.9.3 alongside the rest of the toolkit so all six packages share
+one synced version line on npm. v0.9.2 had published this package
+successfully but skipped `tx-flight-react` (workflow file was
+missing a publish step); v0.9.3 fixes that and re-publishes
+everything from one tag.
+
 ## [0.9.2] — 2026-05-08
 
 Synchronized release — no changes to this package. Companion fix
 to v0.9.1: the root `build` script now uses `--topological-dev`
 so workspace `devDependencies` (added to `tx-flight-react` in
-v0.9.1) actually drive build ordering. v0.9.2 is the first version
-of the v0.9.x line to land on npm for this package.
+v0.9.1) actually drive build ordering. First version of the v0.9.x
+line on npm for this package, but the toolkit-wide v0.9.x line
+didn't reach all six packages until v0.9.3.
 
 ## [0.9.1] — 2026-05-08
 
