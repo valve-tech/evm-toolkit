@@ -1,5 +1,12 @@
 import type { RequestFn } from './client.js'
 import type { paths } from './generated.js'
+import { makeBlocksVerb } from './variants/blocks.js'
+import { makeChunksVerb } from './variants/chunks.js'
+import { makeExportVerb } from './variants/export.js'
+import { makeSlurpVerb } from './variants/slurp.js'
+import { makeStateVerb } from './variants/state.js'
+import { makeTracesVerb } from './variants/traces.js'
+import { makeTransactionsVerb } from './variants/transactions.js'
 
 /**
  * Extracts the query-parameter type for a given chifra endpoint
@@ -82,9 +89,14 @@ export function createVerbs(request: RequestFn) {
 
     /**
      * `GET /export` — export full transaction details for one or
-     * more monitored addresses. Mirrors `chifra export`.
+     * more monitored addresses. Callable directly for the
+     * polymorphic union; attached variants (`.appearances`,
+     * `.receipts`, `.logs`, `.approvals`, `.traces`, `.neighbors`,
+     * `.statements`, `.transfers`, `.assets`, `.balances`,
+     * `.withdrawals`, `.count`) preselect the corresponding flag
+     * and narrow the return. Mirrors `chifra export`.
      */
-    export: makeVerb(request, '/export'),
+    export: makeExportVerb(request),
 
     /**
      * `GET /monitors` — manage and inspect address monitors. Mirrors
@@ -106,19 +118,23 @@ export function createVerbs(request: RequestFn) {
 
     /**
      * `GET /blocks` — retrieve one or more blocks from chain or
-     * local cache. Polymorphic response: depending on flags
-     * (`logs`, `traces`, `withdrawals`, `uniq`, …) returns blocks,
-     * logs, traces, withdrawals, or appearances. Mirrors `chifra
-     * blocks`.
+     * local cache. Callable directly for the polymorphic response
+     * (10-type union from the OpenAPI spec); attached variants
+     * (`.hashes`, `.uncles`, `.traces`, `.uniq`, `.logs`,
+     * `.withdrawals`, `.count`) preselect the corresponding flag
+     * and narrow the return to a single concrete type. Mirrors
+     * `chifra blocks` with its various output modes.
      */
-    blocks: makeVerb(request, '/blocks'),
+    blocks: makeBlocksVerb(request),
 
     /**
      * `GET /transactions` — retrieve one or more transactions by
-     * hash, block.txid, or block.address. Mirrors `chifra
-     * transactions`.
+     * hash, block.txid, or block.address. Callable directly for
+     * the polymorphic union; attached variants (`.traces`, `.uniq`,
+     * `.logs`) preselect the corresponding flag and narrow the
+     * return. Mirrors `chifra transactions`.
      */
-    transactions: makeVerb(request, '/transactions'),
+    transactions: makeTransactionsVerb(request),
 
     /**
      * `GET /receipts` — retrieve receipts for one or more
@@ -134,9 +150,10 @@ export function createVerbs(request: RequestFn) {
 
     /**
      * `GET /traces` — retrieve execution traces for one or more
-     * transactions. Mirrors `chifra traces`.
+     * transactions. Callable directly; `.count` variant returns
+     * trace counts only. Mirrors `chifra traces`.
      */
-    traces: makeVerb(request, '/traces'),
+    traces: makeTracesVerb(request),
 
     /**
      * `GET /when` — block-by-time / block-by-date queries; map
@@ -147,9 +164,10 @@ export function createVerbs(request: RequestFn) {
 
     /**
      * `GET /state` — read account state at a block (balance, nonce,
-     * code, storage). Mirrors `chifra state`.
+     * code, storage). Callable directly; `.call` variant performs
+     * an `eth_call`-style read. Mirrors `chifra state`.
      */
-    state: makeVerb(request, '/state'),
+    state: makeStateVerb(request),
 
     /**
      * `GET /tokens` — read token balances for accounts at given
@@ -170,10 +188,13 @@ export function createVerbs(request: RequestFn) {
     status: makeVerb(request, '/status'),
 
     /**
-     * `GET /chunks` — manage and inspect index chunks. Mirrors
+     * `GET /chunks` — manage and inspect index chunks. Callable
+     * directly; mode variants (`.manifest`, `.index`, `.blooms`,
+     * `.pins`, `.addresses`, `.appearances`, `.stats`) preselect
+     * the chunks `mode` enum and narrow the return. Mirrors
      * `chifra chunks`.
      */
-    chunks: makeVerb(request, '/chunks'),
+    chunks: makeChunksVerb(request),
 
     /**
      * `GET /init` — initialize the daemon's index by downloading
@@ -183,9 +204,11 @@ export function createVerbs(request: RequestFn) {
 
     /**
      * `GET /slurp` — fetch transactions for an address from a
-     * 3rd-party source (e.g. Etherscan). Mirrors `chifra slurp`.
+     * 3rd-party source (e.g. Etherscan). Callable directly;
+     * `.appearances` and `.count` variants narrow to specific
+     * output modes. Mirrors `chifra slurp`.
      */
-    slurp: makeVerb(request, '/slurp'),
+    slurp: makeSlurpVerb(request),
   }
 }
 

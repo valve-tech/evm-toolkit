@@ -89,30 +89,47 @@ try {
 Every chifra HTTP endpoint is exposed as a typed method on the
 client. Method names match the chifra CLI verbs.
 
-| Group | Method | Endpoint | Description |
+| Group | Method | Endpoint | Variants |
 |---|---|---|---|
-| Accounts | `client.list(...)` | `GET /list` | Address appearances |
-| Accounts | `client.export(...)` | `GET /export` | Full transaction export |
-| Accounts | `client.monitors(...)` | `GET /monitors` | Monitor management |
-| Accounts | `client.names(...)` | `GET /names` | Address-to-name mappings |
-| Accounts | `client.abis(...)` | `GET /abis` | Contract ABIs |
-| Chain Data | `client.blocks(...)` | `GET /blocks` | Block reads (polymorphic) |
-| Chain Data | `client.transactions(...)` | `GET /transactions` | Transaction reads |
-| Chain Data | `client.receipts(...)` | `GET /receipts` | Receipt reads |
-| Chain Data | `client.logs(...)` | `GET /logs` | Event log reads |
-| Chain Data | `client.traces(...)` | `GET /traces` | Execution traces |
-| Chain State | `client.when(...)` | `GET /when` | Block-by-time queries |
-| Chain State | `client.state(...)` | `GET /state` | Account state at block |
-| Chain State | `client.tokens(...)` | `GET /tokens` | Token balances |
-| Admin | `client.config(...)` | `GET /config` | Daemon configuration |
-| Admin | `client.status(...)` | `GET /status` | Daemon health |
-| Admin | `client.chunks(...)` | `GET /chunks` | Index chunk management |
-| Admin | `client.init(...)` | `GET /init` | Index initialization |
-| Other | `client.slurp(...)` | `GET /slurp` | 3rd-party tx fetch |
+| Accounts | `client.list(...)` | `GET /list` | — |
+| Accounts | `client.export(...)` | `GET /export` | `.appearances` `.receipts` `.logs` `.approvals` `.traces` `.neighbors` `.statements` `.transfers` `.assets` `.balances` `.withdrawals` `.count` |
+| Accounts | `client.monitors(...)` | `GET /monitors` | — |
+| Accounts | `client.names(...)` | `GET /names` | — |
+| Accounts | `client.abis(...)` | `GET /abis` | — |
+| Chain Data | `client.blocks(...)` | `GET /blocks` | `.hashes` `.uncles` `.traces` `.uniq` `.logs` `.withdrawals` `.count` |
+| Chain Data | `client.transactions(...)` | `GET /transactions` | `.traces` `.uniq` `.logs` |
+| Chain Data | `client.receipts(...)` | `GET /receipts` | — |
+| Chain Data | `client.logs(...)` | `GET /logs` | — |
+| Chain Data | `client.traces(...)` | `GET /traces` | `.count` |
+| Chain State | `client.when(...)` | `GET /when` | — |
+| Chain State | `client.state(...)` | `GET /state` | `.call` |
+| Chain State | `client.tokens(...)` | `GET /tokens` | — |
+| Admin | `client.config(...)` | `GET /config` | — |
+| Admin | `client.status(...)` | `GET /status` | — |
+| Admin | `client.chunks(...)` | `GET /chunks` | `.manifest` `.index` `.blooms` `.pins` `.addresses` `.appearances` `.stats` |
+| Admin | `client.init(...)` | `GET /init` | — |
+| Other | `client.slurp(...)` | `GET /slurp` | `.appearances` `.count` |
 
-Per-method query parameters and response shapes are typed against
-the upstream OpenAPI spec — your editor surfaces the available
-options via IntelliSense.
+**Base methods** return the OpenAPI polymorphic union — useful when
+flag combinations are constructed at runtime. **Variants** preselect
+a flag (or `mode` enum value, for `chunks`) and narrow the return
+type to the single concrete shape that flag produces. Mirrors the
+Go SDK's `XxxOptions.XxxFlag()` family.
+
+Example:
+
+```ts
+// Polymorphic — narrow at the call site:
+const result = await client.blocks({ blocks: ['18000000'], logs: true })
+// result.data is (Block | LightBlock | Log | …)[]
+
+// Variant — concrete return type, no narrowing needed:
+const result = await client.blocks.logs({ blocks: ['18000000'] })
+// result.data is Log[]
+```
+
+Per-method query parameters are typed against the upstream OpenAPI
+spec — your editor surfaces the available options via IntelliSense.
 
 ## License
 
