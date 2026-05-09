@@ -6,10 +6,33 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.10.1] — 2026-05-08
+
+**First successful npm publish at the v0.10.x line.** v0.10.0's
+publish errored at npm's provenance validation because this
+`package.json` was missing the `repository` field — `--provenance`
+requires it to match the GitHub repo URL in the OIDC attestation.
+v0.10.1 adds the missing fields and republishes the whole line in
+sync.
+
+### Added
+- `package.json`: `repository`, `homepage`, `bugs`, and `keywords`
+  fields (matching the shape every other published `@valve-tech/*`
+  package already had).
+
+### Notes
+- Package contents are otherwise identical to what v0.10.0 would
+  have published.
+
 ## [0.10.0] — 2026-05-08
 
-**First OIDC-driven publish for this package**, jumping from the
-0.0.1 name-claim. Joins the synchronized release line at v0.10.0.
+*Did not publish — the OIDC `Publish @valve-tech/trueblocks-sdk`
+step errored at npm's provenance validation (missing `repository`
+field in `package.json`). Superseded by v0.10.1.*
+
+**Intended-for-publish content:** first OIDC-driven publish for
+this package, jumping from the 0.0.1 name-claim. Joins the
+synchronized release line at v0.10.x.
 
 ### Added
 - Typed TypeScript HTTP client over the chifra daemon's REST API.

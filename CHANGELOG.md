@@ -6,9 +6,33 @@ this file. Per-package details live in each `packages/*/CHANGELOG.md`.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.10.1] — 2026-05-08
+
+Recovery release for v0.10.0 partial publish. v0.10.0 published six
+of seven packages successfully but the OIDC `Publish
+@valve-tech/trueblocks-sdk` step failed at npm's provenance
+validation: the new package's `package.json` had no `repository`
+field, and `--provenance` requires it to match the GitHub repo URL
+in the OIDC attestation (`https://github.com/valve-tech/evm-toolkit`).
+
+v0.10.1 adds the missing `repository`, `homepage`, `bugs`, and
+`keywords` fields to `trueblocks-sdk/package.json` (matching the
+shape every other published package already had) and republishes
+all seven from one tag.
+
+- **trueblocks-sdk**: package.json gains repository/homepage/bugs/
+  keywords. **First successful npm publish at the v0.10.x line** —
+  previously stuck at the 0.0.1 manual name-claim because v0.10.0's
+  publish errored.
+- **chain-source**, **gas-oracle**, **tx-tracker**, **viem-errors**,
+  **wallet-adapter**, **tx-flight-react**: synced no-op (republish
+  at 0.10.1 — package contents identical to their published 0.10.0
+  tarballs).
+
 ## [0.10.0] — 2026-05-08
 
-Adds **`@valve-tech/trueblocks-sdk`** as the seventh workspace
+*Partial publish — `trueblocks-sdk` missing, see v0.10.1.* Adds
+**`@valve-tech/trueblocks-sdk`** as the seventh workspace
 package — a typed TypeScript HTTP client for a running TrueBlocks
 chifra daemon. All 18 OpenAPI endpoints + 36 narrowed variant
 accessors on the polymorphic ones (54 methods total). MIT-licensed

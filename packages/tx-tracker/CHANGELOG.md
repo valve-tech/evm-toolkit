@@ -6,6 +6,14 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.10.1] — 2026-05-08
+
+Synchronized release — no changes to this package. Republished at
+0.10.1 alongside the rest of the toolkit; v0.10.0 only got
+trueblocks-sdk publishing wrong (missing `repository` field tripped
+provenance validation), so the rest of the line had to bump to
+re-sync.
+
 ## [0.10.0] — 2026-05-08
 
 Synchronized release — no changes to this package. Republished at
