@@ -6,6 +6,13 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.10.0] — 2026-05-08
+
+Synchronized release — no changes to this package. Republished at
+0.10.0 alongside the rest of the toolkit. The minor bump (rather
+than patch) reflects the addition of a new sibling package,
+`@valve-tech/trueblocks-sdk`, to the synced release line.
+
 ## [0.9.3] — 2026-05-08
 
 Synchronized release — no changes to this package. Republished at

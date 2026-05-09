@@ -6,6 +6,29 @@ this file. Per-package details live in each `packages/*/CHANGELOG.md`.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.10.0] — 2026-05-08
+
+Adds **`@valve-tech/trueblocks-sdk`** as the seventh workspace
+package — a typed TypeScript HTTP client for a running TrueBlocks
+chifra daemon. All 18 OpenAPI endpoints + 36 narrowed variant
+accessors on the polymorphic ones (54 methods total). MIT-licensed
+clean-room reimplementation against the public OpenAPI spec; no
+upstream GPL code is incorporated. Codegen-driven types pinned to
+`TrueBlocks/trueblocks-core@3205a003`.
+
+This is also a synchronized minor bump for the entire monorepo
+because adding a new package is a notable surface change for
+consumers of `@valve-tech/*`.
+
+- **trueblocks-sdk** (NEW): first OIDC-driven publish at v0.10.0,
+  jumping from the 0.0.1 name-claim. Includes the `Publish
+  @valve-tech/trueblocks-sdk` step in `.github/workflows/release.yml`
+  + a freshly-configured trusted-publisher record on npmjs.com.
+- **chain-source**, **gas-oracle**, **tx-tracker**, **viem-errors**,
+  **wallet-adapter**, **tx-flight-react**: synced no-op (version
+  bump only — package contents identical to their published 0.9.3
+  tarballs).
+
 ## [0.9.3] — 2026-05-08
 
 Third recovery release for v0.9.0. v0.9.2 finally got the build
