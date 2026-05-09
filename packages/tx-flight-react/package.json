@@ -38,7 +38,9 @@
   },
   "files": [
     "dist",
+    "skills",
     "README.md",
+    "AGENTS.md",
     "CHANGELOG.md",
     "LICENSE"
   ],
