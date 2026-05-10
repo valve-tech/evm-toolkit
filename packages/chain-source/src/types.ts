@@ -11,12 +11,13 @@
  * on a state with `bigint` will throw; persistence layers hex-encode
  * at their wire boundary, see `docs/tx-tracker-spec.md` §2.5.
  *
- * The shapes here are **functionally identical** to the equivalent
- * types currently in `@valve-tech/gas-oracle/src/transport.ts` and
- * `mempool.ts`. That is intentional — a future PR migrates gas-oracle
- * to import from this package and removes its local copies. Keeping
- * them structurally identical now means the migration is a simple
- * import swap, not a type-shape change.
+ * This package is the canonical owner of the wire-shape types
+ * (`RawTx`, `BlockResult`, `FeeHistoryResult`, `TxPoolContent`,
+ * `NormalizedMempool`) and the poll-cycle toggle (`PollOptions`).
+ * `@valve-tech/gas-oracle` and `@valve-tech/tx-tracker` import them
+ * from here; gas-oracle re-exports them from its own `index.ts` so
+ * downstream consumers using the gas-oracle package don't have to
+ * add a second import to type a fixture or a stored snapshot.
  */
 
 /**

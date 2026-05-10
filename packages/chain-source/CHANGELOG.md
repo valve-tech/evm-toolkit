@@ -6,6 +6,16 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Doc comment in `src/types.ts` no longer describes the
+  gas-oracle import migration as "future" — the migration shipped
+  in this same release. Comment now states that this package is the
+  canonical owner and gas-oracle re-exports from `index.ts`. No
+  type-shape change.
+
 ## [0.10.1] — 2026-05-08
 
 Synchronized release — no changes to this package. Republished at
