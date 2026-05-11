@@ -6,6 +6,19 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.11.0] — 2026-05-11
+
+### Notes
+
+- Synchronized release — no changes to this package. Bumped in
+  lockstep with the rest of the toolkit alongside the v0.11.0
+  feature work in `@valve-tech/gas-oracle` (20-block ring lifecycle,
+  reorg detection, gap bridging), `@valve-tech/tx-tracker` (audit
+  fixes — durable rehydrate, retention enforcement, replaced-by
+  dedup, receipt-poll race, helper extraction), `@valve-tech/
+  wallet-adapter` (five wallet bridge examples), and
+  `@valve-tech/chain-source` (canonical-owner docs for wire types).
+
 ## [0.10.1] — 2026-05-08
 
 **First successful npm publish at the v0.10.x line.** v0.10.0's

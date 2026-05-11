@@ -6,6 +6,88 @@ this file. Per-package details live in each `packages/*/CHANGELOG.md`.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.11.0] — 2026-05-11
+
+Feature release across the toolkit. Three meaningful pieces of code
+work, plus a docs pass and a workspace-wide coverage closure to 100%.
+
+**`@valve-tech/gas-oracle`** — the 20-block ring lifecycle ships.
+Tier recommendations now sample from a real rolling window
+(`state.ring[*].tips ++ mempoolSamples`) instead of a single block,
+which materially stabilizes the published numbers across single-block
+dips. New `ringWindowBlocks` option on `createGasOracle` (default
+`20n`, matches the `eth_feeHistory` window); `state.lastReorg`
+surfaces detected ring-trim events; pure `incorporateBlock` helper
+exported for replay harnesses. The poll loop pre-fetches missing
+blocks via `source.getBlock` to bridge clean gaps before the reducer
+runs. Reorg-side backfill remains scoped out — the reducer trims
+the diverged tail and lets natural forward polling refill the new
+canonical branch.
+
+**`@valve-tech/tx-tracker`** — a 7-finding audit landed before the
+release. Three of those were silent-failure-shaped (durable
+rehydrate, retention enforcement, receipt-poll identity race) where
+documented behavior simply did not fire; two were concrete bugs
+(`replaced-by` re-fire across the mempool→block boundary, sync
+sub.stop() inside a bulk fanout); one was a defensive hardening
+extraction; one was a lock-in test on intentional behavior. Net new
+public API: `TxTracker.ready(): Promise<void>` for cross-process
+restart consumers, `retentionBlocks` option on
+`CreateTxTrackerOptions`, `terminalAtBlockNumber` field on
+`TxStatus`, and `findBulkSubBySelector` exported from the package
+root. Spec compliance walk against `docs/tx-tracker-spec.md`
+produced a clean pass for every named default and event kind.
+
+**`@valve-tech/wallet-adapter`** — five worked bridge examples now
+ship in the repo, covering the common wallet-plumbing classes
+end-to-end:
+
+- `01-reown-adapter.ts` — universal EIP-1193 (Reown / WalletConnect,
+  MetaMask SDK, RainbowKit, raw window.ethereum, hardware wallets
+  in browser context).
+- `02-wagmi-adapter.ts` — the wagmi React stack (`useWalletClient()`
+  → adapter, skipping the EIP-1193 round-trip).
+- `03-server-relayer.ts` — backend code signing from a private key
+  (env var / KMS), hard-failing on cross-chain.
+- `04-erc4337-smart-account.ts` — ERC-4337 account abstraction via
+  permissionless.js or similar; `adapter.address` is the smart
+  account, not the EOA signer.
+- `05-hardware-wallet-direct.ts` — direct USB/HID Ledger via
+  `@ledgerhq/hw-app-eth` (Trezor via `@trezor/connect` shape too).
+
+Each ends in a no-network sanity check using viem's `custom`
+transport so the bridge code self-validates without anyone having
+to install the underlying wallet libraries.
+
+**`@valve-tech/chain-source`** — `RawTx`, `BlockResult`,
+`FeeHistoryResult`, `TxPoolContent`, `NormalizedMempool`, and
+`PollOptions` are now imported by `@valve-tech/gas-oracle` from this
+package (the canonical owner) rather than declared locally. gas-
+oracle continues to re-export them so downstream
+`import { RawTx } from '@valve-tech/gas-oracle'` keeps working;
+nominal type identity now unifies across the toolkit.
+
+**Coverage** — 100% statements / branches / functions / lines across
+every published package. Two unreachable defensive paths were
+refactored away (`gas-oracle`'s `reduceAndPublish` null guard +
+`c8 ignore` directive; `tx-tracker`'s `findBulkSubBySelector` throw
+replaced with a tested defensive null return). No `c8 ignore` /
+`istanbul ignore` directives remain in any package's `src/`.
+
+- **chain-source**: documentation comment in `src/types.ts` updated
+  to reflect post-migration canonical-owner status; no API change.
+- **gas-oracle**: 20-block ring lifecycle (`ringWindowBlocks`
+  option, `state.lastReorg`, gap bridging), wire types now imported
+  from `chain-source`, dead-branch refactor.
+- **tx-tracker**: 7-finding audit (durable rehydrate, retention
+  enforcement, replaced-by dedup, race/defensive fixes,
+  `findBulkSubBySelector` extraction, behavior lock-ins); new
+  `ready()`, `retentionBlocks`, `terminalAtBlockNumber`.
+- **wallet-adapter**: 5 wallet bridge examples + `typecheck:examples`
+  wiring; README anchor.
+- **trueblocks-sdk**, **tx-flight-react**, **viem-errors**: synced
+  no-op (republish at 0.11.0 alongside the rest of the toolkit).
+
 ## [0.10.1] — 2026-05-08
 
 Recovery release for v0.10.0 partial publish. v0.10.0 published six
