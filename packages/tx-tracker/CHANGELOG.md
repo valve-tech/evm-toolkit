@@ -6,6 +6,43 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.11.1] — 2026-05-11
+
+### Fixed
+
+- **Upgrade-path crash on the first block tick after upgrading a
+  persistent store from ≤0.10 to 0.11.0.** v0.11.0 added
+  `TxStatus.terminalAtBlockNumber: bigint | null`, but records
+  persisted by ≤0.10 stores have the field absent (undefined at
+  runtime). The retention-enforcement check used `t !== null`
+  (strict), so `undefined` slipped past the guard and threw
+  `TypeError: Cannot mix BigInt and other types, use explicit
+  conversions` at `undefined + BigInt(retentionBlocks)` —
+  **uncaught inside `Subscriptions.emit`**, silently halting the
+  in-flight block-tick fanout. Downstream `seen-in-block` /
+  `unseen-for-N-blocks` / `replaced-by` / `vanished-from-block`
+  events for that tick were dropped on the floor; consumer-visible
+  symptom was tx-flight UIs stalled on "pending" indefinitely after
+  upgrade.
+  - `tracker.ts`'s retention guard now uses `typeof t === 'bigint'`
+    instead of `t !== null` — also defensive against future store
+    implementations that round-trip bigints as strings without a
+    reviver.
+  - `observations.ts`'s two patch-guard sites (unseen-for-N-blocks
+    terminal emit, mempool-side replaced-by terminal emit) now use
+    `== null` (loose) instead of `=== null` so a legacy record that
+    *just* reaches terminal gets its `terminalAtBlockNumber`
+    backfilled (pre-fix the patch was gated on strict null and
+    silently never set, so the record would re-trip the retention
+    crash every block).
+  - Regression tests for both paths.
+
+Consumers running v0.11.0 with **any persistent store** (localStorage,
+IndexedDB, Redis, SQLite, custom `TxTrackerStore`) and durable
+subscriptions from a ≤0.10 run should upgrade. No migration step
+required — the fix is purely the upstream contract treating
+`undefined` and `null` as equivalent "in-flight" sentinels.
+
 ## [0.11.0] — 2026-05-11
 
 ### Added

@@ -860,10 +860,20 @@ export const createTxTracker = (options: CreateTxTrackerOptions): TxTracker => {
     // retention here — they live until cleanupRecord drops them
     // (no subs + no durable persistence). Iterates a snapshot so
     // emit + delete during the walk is safe.
+    //
+    // typeof bigint check is **defensive against legacy persisted
+    // records**: TxStatus added `terminalAtBlockNumber` in v0.11.0,
+    // so records persisted by ≤0.10 stores have the field absent
+    // (undefined at runtime). A strict `t !== null` check would slip
+    // past the guard and throw `Cannot mix BigInt and other types`
+    // on `undefined + BigInt(retentionBlocks)` — uncaught inside the
+    // emitter, halting the in-flight fanout. The typeof check also
+    // defends against future store implementations that round-trip
+    // bigints as strings without a reviver.
     const expired: TrackedRecord[] = []
     for (const record of tracked.values()) {
       const t = record.status.terminalAtBlockNumber
-      if (t !== null && blockNumber > t + BigInt(retentionBlocks)) {
+      if (typeof t === 'bigint' && blockNumber > t + BigInt(retentionBlocks)) {
         expired.push(record)
       }
     }

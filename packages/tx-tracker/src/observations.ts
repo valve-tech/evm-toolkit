@@ -293,8 +293,12 @@ export const decideBlockObservation = (
     statusPatch: {
       unseenStreak: nextStreak,
       // Terminal: unseen-for-N-blocks emitted at this block.
-      // Retention countdown starts here (audit #2).
-      ...(reachedTerminal && record.status.terminalAtBlockNumber === null
+      // Retention countdown starts here (audit #2). `!= null`
+      // (loose) so a legacy persisted record (≤0.10) whose
+      // `terminalAtBlockNumber` is absent (undefined) also gets
+      // backfilled when it reaches terminal — same posture as
+      // tracker.ts's retention guard.
+      ...(reachedTerminal && record.status.terminalAtBlockNumber == null
         ? { terminalAtBlockNumber: blockNumber }
         : {}),
     },
@@ -419,8 +423,12 @@ export const decideMempoolObservation = (
       // Terminal: replacement seen in mempool. Retention countdown
       // starts from the current poll's block (audit #2). The block
       // path may later patch this with the replacement's inclusion
-      // block, but the terminal anchor stays at the first observation.
-      ...(record.status.terminalAtBlockNumber === null
+      // block, but the terminal anchor stays at the first
+      // observation. `!= null` (loose) so a legacy persisted record
+      // whose `terminalAtBlockNumber` is absent (undefined) also
+      // gets backfilled — same posture as tracker.ts's retention
+      // guard.
+      ...(record.status.terminalAtBlockNumber == null
         ? { terminalAtBlockNumber: envelope.blockNumber }
         : {}),
     }

@@ -6,6 +6,20 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.11.1] — 2026-05-11
+
+### Notes
+
+- Synchronized release — no changes to this package. Republished at
+  0.11.1 alongside the rest of the toolkit; the substantive fix is
+  in `@valve-tech/tx-tracker` (upgrade-path crash on the first
+  block tick after upgrading a persistent store from ≤0.10 to
+  0.11.0) — which `tx-flight-react` consumes transitively, so
+  consumers running tx-flight-react with a persistent storage
+  adapter (`localStorageAdapter` / `indexedDBAdapter`) on top of an
+  upgraded tx-tracker should bump to this version. See
+  `@valve-tech/tx-tracker`'s CHANGELOG for details.
+
 ## [0.11.0] — 2026-05-11
 
 ### Notes

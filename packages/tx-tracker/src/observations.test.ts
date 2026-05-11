@@ -307,6 +307,63 @@ test('block: replacement does NOT re-fire replaced-by when status already record
   })
 })
 
+test('mempool: replacement on a legacy record (no terminalAtBlockNumber field) backfills the anchor (v0.11.1 regression)', () => {
+  // Companion to the tracker.ts regression: when a record is
+  // rehydrated from a ≤0.10 store, its `terminalAtBlockNumber` is
+  // absent at runtime. If the record subsequently reaches a terminal
+  // state (mempool sees a replacement), the patch-guard must
+  // backfill the field — pre-fix the strict `=== null` check failed
+  // for `undefined` so the field stayed undefined-forever and the
+  // retention-tick crash would have kept firing (now defended by the
+  // typeof check in tracker.ts, but the backfill is still the
+  // semantically correct upgrade behavior).
+  const legacyStatus = {
+    hash: '0xorig',
+    chainId: 1,
+    lastSeenInBlock: null,
+    lastSeenInMempool: null,
+    replacedBy: null,
+    vanishedAt: null,
+    unseenStreak: 0,
+    firstObservedAtBlock: 90n,
+    lastObservedAtBlock: 95n,
+    capabilities: CAPS,
+    // terminalAtBlockNumber intentionally omitted
+  } as unknown as TxStatus
+  const record: ReadonlyTrackedRecord = {
+    hash: '0xorig',
+    status: legacyStatus,
+    identity: { from: '0xs', nonce: '0x5' },
+    inLastMempoolSnapshot: false,
+    unseenThresholdBlocks: 30,
+  }
+  const replacementTx: RawTx = {
+    hash: '0xrep',
+    from: '0xs',
+    nonce: '0x5',
+    maxFeePerGas: '0x0',
+    maxPriorityFeePerGas: '0x0',
+    gas: '0x0',
+    type: '0x2',
+  }
+  const result = decideMempoolObservation({
+    record,
+    presence: null,
+    replacementInMempool: replacementTx,
+    chainId: 1,
+    eventSource: 'mempool-snapshot',
+    envelope: ENVELOPE,
+    tipBlockNumber: 100n,
+  })
+  expect(result.statusPatch.replacedBy).toEqual({
+    hash: '0xrep',
+    blockNumber: null,
+  })
+  // Backfilled — the loose `== null` check treats undefined as
+  // "anchor not yet set" and seeds the retention countdown.
+  expect(result.statusPatch.terminalAtBlockNumber).toBe(ENVELOPE.blockNumber)
+})
+
 test('mempool: replacement on already-terminal record does not overwrite terminalAtBlockNumber (coverage)', () => {
   // Edge: a record reached unseen-for-N-blocks terminal first (so
   // terminalAtBlockNumber is set), then later a replacement appears

@@ -6,6 +6,35 @@ this file. Per-package details live in each `packages/*/CHANGELOG.md`.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.11.1] — 2026-05-11
+
+Patch release. Fixes a v0.11.0 upgrade-path crash in
+`@valve-tech/tx-tracker` that affected consumers running a
+persistent store (localStorage, IndexedDB, Redis, SQLite, custom
+`TxTrackerStore`) and upgrading from ≤0.10. v0.11.0 added
+`TxStatus.terminalAtBlockNumber: bigint | null`, but the
+retention-enforcement check used `t !== null` (strict). Records
+persisted by ≤0.10 stores have the field absent (`undefined` at
+runtime), which slipped past the guard and threw `TypeError: Cannot
+mix BigInt and other types` at `undefined + BigInt(retentionBlocks)`.
+The throw was uncaught inside `Subscriptions.emit`, halting the
+in-flight block-tick fanout silently — downstream events for that
+tick were dropped and consumer-visible UIs stalled on "pending"
+indefinitely.
+
+Fixed in three sites (tracker.ts retention guard + observations.ts
+two patch guards), regression-tested in both `tracker.test.ts` and
+`observations.test.ts`.
+
+- **tx-tracker**: the substantive fix — `typeof t === 'bigint'`
+  retention guard + `== null` patch guards. See package CHANGELOG.
+- **tx-flight-react**: republished because it consumes tx-tracker
+  transitively. Consumers with a persistent storage adapter should
+  bump.
+- **chain-source**, **gas-oracle**, **viem-errors**, **wallet-adapter**,
+  **trueblocks-sdk**: synced no-op republish (package contents
+  identical to 0.11.0).
+
 ## [0.11.0] — 2026-05-11
 
 Feature release across the toolkit. Three meaningful pieces of code

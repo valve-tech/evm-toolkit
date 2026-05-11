@@ -669,6 +669,72 @@ test('retention enforcement: durable record reaching unseen-for-N-blocks fires r
   tracker.stop()
 })
 
+test('retention check does not throw on rehydrated legacy record lacking terminalAtBlockNumber (v0.11.1 regression)', async () => {
+  // Reproduces the v0.11.0 upgrade-path crash: TxStatus added
+  // `terminalAtBlockNumber: bigint | null` in v0.11.0, but records
+  // persisted by ≤0.10 stores have the field absent (undefined at
+  // runtime). The retention guard in tracker.ts used `t !== null`
+  // (strict), so undefined slipped past the guard and crashed at
+  // `undefined + BigInt(retentionBlocks)` with `Cannot mix BigInt
+  // and other types`. The throw was uncaught inside the emitter,
+  // halting the in-flight block-tick fanout silently. Consumer-
+  // visible symptom: tx-flight UIs stalled on "pending" forever
+  // after upgrade. Fixed by replacing the strict-null check with
+  // `typeof t === 'bigint'`.
+  const store = createInMemoryStore()
+  // Hand-build a record in the legacy ≤0.10 shape — no
+  // `terminalAtBlockNumber` field present. Cast through unknown to
+  // bypass the post-v0.11 type which has the field as non-optional.
+  const legacyStatusWithoutTerminal = {
+    hash: '0xlegacy',
+    chainId: 1,
+    lastSeenInBlock: null,
+    lastSeenInMempool: null,
+    replacedBy: null,
+    vanishedAt: null,
+    unseenStreak: 0,
+    firstObservedAtBlock: null,
+    lastObservedAtBlock: null,
+    capabilities: {
+      newHeads: 'subscription',
+      newPendingTransactions: 'poll-only',
+      txpoolContent: 'available',
+      receiptByHash: 'available',
+      reprobeOnReconnect: true,
+    },
+    // terminalAtBlockNumber intentionally omitted
+  } as unknown as import('./events.js').TxStatus
+  await store.put({
+    chainId: 1,
+    hash: '0xlegacy',
+    status: legacyStatusWithoutTerminal,
+    firstSeenBlockNumber: 0n,
+    lastObservedBlockNumber: 0n,
+    retentionExpiresAtBlockNumber: 64n,
+    subscriptions: [
+      { id: 'sub-1', kind: 'hash', hash: '0xlegacy', durable: true },
+    ],
+  })
+  const onError = vi.fn()
+  const source = makeSource()
+  const tracker = createTxTracker({ source, chainId: 1, store, onError })
+  tracker.start()
+  await tracker.ready()
+  // Drive a block — pre-fix this threw `TypeError: Cannot mix BigInt
+  // and other types` synchronously inside the source emitter; the
+  // throw was swallowed by Subscriptions.emit but halted the fanout.
+  // Post-fix: legacy record is treated as in-flight (typeof t !==
+  // 'bigint') and skipped by retention; the rest of the fanout
+  // proceeds.
+  expect(() => {
+    source.emitBlock(makeBlock(100n, '0xb100', []))
+  }).not.toThrow()
+  // No silent error routed to onError either — the retention check
+  // is now defensive, not exception-catching.
+  expect(onError).not.toHaveBeenCalled()
+  tracker.stop()
+})
+
 test('retention enforcement: store.delete rejection routes through onError (coverage)', async () => {
   // When retention reaps a durable record, store.delete is fired and
   // awaited only via .catch — any rejection must go to onError so
