@@ -140,6 +140,48 @@ test('honors flow input', async () => {
   expect(store.getState().txs.get(id)?.flow).toBe('swap')
 })
 
+test('defaults readOnly to undefined when input omits it', async () => {
+  const store = makeStore()
+  const source = makeStubSource()
+  const id = await addByHashImpl(
+    store,
+    { hash: HASH, chainId: 1, client: makeStubClient() },
+    undefined,
+    { _sourceOverride: source },
+  )
+  expect(store.getState().txs.get(id)?.readOnly).toBeUndefined()
+})
+
+test('forwards readOnly: true onto the seeded TrackedTx', async () => {
+  const store = makeStore()
+  const source = makeStubSource()
+  const id = await addByHashImpl(
+    store,
+    { hash: HASH, chainId: 1, client: makeStubClient(), readOnly: true },
+    undefined,
+    { _sourceOverride: source },
+  )
+  expect(store.getState().txs.get(id)?.readOnly).toBe(true)
+})
+
+test('honors explicit submittedAt override', async () => {
+  const store = makeStore()
+  const source = makeStubSource()
+  const originalSubmittedAt = 1_700_000_000_000
+  const id = await addByHashImpl(
+    store,
+    {
+      hash: HASH,
+      chainId: 1,
+      client: makeStubClient(),
+      submittedAt: originalSubmittedAt,
+    },
+    undefined,
+    { _sourceOverride: source },
+  )
+  expect(store.getState().txs.get(id)?.submittedAt).toBe(originalSubmittedAt)
+})
+
 // ─── lifecycle transitions ───────────────────────────────────────────────
 
 test('seen-in-block transitions pending → confirmed at default 1 confirmation', async () => {

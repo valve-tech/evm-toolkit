@@ -6,6 +6,53 @@ this file. Per-package details live in each `packages/*/CHANGELOG.md`.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.17.0] — 2026-05-30
+
+Adds first-class support for tracking transactions the consumer
+didn't author — e.g. relayer-submitted transactions where a user
+needs to know "did my tx land?" but can't speed it up or cancel it
+because they don't hold the nonce slot.
+
+**`@valve-tech/wallet-adapter` — `TrackedTx.readOnly`.** New optional
+flag on the persisted tx-state shape. Marks a record the consumer is
+only observing, not authoring. Library does not act on the field; it's
+metadata for consumer UI logic. Optional + additive, so pre-flag
+persisted entries rehydrate with `undefined` — no migration needed.
+Read sites SHOULD use the strict form `tx.readOnly === true` (the
+persisted-type-evolution lesson from v0.11.1).
+
+**`@valve-tech/tx-flight-react` — `addByHash` extensions.** Two new
+optional inputs: `readOnly: true` (forwarded verbatim onto the seeded
+TrackedTx's `readOnly` field) and `submittedAt: number` (override the
+default `Date.now()` stamp, useful when the tx was submitted before
+you started watching it). Canonical relayer wiring:
+
+```ts
+const { txHash, submittedAt } = await relayer.send(payload)
+const id = await flight.addByHash({
+  hash: txHash,
+  chainId: 1,
+  client: publicClient,
+  flow: 'relay',
+  readOnly: true,
+  submittedAt,
+})
+```
+
+The strip's `<TxFlightActions>` already requires consumers to opt in
+to action wiring (no orphan buttons), so the canonical pattern is to
+gate `onSpeedUp` / `onCancel` on `tx.readOnly === true` in the
+consumer. README adds a "Read-only mode" subsection showing the full
+wiring. No tracker-layer changes — `@valve-tech/tx-tracker` already
+supported per-hash tracking of externally-submitted txs via the v0.14
+default-on `statusPollEveryBlocks` (`eth_getTransactionByHash`); this
+release fills in the missing UI-side metadata.
+
+`@valve-tech/chain-source`, `@valve-tech/gas-oracle`,
+`@valve-tech/tx-tracker`, `@valve-tech/viem-errors`, and
+`@valve-tech/trueblocks-sdk` re-publish at 0.17.0 unchanged for synced
+versioning.
+
 ## [0.16.0] — 2026-05-15
 
 Three improvements bundled, all motivated by a "polling is too

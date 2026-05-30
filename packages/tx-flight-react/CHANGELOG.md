@@ -6,6 +6,39 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.17.0] — 2026-05-30
+
+### Added
+
+- `addByHash({ readOnly?: boolean })` — marks the seeded TrackedTx
+  as read-only (consumer didn't submit, doesn't hold the nonce slot:
+  relayer-submitted, server-observed, etc.). Forwarded verbatim to
+  `TrackedTx.readOnly` (new in `@valve-tech/wallet-adapter@0.17.0`).
+  The library does not change tracking behavior based on this flag —
+  status transitions, retention, and unseen-for-N thresholds still
+  apply. Consumers SHOULD gate `onSpeedUp` / `onCancel` wiring on
+  `tx.readOnly === true` to suppress replacement affordances for
+  these entries. Default `false`.
+- `addByHash({ submittedAt?: number })` — override the `submittedAt`
+  timestamp on the seeded TrackedTx. Use when the tx was submitted
+  before you started watching it (relayer push carrying an original
+  submit time, rehydrating an external record, etc.) so the strip's
+  age indicator reflects reality rather than starting at zero.
+  Default `Date.now()` at add-time (unchanged from prior behavior).
+
+### Notes
+
+- Both fields are optional and additive — existing callers see no
+  change in behavior. Persisted entries written before this release
+  rehydrate unchanged.
+- `resumeByHashWatcher` (the rehydrate path) needed no changes: it
+  reads each persisted TrackedTx verbatim and re-dispatches it via
+  `store.dispatch.addWithTx(current, unsub)`, so a `readOnly`-tagged
+  record that was persisted, page-reloaded, and rehydrated keeps its
+  flag automatically.
+- README adds a "Read-only mode (relayer-submitted, server-observed)"
+  subsection under `addByHash` showing the canonical wiring.
+
 ## [0.16.0] — 2026-05-15
 
 ### Notes

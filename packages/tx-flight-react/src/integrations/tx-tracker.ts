@@ -172,9 +172,10 @@ export const addByHashImpl = async (
     hash: input.hash,
     chainId: input.chainId,
     flow: input.flow ?? DEFAULT_FLOW,
-    submittedAt: Date.now(),
+    submittedAt: input.submittedAt ?? Date.now(),
     submittedTier: 'standard',
     status: 'pending',
+    readOnly: input.readOnly,
   }
   store.dispatch.addWithTx(initialTx, unsub)
 

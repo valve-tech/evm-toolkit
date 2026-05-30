@@ -106,6 +106,21 @@ export interface TrackedTx {
    * instead of a flat "transaction failed".
    */
   notes?: string
+  /**
+   * Marks a tx the consumer is only observing, not authoring — e.g. a
+   * relayer-submitted tx whose hash arrived from outside the wallet
+   * flow. The library does not act on this field; it's a hint for
+   * consumer UI logic (typically: skip wiring `onSpeedUp` / `onCancel`
+   * on `<TxFlightActions>` for these, since the consumer doesn't hold
+   * the nonce slot and can't replace).
+   *
+   * Optional + additive: pre-existing persisted entries rehydrate with
+   * `undefined`, which is correctly falsy. Read sites SHOULD use
+   * `tx.readOnly === true` rather than `if (tx.readOnly)` so the
+   * runtime check is unambiguous (the static type can't promise the
+   * field is present on records written before this field existed).
+   */
+  readOnly?: boolean
 }
 
 // ─── Display windows ───────────────────────────────────────────────────────

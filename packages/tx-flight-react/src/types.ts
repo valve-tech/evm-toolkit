@@ -73,6 +73,27 @@ export interface AddByHashInput {
    * status is reverted, the strip surfaces `failed`. Adds one RPC.
    */
   withReceipts?: boolean
+  /**
+   * Marks the resulting TrackedTx as read-only — the consumer didn't
+   * submit this tx and doesn't hold the nonce slot (relayer-submitted,
+   * server-observed, etc.). Forwarded verbatim to `TrackedTx.readOnly`;
+   * see the field docs there. Default `false`.
+   *
+   * The library does not change tracking behavior based on this flag —
+   * status transitions, retention, and unseen-for-N thresholds still
+   * apply. Consumers SHOULD use this flag in their own
+   * `<TxFlightActions>` wiring (typically: skip `onSpeedUp` / `onCancel`
+   * for read-only entries).
+   */
+  readOnly?: boolean
+  /**
+   * Override the `submittedAt` timestamp on the seeded TrackedTx. Use
+   * when the tx was submitted before you started watching it (relayer
+   * push carrying an original submit time, rehydrating an external
+   * record, etc.) so the strip's age indicator reflects reality rather
+   * than starting at zero. Default `Date.now()` at add-time.
+   */
+  submittedAt?: number
 }
 
 /**

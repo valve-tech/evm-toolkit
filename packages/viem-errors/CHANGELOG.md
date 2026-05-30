@@ -6,6 +6,18 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.17.0] — 2026-05-30
+
+### Notes
+
+- Synchronized release — no changes to this package. Republished at
+  0.17.0 alongside the rest of the toolkit; the substantive changes
+  are in `@valve-tech/wallet-adapter` (new optional
+  `TrackedTx.readOnly` field) and `@valve-tech/tx-flight-react`
+  (new `addByHash({ readOnly, submittedAt })` inputs for tracking
+  relayer-submitted transactions). See the respective CHANGELOGs for
+  details.
+
 ## [0.16.0] — 2026-05-15
 
 ### Notes

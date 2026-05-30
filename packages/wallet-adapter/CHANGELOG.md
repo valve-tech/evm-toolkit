@@ -6,6 +6,34 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.17.0] — 2026-05-30
+
+### Added
+
+- `TrackedTx.readOnly?: boolean` — optional, additive flag that
+  marks a tx the consumer is only observing, not authoring (e.g.
+  a relayer-submitted tx whose hash arrived from outside the wallet
+  flow). The library does not act on the field; it's a hint for
+  consumer UI logic — typically: skip wiring `onSpeedUp` /
+  `onCancel` on `<TxFlightActions>` for these entries, since the
+  consumer doesn't hold the nonce slot and can't replace.
+- Read sites SHOULD use the strict form `tx.readOnly === true` (not
+  `if (tx.readOnly)`) so the runtime check is unambiguous — pre-flag
+  persisted entries rehydrate with `undefined`, which is correctly
+  falsy under both forms, but the strict comparison makes intent
+  explicit at every call site.
+
+### Notes
+
+- Non-breaking: the field is optional, defaults to `undefined`, and
+  no existing code path reads it. Persisted entries written before
+  this release rehydrate unchanged; the field simply remains absent
+  on those records.
+- The driver use case is
+  `@valve-tech/tx-flight-react`'s `addByHash({ readOnly, submittedAt })`
+  for tracking relayer-submitted transactions. See that package's
+  v0.17.0 entry for the consumer-facing surface.
+
 ## [0.16.0] — 2026-05-15
 
 ### Notes

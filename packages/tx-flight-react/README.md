@@ -200,6 +200,47 @@ bundle cost. The strip builds a private ChainSource + TxTracker
 internally; `flight.remove(id)` (or unmount) cleans up the
 subscription.
 
+#### Read-only mode (relayer-submitted, server-observed)
+
+Pass `readOnly: true` when the consumer doesn't hold the nonce slot
+— a relayer submitted the tx on the user's behalf, the hash arrived
+via a server push, or you're following a tx your backend observed
+elsewhere. The tracker still polls inclusion, mempool state, and
+receipt details exactly as it would for a user-authored tx — the
+flag is metadata for *your* UI logic, since the user can't speed-up
+or cancel a tx they don't own.
+
+```tsx
+const { txHash, submittedAt } = await relayer.send(payload)
+
+const id = await flight.addByHash({
+  hash: txHash,
+  chainId: 1,
+  client: publicClient,
+  flow: 'relay',
+  readOnly: true,
+  submittedAt,          // preserve relayer's original submit time
+})
+```
+
+When rendering `<TxFlightActions>`, gate replacement affordances on
+the flag:
+
+```tsx
+<TxFlightActions
+  tx={tx}
+  onSpeedUp={tx.readOnly === true ? undefined : handleSpeedUp}
+  onCancel={tx.readOnly === true ? undefined : handleCancel}
+  onDismiss={handleDismiss}
+/>
+```
+
+Use the strict `tx.readOnly === true` form rather than `if
+(tx.readOnly)` — the field is optional and pre-flag persisted entries
+rehydrate as `undefined`, which is correctly falsy under both forms,
+but the strict comparison makes the intent unambiguous at the read
+site.
+
 ### `addManual` — when you already have a fully-formed `TrackedTx`
 
 ```tsx
