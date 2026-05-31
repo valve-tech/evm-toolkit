@@ -1,0 +1,1805 @@
+{
+  "schemaVersion": "2.0",
+  "id": 0,
+  "name": "@valve-tech/viem-errors v0.17.0",
+  "variant": "project",
+  "kind": 1,
+  "flags": {},
+  "children": [
+    {
+      "id": 26,
+      "name": "ErrorPattern",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "A pattern → message pair used by "
+          },
+          {
+            "kind": "code",
+            "text": "`getUserFriendlyErrorMessage`"
+          },
+          {
+            "kind": "text",
+            "text": "."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 28,
+          "name": "message",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "messages.ts",
+              "line": 32,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L32"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 27,
+          "name": "pattern",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "messages.ts",
+              "line": 31,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L31"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.es5.d.ts",
+              "qualifiedName": "RegExp"
+            },
+            "name": "RegExp",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            28,
+            27
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "messages.ts",
+          "line": 30,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L30"
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "name": "HandleWalletErrorOptions",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Sinks the helper writes into when classifying an error."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 56,
+          "name": "customErrors",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Forwarded to "
+              },
+              {
+                "kind": "code",
+                "text": "`getUserFriendlyErrorMessage`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "handle.ts",
+              "line": 27,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L27"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.es5.d.ts",
+              "qualifiedName": "Record"
+            },
+            "typeArguments": [
+              {
+                "type": "intrinsic",
+                "name": "string"
+              },
+              {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            ],
+            "name": "Record",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        },
+        {
+          "id": 58,
+          "name": "fallback",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Forwarded to "
+              },
+              {
+                "kind": "code",
+                "text": "`getUserFriendlyErrorMessage`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "handle.ts",
+              "line": 31,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L31"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 52,
+          "name": "onError",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Always called with the underlying error (coerced to "
+              },
+              {
+                "kind": "code",
+                "text": "`Error`"
+              },
+              {
+                "kind": "text",
+                "text": ")."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "handle.ts",
+              "line": 25,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L25"
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 53,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 54,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 55,
+                      "name": "error",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.es5.d.ts",
+                          "qualifiedName": "Error"
+                        },
+                        "name": "Error",
+                        "package": "typescript",
+                        "externalUrl": "#"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 57,
+          "name": "patterns",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Forwarded to "
+              },
+              {
+                "kind": "code",
+                "text": "`getUserFriendlyErrorMessage`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "handle.ts",
+              "line": 29,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L29"
+            }
+          ],
+          "type": {
+            "type": "typeOperator",
+            "operator": "readonly",
+            "target": {
+              "type": "array",
+              "elementType": {
+                "type": "reference",
+                "target": 26,
+                "name": "ErrorPattern",
+                "package": "@valve-tech/viem-errors"
+              }
+            }
+          }
+        },
+        {
+          "id": 38,
+          "name": "setErrorMessage",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Callback to store the user-facing message — "
+              },
+              {
+                "kind": "code",
+                "text": "`null`"
+              },
+              {
+                "kind": "text",
+                "text": " on rejection, friendly text on failure."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "handle.ts",
+              "line": 21,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L21"
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 39,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 40,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 41,
+                      "name": "message",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "union",
+                        "types": [
+                          {
+                            "type": "intrinsic",
+                            "name": "string"
+                          },
+                          {
+                            "type": "literal",
+                            "value": null
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 34,
+          "name": "setStatus",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Callback to set a UI status — "
+              },
+              {
+                "kind": "code",
+                "text": "`idle`"
+              },
+              {
+                "kind": "text",
+                "text": " on rejection, "
+              },
+              {
+                "kind": "code",
+                "text": "`error`"
+              },
+              {
+                "kind": "text",
+                "text": " on real failure."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "handle.ts",
+              "line": 19,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L19"
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 35,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 36,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 37,
+                      "name": "status",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "union",
+                        "types": [
+                          {
+                            "type": "literal",
+                            "value": "idle"
+                          },
+                          {
+                            "type": "literal",
+                            "value": "error"
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 42,
+          "name": "toast",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Toast bridge (e.g. sonner). Rejection → "
+              },
+              {
+                "kind": "code",
+                "text": "`info`"
+              },
+              {
+                "kind": "text",
+                "text": ", real error → "
+              },
+              {
+                "kind": "code",
+                "text": "`error`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "handle.ts",
+              "line": 23,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L23"
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 43,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "children": [
+                {
+                  "id": 44,
+                  "name": "error",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {},
+                  "sources": [
+                    {
+                      "fileName": "handle.ts",
+                      "line": 23,
+                      "character": 12,
+                      "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L23"
+                    }
+                  ],
+                  "type": {
+                    "type": "reflection",
+                    "declaration": {
+                      "id": 45,
+                      "name": "__type",
+                      "variant": "declaration",
+                      "kind": 65536,
+                      "flags": {},
+                      "signatures": [
+                        {
+                          "id": 46,
+                          "name": "__type",
+                          "variant": "signature",
+                          "kind": 4096,
+                          "flags": {},
+                          "parameters": [
+                            {
+                              "id": 47,
+                              "name": "message",
+                              "variant": "param",
+                              "kind": 32768,
+                              "flags": {},
+                              "type": {
+                                "type": "intrinsic",
+                                "name": "string"
+                              }
+                            }
+                          ],
+                          "type": {
+                            "type": "intrinsic",
+                            "name": "void"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "id": 48,
+                  "name": "info",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {},
+                  "sources": [
+                    {
+                      "fileName": "handle.ts",
+                      "line": 23,
+                      "character": 46,
+                      "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L23"
+                    }
+                  ],
+                  "type": {
+                    "type": "reflection",
+                    "declaration": {
+                      "id": 49,
+                      "name": "__type",
+                      "variant": "declaration",
+                      "kind": 65536,
+                      "flags": {},
+                      "signatures": [
+                        {
+                          "id": 50,
+                          "name": "__type",
+                          "variant": "signature",
+                          "kind": 4096,
+                          "flags": {},
+                          "parameters": [
+                            {
+                              "id": 51,
+                              "name": "message",
+                              "variant": "param",
+                              "kind": 32768,
+                              "flags": {},
+                              "type": {
+                                "type": "intrinsic",
+                                "name": "string"
+                              }
+                            }
+                          ],
+                          "type": {
+                            "type": "intrinsic",
+                            "name": "void"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    44,
+                    48
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            56,
+            58,
+            52,
+            57,
+            38,
+            34,
+            42
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "handle.ts",
+          "line": 17,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L17"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "name": "DEFAULT_ERROR_PATTERNS",
+      "variant": "declaration",
+      "kind": 32,
+      "flags": {
+        "isConst": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Default protocol-agnostic patterns. Consumers can prepend their own\nvia the "
+          },
+          {
+            "kind": "code",
+            "text": "`patterns`"
+          },
+          {
+            "kind": "text",
+            "text": " option; the consumer entries win."
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "messages.ts",
+          "line": 39,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L39"
+        }
+      ],
+      "type": {
+        "type": "typeOperator",
+        "operator": "readonly",
+        "target": {
+          "type": "array",
+          "elementType": {
+            "type": "reference",
+            "target": 26,
+            "name": "ErrorPattern",
+            "package": "@valve-tech/viem-errors"
+          }
+        }
+      },
+      "defaultValue": "..."
+    },
+    {
+      "id": 10,
+      "name": "USER_REJECTION_MESSAGE",
+      "variant": "declaration",
+      "kind": 32,
+      "flags": {
+        "isConst": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Toast-friendly message shown when the user rejects a wallet prompt."
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "rejection.ts",
+          "line": 21,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/rejection.ts#L21"
+        }
+      ],
+      "type": {
+        "type": "literal",
+        "value": "Transaction was rejected in wallet."
+      },
+      "defaultValue": "'Transaction was rejected in wallet.'"
+    },
+    {
+      "id": 11,
+      "name": "extractContractErrorName",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "contract-error.ts",
+          "line": 40,
+          "character": 16,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/contract-error.ts#L40"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 12,
+          "name": "extractContractErrorName",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Walk the cause chain and return the first valid Solidity error name found\non "
+              },
+              {
+                "kind": "code",
+                "text": "`data.errorName`"
+              },
+              {
+                "kind": "text",
+                "text": ". Returns null if no such name is present."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@example",
+                "content": [
+                  {
+                    "kind": "code",
+                    "text": "```ts\nconst name = extractContractErrorName(error)\nif (name) {\n  showFriendlyMessage(name)\n}\n```"
+                  }
+                ]
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "contract-error.ts",
+              "line": 40,
+              "character": 16,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/contract-error.ts#L40"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 13,
+              "name": "error",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "intrinsic",
+                "name": "unknown"
+              }
+            }
+          ],
+          "type": {
+            "type": "union",
+            "types": [
+              {
+                "type": "intrinsic",
+                "name": "string"
+              },
+              {
+                "type": "literal",
+                "value": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "name": "extractContractErrorNameFromMessage",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "contract-error.ts",
+          "line": 59,
+          "character": 16,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/contract-error.ts#L59"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 15,
+          "name": "extractContractErrorNameFromMessage",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Fall back to scraping viem's stringified message when the cause chain has\nbeen flattened (e.g. across an RPC boundary or after JSON round-tripping).\nMatches the literal \"reverted with the following reason:\\n<ErrorName>\"\nshape viem produces."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "contract-error.ts",
+              "line": 59,
+              "character": 16,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/contract-error.ts#L59"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 16,
+              "name": "raw",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          ],
+          "type": {
+            "type": "union",
+            "types": [
+              {
+                "type": "intrinsic",
+                "name": "string"
+              },
+              {
+                "type": "literal",
+                "value": null
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "getUserFriendlyErrorMessage",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "messages.ts",
+          "line": 87,
+          "character": 16,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L87"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 18,
+          "name": "getUserFriendlyErrorMessage",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Convert a raw error into a short, user-friendly message safe to display."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@example",
+                "content": [
+                  {
+                    "kind": "code",
+                    "text": "```ts\ntry {\n  await client.signalIntent(params)\n} catch (error) {\n  const message = getUserFriendlyErrorMessage(error, {\n    customErrors: { HashMismatch: 'The proof did not match the deposit.' },\n  })\n  showToast(message)\n}\n```"
+                  }
+                ]
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "messages.ts",
+              "line": 87,
+              "character": 16,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L87"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 19,
+              "name": "error",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "intrinsic",
+                "name": "unknown"
+              }
+            },
+            {
+              "id": 20,
+              "name": "options",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 21,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "children": [
+                    {
+                      "id": 22,
+                      "name": "customErrors",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isOptional": true
+                      },
+                      "sources": [
+                        {
+                          "fileName": "messages.ts",
+                          "line": 90,
+                          "character": 4,
+                          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L90"
+                        }
+                      ],
+                      "type": {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.es5.d.ts",
+                          "qualifiedName": "Record"
+                        },
+                        "typeArguments": [
+                          {
+                            "type": "intrinsic",
+                            "name": "string"
+                          },
+                          {
+                            "type": "intrinsic",
+                            "name": "string"
+                          }
+                        ],
+                        "name": "Record",
+                        "package": "typescript",
+                        "externalUrl": "#"
+                      }
+                    },
+                    {
+                      "id": 24,
+                      "name": "fallback",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isOptional": true
+                      },
+                      "sources": [
+                        {
+                          "fileName": "messages.ts",
+                          "line": 92,
+                          "character": 4,
+                          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L92"
+                        }
+                      ],
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      }
+                    },
+                    {
+                      "id": 23,
+                      "name": "patterns",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isOptional": true
+                      },
+                      "sources": [
+                        {
+                          "fileName": "messages.ts",
+                          "line": 91,
+                          "character": 4,
+                          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L91"
+                        }
+                      ],
+                      "type": {
+                        "type": "typeOperator",
+                        "operator": "readonly",
+                        "target": {
+                          "type": "array",
+                          "elementType": {
+                            "type": "reference",
+                            "target": 26,
+                            "name": "ErrorPattern",
+                            "package": "@valve-tech/viem-errors"
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "groups": [
+                    {
+                      "title": "Properties",
+                      "children": [
+                        22,
+                        24,
+                        23
+                      ]
+                    }
+                  ]
+                }
+              },
+              "defaultValue": "{}"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "name": "handleWalletError",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "handle.ts",
+          "line": 56,
+          "character": 16,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L56"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 30,
+          "name": "handleWalletError",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Classify a thrown value as either a user rejection or a real failure, then\nroute the configured sinks accordingly."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@example",
+                "content": [
+                  {
+                    "kind": "code",
+                    "text": "```ts\n// wagmi onError shape\nonError: (err) => handleWalletError(err, {\n  setStatus: setTxStatus,\n  setErrorMessage: setError,\n  toast,\n  customErrors: { HashMismatch: 'Proof did not match.' },\n})\n\n// catch block shape\ntry {\n  await writeAsync(args)\n} catch (err) {\n  handleWalletError(err, { setStatus, setErrorMessage, toast })\n}\n```"
+                  }
+                ]
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "handle.ts",
+              "line": 56,
+              "character": 16,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L56"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 31,
+              "name": "error",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "intrinsic",
+                "name": "unknown"
+              }
+            },
+            {
+              "id": 32,
+              "name": "options",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "target": 33,
+                "name": "HandleWalletErrorOptions",
+                "package": "@valve-tech/viem-errors"
+              },
+              "defaultValue": "{}"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "void"
+          }
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "isUserRejectionError",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "rejection.ts",
+          "line": 45,
+          "character": 16,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/rejection.ts#L45"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 8,
+          "name": "isUserRejectionError",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Check whether an error represents a user-initiated wallet rejection.\n\nWalks the cause chain (viem nests rejections several layers deep —\ntypically "
+              },
+              {
+                "kind": "code",
+                "text": "`ContractFunctionExecutionError`"
+              },
+              {
+                "kind": "text",
+                "text": " → "
+              },
+              {
+                "kind": "code",
+                "text": "`RpcRequestError`"
+              },
+              {
+                "kind": "text",
+                "text": " →\n"
+              },
+              {
+                "kind": "code",
+                "text": "`UserRejectedRequestError`"
+              },
+              {
+                "kind": "text",
+                "text": ") and checks three independent signals at\neach level:\n  1. **EIP-1193 "
+              },
+              {
+                "kind": "code",
+                "text": "`code === 4001`"
+              },
+              {
+                "kind": "text",
+                "text": "** — the spec-mandated rejection code,\n     language-independent. The most reliable signal when present.\n  2. **Error name "
+              },
+              {
+                "kind": "code",
+                "text": "`UserRejectedRequestError`"
+              },
+              {
+                "kind": "text",
+                "text": "** — viem's class name.\n  3. **Message text regex** — fallback for wallets that bypass the\n     standard error class.\n\nAny one of those three is sufficient at any level in the chain."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "rejection.ts",
+              "line": 45,
+              "character": 16,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/rejection.ts#L45"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 9,
+              "name": "error",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "intrinsic",
+                "name": "unknown"
+              }
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "walkErrorCause",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "comment": {
+        "summary": [],
+        "blockTags": [
+          {
+            "tag": "@fileoverview",
+            "content": [
+              {
+                "kind": "text",
+                "text": "Public API of "
+              },
+              {
+                "kind": "code",
+                "text": "`@valve-tech/viem-errors`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "walk.ts",
+          "line": 27,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/walk.ts#L27"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 2,
+          "name": "walkErrorCause",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Walk an error and its "
+              },
+              {
+                "kind": "code",
+                "text": "`cause`"
+              },
+              {
+                "kind": "text",
+                "text": " chain, yielding each link in order, starting\nwith the error itself. Stops at "
+              },
+              {
+                "kind": "code",
+                "text": "`null`"
+              },
+              {
+                "kind": "text",
+                "text": "/"
+              },
+              {
+                "kind": "code",
+                "text": "`undefined`"
+              },
+              {
+                "kind": "text",
+                "text": ", when the chain hits a\nprimitive that has no "
+              },
+              {
+                "kind": "code",
+                "text": "`cause`"
+              },
+              {
+                "kind": "text",
+                "text": ", or when "
+              },
+              {
+                "kind": "code",
+                "text": "`maxDepth`"
+              },
+              {
+                "kind": "text",
+                "text": " is reached. Default depth\nis 8 — enough for every viem stack we've seen in the wild without risking\na runaway loop on a circular chain."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@example",
+                "content": [
+                  {
+                    "kind": "code",
+                    "text": "```ts\nfor (const link of walkErrorCause(error)) {\n  if (typeof link === 'object' && link && 'code' in link && link.code === 4001) {\n    return true\n  }\n}\n```"
+                  }
+                ]
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "walk.ts",
+              "line": 27,
+              "character": 17,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/walk.ts#L27"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 3,
+              "name": "error",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "intrinsic",
+                "name": "unknown"
+              }
+            },
+            {
+              "id": 4,
+              "name": "options",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 5,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "children": [
+                    {
+                      "id": 6,
+                      "name": "maxDepth",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isOptional": true
+                      },
+                      "sources": [
+                        {
+                          "fileName": "walk.ts",
+                          "line": 29,
+                          "character": 13,
+                          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/walk.ts#L29"
+                        }
+                      ],
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "number"
+                      }
+                    }
+                  ],
+                  "groups": [
+                    {
+                      "title": "Properties",
+                      "children": [
+                        6
+                      ]
+                    }
+                  ]
+                }
+              },
+              "defaultValue": "{}"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.es2015.generator.d.ts",
+              "qualifiedName": "Generator"
+            },
+            "typeArguments": [
+              {
+                "type": "intrinsic",
+                "name": "unknown"
+              },
+              {
+                "type": "intrinsic",
+                "name": "void"
+              },
+              {
+                "type": "intrinsic",
+                "name": "unknown"
+              }
+            ],
+            "name": "Generator",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Interfaces",
+      "children": [
+        26,
+        33
+      ]
+    },
+    {
+      "title": "Variables",
+      "children": [
+        25,
+        10
+      ]
+    },
+    {
+      "title": "Functions",
+      "children": [
+        11,
+        14,
+        17,
+        29,
+        7,
+        1
+      ]
+    }
+  ],
+  "packageName": "@valve-tech/viem-errors",
+  "packageVersion": "0.17.0",
+  "symbolIdMap": {
+    "0": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/index.ts",
+      "qualifiedName": ""
+    },
+    "1": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/walk.ts",
+      "qualifiedName": "walkErrorCause"
+    },
+    "2": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/walk.ts",
+      "qualifiedName": "walkErrorCause"
+    },
+    "3": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/walk.ts",
+      "qualifiedName": "error"
+    },
+    "4": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/walk.ts",
+      "qualifiedName": "options"
+    },
+    "5": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/walk.ts",
+      "qualifiedName": "__type"
+    },
+    "6": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/walk.ts",
+      "qualifiedName": "__type.maxDepth"
+    },
+    "7": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/rejection.ts",
+      "qualifiedName": "isUserRejectionError"
+    },
+    "8": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/rejection.ts",
+      "qualifiedName": "isUserRejectionError"
+    },
+    "9": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/rejection.ts",
+      "qualifiedName": "error"
+    },
+    "10": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/rejection.ts",
+      "qualifiedName": "USER_REJECTION_MESSAGE"
+    },
+    "11": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/contract-error.ts",
+      "qualifiedName": "extractContractErrorName"
+    },
+    "12": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/contract-error.ts",
+      "qualifiedName": "extractContractErrorName"
+    },
+    "13": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/contract-error.ts",
+      "qualifiedName": "error"
+    },
+    "14": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/contract-error.ts",
+      "qualifiedName": "extractContractErrorNameFromMessage"
+    },
+    "15": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/contract-error.ts",
+      "qualifiedName": "extractContractErrorNameFromMessage"
+    },
+    "16": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/contract-error.ts",
+      "qualifiedName": "raw"
+    },
+    "17": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "getUserFriendlyErrorMessage"
+    },
+    "18": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "getUserFriendlyErrorMessage"
+    },
+    "19": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "error"
+    },
+    "20": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "options"
+    },
+    "21": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "__type"
+    },
+    "22": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "__type.customErrors"
+    },
+    "23": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "__type.patterns"
+    },
+    "24": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "__type.fallback"
+    },
+    "25": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "DEFAULT_ERROR_PATTERNS"
+    },
+    "26": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "ErrorPattern"
+    },
+    "27": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "ErrorPattern.pattern"
+    },
+    "28": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "ErrorPattern.message"
+    },
+    "29": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "handleWalletError"
+    },
+    "30": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "handleWalletError"
+    },
+    "31": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "error"
+    },
+    "32": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "options"
+    },
+    "33": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "HandleWalletErrorOptions"
+    },
+    "34": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "HandleWalletErrorOptions.setStatus"
+    },
+    "35": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "__type"
+    },
+    "36": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "__type"
+    },
+    "37": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "status"
+    },
+    "38": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "HandleWalletErrorOptions.setErrorMessage"
+    },
+    "39": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "__type"
+    },
+    "40": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "__type"
+    },
+    "41": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "message"
+    },
+    "42": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "HandleWalletErrorOptions.toast"
+    },
+    "43": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "__type"
+    },
+    "44": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "__type.error"
+    },
+    "45": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "__type"
+    },
+    "46": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "__type"
+    },
+    "47": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "message"
+    },
+    "48": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "__type.info"
+    },
+    "49": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "__type"
+    },
+    "50": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "__type"
+    },
+    "51": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "message"
+    },
+    "52": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "HandleWalletErrorOptions.onError"
+    },
+    "53": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "__type"
+    },
+    "54": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "__type"
+    },
+    "55": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "error"
+    },
+    "56": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "HandleWalletErrorOptions.customErrors"
+    },
+    "57": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "HandleWalletErrorOptions.patterns"
+    },
+    "58": {
+      "packageName": "@valve-tech/viem-errors",
+      "packagePath": "src/handle.ts",
+      "qualifiedName": "HandleWalletErrorOptions.fallback"
+    }
+  },
+  "files": {
+    "entries": {
+      "1": "packages/viem-errors/src/index.ts"
+    },
+    "reflections": {
+      "1": 0
+    }
+  }
+}

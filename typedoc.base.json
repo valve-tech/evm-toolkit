@@ -1,0 +1,30 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "excludeInternal": true,
+  "excludeExternals": true,
+  "excludePrivate": true,
+  "skipErrorChecking": false,
+  "readme": "none",
+  "includeVersion": true,
+  "githubPages": false,
+  "treatWarningsAsErrors": false,
+  "validation": {
+    "notExported": false,
+    "invalidLink": false,
+    "notDocumented": false
+  },
+  "externalSymbolLinkMappings": {
+    "viem": {
+      "*": "https://viem.sh/docs/getting-started.html"
+    },
+    "react": {
+      "*": "https://react.dev/reference/react"
+    },
+    "typescript": {
+      "*": "#"
+    },
+    "global": {
+      "*": "#"
+    }
+  }
+}

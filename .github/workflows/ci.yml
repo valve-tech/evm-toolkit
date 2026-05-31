@@ -75,6 +75,15 @@ jobs:
       - name: Verify persisted-type manifest
         run: yarn verify:persisted-types
 
+      # Ensures docs/api/*.json (TypeDoc model artifacts ingested by
+      # docs.valve.city) match the current source. Any change to a
+      # package's exported surface or TSDoc comments must be paired
+      # with a regenerated artifact — same "lessons-as-automation"
+      # pattern as the persisted-type manifest above. Recover with
+      # `yarn docs:build` locally + commit.
+      - name: Verify docs are up to date
+        run: yarn docs:check
+
   # Browser + anvil-backed integration tests for @valve-tech/wallet-adapter
   # (5 of the 8 worked bridge examples). Runs in parallel with the
   # `test` job above. Required for the overall CI run to pass.

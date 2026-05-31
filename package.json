@@ -29,6 +29,8 @@
     "verify:clean": "rm -rf packages/*/dist packages/*/tsconfig.tsbuildinfo && yarn build && yarn lint && yarn typecheck && yarn typecheck:examples && yarn test && yarn verify:persisted-types",
     "verify:release-coverage": "node scripts/verify-release-coverage.mjs",
     "verify:persisted-types": "node scripts/verify-persisted-types.mjs",
+    "docs:build": "node scripts/build-docs.mjs",
+    "docs:check": "node scripts/build-docs.mjs --check",
     "prepare": "git config core.hooksPath .githooks 2>/dev/null || true"
   },
   "devDependencies": {
@@ -43,6 +45,7 @@
     "ethers": "^6.16.0",
     "playwright": "^1.60.0",
     "prool": "^0.2.4",
+    "typedoc": "^0.28.19",
     "typescript": "^6.0.2",
     "typescript-eslint": "^8.59.1",
     "viem": "^2.21.0",
