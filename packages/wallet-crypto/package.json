@@ -1,0 +1,59 @@
+{
+  "name": "@valve-tech/wallet-crypto",
+  "version": "0.18.0",
+  "description": "Wallet-derived encryption keys + AES-GCM authenticated envelopes for viem-based dapps. Deterministic, versioned keys derived from a personal_sign signature (same wallet + same purpose + same version → same CryptoKey, across devices). Non-extractable WebCrypto AES-GCM encrypt/decrypt with AAD binding. Pure functions, no runtime storage. Part of the valve-tech/evm-toolkit synchronized release line.",
+  "license": "MIT",
+  "homepage": "https://github.com/valve-tech/evm-toolkit/tree/main/packages/wallet-crypto#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valve-tech/evm-toolkit.git",
+    "directory": "packages/wallet-crypto"
+  },
+  "bugs": {
+    "url": "https://github.com/valve-tech/evm-toolkit/issues"
+  },
+  "keywords": [
+    "ethereum",
+    "evm",
+    "viem",
+    "wallet",
+    "encryption",
+    "key-derivation",
+    "aes-gcm",
+    "webcrypto",
+    "deterministic-key",
+    "envelope-encryption"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "skills",
+    "README.md",
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p .",
+    "typecheck": "tsc -p . --noEmit",
+    "typecheck:examples": "tsc -p examples",
+    "lint": "eslint src",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "prepare": "yarn build"
+  },
+  "dependencies": {
+    "@valve-tech/viem-errors": "workspace:^"
+  },
+  "peerDependencies": {
+    "viem": "^2.0.0"
+  }
+}

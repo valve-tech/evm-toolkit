@@ -1,0 +1,59 @@
+{
+  "name": "@valve-tech/auth-lite",
+  "version": "0.18.0",
+  "description": "SIWE-lite authentication for viem-based dapps. Server-issued nonce + client personal_sign + server recover, with the EIP-4361 fields a single-app product doesn't need (domain, URI, chainId, statement, expiry, resources) stripped out. Smaller spec, smaller threat surface, plain-text wallet prompts that users can actually read. Pure functions, no nonce storage, no session token issuance. Pairs with @valve-tech/wallet-crypto for wallet-derived encryption. Part of the valve-tech/evm-toolkit synchronized release line.",
+  "license": "MIT",
+  "homepage": "https://github.com/valve-tech/evm-toolkit/tree/main/packages/auth-lite#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valve-tech/evm-toolkit.git",
+    "directory": "packages/auth-lite"
+  },
+  "bugs": {
+    "url": "https://github.com/valve-tech/evm-toolkit/issues"
+  },
+  "keywords": [
+    "ethereum",
+    "evm",
+    "viem",
+    "siwe",
+    "siwe-lite",
+    "authentication",
+    "wallet-auth",
+    "personal-sign",
+    "nonce",
+    "recover-address"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "skills",
+    "README.md",
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p .",
+    "typecheck": "tsc -p . --noEmit",
+    "typecheck:examples": "tsc -p examples",
+    "lint": "eslint src",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "prepare": "yarn build"
+  },
+  "dependencies": {
+    "@valve-tech/viem-errors": "workspace:^"
+  },
+  "peerDependencies": {
+    "viem": "^2.0.0"
+  }
+}

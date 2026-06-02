@@ -6,6 +6,45 @@ this file. Per-package details live in each `packages/*/CHANGELOG.md`.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.18.0] — 2026-06-01
+
+Two new packages join the synchronized release line, both implementing
+the consumer contract from
+`trace/docs/superpowers/specs/2026-06-01-evm-toolkit-siwe-encryption-contract.md`:
+
+**`@valve-tech/auth-lite` — SIWE-lite authentication.** Server-issued
+nonce + client `personal_sign` + server recover. Deliberately narrower
+than full EIP-4361: no domain/URI/chainId/issuedAt fields — the threat
+model is single-app, and a server-issued single-use nonce covers
+replay on its own. Plain-text wallet prompts users can actually read.
+Three primitives: `generateAuthNonce`, `signAuthChallenge`,
+`verifyAuthSignature`. Caller owns nonce storage + session token
+issuance — both are framework-dependent and out of scope by design.
+
+**`@valve-tech/wallet-crypto` — Wallet-derived encryption keys + AEAD
+envelopes.** `deriveWalletEncryptionKey` returns a deterministic,
+non-extractable AES-GCM `CryptoKey` for any (wallet, purpose, version)
+triple. Same wallet on a different device derives the same key,
+forever, enabling cloud-sync of encrypted blobs without server-side
+key escrow. `encryptEnvelope` / `decryptEnvelope` ship with AAD
+binding so envelope-version downgrade attacks are blocked. Single-
+state `DecryptionFailed` preserves AEAD information-hiding on
+failure.
+
+Both packages share `WalletDeclined` / `WalletUnavailable` error
+class names so consumers using both can `catch (e)` once. Both
+depend on `@valve-tech/viem-errors` internally for the three-signal
+rejection detection (EIP-1193 4001 / class name / message regex);
+consumers don't need to import viem-errors directly.
+
+Full EIP-4361 SIWE is explicitly deferred to a future package per
+the consumer contract — these two packages and a future
+`@valve-tech/siwe` can coexist because their signed-message
+templates don't collide.
+
+All other packages republish at 0.18.0 with no substantive changes
+(synchronized version line).
+
 ## [0.17.0] — 2026-05-30
 
 Adds first-class support for tracking transactions the consumer

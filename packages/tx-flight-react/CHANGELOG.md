@@ -6,6 +6,19 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.18.0] — 2026-06-01
+
+### Notes
+
+- Synchronized release — no changes to this package. Republished at
+  0.18.0 alongside the rest of the toolkit; the substantive additions
+  are two new packages joining the release line:
+  `@valve-tech/auth-lite` (SIWE-lite authentication: server-issued
+  nonce + client `personal_sign` + server recover) and
+  `@valve-tech/wallet-crypto` (deterministic wallet-derived AES-GCM
+  encryption keys + authenticated envelopes). See those packages'
+  CHANGELOGs for details.
+
 ## [0.17.0] — 2026-05-30
 
 ### Added

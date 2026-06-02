@@ -936,6 +936,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@valve-tech/auth-lite@workspace:packages/auth-lite":
+  version: 0.0.0-use.local
+  resolution: "@valve-tech/auth-lite@workspace:packages/auth-lite"
+  dependencies:
+    "@valve-tech/viem-errors": "workspace:^"
+  peerDependencies:
+    viem: ^2.0.0
+  languageName: unknown
+  linkType: soft
+
 "@valve-tech/chain-source@workspace:^, @valve-tech/chain-source@workspace:packages/chain-source":
   version: 0.0.0-use.local
   resolution: "@valve-tech/chain-source@workspace:packages/chain-source"
@@ -1038,6 +1048,16 @@ __metadata:
 "@valve-tech/wallet-adapter@workspace:^, @valve-tech/wallet-adapter@workspace:packages/wallet-adapter":
   version: 0.0.0-use.local
   resolution: "@valve-tech/wallet-adapter@workspace:packages/wallet-adapter"
+  dependencies:
+    "@valve-tech/viem-errors": "workspace:^"
+  peerDependencies:
+    viem: ^2.0.0
+  languageName: unknown
+  linkType: soft
+
+"@valve-tech/wallet-crypto@workspace:packages/wallet-crypto":
+  version: 0.0.0-use.local
+  resolution: "@valve-tech/wallet-crypto@workspace:packages/wallet-crypto"
   dependencies:
     "@valve-tech/viem-errors": "workspace:^"
   peerDependencies:

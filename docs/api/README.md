@@ -26,7 +26,7 @@ commit the result.
     {
       "name": "@valve-tech/chain-source",
       "slug": "chain-source",
-      "version": "0.17.0",
+      "version": "0.18.0",
       "description": "...",
       "html": "chain-source/index.html",
       "json": "chain-source.json"

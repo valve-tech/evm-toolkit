@@ -1,7 +1,7 @@
 {
   "schemaVersion": "2.0",
   "id": 0,
-  "name": "@valve-tech/viem-errors v0.17.0",
+  "name": "@valve-tech/viem-errors v0.18.0",
   "variant": "project",
   "kind": 1,
   "flags": {},
@@ -40,7 +40,7 @@
               "fileName": "messages.ts",
               "line": 32,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L32"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/messages.ts#L32"
             }
           ],
           "type": {
@@ -59,7 +59,7 @@
               "fileName": "messages.ts",
               "line": 31,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L31"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/messages.ts#L31"
             }
           ],
           "type": {
@@ -89,7 +89,7 @@
           "fileName": "messages.ts",
           "line": 30,
           "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L30"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/messages.ts#L30"
         }
       ]
     },
@@ -137,7 +137,7 @@
               "fileName": "handle.ts",
               "line": 27,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L27"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/handle.ts#L27"
             }
           ],
           "type": {
@@ -191,7 +191,7 @@
               "fileName": "handle.ts",
               "line": 31,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L31"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/handle.ts#L31"
             }
           ],
           "type": {
@@ -228,7 +228,7 @@
               "fileName": "handle.ts",
               "line": 25,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L25"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/handle.ts#L25"
             }
           ],
           "type": {
@@ -304,7 +304,7 @@
               "fileName": "handle.ts",
               "line": 29,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L29"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/handle.ts#L29"
             }
           ],
           "type": {
@@ -350,7 +350,7 @@
               "fileName": "handle.ts",
               "line": 21,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L21"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/handle.ts#L21"
             }
           ],
           "type": {
@@ -436,7 +436,7 @@
               "fileName": "handle.ts",
               "line": 19,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L19"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/handle.ts#L19"
             }
           ],
           "type": {
@@ -522,7 +522,7 @@
               "fileName": "handle.ts",
               "line": 23,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L23"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/handle.ts#L23"
             }
           ],
           "type": {
@@ -545,7 +545,7 @@
                       "fileName": "handle.ts",
                       "line": 23,
                       "character": 12,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L23"
+                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/handle.ts#L23"
                     }
                   ],
                   "type": {
@@ -596,7 +596,7 @@
                       "fileName": "handle.ts",
                       "line": 23,
                       "character": 46,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L23"
+                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/handle.ts#L23"
                     }
                   ],
                   "type": {
@@ -669,7 +669,7 @@
           "fileName": "handle.ts",
           "line": 17,
           "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L17"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/handle.ts#L17"
         }
       ]
     },
@@ -702,7 +702,7 @@
           "fileName": "messages.ts",
           "line": 39,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L39"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/messages.ts#L39"
         }
       ],
       "type": {
@@ -741,7 +741,7 @@
           "fileName": "rejection.ts",
           "line": 21,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/rejection.ts#L21"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/rejection.ts#L21"
         }
       ],
       "type": {
@@ -761,7 +761,7 @@
           "fileName": "contract-error.ts",
           "line": 40,
           "character": 16,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/contract-error.ts#L40"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/contract-error.ts#L40"
         }
       ],
       "signatures": [
@@ -803,7 +803,7 @@
               "fileName": "contract-error.ts",
               "line": 40,
               "character": 16,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/contract-error.ts#L40"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/contract-error.ts#L40"
             }
           ],
           "parameters": [
@@ -846,7 +846,7 @@
           "fileName": "contract-error.ts",
           "line": 59,
           "character": 16,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/contract-error.ts#L59"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/contract-error.ts#L59"
         }
       ],
       "signatures": [
@@ -869,7 +869,7 @@
               "fileName": "contract-error.ts",
               "line": 59,
               "character": 16,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/contract-error.ts#L59"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/contract-error.ts#L59"
             }
           ],
           "parameters": [
@@ -912,7 +912,7 @@
           "fileName": "messages.ts",
           "line": 87,
           "character": 16,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L87"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/messages.ts#L87"
         }
       ],
       "signatures": [
@@ -946,7 +946,7 @@
               "fileName": "messages.ts",
               "line": 87,
               "character": 16,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L87"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/messages.ts#L87"
             }
           ],
           "parameters": [
@@ -989,7 +989,7 @@
                           "fileName": "messages.ts",
                           "line": 90,
                           "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L90"
+                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/messages.ts#L90"
                         }
                       ],
                       "type": {
@@ -1027,7 +1027,7 @@
                           "fileName": "messages.ts",
                           "line": 92,
                           "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L92"
+                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/messages.ts#L92"
                         }
                       ],
                       "type": {
@@ -1048,7 +1048,7 @@
                           "fileName": "messages.ts",
                           "line": 91,
                           "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/messages.ts#L91"
+                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/messages.ts#L91"
                         }
                       ],
                       "type": {
@@ -1099,7 +1099,7 @@
           "fileName": "handle.ts",
           "line": 56,
           "character": 16,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L56"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/handle.ts#L56"
         }
       ],
       "signatures": [
@@ -1133,7 +1133,7 @@
               "fileName": "handle.ts",
               "line": 56,
               "character": 16,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/handle.ts#L56"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/handle.ts#L56"
             }
           ],
           "parameters": [
@@ -1181,7 +1181,7 @@
           "fileName": "rejection.ts",
           "line": 45,
           "character": 16,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/rejection.ts#L45"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/rejection.ts#L45"
         }
       ],
       "signatures": [
@@ -1244,7 +1244,7 @@
               "fileName": "rejection.ts",
               "line": 45,
               "character": 16,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/rejection.ts#L45"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/rejection.ts#L45"
             }
           ],
           "parameters": [
@@ -1300,7 +1300,7 @@
           "fileName": "walk.ts",
           "line": 27,
           "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/walk.ts#L27"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/walk.ts#L27"
         }
       ],
       "signatures": [
@@ -1374,7 +1374,7 @@
               "fileName": "walk.ts",
               "line": 27,
               "character": 17,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/walk.ts#L27"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/walk.ts#L27"
             }
           ],
           "parameters": [
@@ -1417,7 +1417,7 @@
                           "fileName": "walk.ts",
                           "line": 29,
                           "character": 13,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/83a6933ea4c25c87c33d5eeca9a4347ed9a4da9b/packages/viem-errors/src/walk.ts#L29"
+                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/viem-errors/src/walk.ts#L29"
                         }
                       ],
                       "type": {
@@ -1496,7 +1496,7 @@
     }
   ],
   "packageName": "@valve-tech/viem-errors",
-  "packageVersion": "0.17.0",
+  "packageVersion": "0.18.0",
   "symbolIdMap": {
     "0": {
       "packageName": "@valve-tech/viem-errors",

@@ -192,8 +192,25 @@ const main = async () => {
     return
   }
 
-  await rm(DOCS_DIR, { recursive: true, force: true })
-  await mkdir(DOCS_DIR, { recursive: true })
+  // Preserve hand-curated files (README, schema docs, etc.). We
+  // only purge the generated artifacts: per-package HTML dirs +
+  // per-package JSON files + the manifest + the vendored upstream
+  // OpenAPI yaml. Anything else in docs/api/ is treated as
+  // hand-curated and left alone.
+  if (existsSync(DOCS_DIR)) {
+    const existing = await readdir(DOCS_DIR, { withFileTypes: true })
+    for (const entry of existing) {
+      const full = join(DOCS_DIR, entry.name)
+      const isGeneratedHtmlDir = entry.isDirectory() // per-package HTML output
+      const isGeneratedJson = entry.isFile() && entry.name.endsWith('.json')
+      const isVendoredOpenapi = entry.name === 'trueblocks-openapi.yaml'
+      if (isGeneratedHtmlDir || isGeneratedJson || isVendoredOpenapi) {
+        await rm(full, { recursive: true, force: true })
+      }
+    }
+  } else {
+    await mkdir(DOCS_DIR, { recursive: true })
+  }
 
   for (const pkg of pkgs) {
     log(`building ${pkg.name}`)

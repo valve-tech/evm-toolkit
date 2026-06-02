@@ -1,0 +1,1775 @@
+{
+  "schemaVersion": "2.0",
+  "id": 0,
+  "name": "@valve-tech/auth-lite v0.18.0",
+  "variant": "project",
+  "kind": 1,
+  "flags": {},
+  "children": [
+    {
+      "id": 45,
+      "name": "InvalidNonce",
+      "variant": "declaration",
+      "kind": 128,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "The nonce failed a sanity check: not a base64url string of at least\n16 bytes (≥22 characters). Protects against accidental empty-string\nsigning — a server bug that returns "
+          },
+          {
+            "kind": "code",
+            "text": "`\"\"`"
+          },
+          {
+            "kind": "text",
+            "text": " should not cause the\nclient to sign nothing.\n\nThis does NOT mean \"nonce is replayed\" or \"nonce expired\" — that's\nthe caller's storage layer's job to detect; this is structural sanity\nat the client-side boundary only."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 46,
+          "name": "constructor",
+          "variant": "declaration",
+          "kind": 512,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "errors.ts",
+              "line": 47,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 47,
+              "name": "InvalidNonce",
+              "variant": "signature",
+              "kind": 16384,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "errors.ts",
+                  "line": 47,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 48,
+                  "name": "message",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "defaultValue": "'Nonce failed structural sanity check'"
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": 45,
+                "name": "InvalidNonce",
+                "package": "@valve-tech/auth-lite"
+              },
+              "overwrites": {
+                "type": "reference",
+                "target": -1,
+                "name": "Error.constructor",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ],
+          "overwrites": {
+            "type": "reference",
+            "target": -1,
+            "name": "Error.constructor",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Constructors",
+          "children": [
+            46
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "errors.ts",
+          "line": 46,
+          "character": 13
+        }
+      ],
+      "extendedTypes": [
+        {
+          "type": "reference",
+          "target": {
+            "packageName": "typescript",
+            "packagePath": "lib/lib.es5.d.ts",
+            "qualifiedName": "Error"
+          },
+          "name": "Error",
+          "package": "typescript",
+          "externalUrl": "#"
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "name": "SignatureMismatch",
+      "variant": "declaration",
+      "kind": 128,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Signature verification recovered an address, but it doesn't match\nthe "
+          },
+          {
+            "kind": "code",
+            "text": "`claimedAddress`"
+          },
+          {
+            "kind": "text",
+            "text": " the caller supplied. Indicates either:\n- The frontend mis-echoed which account did the signing (UX bug).\n- An attacker is replaying a signature against a different account.\n\nEither way, the verify path rejects."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 50,
+          "name": "constructor",
+          "variant": "declaration",
+          "kind": 512,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "errors.ts",
+              "line": 62,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 51,
+              "name": "SignatureMismatch",
+              "variant": "signature",
+              "kind": 16384,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "errors.ts",
+                  "line": 62,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 52,
+                  "name": "message",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "defaultValue": "'Recovered address does not match claimed address'"
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": 49,
+                "name": "SignatureMismatch",
+                "package": "@valve-tech/auth-lite"
+              },
+              "overwrites": {
+                "type": "reference",
+                "target": -1,
+                "name": "Error.constructor",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ],
+          "overwrites": {
+            "type": "reference",
+            "target": -1,
+            "name": "Error.constructor",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Constructors",
+          "children": [
+            50
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "errors.ts",
+          "line": 61,
+          "character": 13
+        }
+      ],
+      "extendedTypes": [
+        {
+          "type": "reference",
+          "target": {
+            "packageName": "typescript",
+            "packagePath": "lib/lib.es5.d.ts",
+            "qualifiedName": "Error"
+          },
+          "name": "Error",
+          "package": "typescript",
+          "externalUrl": "#"
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "name": "WalletDeclined",
+      "variant": "declaration",
+      "kind": 128,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "The user actively declined the signature prompt in their wallet.\nCaller should reset UI to idle."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 38,
+          "name": "constructor",
+          "variant": "declaration",
+          "kind": 512,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "errors.ts",
+              "line": 19,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 39,
+              "name": "WalletDeclined",
+              "variant": "signature",
+              "kind": 16384,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "errors.ts",
+                  "line": 19,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 40,
+                  "name": "message",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "defaultValue": "'User declined the signature prompt'"
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": 37,
+                "name": "WalletDeclined",
+                "package": "@valve-tech/auth-lite"
+              },
+              "overwrites": {
+                "type": "reference",
+                "target": -1,
+                "name": "Error.constructor",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ],
+          "overwrites": {
+            "type": "reference",
+            "target": -1,
+            "name": "Error.constructor",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Constructors",
+          "children": [
+            38
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "errors.ts",
+          "line": 18,
+          "character": 13
+        }
+      ],
+      "extendedTypes": [
+        {
+          "type": "reference",
+          "target": {
+            "packageName": "typescript",
+            "packagePath": "lib/lib.es5.d.ts",
+            "qualifiedName": "Error"
+          },
+          "name": "Error",
+          "package": "typescript",
+          "externalUrl": "#"
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "name": "WalletUnavailable",
+      "variant": "declaration",
+      "kind": 128,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "The provided "
+          },
+          {
+            "kind": "code",
+            "text": "`WalletClient`"
+          },
+          {
+            "kind": "text",
+            "text": " has no account connected. Caller should\nprompt the user to connect a wallet before retrying."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 42,
+          "name": "constructor",
+          "variant": "declaration",
+          "kind": 512,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "errors.ts",
+              "line": 30,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 43,
+              "name": "WalletUnavailable",
+              "variant": "signature",
+              "kind": 16384,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "errors.ts",
+                  "line": 30,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 44,
+                  "name": "message",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  },
+                  "defaultValue": "'WalletClient has no account connected'"
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": 41,
+                "name": "WalletUnavailable",
+                "package": "@valve-tech/auth-lite"
+              },
+              "overwrites": {
+                "type": "reference",
+                "target": -1,
+                "name": "Error.constructor",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ],
+          "overwrites": {
+            "type": "reference",
+            "target": -1,
+            "name": "Error.constructor",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Constructors",
+          "children": [
+            42
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "errors.ts",
+          "line": 29,
+          "character": 13
+        }
+      ],
+      "extendedTypes": [
+        {
+          "type": "reference",
+          "target": {
+            "packageName": "typescript",
+            "packagePath": "lib/lib.es5.d.ts",
+            "qualifiedName": "Error"
+          },
+          "name": "Error",
+          "package": "typescript",
+          "externalUrl": "#"
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "name": "AUTH_MESSAGE_TEMPLATE",
+      "variant": "declaration",
+      "kind": 32,
+      "flags": {
+        "isConst": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "The constant message template (without app/nonce substitution).\nExported so consumers can grep the template text from their\ncodebase or render a preview in their UI."
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "messages.ts",
+          "line": 26,
+          "character": 13
+        }
+      ],
+      "type": {
+        "type": "intrinsic",
+        "name": "string"
+      },
+      "defaultValue": "..."
+    },
+    {
+      "id": 30,
+      "name": "formatAuthMessage",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "messages.ts",
+          "line": 47,
+          "character": 16
+        }
+      ],
+      "signatures": [
+        {
+          "id": 31,
+          "name": "formatAuthMessage",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Format the plaintext message a wallet will sign for authentication.\n\nSame "
+              },
+              {
+                "kind": "code",
+                "text": "`app`"
+              },
+              {
+                "kind": "text",
+                "text": " + same "
+              },
+              {
+                "kind": "code",
+                "text": "`nonce`"
+              },
+              {
+                "kind": "text",
+                "text": " → byte-identical output, forever.\nDifferent "
+              },
+              {
+                "kind": "code",
+                "text": "`app`"
+              },
+              {
+                "kind": "text",
+                "text": " or "
+              },
+              {
+                "kind": "code",
+                "text": "`nonce`"
+              },
+              {
+                "kind": "text",
+                "text": " → different output, which is why\ncross-app and cross-session signature replay is prevented."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "messages.ts",
+              "line": 47,
+              "character": 16
+            }
+          ],
+          "parameters": [
+            {
+              "id": 32,
+              "name": "opts",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 33,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "children": [
+                    {
+                      "id": 34,
+                      "name": "app",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Human-readable app identifier shown in the\n  wallet prompt's first line. Convention: capitalize for display\n  (e.g. "
+                          },
+                          {
+                            "kind": "code",
+                            "text": "`\"Explore\"`"
+                          },
+                          {
+                            "kind": "text",
+                            "text": ", not "
+                          },
+                          {
+                            "kind": "code",
+                            "text": "`\"explore\"`"
+                          },
+                          {
+                            "kind": "text",
+                            "text": ")."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "messages.ts",
+                          "line": 48,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      }
+                    },
+                    {
+                      "id": 35,
+                      "name": "nonce",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "The server-issued nonce from\n  "
+                          },
+                          {
+                            "kind": "inline-tag",
+                            "tag": "@link",
+                            "text": "generateAuthNonce",
+                            "target": 13
+                          },
+                          {
+                            "kind": "text",
+                            "text": ". Opaque to this function (any string\n  substitutes verbatim)."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "messages.ts",
+                          "line": 49,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      }
+                    }
+                  ],
+                  "groups": [
+                    {
+                      "title": "Properties",
+                      "children": [
+                        34,
+                        35
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "generateAuthNonce",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "nonce.ts",
+          "line": 51,
+          "character": 16
+        }
+      ],
+      "signatures": [
+        {
+          "id": 14,
+          "name": "generateAuthNonce",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Generate a fresh auth nonce with an expiry timestamp (ms epoch).\n\nThe caller is responsible for:\n1. Persisting the nonce in an \"issued-but-unused\" set.\n2. Rejecting "
+              },
+              {
+                "kind": "code",
+                "text": "`verifyAuthSignature`"
+              },
+              {
+                "kind": "text",
+                "text": " calls whose nonce isn't in that\n   set (or has already been consumed, or whose "
+              },
+              {
+                "kind": "code",
+                "text": "`expiresAt`"
+              },
+              {
+                "kind": "text",
+                "text": " is past).\n3. Deleting the nonce on successful verify (single-use).\n\nThe library doesn't own that storage — the consumer contract calls\nit out as the caller's job. This function is purely the\ngeneration primitive."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "nonce.ts",
+              "line": 51,
+              "character": 16
+            }
+          ],
+          "parameters": [
+            {
+              "id": 15,
+              "name": "opts",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {
+                "isOptional": true
+              },
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 16,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "children": [
+                    {
+                      "id": 17,
+                      "name": "bytes",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isOptional": true
+                      },
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Default: 32. Minimum: 16. Maximum: 64."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "nonce.ts",
+                          "line": 53,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "number"
+                      }
+                    },
+                    {
+                      "id": 18,
+                      "name": "ttlSeconds",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isOptional": true
+                      },
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Default: 300 (5 minutes). Minimum: 30. Maximum: 3600 (1 hour)."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "nonce.ts",
+                          "line": 55,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "number"
+                      }
+                    }
+                  ],
+                  "groups": [
+                    {
+                      "title": "Properties",
+                      "children": [
+                        17,
+                        18
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 19,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "children": [
+                {
+                  "id": 21,
+                  "name": "expiresAt",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {},
+                  "sources": [
+                    {
+                      "fileName": "nonce.ts",
+                      "line": 56,
+                      "character": 21
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                },
+                {
+                  "id": 20,
+                  "name": "nonce",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {},
+                  "sources": [
+                    {
+                      "fileName": "nonce.ts",
+                      "line": 56,
+                      "character": 6
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    21,
+                    20
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "signAuthChallenge",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "comment": {
+        "summary": [],
+        "blockTags": [
+          {
+            "tag": "@fileoverview",
+            "content": [
+              {
+                "kind": "text",
+                "text": "Public API of "
+              },
+              {
+                "kind": "code",
+                "text": "`@valve-tech/auth-lite`"
+              },
+              {
+                "kind": "text",
+                "text": ".\n\nSIWE-lite authentication primitives: server-issued nonce + client\npersonal_sign + server recover. Deliberately narrower than full\nEIP-4361 — see the README for the threat-model rationale and when\nto reach for full SIWE instead.\n\nPairs with "
+              },
+              {
+                "kind": "code",
+                "text": "`@valve-tech/wallet-crypto`"
+              },
+              {
+                "kind": "text",
+                "text": " for products that also need\nwallet-derived encryption."
+              }
+            ]
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "challenge.ts",
+          "line": 32,
+          "character": 22
+        }
+      ],
+      "signatures": [
+        {
+          "id": 2,
+          "name": "signAuthChallenge",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Sign a server-issued auth challenge.\n\nThrows "
+              },
+              {
+                "kind": "inline-tag",
+                "tag": "@link",
+                "text": "InvalidNonce",
+                "target": 45
+              },
+              {
+                "kind": "text",
+                "text": " if "
+              },
+              {
+                "kind": "code",
+                "text": "`nonce`"
+              },
+              {
+                "kind": "text",
+                "text": " isn't a base64url string\nof ≥16 raw bytes — a structural sanity check that catches a server\nbug returning "
+              },
+              {
+                "kind": "code",
+                "text": "`\"\"`"
+              },
+              {
+                "kind": "text",
+                "text": " or a too-short challenge BEFORE we ask the user\nto sign nothing.\n\nThrows "
+              },
+              {
+                "kind": "inline-tag",
+                "tag": "@link",
+                "text": "WalletDeclined",
+                "target": 37
+              },
+              {
+                "kind": "text",
+                "text": " on EIP-1193 4001 / class-name /\nmessage-regex rejection signals.\n\nThrows "
+              },
+              {
+                "kind": "inline-tag",
+                "tag": "@link",
+                "text": "WalletUnavailable",
+                "target": 41
+              },
+              {
+                "kind": "text",
+                "text": " if the WalletClient has no account."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "challenge.ts",
+              "line": 32,
+              "character": 22
+            }
+          ],
+          "parameters": [
+            {
+              "id": 3,
+              "name": "opts",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 4,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "children": [
+                    {
+                      "id": 7,
+                      "name": "app",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "App identifier shown in the wallet prompt."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "challenge.ts",
+                          "line": 35,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      }
+                    },
+                    {
+                      "id": 8,
+                      "name": "nonce",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Server-issued nonce, base64url-encoded."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "challenge.ts",
+                          "line": 37,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      }
+                    },
+                    {
+                      "id": 5,
+                      "name": "signer",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "sources": [
+                        {
+                          "fileName": "challenge.ts",
+                          "line": 33,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "reflection",
+                        "declaration": {
+                          "id": 6,
+                          "name": "__type",
+                          "variant": "declaration",
+                          "kind": 65536,
+                          "flags": {}
+                        }
+                      }
+                    }
+                  ],
+                  "groups": [
+                    {
+                      "title": "Properties",
+                      "children": [
+                        7,
+                        8,
+                        5
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.es5.d.ts",
+              "qualifiedName": "Promise"
+            },
+            "typeArguments": [
+              {
+                "type": "reflection",
+                "declaration": {
+                  "id": 9,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "children": [
+                    {
+                      "id": 10,
+                      "name": "address",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "sources": [
+                        {
+                          "fileName": "challenge.ts",
+                          "line": 38,
+                          "character": 14
+                        }
+                      ],
+                      "type": {
+                        "type": "templateLiteral",
+                        "head": "0x",
+                        "tail": [
+                          [
+                            {
+                              "type": "intrinsic",
+                              "name": "string"
+                            },
+                            ""
+                          ]
+                        ]
+                      }
+                    },
+                    {
+                      "id": 12,
+                      "name": "message",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "sources": [
+                        {
+                          "fileName": "challenge.ts",
+                          "line": 38,
+                          "character": 48
+                        }
+                      ],
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      }
+                    },
+                    {
+                      "id": 11,
+                      "name": "signature",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "sources": [
+                        {
+                          "fileName": "challenge.ts",
+                          "line": 38,
+                          "character": 32
+                        }
+                      ],
+                      "type": {
+                        "type": "templateLiteral",
+                        "head": "0x",
+                        "tail": [
+                          [
+                            {
+                              "type": "intrinsic",
+                              "name": "string"
+                            },
+                            ""
+                          ]
+                        ]
+                      }
+                    }
+                  ],
+                  "groups": [
+                    {
+                      "title": "Properties",
+                      "children": [
+                        10,
+                        12,
+                        11
+                      ]
+                    }
+                  ]
+                }
+              }
+            ],
+            "name": "Promise",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "name": "verifyAuthSignature",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "verify.ts",
+          "line": 42,
+          "character": 22
+        }
+      ],
+      "signatures": [
+        {
+          "id": 23,
+          "name": "verifyAuthSignature",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Verify a signed auth challenge."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@returns",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "The recovered address on success, "
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`null`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": " on any failure\n  (bad signature, address mismatch, malformed input)."
+                  }
+                ]
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "verify.ts",
+              "line": 42,
+              "character": 22
+            }
+          ],
+          "parameters": [
+            {
+              "id": 24,
+              "name": "opts",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 25,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "children": [
+                    {
+                      "id": 26,
+                      "name": "app",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "The expected app identifier. MUST come from\n  trusted server context (e.g. environment config), NOT the request\n  body — otherwise an attacker can rebind a signature to a different\n  app by submitting a different "
+                          },
+                          {
+                            "kind": "code",
+                            "text": "`app`"
+                          },
+                          {
+                            "kind": "text",
+                            "text": " value."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "verify.ts",
+                          "line": 43,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      }
+                    },
+                    {
+                      "id": 29,
+                      "name": "claimedAddress",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "The address the client claims signed\n  it. Cheap pre-check before the expensive ECDSA recover; ALSO\n  catches the case where a frontend mis-echoes the signer (a real\n  UX bug)."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "verify.ts",
+                          "line": 46,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "templateLiteral",
+                        "head": "0x",
+                        "tail": [
+                          [
+                            {
+                              "type": "intrinsic",
+                              "name": "string"
+                            },
+                            ""
+                          ]
+                        ]
+                      }
+                    },
+                    {
+                      "id": 27,
+                      "name": "nonce",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "The challenge nonce. Caller should have already\n  confirmed it's in the issued-but-unused set and not expired."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "verify.ts",
+                          "line": 44,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      }
+                    },
+                    {
+                      "id": 28,
+                      "name": "signature",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "The signature from\n  "
+                          },
+                          {
+                            "kind": "inline-tag",
+                            "tag": "@link",
+                            "text": "signAuthChallenge",
+                            "target": 1
+                          },
+                          {
+                            "kind": "text",
+                            "text": "."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "verify.ts",
+                          "line": 45,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "templateLiteral",
+                        "head": "0x",
+                        "tail": [
+                          [
+                            {
+                              "type": "intrinsic",
+                              "name": "string"
+                            },
+                            ""
+                          ]
+                        ]
+                      }
+                    }
+                  ],
+                  "groups": [
+                    {
+                      "title": "Properties",
+                      "children": [
+                        26,
+                        29,
+                        27,
+                        28
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.es5.d.ts",
+              "qualifiedName": "Promise"
+            },
+            "typeArguments": [
+              {
+                "type": "union",
+                "types": [
+                  {
+                    "type": "templateLiteral",
+                    "head": "0x",
+                    "tail": [
+                      [
+                        {
+                          "type": "intrinsic",
+                          "name": "string"
+                        },
+                        ""
+                      ]
+                    ]
+                  },
+                  {
+                    "type": "literal",
+                    "value": null
+                  }
+                ]
+              }
+            ],
+            "name": "Promise",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Classes",
+      "children": [
+        45,
+        49,
+        37,
+        41
+      ]
+    },
+    {
+      "title": "Variables",
+      "children": [
+        36
+      ]
+    },
+    {
+      "title": "Functions",
+      "children": [
+        30,
+        13,
+        1,
+        22
+      ]
+    }
+  ],
+  "packageName": "@valve-tech/auth-lite",
+  "packageVersion": "0.18.0",
+  "symbolIdMap": {
+    "0": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/index.ts",
+      "qualifiedName": ""
+    },
+    "1": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/challenge.ts",
+      "qualifiedName": "signAuthChallenge"
+    },
+    "2": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/challenge.ts",
+      "qualifiedName": "signAuthChallenge"
+    },
+    "3": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/challenge.ts",
+      "qualifiedName": "opts"
+    },
+    "4": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/challenge.ts",
+      "qualifiedName": "__type"
+    },
+    "5": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/challenge.ts",
+      "qualifiedName": "__type.signer"
+    },
+    "6": {
+      "packageName": "viem",
+      "packagePath": "types/utils.ts",
+      "qualifiedName": "__type"
+    },
+    "7": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/challenge.ts",
+      "qualifiedName": "__type.app"
+    },
+    "8": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/challenge.ts",
+      "qualifiedName": "__type.nonce"
+    },
+    "9": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/challenge.ts",
+      "qualifiedName": "__type"
+    },
+    "10": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/challenge.ts",
+      "qualifiedName": "__type.address"
+    },
+    "11": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/challenge.ts",
+      "qualifiedName": "__type.signature"
+    },
+    "12": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/challenge.ts",
+      "qualifiedName": "__type.message"
+    },
+    "13": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/nonce.ts",
+      "qualifiedName": "generateAuthNonce"
+    },
+    "14": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/nonce.ts",
+      "qualifiedName": "generateAuthNonce"
+    },
+    "15": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/nonce.ts",
+      "qualifiedName": "opts"
+    },
+    "16": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/nonce.ts",
+      "qualifiedName": "__type"
+    },
+    "17": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/nonce.ts",
+      "qualifiedName": "__type.bytes"
+    },
+    "18": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/nonce.ts",
+      "qualifiedName": "__type.ttlSeconds"
+    },
+    "19": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/nonce.ts",
+      "qualifiedName": "__type"
+    },
+    "20": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/nonce.ts",
+      "qualifiedName": "__type.nonce"
+    },
+    "21": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/nonce.ts",
+      "qualifiedName": "__type.expiresAt"
+    },
+    "22": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/verify.ts",
+      "qualifiedName": "verifyAuthSignature"
+    },
+    "23": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/verify.ts",
+      "qualifiedName": "verifyAuthSignature"
+    },
+    "24": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/verify.ts",
+      "qualifiedName": "opts"
+    },
+    "25": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/verify.ts",
+      "qualifiedName": "__type"
+    },
+    "26": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/verify.ts",
+      "qualifiedName": "__type.app"
+    },
+    "27": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/verify.ts",
+      "qualifiedName": "__type.nonce"
+    },
+    "28": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/verify.ts",
+      "qualifiedName": "__type.signature"
+    },
+    "29": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/verify.ts",
+      "qualifiedName": "__type.claimedAddress"
+    },
+    "30": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "formatAuthMessage"
+    },
+    "31": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "formatAuthMessage"
+    },
+    "32": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "opts"
+    },
+    "33": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "__type"
+    },
+    "34": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "__type.app"
+    },
+    "35": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "__type.nonce"
+    },
+    "36": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "AUTH_MESSAGE_TEMPLATE"
+    },
+    "37": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "WalletDeclined"
+    },
+    "38": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "WalletDeclined.__constructor"
+    },
+    "39": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "WalletDeclined"
+    },
+    "40": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "message"
+    },
+    "41": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "WalletUnavailable"
+    },
+    "42": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "WalletUnavailable.__constructor"
+    },
+    "43": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "WalletUnavailable"
+    },
+    "44": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "message"
+    },
+    "45": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "InvalidNonce"
+    },
+    "46": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "InvalidNonce.__constructor"
+    },
+    "47": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "InvalidNonce"
+    },
+    "48": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "message"
+    },
+    "49": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "SignatureMismatch"
+    },
+    "50": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "SignatureMismatch.__constructor"
+    },
+    "51": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "SignatureMismatch"
+    },
+    "52": {
+      "packageName": "@valve-tech/auth-lite",
+      "packagePath": "src/errors.ts",
+      "qualifiedName": "message"
+    }
+  },
+  "files": {
+    "entries": {
+      "1": "packages/auth-lite/src/index.ts"
+    },
+    "reflections": {
+      "1": 0
+    }
+  }
+}
