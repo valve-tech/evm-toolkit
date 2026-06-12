@@ -201,8 +201,15 @@ file; behavior-driven colocated tests.
   confirms with the maintainer which CIDs to bake in.
 - Config (build-time constants or a small `config.ts`): per-chain
   map above + IPFS gateway base. Defaults point at valve infra
-  (`ipfs.valve.city`, the public RPC endpoint) but are trivially
-  editable — README documents swapping them.
+  (`ipfs.valve.city`, the public rate-limited RPC endpoints) but
+  are trivially editable — README documents swapping them.
+- **User-overridable RPC endpoints in the UI** (hard requirement):
+  a settings affordance where the end user pastes their own RPC URL
+  per chain (and optionally their own IPFS gateway), persisted in
+  `localStorage`, with a reset-to-defaults action. This is the
+  headline property of the demo: anyone can point it at their own
+  node and cut valve out entirely. The UI should surface which
+  endpoint is in use.
 - Browser Cache API wired into the reader's cache interface so
   re-queries don't refetch blooms/chunks.
 
@@ -230,25 +237,25 @@ ordered preconditions and verify each (don't assume):
    No kubo or Caddy change needed. Re-probe once during final
    verification:
    `curl -sI -H "Origin: https://mention.valve.city" https://ipfs.valve.city/ipfs/<cid>`.
-4. **RPC endpoint auth — OPEN DECISION (blocks tx hydration)**.
-   Probed 2026-06-12: `rpc.valve.city` CORS is already correct
-   (origin reflected, POST allowed), but an anonymous
-   `eth_blockNumber` POST returns **401 — the endpoint requires an
-   API key**. A static frontend cannot hold a secret. Analysis
-   shared with the maintainer:
-   - An Origin-restricted proxy holding an unlimited key is NOT
-     actually restricted — Origin headers are spoofable by any
-     non-browser client, so it degenerates into an unlimited
-     anonymous endpoint unless rate-limited, at which point it is
-     an anon tier with extra steps and a leakable key.
-   - **Recommended: anonymous tier in the existing auth layer** —
-     per-chain public route that skips key auth, per-IP rate limit,
-     read-only method allowlist (no `eth_sendRawTransaction`).
-     Needed for all three chains (1/369/943).
-   - Maintainer is deciding; **confirm the final choice and the
-     exact per-chain RPC URLs before wiring the example's
-     `config.ts`**. Do not bake in an unlimited key under any
-     option.
+4. **RPC endpoints — DECIDED (2026-06-12): rate-limited public
+   tier, direct JSON-RPC.** Probed: `rpc.valve.city` CORS is
+   already correct (origin reflected, POST allowed); anonymous
+   POSTs 401 because the fleet requires a key. The valve monorepo
+   (the fleet's auth layer — separate repo, NOT this one) already
+   supports a rate-limited public/demo tier; **the maintainer will
+   supply the per-chain public RPC URLs (or demo key) for chains
+   1 / 369 / 943** — ask for them before wiring `config.ts`.
+   Hydration is plain JSON-RPC (viem) — appearances are
+   `(blockNumber, txIndex)` pairs, so the hydration call is
+   `eth_getTransactionByBlockNumberAndIndex` plus a block-timestamp
+   read. Rejected alternatives (recorded so they aren't
+   re-proposed): an Origin-restricted proxy holding an unlimited
+   key (Origin is spoofable — it degenerates to an unlimited open
+   endpoint), and a purpose-built REST hydration API (contained and
+   cacheable, but it breaks the headline win: with direct JSON-RPC,
+   a user can replace valve's RPC entirely and run trustless).
+   Do not bake an unlimited key into the frontend under any
+   circumstances.
 5. **App deploy**: `yarn workspace @valve-tech/example-unchained-tx-history build` then
    rsync `dist/` to the webroot. Document the exact rsync target in
    the example README once created.
