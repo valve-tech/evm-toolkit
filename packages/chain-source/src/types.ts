@@ -158,9 +158,10 @@ export type EventSource =
   | 'receipt-poll'
 
 /**
- * Per-method capability snapshot. Probed once on `source.start()` and
- * re-probed on transport reconnect when the underlying transport
- * supports reconnection signals.
+ * Per-method capability snapshot. Probed eagerly at construction
+ * (await `source.ready()` or check the `ready` flag below before
+ * gating on field values) and re-probed on transport reconnect when
+ * the underlying transport supports reconnection signals.
  *
  * Intentionally per-method, not per-transport — real-world providers
  * gate `txpool_content` while allowing `eth_subscribe('newHeads')`,
