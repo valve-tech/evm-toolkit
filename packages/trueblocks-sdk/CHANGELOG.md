@@ -6,6 +6,21 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- Integration skill (2026-06-12 audit): removed the nonexistent
+  `status.is_responding` check from the canonical example (a successful
+  `client.status()` call is the liveness probe); corrected appearance
+  field names from `bn` / `tx_id` to `blockNumber` /
+  `transactionIndex`; fixed the `client.when` call shape (lookups go in
+  `blocks`, `timestamps` is a boolean flag); corrected the
+  boundary-conversion claim (verb wrappers are a pure `response.json()`
+  passthrough); added the `.hashes` blocks variant and `logs` /
+  `traces` / `slurp` decision-tree branches; removed the rotted version
+  pin; trimmed the description under 1024 chars.
+
 ## [0.18.0] — 2026-06-01
 
 ### Notes

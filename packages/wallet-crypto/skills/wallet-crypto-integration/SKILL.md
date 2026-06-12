@@ -1,6 +1,6 @@
 ---
 name: wallet-crypto-integration
-description: Integrate `@valve-tech/wallet-crypto` — wallet-derived encryption keys + AES-GCM authenticated envelopes — into viem-based dapps that need to cloud-sync encrypted blobs. Use when the user is calling `deriveWalletEncryptionKey` to produce a deterministic AES-GCM `CryptoKey` from a viem `WalletClient` (purpose + version inputs), `encryptEnvelope`/`decryptEnvelope` to wrap/unwrap byte payloads with optional AAD binding, `formatKeyDerivationMessage` to preview the signed plaintext, or asks "how do I derive a stable encryption key from a wallet across devices", "what's the right way to do envelope encryption with WebCrypto + viem", "why does decryption fail when I change the envelope version" (the answer is AAD binding), "what's the difference between this nonce and the auth-lite nonce", or "how do I rotate a wallet-derived key". Also fires on imports of `@valve-tech/wallet-crypto` and questions about `WalletDeclined`/`WalletUnavailable`/`DecryptionFailed` handling, `extractable: false`, key version migration flow, or "is `sha256(walletAddress + appName)` enough for key derivation" (it is NOT). Skip when the user is going through `@valve-tech/auth-lite` for authentication only (no encryption) — that's a different concern; this skill is the encryption half.
+description: Integrate `@valve-tech/wallet-crypto` — wallet-derived encryption keys + AES-GCM authenticated envelopes — into viem-based dapps that cloud-sync encrypted blobs. Use when calling `deriveWalletEncryptionKey` to produce a deterministic AES-GCM `CryptoKey` from a viem `WalletClient`, `encryptEnvelope`/`decryptEnvelope` to wrap/unwrap payloads with AAD binding, `formatKeyDerivationMessage` to preview the signed plaintext, or asks "how do I derive a stable encryption key from a wallet", "why does decryption fail when I change the envelope version" (AAD binding), or "how do I rotate a wallet-derived key". Also fires on package imports and questions about `WalletDeclined`/`WalletUnavailable`/`DecryptionFailed` handling, `extractable: false`, version migration, or "is `sha256(walletAddress + appName)` enough for key derivation" (it is NOT). Skip when the user is going through `@valve-tech/auth-lite` for authentication only (no encryption) — that's a different concern; this skill is the encryption half.
 ---
 
 # Integrating `@valve-tech/wallet-crypto`
@@ -27,7 +27,7 @@ Is the user producing OR storing encrypted bytes bound to a wallet?
 
 ## The 5 load-bearing invariants
 
-1. **Determinism.** `deriveWalletEncryptionKey(wallet, purpose, version)` ALWAYS produces the same key for the same inputs. If the user is tempted to add a timestamp or counter to inputs, they're breaking the cross-device reproducibility that's the whole point. Push back on that suggestion.
+1. **Determinism.** `deriveWalletEncryptionKey(wallet, purpose, version)` ALWAYS produces the same key for the same inputs. If the user is tempted to add a timestamp or counter to inputs, they're breaking the cross-device reproducibility that's the whole point. Push back on that suggestion. One caveat: the determinism rests on the SIGNER producing deterministic `personal_sign` signatures — EOA wallets do, but smart accounts / MPC signers may not, which breaks cross-device key reproduction for those users.
 
 2. **Non-extractable.** Returned `CryptoKey` has `extractable: false`. `crypto.subtle.exportKey(key)` throws. This is by design — a leaked CryptoKey can still encrypt/decrypt in-process but the raw bits can't be exfiltrated to e.g. a malicious extension.
 
@@ -42,6 +42,9 @@ Is the user producing OR storing encrypted bytes bound to a wallet?
 ### "How do I derive a stable encryption key from a wallet?"
 
 → `deriveWalletEncryptionKey({ signer: walletClient, purpose, version })`.
+The optional `usages?: KeyUsage[]` narrows the WebCrypto key-usage tags
+(default `['encrypt', 'decrypt']` — e.g. `['decrypt']` for a consumer
+that only ever reads).
 
 If they try to write `sha256(address + appName)` or
 `hmac(privateKey, appName)`, that's wrong:
@@ -94,6 +97,14 @@ real failure, show an error toast. The package uses
 across MetaMask, WalletConnect, Coinbase Wallet, hardware-wallet
 proxies, etc.
 
+### "Why am I getting `WalletUnavailable`?"
+
+`deriveWalletEncryptionKey` throws `WalletUnavailable` when the
+provided `WalletClient` has no `account` set (not connected, or the
+account is locked). The remedy is flow-level, not crypto-level:
+prompt the user to connect a wallet first, then re-call. Don't retry
+in a loop — nothing in this package will connect the wallet for you.
+
 ## Pitfalls (flag these in user code)
 
 1. **The `nonce` in `encryptEnvelope`/`decryptEnvelope` is NOT the
@@ -128,8 +139,23 @@ proxies, etc.
 ## Composition with sibling packages
 
 - **`@valve-tech/auth-lite`** — pair when a product needs both auth
-  + encrypted storage. The two packages share `WalletDeclined` /
-  `WalletUnavailable` class names so consumers can `catch (e)` once.
+  + encrypted storage. The two packages intentionally share the
+  `WalletDeclined` / `WalletUnavailable` NAMES, but the classes are
+  DISTINCT — each package defines its own. A single
+  `instanceof WalletDeclined` against one package's import silently
+  misses the sibling's throws. In a catch arm that can see errors
+  from both packages, discriminate on the name:
+  ```ts
+  catch (err) {
+    if (err instanceof Error && err.name === 'WalletDeclined') {
+      resetToIdle()   // catches BOTH packages' declines
+      return
+    }
+    throw err
+  }
+  ```
+  `instanceof` stays fine inside code that only ever sees one
+  package's throws.
 - **`@valve-tech/viem-errors`** — already used internally; you don't
   need to import it directly for the rejection path.
 
@@ -146,3 +172,12 @@ proxies, etc.
   user wants to "save the key" between page loads, they need to
   re-derive (which re-prompts the wallet — that's the security
   boundary, not a bug).
+
+## Where to find more
+
+- Full API + types: `node_modules/@valve-tech/wallet-crypto/AGENTS.md`
+- Human-facing docs: `node_modules/@valve-tech/wallet-crypto/README.md`
+- Compiled output: `node_modules/@valve-tech/wallet-crypto/dist/`
+- Sibling skill: `auth-lite-integration` (at
+  `node_modules/@valve-tech/auth-lite/skills/auth-lite-integration/SKILL.md`)
+  for the authentication half

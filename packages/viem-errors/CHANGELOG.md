@@ -6,6 +6,20 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- Integration skill (2026-06-12 audit): removed the impossible claim
+  that `extractContractErrorName` works on `ContractRevertedError`
+  cause chains (that error carries no `cause`; receipt-status reverts
+  need re-simulation); corrected the custom-patterns guidance (consumer
+  `patterns` already run before `DEFAULT_ERROR_PATTERNS`; no spread
+  needed); updated the canonical example to wagmi v2
+  (`useWriteContract`); scoped the three-signal-check claim to
+  `WalletRejectedError`; removed the rotted version pin; trimmed the
+  description under 1024 chars.
+
 ## [0.18.0] — 2026-06-01
 
 ### Notes

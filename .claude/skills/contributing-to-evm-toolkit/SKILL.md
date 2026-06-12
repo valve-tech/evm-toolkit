@@ -410,6 +410,14 @@ These have all been considered and rejected. Don't reintroduce them:
     release. The pre-push hook + ci.yml step both run this — use
     `git push --no-verify` only if you genuinely need a transient WIP
     push, never on a release commit.
+14. **Version pins inside `skills/*/SKILL.md`.** On a synced 0.x
+    release line every concrete minor (`^0.10.x`) is guaranteed rot —
+    the 2026-06-12 audit found five skills pinned to versions that no
+    longer even semver-match the published packages. Skills say
+    "any `0.x` of the package on the toolkit's synced release line",
+    never a number. Same audit rule: any `node_modules/...` path a
+    skill points at must exist in that package's `files` allowlist —
+    otherwise use the GitHub URL.
 
 ## When you're stuck — escalation order
 

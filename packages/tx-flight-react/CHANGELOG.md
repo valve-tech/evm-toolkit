@@ -6,6 +6,28 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `serialize` / `deserialize` are now exported from
+  `@valve-tech/tx-flight-react/storage` — the bigint-safe `TrackedTx[]`
+  JSON codec the built-in adapters use, for consumers persisting
+  through their own storage layer. (The integration skill already
+  recommended this import; it now resolves.)
+
+### Fixed
+
+- Integration skill (2026-06-12 audit): added the v0.17 `readOnly` /
+  `submittedAt` branch to the `addByHash` decision tree plus a
+  read-only anti-pattern (`tx.readOnly === true` read-site rule);
+  corrected the `explorer` prop example to the function form
+  (`(tx) => string` — the string form is a type error); reworded the
+  RSC anti-pattern around the real constraints (Provider context +
+  browser runtime); documented `confirmations` / `staleAfterBlocks` /
+  `withReceipts` and the ~250ms save debounce; removed the rotted
+  version pin; trimmed the description under 1024 chars.
+
 ## [0.18.0] — 2026-06-01
 
 ### Notes

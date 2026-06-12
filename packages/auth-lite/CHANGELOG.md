@@ -6,6 +6,19 @@ file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- Integration skill (2026-06-12 audit): corrected the shared-error
+  wording — auth-lite and wallet-crypto share error NAMES, not classes,
+  so cross-package catch arms must discriminate on
+  `err.name === 'WalletDeclined'` rather than a single-import
+  `instanceof`; documented the `generateAuthNonce` bounds (bytes 16-64,
+  ttlSeconds 30-3600, `RangeError` outside); added the wallet-crypto
+  sibling-skill pointer and the standard "Where to find more" block;
+  trimmed the description under 1024 chars.
+
 ## [0.18.0] — 2026-06-01
 
 ### Added

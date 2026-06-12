@@ -5,6 +5,22 @@ All notable changes to `@valve-tech/gas-oracle` are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- `priorityModel` option docstring claimed `'flat'` was the default; the
+  default has been `PriorityModel.eip1559` since v0.8.0. The shipped
+  `.d.ts` hover text now matches the actual behavior.
+- Integration skill (2026-06-12 audit): renamed the nonexistent
+  `findTxInMempool` to the real `findInMempool` export; corrected the
+  null-`getState()` anti-pattern to name the dominant cause
+  (`pauseWhenIdle: true` with zero subscribers); flagged that chain 943
+  has no preset (`presetForChainId(943)` returns `undefined`); noted the
+  `baseFeeLivenessBlocks` package default is 1; removed the rotted
+  version pin; replaced the non-shipped `examples/` tarball pointer with
+  the GitHub URL; trimmed the description under 1024 chars.
+
 ## [0.18.0] — 2026-06-01
 
 ### Notes

@@ -6,6 +6,18 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- Integration skill (2026-06-12 audit): corrected the shared-error
+  wording (distinct classes, shared names — discriminate on `err.name`
+  across packages); covered `WalletUnavailable` in the
+  common-situations section; documented the `usages` option; added a
+  signer-dependent determinism caveat (smart accounts / MPC may break
+  cross-device key reproduction) and the standard "Where to find more"
+  block; trimmed the description under 1024 chars.
+
 ## [0.18.0] — 2026-06-01
 
 ### Added

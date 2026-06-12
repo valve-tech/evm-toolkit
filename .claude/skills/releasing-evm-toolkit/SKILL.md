@@ -90,7 +90,17 @@ done
 
 Each package has its own `CHANGELOG.md` that ships in its npm tarball
 (in the `files` allowlist). Add the new release entry at the top of
-each, following the existing Keep-a-Changelog format. **Sections are
+each, following the existing Keep-a-Changelog format.
+
+**SKILL.md drift check (mandatory for any release with feature
+entries):** for every package whose CHANGELOG gains an `### Added`
+or behavior-changing `### Changed` entry, (a) diff the package's own
+`skills/*/SKILL.md` against the new surface — does any example,
+decision-tree branch, or "deliberately does not" claim contradict
+it? — and (b) grep ALL sibling `skills/*/SKILL.md` for the changed
+API names, because cross-package claims rot worst. The 2026-06-12
+audit traced every fabricated-API skill bug to feature releases
+(v0.14–v0.17) that shipped without this diff. **Sections are
 `### Added`, `### Changed`, `### Fixed`, `### Removed`, `### Notes`.**
 Use absolute dates (`2026-05-04`), never relative.
 
