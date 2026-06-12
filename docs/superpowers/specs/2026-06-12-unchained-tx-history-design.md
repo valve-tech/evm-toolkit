@@ -219,18 +219,23 @@ The monorepo stays host-agnostic; deployment is valve-infra work
 layered on top. The implementing agent should treat these as
 ordered preconditions and verify each (don't assume):
 
-1. **DNS**: `mention.valve.city` — no record exists (probed
-   2026-06-12). Note `ipfs.valve.city` and `rpc.valve.city` both
-   resolve to Cloudflare-proxied IPs; follow the same Cloudflare
-   pattern for `mention.valve.city` (proxied record → valve-prod
-   origin at 88.99.192.187) rather than a bare A record, unless the
-   maintainer says otherwise.
-2. **Caddy site block** on valve-prod: static `root` +
-   `file_server` + `try_files {path} /index.html` (SPA fallback)
-   serving an uploaded `dist/`. ⚠️ Any Caddyfile edit follows the
-   `valve-caddy-config` skill discipline (render script, validate,
-   careful reload) — this is a **redeploy of Caddy config** on a
-   production box that fronts customer RPC traffic.
+1. **DNS**: `mention.valve.city` — still missing; ⏳ BLOCKED ON
+   MAINTAINER (attempted 2026-06-12: every Cloudflare API token in
+   the valve 1P vault lacks the DNS:Edit scope — record creation
+   needs the CF dashboard or a newly scoped token). Required
+   record: proxied A `mention` → `88.99.192.187` in the
+   `valve.city` zone (same CF-proxied pattern as `ipfs.` / `rpc.`).
+   The origin side is already live and verified, so the site works
+   the moment the record lands.
+2. **Caddy site block** on valve-prod: ✅ DONE (2026-06-12).
+   Shipped via the monorepo `caddy-deploy` plan (monorepo commit
+   `72702cb`): static root `/var/www/mention`,
+   `try_files {path} /index.html` SPA fallback, gzip/zstd, shared
+   `*.valve.city` origin cert, plus membership in the http→https
+   redirect block. A placeholder `index.html` is serving.
+   Post-reload smoke (within 30s, via `--resolve` since DNS is
+   pending): mention 200, deep-path SPA fallback 200, valve.city
+   200, rpc real-key 200, rpc bogus-key 401 (not 500).
 3. **CORS on `ipfs.valve.city`**: ✅ ALREADY SATISFIED (probed
    2026-06-12): the gateway returns
    `access-control-allow-origin: *` with GET/HEAD/OPTIONS allowed.
@@ -257,14 +262,20 @@ ordered preconditions and verify each (don't assume):
    Do not bake an unlimited key into the frontend under any
    circumstances.
 5. **App deploy**: `yarn workspace @valve-tech/example-unchained-tx-history build` then
-   rsync `dist/` to the webroot. Document the exact rsync target in
-   the example README once created.
+   rsync `dist/` to the webroot. Exact target (webroot live since
+   2026-06-12, currently holding a placeholder `index.html` —
+   overwrite it):
+   `rsync -av --delete dist/ root@88.99.192.187:/var/www/mention/`
+   ⚠️ valve-prod sshd listens on port **2222** (`rsync -e "ssh -p 2222"`);
+   auth via the `valve-hetzner` key
+   (op://valve/hetzner valve load balancer/private key). Record
+   this in the example README once created.
 
-Redeploy summary (updated after 2026-06-12 probes): step 2 (the new
-site block) is the only Caddy change still needed — steps 3–4 need
-no CORS work. Step 4 needs a key/tier decision from the maintainer,
-not a redeploy (unless option (b) is chosen, which is fleet config).
-Step 5 is file copy only, no service restart.
+Redeploy summary (updated 2026-06-12, post-ship): steps 2–4 are
+done/decided — NO Caddy change remains. Outstanding: step 1 (DNS
+record, maintainer-only) and the per-chain public RPC URLs for
+step 4's `config.ts` wiring. Step 5 is file copy only, no service
+restart.
 
 ## Testing
 
