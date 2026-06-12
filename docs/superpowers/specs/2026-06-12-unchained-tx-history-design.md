@@ -219,14 +219,12 @@ The monorepo stays host-agnostic; deployment is valve-infra work
 layered on top. The implementing agent should treat these as
 ordered preconditions and verify each (don't assume):
 
-1. **DNS**: `mention.valve.city` — still missing; ⏳ BLOCKED ON
-   MAINTAINER (attempted 2026-06-12: every Cloudflare API token in
-   the valve 1P vault lacks the DNS:Edit scope — record creation
-   needs the CF dashboard or a newly scoped token). Required
-   record: proxied A `mention` → `88.99.192.187` in the
-   `valve.city` zone (same CF-proxied pattern as `ipfs.` / `rpc.`).
-   The origin side is already live and verified, so the site works
-   the moment the record lands.
+1. **DNS**: ✅ DONE (2026-06-12, maintainer-added via CF
+   dashboard). `mention.valve.city` resolves to Cloudflare-proxied
+   IPs; verified end-to-end: `https://mention.valve.city/` → 200
+   (placeholder page), deep path → 200 (SPA fallback), plain HTTP
+   → 301 to https. The site is fully live — step 5's rsync is the
+   only thing between the placeholder and the real app.
 2. **Caddy site block** on valve-prod: ✅ DONE (2026-06-12).
    Shipped via the monorepo `caddy-deploy` plan (monorepo commit
    `72702cb`): static root `/var/www/mention`,
@@ -271,11 +269,11 @@ ordered preconditions and verify each (don't assume):
    (op://valve/hetzner valve load balancer/private key). Record
    this in the example README once created.
 
-Redeploy summary (updated 2026-06-12, post-ship): steps 2–4 are
-done/decided — NO Caddy change remains. Outstanding: step 1 (DNS
-record, maintainer-only) and the per-chain public RPC URLs for
-step 4's `config.ts` wiring. Step 5 is file copy only, no service
-restart.
+Redeploy summary (updated 2026-06-12, post-DNS): steps 1–4 are ALL
+done/decided — no infra work remains. The only outstanding items
+are the per-chain public RPC URLs for step 4's `config.ts` wiring
+and step 5 itself (rsync the built `dist/`, file copy only, no
+service restart).
 
 ## Testing
 
