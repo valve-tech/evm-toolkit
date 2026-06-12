@@ -245,9 +245,22 @@ ordered preconditions and verify each (don't assume):
    already correct (origin reflected, POST allowed); anonymous
    POSTs 401 because the fleet requires a key. The valve monorepo
    (the fleet's auth layer — separate repo, NOT this one) already
-   supports a rate-limited public/demo tier; **the maintainer will
-   supply the per-chain public RPC URLs (or demo key) for chains
-   1 / 369 / 943** — ask for them before wiring `config.ts`.
+   supports a rate-limited public/demo tier; ✅ the per-chain URLs
+   are now live and verified (2026-06-12) — wire these into
+   `config.ts`:
+   - chain 1:   `https://rpc.valve.city/v1/vk_demo/evm/1`
+   - chain 369: `https://rpc.valve.city/v1/vk_demo/evm/369`
+   - chain 943: `https://rpc.valve.city/v1/vk_demo/evm/943`
+   (equivalent per-chain-subdomain form also works:
+   `https://evm-{chainId}-rpc.valve.city/v1/vk_demo`.)
+   `vk_demo` is valve's *deliberately public* demo key — per-IP
+   rate-limited (5 req/s, 5k/day, verified live: burst of 12 →
+    5×200 then 429s), CU-capped, and as of monorepo `8ce684b` it
+   denies `eth_sendRawTransaction`/`eth_sendTransaction` at the
+   relay (verified: 403 "Method not allowed"). Baking it into the
+   static app is safe and intended; it is not a secret. The
+   hydration method (`eth_getTransactionByBlockNumberAndIndex`)
+   is verified working through it on all three chains.
    Hydration is plain JSON-RPC (viem) — appearances are
    `(blockNumber, txIndex)` pairs, so the hydration call is
    `eth_getTransactionByBlockNumberAndIndex` plus a block-timestamp
@@ -272,7 +285,7 @@ ordered preconditions and verify each (don't assume):
 Redeploy summary (updated 2026-06-12, post-DNS): steps 1–4 are ALL
 done/decided — no infra work remains. The only outstanding items
 are the per-chain public RPC URLs for step 4's `config.ts` wiring
-and step 5 itself (rsync the built `dist/`, file copy only, no
+— now supplied above — and step 5 itself (rsync the built `dist/`, file copy only, no
 service restart).
 
 ## Testing
