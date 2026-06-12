@@ -309,12 +309,11 @@ restart.
 
 ## Out of scope / later phases (each gets its own spec)
 
-- **Phase 2 — skills discoverability**: an `npx`-able installer
-  (probable home: new `@valve-tech/agent-skills` package) that scans
-  `node_modules/@valve-tech/*/skills/` and links them into a
-  consumer's `.claude/skills/`; "For AI agents" pointers in every
-  README; a cross-package `building-apps-with-evm-toolkit` skill
-  that references `examples/`.
+- **Phase 2 — skills discoverability**: now specced separately at
+  `2026-06-12-agent-skills-design.md` (`@valve-tech/agent-skills`
+  installer CLI + cross-package `building-apps-with-evm-toolkit`
+  skill + "For AI agents" README pointers). Independent of this
+  spec — implementable in either order or in parallel.
 - **Phase 3 — quality pass** over the 9 existing per-package
   SKILL.md files.
 - Contract-based manifest resolution if deferred during Phase 1.
