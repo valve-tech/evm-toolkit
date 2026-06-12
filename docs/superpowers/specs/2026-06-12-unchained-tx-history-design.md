@@ -205,32 +205,43 @@ The monorepo stays host-agnostic; deployment is valve-infra work
 layered on top. The implementing agent should treat these as
 ordered preconditions and verify each (don't assume):
 
-1. **DNS**: `history.valve.city` A record → valve-prod
-   (88.99.192.187).
+1. **DNS**: `history.valve.city` — no record exists (probed
+   2026-06-12). Note `ipfs.valve.city` and `rpc.valve.city` both
+   resolve to Cloudflare-proxied IPs; follow the same Cloudflare
+   pattern for `history.valve.city` (proxied record → valve-prod
+   origin at 88.99.192.187) rather than a bare A record, unless the
+   maintainer says otherwise.
 2. **Caddy site block** on valve-prod: static `root` +
    `file_server` + `try_files {path} /index.html` (SPA fallback)
    serving an uploaded `dist/`. ⚠️ Any Caddyfile edit follows the
    `valve-caddy-config` skill discipline (render script, validate,
    careful reload) — this is a **redeploy of Caddy config** on a
    production box that fronts customer RPC traffic.
-3. **CORS on `ipfs.valve.city`**: the browser at history.valve.city
-   does cross-origin GETs to the gateway. Verify
-   `Access-Control-Allow-Origin` is present (kubo gateway config
-   `API.HTTPHeaders`/`Gateway.HTTPHeaders`, or inject the header at
-   the Caddy layer — implementer's choice; header injection at
-   Caddy is the smaller blast radius). May require a **kubo restart
-   or Caddy reload** — check what's actually missing first with a
-   `curl -H "Origin: https://history.valve.city" -I` probe.
-4. **CORS on the RPC endpoint** the example uses for tx hydration:
-   same probe, same fix pattern. Also a Caddy-layer concern.
+3. **CORS on `ipfs.valve.city`**: ✅ ALREADY SATISFIED (probed
+   2026-06-12): the gateway returns
+   `access-control-allow-origin: *` with GET/HEAD/OPTIONS allowed.
+   No kubo or Caddy change needed. Re-probe once during final
+   verification:
+   `curl -sI -H "Origin: https://history.valve.city" https://ipfs.valve.city/ipfs/<cid>`.
+4. **RPC endpoint auth — OPEN DECISION (blocks tx hydration)**.
+   Probed 2026-06-12: `rpc.valve.city` CORS is already correct
+   (origin reflected, POST allowed), but an anonymous
+   `eth_blockNumber` POST returns **401 — the endpoint requires an
+   API key**. A static frontend cannot hold a secret, so the
+   options are: (a) bake in a rate-limited public demo key (e.g.
+   the existing `vk_demo` tier), or (b) expose an anonymous
+   rate-limited tier on the fleet. **Ask the maintainer which
+   before wiring the example's RPC config** — do not bake in an
+   unlimited key.
 5. **App deploy**: `yarn workspace @valve-tech/example-unchained-tx-history build` then
    rsync `dist/` to the webroot. Document the exact rsync target in
    the example README once created.
 
-Redeploy summary: steps 2–4 each potentially touch production Caddy
-(one reload can cover all three if batched — prefer batching);
-step 3 alternatively touches kubo config. Step 5 is file copy only,
-no service restart.
+Redeploy summary (updated after 2026-06-12 probes): step 2 (the new
+site block) is the only Caddy change still needed — steps 3–4 need
+no CORS work. Step 4 needs a key/tier decision from the maintainer,
+not a redeploy (unless option (b) is chosen, which is fleet config).
+Step 5 is file copy only, no service restart.
 
 ## Testing
 
