@@ -21,7 +21,7 @@ Deliverables:
    parses them client-side into address appearances.
 3. `examples/unchained-tx-history` — a Vite + React + TS static app:
    type any address, watch its transaction history stream in.
-4. Deployment of that app to `https://history.valve.city`.
+4. Deployment of that app to `https://mention.valve.city`.
 
 ## Why this is net-new (context for the implementing agent)
 
@@ -191,24 +191,31 @@ file; behavior-driven colocated tests.
   shown, not hidden).
 - viem is a dependency of the **example only**, not of
   unchained-reader.
-- Config (build-time constants or a small `config.ts`): RPC URL,
-  IPFS gateway base, manifest CID(s) per chain, default block
-  range. Defaults point at valve infra (`ipfs.valve.city`, the
-  public RPC endpoint) but are trivially editable — README documents
-  swapping them.
+- **Multichain is a hard requirement**: the UI has a chain selector
+  covering Ethereum mainnet (1), PulseChain (369), and PulseChain
+  testnet v4 (943). Config is a per-chain map:
+  `{ chainId, label, rpcUrl, manifestCid (or manifestUrl), defaultBlockRange }`.
+  The manifest for 369/943 comes from valve's own chifra publishing
+  (pinned at `ipfs.valve.city`); mainnet can use the upstream
+  TrueBlocks-published manifest or valve's pin — implementer
+  confirms with the maintainer which CIDs to bake in.
+- Config (build-time constants or a small `config.ts`): per-chain
+  map above + IPFS gateway base. Defaults point at valve infra
+  (`ipfs.valve.city`, the public RPC endpoint) but are trivially
+  editable — README documents swapping them.
 - Browser Cache API wired into the reader's cache interface so
   re-queries don't refetch blooms/chunks.
 
-## 4. Deployment — `history.valve.city`
+## 4. Deployment — `mention.valve.city`
 
 The monorepo stays host-agnostic; deployment is valve-infra work
 layered on top. The implementing agent should treat these as
 ordered preconditions and verify each (don't assume):
 
-1. **DNS**: `history.valve.city` — no record exists (probed
+1. **DNS**: `mention.valve.city` — no record exists (probed
    2026-06-12). Note `ipfs.valve.city` and `rpc.valve.city` both
    resolve to Cloudflare-proxied IPs; follow the same Cloudflare
-   pattern for `history.valve.city` (proxied record → valve-prod
+   pattern for `mention.valve.city` (proxied record → valve-prod
    origin at 88.99.192.187) rather than a bare A record, unless the
    maintainer says otherwise.
 2. **Caddy site block** on valve-prod: static `root` +
@@ -222,17 +229,26 @@ ordered preconditions and verify each (don't assume):
    `access-control-allow-origin: *` with GET/HEAD/OPTIONS allowed.
    No kubo or Caddy change needed. Re-probe once during final
    verification:
-   `curl -sI -H "Origin: https://history.valve.city" https://ipfs.valve.city/ipfs/<cid>`.
+   `curl -sI -H "Origin: https://mention.valve.city" https://ipfs.valve.city/ipfs/<cid>`.
 4. **RPC endpoint auth — OPEN DECISION (blocks tx hydration)**.
    Probed 2026-06-12: `rpc.valve.city` CORS is already correct
    (origin reflected, POST allowed), but an anonymous
    `eth_blockNumber` POST returns **401 — the endpoint requires an
-   API key**. A static frontend cannot hold a secret, so the
-   options are: (a) bake in a rate-limited public demo key (e.g.
-   the existing `vk_demo` tier), or (b) expose an anonymous
-   rate-limited tier on the fleet. **Ask the maintainer which
-   before wiring the example's RPC config** — do not bake in an
-   unlimited key.
+   API key**. A static frontend cannot hold a secret. Analysis
+   shared with the maintainer:
+   - An Origin-restricted proxy holding an unlimited key is NOT
+     actually restricted — Origin headers are spoofable by any
+     non-browser client, so it degenerates into an unlimited
+     anonymous endpoint unless rate-limited, at which point it is
+     an anon tier with extra steps and a leakable key.
+   - **Recommended: anonymous tier in the existing auth layer** —
+     per-chain public route that skips key auth, per-IP rate limit,
+     read-only method allowlist (no `eth_sendRawTransaction`).
+     Needed for all three chains (1/369/943).
+   - Maintainer is deciding; **confirm the final choice and the
+     exact per-chain RPC URLs before wiring the example's
+     `config.ts`**. Do not bake in an unlimited key under any
+     option.
 5. **App deploy**: `yarn workspace @valve-tech/example-unchained-tx-history build` then
    rsync `dist/` to the webroot. Document the exact rsync target in
    the example README once created.
@@ -268,10 +284,10 @@ Step 5 is file copy only, no service restart.
       address/range (documented in fixtures).
 - [ ] Example runs locally against `ipfs.valve.city` + public RPC
       and renders history for a known address.
-- [ ] `https://history.valve.city` serves the app; a fresh browser
-      session can load the tx history of an arbitrary address on the
-      default chain with visible progress and no console CORS
-      errors.
+- [ ] `https://mention.valve.city` serves the app; a fresh browser
+      session can load the tx history of an arbitrary address on
+      each of the three chains (1 / 369 / 943) with visible
+      progress and no console CORS errors.
 
 ## Out of scope / later phases (each gets its own spec)
 
