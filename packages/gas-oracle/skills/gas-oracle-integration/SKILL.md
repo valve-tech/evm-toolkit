@@ -1,6 +1,6 @@
 ---
 name: gas-oracle-integration
-description: Integrate `@valve-tech/gas-oracle` into an EVM dapp or backend. Use when the user wants gas-tier recommendations (`slow` / `standard` / `fast` / `instant`), needs to set `maxPriorityFeePerGas` and `maxFeePerGas` for a transaction, asks "how do I price a transaction" against a viem `PublicClient`, or wants to bump a stuck tx (`recommendBumpTier` / `bumpForReplacement`). Also use when seeing imports from `@valve-tech/gas-oracle` and the user asks for help configuring it per chain (Ethereum, Base, Arbitrum, OP, PulseChain), or asks about `priorityFeeDecayCap`, `priorityModel`, `tipForBlockPosition`, `classifyTip`, `chainPresets`, viem-actions, or viem-transport. Also fires when the user asks about composing the oracle with `@valve-tech/tx-tracker` over a shared `ChainSource` — but actual per-tx tracking work belongs in the tx-tracker skill, not here. Skip when the user only wants per-tx state (delegate to tx-tracker-integration), only wants the raw block/mempool stream with no gas math (delegate to chain-source-integration), or is doing simple `eth_gasPrice` queries that don't need multi-tier reasoning (vanilla viem suffices).
+description: Integrate `@valve-tech/gas-oracle` into an EVM dapp or backend. Use when the user wants gas-tier recommendations (`slow`/`standard`/`fast`/`instant`), needs `maxPriorityFeePerGas` / `maxFeePerGas` values, asks "how do I price a transaction", or wants to bump a stuck tx (`recommendBumpTier` / `bumpForReplacement`). Also use on imports of `@valve-tech/gas-oracle`, per-chain config questions (Ethereum, Base, Arbitrum, OP, PulseChain), or `priorityFeeDecayCap`, `priorityModel`, `tipForBlockPosition`, `classifyTip`, `chainPresets`, viem-actions, or viem-transport. Also fires for composing the oracle with `@valve-tech/tx-tracker` over a shared `ChainSource` — but actual per-tx tracking work belongs in the tx-tracker skill, not here. Skip when the user only wants per-tx state (delegate to tx-tracker-integration), only wants the raw block/mempool stream with no gas math (delegate to chain-source-integration), or is doing simple `eth_gasPrice` queries that don't need multi-tier reasoning (vanilla viem suffices).
 ---
 
 # Integrating `@valve-tech/gas-oracle`
@@ -37,11 +37,14 @@ Is the user already passing a viem PublicClient around?
 | Arbitrum One | 42161 | `PriorityModel.eip1559` (default) | 6 | |
 | Optimism | 10 | `PriorityModel.eip1559` (default) | 6 | |
 | PulseChain mainnet | 369 | `PriorityModel.flat` | 6 | Validators charge tips. Use `...chainPresets.pulsechain`. |
-| PulseChain testnet v4 | 943 | `PriorityModel.flat` | 6 | |
+| PulseChain testnet v4 | 943 | `PriorityModel.flat` | 6 | 943 has no preset; pass `priorityModel: PriorityModel.flat` explicitly — `presetForChainId(943)` returns `undefined`, silently landing on eip1559. |
 | Unknown / unsure | — | `PriorityModel.eip1559` (default) | 6 | Default is correct unless you've verified the chain is extractive. |
 
 `priorityFeeDecayCap`: leave at default (`WAD/8` = 12.5%/block, EIP-1559
 parity) unless you have a specific reason to tighten/loosen.
+
+`baseFeeLivenessBlocks`: the package default is 1; the 6 in the table
+is this skill's recommendation — set it explicitly if you want it.
 
 ## Anti-patterns to flag
 
@@ -56,10 +59,13 @@ When reviewing user code, watch for these and suggest fixes:
    via `oracle.subscribe(cb)` and store the latest state in a module
    variable, or cache the result yourself with a short TTL.
 
-3. **Reading `oracle.getState()` immediately after `oracle.start()`
-   without handling null.** First poll hasn't completed yet; tiers will
-   be missing. Fix: `await oracle.pollOnce()` after `start()` to seed
-   state synchronously, then it's safe to call `getState()`.
+3. **Reading `oracle.getState()` after `oracle.start()` and getting
+   null.** The dominant cause is NOT "first poll pending": with
+   `pauseWhenIdle: true` (the default) and zero subscribers, the poll
+   loop never fires at all — `getState()` stays null forever. Two real
+   fixes: attach a no-op subscriber (`oracle.subscribe(() => {})`) to
+   un-pause the loop, or seed state on demand with
+   `await oracle.pollOnce()`.
 
 4. **Using `PriorityModel.eip1559` on PulseChain or other tip-charging
    chains.** This is now the default — silent footgun on chain 369
@@ -73,7 +79,7 @@ When reviewing user code, watch for these and suggest fixes:
    budget on a request that always errors. Set `false` until you have
    a node you operate.
 
-6. **Calling `findTxInMempool` with a hash that's been confirmed.**
+6. **Calling `findInMempool` with a hash that's been confirmed.**
    Confirmed txs are NOT in the mempool snapshot (it's pending+queued
    only). Check `eth_getTransactionByHash` instead.
 
@@ -90,7 +96,8 @@ import { gasOracleActions } from '@valve-tech/gas-oracle/viem-actions'
 import { withGasOracle } from '@valve-tech/gas-oracle/viem-transport'
 ```
 
-`package.json` will show `"@valve-tech/gas-oracle": "^0.2.x"` in dependencies.
+`package.json` will show `@valve-tech/gas-oracle` at any `0.x` of the
+package on the toolkit's synced release line, in dependencies.
 
 ## Replacement workflow — bumping a stuck tx
 
@@ -182,10 +189,16 @@ createGasOracle({ client, chainId, ...preset })
 `undefined` into the options object is a no-op, so the call still works
 on a chain we haven't preset (it just gets the package defaults).
 
+**Caveat — chain 943 (PulseChain testnet v4):** 943 has no preset;
+pass `priorityModel: PriorityModel.flat` explicitly. The dynamic
+recipe above silently lands on the eip1559 default there, which
+under-publishes tiers on a tip-charging chain (see anti-pattern 4).
+
 ## Where to find more
 
 - Full API + types: `node_modules/@valve-tech/gas-oracle/AGENTS.md`
-- Runnable examples: `node_modules/@valve-tech/gas-oracle/examples/`
+- Runnable examples (not shipped in the npm tarball):
+  https://github.com/valve-tech/evm-toolkit/tree/main/packages/gas-oracle/examples
 - Human-facing docs: `node_modules/@valve-tech/gas-oracle/README.md`
 - Source (when types alone aren't enough): `node_modules/@valve-tech/gas-oracle/dist/`
   (compiled JS + .d.ts) — sources aren't shipped, only built output.

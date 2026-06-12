@@ -1,6 +1,6 @@
 ---
 name: viem-errors-integration
-description: Integrate `@valve-tech/viem-errors` — cause-chain-aware error utilities for viem-based dapps — into wagmi `onError` callbacks, raw viem catch blocks, or anywhere a thrown error needs to be classified into "user rejected" vs "real failure" vs "decoded Solidity error". Use when the user is wiring `handleWalletError` into wagmi `useContractWrite` / `useSendTransaction`, calling `isUserRejectionError` to branch UI state to idle on rejection, calling `extractContractErrorName` to pull a decoded custom Solidity error name (`HashMismatch`, `InsufficientLiquidity`, `IntentExpired`) from viem's nested cause chain, mapping raw RPC errors to user-facing copy via `getUserFriendlyErrorMessage` + custom error patterns, or asks "why is my user-rejection check missing rejections" / "viem error is buried under a wrapper" / "how do I get the decoded error name from a `ContractFunctionExecutionError`". Also fires on imports of `@valve-tech/viem-errors` and questions about `walkErrorCause`, `DEFAULT_ERROR_PATTERNS`, `USER_REJECTION_MESSAGE`, the cause-chain `maxDepth` cap, or why three signals (EIP-1193 code, class name, message regex) are checked for rejection. Skip when the user is going through `@valve-tech/wallet-adapter`'s helpers (those throw typed `WalletRejectedError` / `ContractRevertedError` already — `instanceof` is the canonical discriminator there; delegate to wallet-adapter-integration), or when the user only wants generic JS error handling that has nothing to do with viem's cause-chain shape.
+description: Integrate `@valve-tech/viem-errors` — cause-chain-aware error utilities for viem-based dapps. Use when wiring `handleWalletError` into wagmi `useWriteContract` error callbacks, calling `isUserRejectionError` to branch UI to idle on rejection, calling `extractContractErrorName` to pull a decoded Solidity error name from the cause chain, mapping errors to user-facing copy via `getUserFriendlyErrorMessage`, or asks "why is my user-rejection check missing rejections" / "how do I get the decoded error name from a `ContractFunctionExecutionError`". Also fires on imports of the package and questions about `walkErrorCause`, `DEFAULT_ERROR_PATTERNS`, or the three-signal rejection check. Skip when the user is going through `@valve-tech/wallet-adapter`'s helpers (those throw typed `WalletRejectedError` / `ContractRevertedError` — `instanceof` is the canonical discriminator there; delegate to wallet-adapter-integration), or when the user only wants generic JS error handling unrelated to viem's cause-chain shape.
 ---
 
 # Integrating `@valve-tech/viem-errors`
@@ -41,28 +41,35 @@ import {
 } from '@valve-tech/viem-errors'
 ```
 
-`package.json` will show `"@valve-tech/viem-errors": "^0.10.x"`.
+`package.json` will show `@valve-tech/viem-errors` at some `0.x` version — any `0.x` of the package on the toolkit's synced release line.
 
 ## The canonical wagmi shape
 
 ```ts
 import { handleWalletError } from '@valve-tech/viem-errors'
+import { useWriteContract } from 'wagmi'
 
-const { writeAsync } = useContractWrite({
-  address, abi, functionName,
-  onError: (err) => handleWalletError(err, {
-    setStatus,                       // 'idle' on rejection, 'error' on failure
-    setErrorMessage: setError,
-    toast,                           // toast.info on rejection, toast.error on failure
-    customErrors: {
-      HashMismatch: 'The proof did not match the deposit.',
-      IntentExpired: 'This intent has expired — please refresh.',
-      InsufficientLiquidity: 'Not enough liquidity for this trade.',
-    },
-    onError: (e) => analytics.track('write.error', { message: e.message }),
-  }),
-})
+const { writeContract } = useWriteContract()
+
+writeContract(
+  { address, abi, functionName, args },
+  {
+    onError: (err) => handleWalletError(err, {
+      setStatus,                     // 'idle' on rejection, 'error' on failure
+      setErrorMessage: setError,
+      toast,                         // toast.info on rejection, toast.error on failure
+      customErrors: {
+        HashMismatch: 'The proof did not match the deposit.',
+        IntentExpired: 'This intent has expired — please refresh.',
+        InsufficientLiquidity: 'Not enough liquidity for this trade.',
+      },
+      onError: (e) => analytics.track('write.error', { message: e.message }),
+    }),
+  },
+)
 ```
+
+In wagmi v2 the callbacks go on the mutate call, not the hook config. (wagmi v1's `useContractWrite` config-level `onError` works the same way with this package.)
 
 The `customErrors` map is the per-protocol layer; `DEFAULT_ERROR_PATTERNS` covers the protocol-agnostic cases (insufficient gas, rate-limited, network down, generic revert) automatically.
 
@@ -120,9 +127,13 @@ When reviewing user code, watch for these and suggest fixes:
 
 5. **Putting protocol-specific copy in `DEFAULT_ERROR_PATTERNS`** by extending the array. The defaults are intentionally protocol-agnostic. Pass your protocol's custom-error map through `customErrors` (works against `data.errorName` matches, not pattern regex).
 
-6. **Custom patterns ordered AFTER `DEFAULT_ERROR_PATTERNS`.** Pattern matching is first-match-wins. To override a default, prepend:
+6. **Spreading `DEFAULT_ERROR_PATTERNS` into `patterns` to "keep the defaults".** Redundant — matching runs in two passes: all caller-supplied `patterns` first, then the defaults. Your patterns already override the defaults, and the defaults always still run:
    ```ts
+   // ❌ redundant — defaults run anyway, after your patterns
    getUserFriendlyErrorMessage(err, { patterns: [...myPatterns, ...DEFAULT_ERROR_PATTERNS] })
+
+   // ✅ pass only yours
+   getUserFriendlyErrorMessage(err, { patterns: myPatterns })
    ```
 
 7. **Expecting `handleWalletError` to throw or re-throw.** It's a side-effect-only handler that routes to sinks. If your catch block needs to bail after handling, throw yourself:
@@ -147,13 +158,13 @@ When reviewing user code, watch for these and suggest fixes:
 
 ## When to skip this package
 
-- **Going through `@valve-tech/wallet-adapter`'s helpers.** `sendTransactionWithHooks` already throws typed `WalletRejectedError` / `ContractRevertedError`. `instanceof` is the canonical discriminator there — no need to call `isUserRejectionError` after the fact. Internally those typed errors are detected via this package's three-signal check, so the discrimination is correct; you just don't need to redo it.
+- **Going through `@valve-tech/wallet-adapter`'s helpers.** `sendTransactionWithHooks` already throws typed `WalletRejectedError` / `ContractRevertedError`. `instanceof` is the canonical discriminator there — no need to call `isUserRejectionError` after the fact. Internally `WalletRejectedError` is detected via this package's three-signal check, so the discrimination is correct; you just don't need to redo it. (`ContractRevertedError` comes from receipt status, not from this package.)
 - **Non-viem error sources.** This package walks viem's cause chain shape. For raw HTTP errors, generic JS errors, or non-EVM SDKs, the helpers will return `null` / fall through to the fallback message — they won't crash, but they're not adding value either.
 
 ## Composing with other packages
 
 - `@valve-tech/wallet-adapter` uses this package internally for its `WalletRejectedError` discriminator. You don't need to call viem-errors directly when going through wallet-adapter's helpers.
-- For decoded custom Solidity errors, `extractContractErrorName` works against `ContractRevertedError.cause` chains too — useful for branching after wallet-adapter's `instanceof ContractRevertedError` check.
+- Decoded custom Solidity error names exist only on errors thrown by the wallet/simulation path (e.g. a `ContractFunctionExecutionError` from a write or simulate call, where viem decoded `data.errorName` against the ABI). Wallet-adapter's `ContractRevertedError` carries only `hash` + `receipt` — no cause chain, no decoded data — so `extractContractErrorName` always returns `null` for it. To recover the decoded name for an on-chain revert, re-simulate the call against the block it was mined in and run `extractContractErrorName` on the simulation throw.
 
 ## Where to find more
 

@@ -6,6 +6,27 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- Integration skill (2026-06-12 audit): rewrote the speed-up workflow,
+  which was built on a nonexistent `tracker.on('stuck', ...)` API — it
+  now uses `tracker.subscribe` keyed on `unseen-for-N-blocks` plus the
+  package's own `replaceTransaction` helper; corrected the rotted "never
+  emits a confirmed event" claim (v0.15 added opt-in
+  `confirmed-terminal` via `confirmationsForTerminal`, REQUIRED for
+  long-lived stores); completed the event-kind list (`left-mempool`,
+  `confirmed-terminal`); added the one-shot helpers
+  (`waitForTransaction` / `watchTransaction` / `waitForPending` /
+  `replaceTransaction` / `createTxGroup` /
+  `createLocalStorageTrackerStore`) to the decision tree and triggers;
+  documented the `receipt-poll-fallback` `lostSignalPolicy` variant,
+  `statusPollEveryBlocks`, and `confirmationsForTerminal` in the tuning
+  table; fixed the inverted `unseenThresholdBlocks` tuning advice;
+  replaced non-shipped/repo-relative pointers with GitHub URLs; removed
+  the rotted version pin; trimmed the description under 1024 chars.
+
 ## [0.18.0] — 2026-06-01
 
 ### Notes

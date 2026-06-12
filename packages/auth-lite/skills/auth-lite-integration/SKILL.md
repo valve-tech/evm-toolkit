@@ -1,6 +1,6 @@
 ---
 name: auth-lite-integration
-description: Integrate `@valve-tech/auth-lite` — SIWE-lite authentication (server nonce + client personal_sign + server recover) — into viem-based dapps that need wallet sign-in but don't need full EIP-4361 / cross-app session portability. Use when the user is wiring `generateAuthNonce` into a `/auth/nonce` endpoint, `signAuthChallenge` into a client-side sign-in button, `verifyAuthSignature` into a `/auth/verify` endpoint, or asks "how do I add wallet sign-in", "what's SIWE-lite", "should I use SIWE or this", "how do I store the nonce", "where do I put the session token issuance", "why does verifyAuthSignature return null instead of throwing", or "the app field — where should it come from". Also fires on imports of `@valve-tech/auth-lite` and questions about `WalletDeclined`/`InvalidNonce`/`SignatureMismatch` handling, `formatAuthMessage` template content, the "does NOT authorize" anti-phishing line, or "why no domain field". Skip when the user explicitly needs cross-app session portability (e.g. an attested credential a third-party site verifies) — that's full EIP-4361, a separate concern.
+description: Integrate `@valve-tech/auth-lite` — SIWE-lite authentication (nonce + personal_sign + recover) — into viem-based dapps that need wallet sign-in but don't need full EIP-4361 / cross-app session portability. Use when the user is wiring `generateAuthNonce` into a `/auth/nonce` endpoint, `signAuthChallenge` into a client-side sign-in button, `verifyAuthSignature` into a `/auth/verify` endpoint, or asks "how do I add wallet sign-in", "what's SIWE-lite", "should I use SIWE or this", "how do I store the nonce", "why does verifyAuthSignature return null", or "the app field — where should it come from". Also fires on imports of `@valve-tech/auth-lite` and questions about `WalletDeclined`/`InvalidNonce`/`SignatureMismatch` handling, `formatAuthMessage` template content, the "does NOT authorize" anti-phishing line, or "why no domain field". Skip when the user explicitly needs cross-app session portability (e.g. an attested credential a third-party site verifies) — that's full EIP-4361, a separate concern.
 ---
 
 # Integrating `@valve-tech/auth-lite`
@@ -31,6 +31,10 @@ Where is the user wiring this?
             returns Address | null
             → null → 401. Address → issue your session (NOT this package's job)
 ```
+
+`generateAuthNonce` bounds: `bytes` 16–64 (default 32), `ttlSeconds`
+30–3600 (default 300). Out-of-range values throw `RangeError` —
+validated, not clamped.
 
 ## The 5 load-bearing invariants
 
@@ -150,8 +154,12 @@ phishing-defense feature.
 ## Composition with sibling packages
 
 - **`@valve-tech/wallet-crypto`** — pair when a product needs both
-  auth + encrypted cloud storage. Shared `WalletDeclined` /
-  `WalletUnavailable` class names so consumers can `catch (e)` once.
+  auth + encrypted cloud storage. The two packages share error NAMES
+  (`WalletDeclined` / `WalletUnavailable`), not classes — an
+  `instanceof` check against one package's import silently misses the
+  sibling's throws. Discriminate on `err.name === 'WalletDeclined'`
+  to handle both in one place. Integration skill:
+  `node_modules/@valve-tech/wallet-crypto/skills/wallet-crypto-integration/SKILL.md`.
 - **`@valve-tech/viem-errors`** — used internally for
   `WalletDeclined` detection. You don't need it directly.
 
@@ -164,3 +172,10 @@ phishing-defense feature.
 - **Multi-chain disambiguation.** SIWE-lite doesn't bind a chainId
   to the signature; the `app` value is the only thing that scopes
   the signature. If you need chainId binding, use full SIWE.
+
+## Where to find more
+
+- Full API + types: `node_modules/@valve-tech/auth-lite/AGENTS.md`
+- Human-facing docs: `node_modules/@valve-tech/auth-lite/README.md`
+- Source (when types alone aren't enough): `node_modules/@valve-tech/auth-lite/dist/`
+  (compiled JS + .d.ts) — sources aren't shipped, only built output.

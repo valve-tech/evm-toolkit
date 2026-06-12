@@ -1,6 +1,6 @@
 ---
 name: trueblocks-sdk-integration
-description: Integrate `@valve-tech/trueblocks-sdk` — typed TypeScript HTTP client to a running TrueBlocks `chifra daemon` — into a dapp, indexer, analytics tool, or backend. Use when the user wants to query historical chain data via chifra (`list` appearances, `export` receipts/logs/transfers/balances, `blocks` / `transactions` / `receipts` / `traces` / `logs` reads, `monitors` / `names` / `abis` lookups, `when` / `state` / `tokens` chain-state queries, or `chunks` / `init` / `config` / `status` admin endpoints), is asking how to wire a chifra daemon URL into TS code, needs to discriminate the polymorphic `client.blocks(...)` return vs use a variant accessor like `client.blocks.logs(...)`, or sees imports from `@valve-tech/trueblocks-sdk`. Also fires for "how do I get all transfers for an address", "list ERC-20 holders", "address appearances", "decode receipts via chifra", or questions about `TrueblocksError`, the `baseUrl` option, the `fetch` override, the 54-method/36-variant surface, or why `client.send(...)` doesn't exist (the upstream OpenAPI spec doesn't cover chifra's send surface — that's intentional). Skip when the user wants to SEND transactions (delegate to wallet-adapter-integration — chifra's send isn't in the typed surface), wants live in-flight tx tracking via push/poll (delegate to tx-tracker-integration — trueblocks is historical reads, not live observation), wants raw RPC block/mempool streams (delegate to chain-source-integration), or doesn't have a running chifra daemon and isn't planning to install trueblocks-core (the SDK requires it; recommend they install or use a different read source like viem `client.getLogs` / The Graph / Alchemy enhanced APIs).
+description: Integrate `@valve-tech/trueblocks-sdk` — typed TS HTTP client to a running TrueBlocks `chifra daemon`. Use when querying historical chain data via chifra verbs (`list`, `export`, `blocks`, `transactions`, `receipts`, `traces`, `logs`, `slurp`, `monitors`, `names`, `abis`, `when`, `state`, `tokens`, `chunks`, `init`, `config`, `status`), picking polymorphic `client.blocks(...)` vs variants like `client.blocks.logs(...)`, "get all transfers for an address", "address appearances", `TrueblocksError`, the `fetch` override, or why `client.send(...)` doesn't exist. Skip when the user wants to SEND transactions (delegate to wallet-adapter-integration — send isn't in the typed surface), wants live in-flight tx tracking (delegate to tx-tracker-integration — trueblocks is historical reads), wants raw RPC block/mempool streams (delegate to chain-source-integration), or has no running chifra daemon and won't install trueblocks-core (the SDK requires it — recommend viem `getLogs` / The Graph / Alchemy instead).
 ---
 
 # Integrating `@valve-tech/trueblocks-sdk`
@@ -41,7 +41,7 @@ What does the user want to know?
 │
 ├── "Block X" / "blocks N..M"
 │       → client.blocks({ blocks: [...] }) + variant:
-│             .logs / .uncles / .traces / .withdrawals / .uniq / .count
+│             .hashes / .logs / .uncles / .traces / .withdrawals / .uniq / .count
 │
 ├── "Transaction by hash"
 │       → client.transactions({ transactions: [...] }) + variant:
@@ -50,8 +50,20 @@ What does the user want to know?
 ├── "Receipt(s) by hash"
 │       → client.receipts({ transactions: [...] })
 │
+├── "Logs for specific transaction(s)" (filter by emitter / topic)
+│       → client.logs({ transactions: [...], emitter?, topic? })
+│
+├── "Execution traces for transaction(s)"
+│       → client.traces({ transactions: [...] }) (+ .count variant)
+│
+├── "Address history via Etherscan-like 3rd-party API (no local index)"
+│       → client.slurp({ addrs: [...] }) (+ .appearances / .count variants)
+│
 ├── "When did block X happen / what block was at timestamp T"
-│       → client.when({ blocks: [...] | timestamps: [...] })
+│       → client.when({ blocks: [...] })
+│         (`blocks` accepts block numbers, dates, AND timestamps as
+│          strings; `timestamps` is a boolean output flag, NOT a
+│          lookup input)
 │
 ├── "Read contract state / call view function"
 │       → client.state({ addrs, parts }) or client.state.call({ addrs, call })
@@ -75,7 +87,8 @@ import {
 } from '@valve-tech/trueblocks-sdk'
 ```
 
-`package.json` will show `"@valve-tech/trueblocks-sdk": "^0.10.x"`. No peer deps.
+`package.json` will show `@valve-tech/trueblocks-sdk` at any `0.x` of
+the toolkit's synced release line. No peer deps.
 
 ## Canonical setup
 
@@ -89,10 +102,9 @@ const client = createTrueblocksClient({
 })
 
 try {
-  const status = await client.status()
-  if (!status.is_responding) {
-    throw new Error('chifra daemon not ready')
-  }
+  // Liveness check: a successful status() call IS the probe — if the
+  // daemon is down or unreachable it throws TrueblocksError.
+  await client.status()
 } catch (err) {
   if (err instanceof TrueblocksError) {
     console.error('chifra error', err.path, err.status, err.message)
@@ -141,13 +153,13 @@ When reviewing user code, watch for these and suggest fixes:
    smoke test).
 
 3. **Treating `client.list(...)` results as full transactions.**
-   `list` returns *appearances* — lightweight pointers (`bn`,
-   `tx_id`, `address`). To get full data, chain through
-   `client.transactions(...)` or `client.export(...)`:
+   `list` returns *appearances* — lightweight pointers
+   (`blockNumber`, `transactionIndex`, `address`). To get full data,
+   chain through `client.transactions(...)` or `client.export(...)`:
    ```ts
    const apps = await client.list({ addrs: [address] })
    const txs = await client.transactions({
-     transactions: apps.data.map(a => `${a.bn}.${a.tx_id}`),
+     transactions: apps.data.map(a => `${a.blockNumber}.${a.transactionIndex}`),
    })
    ```
 
@@ -178,9 +190,10 @@ When reviewing user code, watch for these and suggest fixes:
 
 7. **bigint vs string at numeric boundaries.** Generated types
    carry the spec's choice (often `string` for safety — block
-   numbers, gas, fees can exceed 2^53). The verb wrappers
-   convert at the boundary where appropriate, but always-string
-   fields stay strings. Don't `BigInt(field)` without checking
+   numbers, gas, fees can exceed 2^53). The verb wrappers are a
+   pure `response.json()` passthrough — they do NOT convert
+   anything at the boundary; what the spec types as `string`
+   arrives as `string`. Don't `BigInt(field)` without checking
    the type.
 
 8. **No retry / backoff for flaky daemon connections.** The

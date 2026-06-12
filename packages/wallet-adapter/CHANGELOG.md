@@ -6,6 +6,21 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- Integration skill (2026-06-12 audit): rewrote the tx-tracker
+  composition example, which passed callbacks to `tracker.track()` (an
+  API that takes none) — it now maps the tracker's neutral events
+  (`replaced-by`, `unseen-for-N-blocks`) onto the consumer's hooks via
+  `tracker.subscribe` and states that the consumer owns that mapping;
+  added the v0.17 `TrackedTx.readOnly` guidance to the in-flight UI
+  section (`tx.readOnly === true` read-site rule, no speed-up/cancel on
+  relayer-submitted entries); covered `WritePhaseSteps` declaration
+  merging in the body; removed the rotted version pin; trimmed the
+  description under 1024 chars.
+
 ## [0.18.0] — 2026-06-01
 
 ### Notes

@@ -1,24 +1,55 @@
 ---
 name: tx-tracker-integration
-description: Integrate `@valve-tech/tx-tracker` into a wallet UI, indexer, or relay. Use when the user wants to "track this transaction," "watch tx hash," "know when my tx confirms," "detect stuck transactions," "watch for replaced txs," "follow this address's txs," or asks about reorg / replacement / dropped-tx detection on EVM. Also use when seeing imports from `@valve-tech/tx-tracker` and the user asks for help with `createTxTracker`, `track`, `subscribe`, `getTxStatus`, `trackFromAddress` / `trackToAddress` / `trackPredicate`, `TxEvent`, `TxTrackerStore`, `createInMemoryStore`, `lostSignalPolicy`, or capability disclosure (`subscription` / `block-poll` / `mempool-snapshot` / `receipt-poll` event sources). Also applies when the user asks how to compose tx-tracker with `@valve-tech/gas-oracle` via a shared `ChainSource`. Skip when the user only wants gas-tier math without per-tx state (delegate to gas-oracle-integration), only wants the raw block/mempool stream with no per-tx logic (delegate to chain-source-integration), or wants a React UI strip for in-flight txs (delegate to tx-flight-react-integration — that package wraps tx-tracker for React consumers).
+description: Integrate `@valve-tech/tx-tracker` into a wallet UI, indexer, or relay. Use for "track this transaction," "watch tx hash," "know when my tx confirms" (`waitForTransaction`), "detect stuck transactions," "speed up / replace a stuck tx" (`replaceTransaction`), "follow this address's txs," or reorg / replacement / dropped-tx detection. Also fires on imports of `@valve-tech/tx-tracker` and `createTxTracker`, `track` / `subscribe` / `getTxStatus`, `trackFromAddress` / `trackToAddress` / `trackPredicate`, `watchTransaction` / `waitForPending` / `createTxGroup` / `createLocalStorageTrackerStore`, `lostSignalPolicy`, or composing with `@valve-tech/gas-oracle` via a shared `ChainSource`. Skip when the user only wants gas-tier math without per-tx state (delegate to gas-oracle-integration), only wants the raw block/mempool stream with no per-tx logic (delegate to chain-source-integration), or wants a React UI strip for in-flight txs (delegate to tx-flight-react-integration — it wraps tx-tracker for React).
 ---
 
 # Integrating `@valve-tech/tx-tracker`
 
 Per-tx state machine for EVM chains. Emits **neutral observations**
-(`seen-in-mempool`, `seen-in-block`, `replaced-by`,
-`vanished-from-block`, `unseen-for-N-blocks`, `signal-degraded`,
-`signal-recovered`, `stopped`) so the consumer writes the
-`'confirmed'` / `'stuck'` / `'dropped'` policy in their own UX voice.
+(`started`, `seen-in-mempool`, `left-mempool`, `seen-in-block`,
+`vanished-from-block`, `replaced-by`, `unseen-for-N-blocks`,
+`confirmed-terminal`, `signal-degraded`, `signal-recovered`,
+`stopped`) so the consumer writes the `'confirmed'` / `'stuck'` /
+`'dropped'` policy in their own UX voice. (`confirmed-terminal` is
+the one opt-in exception — see anti-pattern 2.)
 
 This skill is for AI agents working in a project that imports the
 package — it grounds you in the right consumption shape for the user's
 codebase and the right configuration for their use case.
 
+## Decision tree: one-shot helper or owned tracker?
+
+For single-tx questions there are batteries-included helpers that
+build (and tear down) a private `ChainSource + TxTracker` internally —
+no tracker to own, just a viem `PublicClient`:
+
+```
+One transaction, no tracker infrastructure yet?
+├── "Know when my tx confirms / drops / is replaced"
+│       → await waitForTransaction({ client, hash })
+│         Resolves { status: 'mined' | 'dropped' | 'replaced' | 'failed', ... }.
+│         ('failed' requires withReceipts: true; outcomes are resolved
+│         values, never rejections.)
+├── Same, but callback-shaped (no await point available)
+│       → watchTransaction({ client, hash, onMined, ... }) — returns stop().
+├── "Wait until it shows up in the mempool" (pre-inclusion gate)
+│       → await waitForPending({ client, hash })
+├── "Bump / cancel a stuck tx" (same-nonce replacement submit)
+│       → replaceTransaction({ original, walletClient, newGas })
+│         — see "Speed-up workflow" below.
+└── "Treat several hashes as one unit" (batch UX)
+        → createTxGroup(tracker, hashes) — emits group-progress /
+          group-complete / group-failed. (Needs an owned tracker.)
+```
+
+For tracking that must survive page reloads, pass a durable store:
+`createTxTracker({ source, store: createLocalStorageTrackerStore() })`.
+
 ## Decision tree: which consumption shape to use
 
-Three consumption shapes. All three back onto one push-based core, so
-they see consistent state — pick by ergonomics, not by capability.
+When you DO own a tracker: three consumption shapes. All three back
+onto one push-based core, so they see consistent state — pick by
+ergonomics, not by capability.
 
 ```
 Is the user writing new async code (top-to-bottom flow with await)?
@@ -82,12 +113,16 @@ registered (a later `source.start()` resumes them).
 | Setting | Default | Tune up for | Tune down for |
 |---|---|---|---|
 | `reorgDepthBlocks` | 12 | Chains with weaker finality (PoW, small validator sets) | High-finality chains where you only care about shallow reorgs |
-| `unseenThresholdBlocks` (per-sub or tracker default) | 30 | Slow chains (Ethereum mainnet — ~6 min) | Fast L2s where 30 blocks ≪ 1 minute |
-| `lostSignalPolicy` | `'emit-uncertain'` | (default — loud is correct) | `'silent'` for wallet UIs that don't want capability-churn UI flicker |
+| `unseenThresholdBlocks` (per-sub or tracker default) | 30 | Fast chains, to keep wall-clock patience constant (30 blocks on a 2s L2 elapses in ~1 min) | Slow chains where the default wall-clock wait is too long (30 × 12s mainnet blocks ≈ 6 min before "likely dropped") |
+| `lostSignalPolicy` | `'emit-uncertain'` | (default — loud is correct) | `'silent'` for wallet UIs that don't want capability-churn UI flicker; `{ strategy: 'receipt-poll-fallback', pollEveryBlocks }` to keep inclusion signal alive via `eth_getTransactionReceipt` — the right answer for gated-txpool chains like PulseChain |
+| `statusPollEveryBlocks` | 1 | (default — polls `eth_getTransactionByHash` per tracked record every block; universally exposed, sees txs even where `txpool_content` is gated) | `2`+ to halve the per-record RPC cost; `0` to disable the status-poll path entirely |
+| `confirmationsForTerminal` | `null` (off) | Long-lived / durable stores — REQUIRED there, or mined records never expire (see anti-pattern 2). Use ≥ `reorgDepthBlocks` | Leave `null` for short-lived in-memory trackers where leak pressure doesn't exist |
 | Store retention (`createInMemoryStore({ retentionBlocks })`) | 64 | Indexers replaying long windows | Wallet UIs where in-flight is what matters |
 
-`reorgDepthBlocks` and retention are in **block-units, not seconds** —
-reorg safety is a depth invariant. Spec §10.1 has the rationale.
+`reorgDepthBlocks`, retention, and `unseenThresholdBlocks` are in
+**block-units, not seconds** — think in wall-clock by multiplying by
+the chain's block time. Reorg safety is a depth invariant. Spec §10.1
+has the rationale.
 
 ## Anti-patterns to flag
 
@@ -97,8 +132,15 @@ reorg safety is a depth invariant. Spec §10.1 has the rationale.
 
 2. **Treating `seen-in-block` as "confirmed."** It's the inclusion
    observation, not the policy. Consumer should check
-   `event.confirmations >= N` with N from their own UX rules. The
-   tracker deliberately does not emit a `confirmed` event.
+   `event.confirmations >= N` with N from their own UX rules. By
+   default the tracker emits no confirmed event — but
+   `confirmationsForTerminal` (default `null`) opts into a one-shot
+   `confirmed-terminal` event that also marks the record terminal so
+   retention can reclaim it. For long-lived stores (durable stores,
+   indexers) setting it is REQUIRED: without a terminal on the happy
+   path, normally-mined records never expire and leak. Recommended
+   value: ≥ `reorgDepthBlocks` (default 12), so a same-height reorg
+   can't un-mine a record already retired.
 
 3. **Calling `getTxStatus(hash)` in a render loop.** Sub-ms but still
    wasteful. Subscribe via `tracker.subscribe(hash, cb)` and store
@@ -154,45 +196,62 @@ import { createChainSource } from '@valve-tech/chain-source'
 import { createGasOracle } from '@valve-tech/gas-oracle'
 ```
 
-`package.json` will show `"@valve-tech/tx-tracker": "^0.x.y"` in
-dependencies, and almost always `"@valve-tech/chain-source"` alongside
-it (the tracker requires a source).
+`package.json` will show `@valve-tech/tx-tracker` at any `0.x` of the
+toolkit's synced release line, and almost always
+`"@valve-tech/chain-source"` alongside it (the tracker requires a
+source).
 
 ## Speed-up workflow (cross-package)
 
-For callers tracking a tx via `@valve-tech/tx-tracker` who want to bump
-it when it stalls or drops, pair with `@valve-tech/gas-oracle`'s
-`recommendBumpTier` + `bumpForReplacement` helpers:
+The tracker never emits a "stuck" event — `unseen-for-N-blocks` is the
+neutral observation you key your stuck policy on. To bump a stalled tx,
+pair the tracker's own `replaceTransaction` helper with
+`@valve-tech/gas-oracle`'s `recommendBumpTier` + `bumpForReplacement`:
 
 ```ts
+import { replaceTransaction, type TxEvent } from '@valve-tech/tx-tracker'
 import { recommendBumpTier, bumpForReplacement } from '@valve-tech/gas-oracle'
 
-// tx-tracker tells you the tx is stuck:
-tracker.on('stuck', (stuck) => {
-  const tier = recommendBumpTier(
-    gasOracleState,
-    { priorityTip: stuck.maxPriorityFeePerGas, identifier: { hash: stuck.hash } },
-  )
+// Keep the original request + gas at submit time — tracker events
+// don't carry them:
+const original = { to, nonce, data, value }  // ReplaceTransactionOriginal
+const originalGas = { maxFeePerGas, maxPriorityFeePerGas }
+
+const onStuck = async (event: TxEvent) => {
+  if (event.kind !== 'unseen-for-N-blocks') return  // your "stuck" policy
+
+  const snapshot = oracle.getState()
+  if (snapshot === null) return  // oracle hasn't polled yet
+
+  const tier = recommendBumpTier(snapshot, {
+    priorityTip: originalGas.maxPriorityFeePerGas,
+    identifier: { hash },
+  })
   if (tier === null) return  // Already paying above top tier — caller's call
 
-  const target = gasOracleState.tiers[tier]
-  const gas = bumpForReplacement(
-    { maxFeePerGas: stuck.maxFeePerGas, maxPriorityFeePerGas: stuck.maxPriorityFeePerGas },
-    { maxFeePerGas: target.maxFeePerGas, maxPriorityFeePerGas: target.maxPriorityFeePerGas },
-  )
-  walletClient.sendTransaction({ ...stuck, ...gas })
-})
+  const newGas = bumpForReplacement(originalGas, snapshot.tiers[tier])
+  const newHash = await replaceTransaction({ original, walletClient, newGas })
+
+  unsub()                              // old hash is superseded
+  tracker.subscribe(newHash, onStuck)  // follow the replacement
+}
+const unsub = tracker.subscribe(hash, onStuck)
 ```
 
-Outpace correction (passing `identifier`) reads `gasOracleState.mempoolSamples`
+`replaceTransaction({ original, walletClient, newGas })` submits the
+same-nonce replacement and returns the new hash; it throws whatever the
+wallet client throws (no swallowing — caller decides retry/surface).
+Outpace correction (passing `identifier`) reads `snapshot.mempoolSamples`
 to compute the tip needed to outpace the stuck tx in the live
 distribution, on top of the EIP-1559 +10% protocol floor.
 
 ## Where to find more
 
 - Full API + types: `node_modules/@valve-tech/tx-tracker/AGENTS.md`
-- Runnable examples: `node_modules/@valve-tech/gas-oracle/examples/07-tx-tracker.ts` etc.
-- Design contract (the source of truth): `docs/tx-tracker-spec.md` in the
-  `valve-tech/evm-toolkit` repo
+- Runnable examples (not shipped in the tarball):
+  https://github.com/valve-tech/evm-toolkit/tree/main/packages/gas-oracle/examples
+  (`07-tx-tracker.ts` etc.)
+- Design contract (the source of truth):
+  https://github.com/valve-tech/evm-toolkit/tree/main/docs/tx-tracker-spec.md
 - Source (when types alone aren't enough):
   `node_modules/@valve-tech/tx-tracker/dist/` (compiled JS + .d.ts)

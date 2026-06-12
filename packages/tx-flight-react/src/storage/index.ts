@@ -11,3 +11,4 @@ export {
   indexedDBAdapter,
   type IndexedDBAdapterOptions,
 } from './indexed-db.js'
+export { serialize, deserialize } from './serialize.js'

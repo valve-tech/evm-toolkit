@@ -1,6 +1,6 @@
 ---
 name: chain-source-integration
-description: Integrate `@valve-tech/chain-source` — the canonical EVM chain-observation primitive — into a dapp, indexer, watcher, or backend. Use when the user is wiring up a multi-subscriber poll/push source for new blocks or mempool snapshots, deciding whether to subscribe vs poll, asking about RPC capability disclosure (HTTP-only vs WS, `txpool_content` gating, `eth_getTransactionReceipt` fallback), sharing one upstream RPC stream between `@valve-tech/gas-oracle` and `@valve-tech/tx-tracker`, or sees imports from `@valve-tech/chain-source`. Also fires for questions about `subscribeBlocks` / `subscribeMempool`, the conservative probing-window default, the `EventSource` discriminator (`'subscription'` vs `'block-poll'` vs `'mempool-snapshot'` vs `'receipt-poll'`), or "why am I getting null from `getMempoolSnapshot()`?". Skip when the user only wants per-tx state (delegate to tx-tracker skill) or only wants gas-tier recommendations (delegate to gas-oracle skill); both are derived views built on top of this package and have their own integration skills.
+description: Integrate `@valve-tech/chain-source` — the canonical EVM chain-observation primitive — into a dapp, indexer, watcher, or backend. Use when the user is wiring up a multi-subscriber poll/push source for new blocks or mempool snapshots, deciding whether to subscribe vs poll, asking about RPC capability disclosure (HTTP-only vs WS, `txpool_content` gating, `eth_getTransactionReceipt` fallback), sharing one upstream RPC stream between `@valve-tech/gas-oracle` and `@valve-tech/tx-tracker`, or sees imports from `@valve-tech/chain-source`. Also fires for questions about `subscribeBlocks` / `subscribeMempool`, the `EventSource` discriminator (`'subscription'` vs `'block-poll'` vs `'mempool-snapshot'` vs `'receipt-poll'`), or "why am I getting null from `getMempoolSnapshot()`?". Skip when the user only wants per-tx state (delegate to tx-tracker skill) or only wants gas-tier recommendations (delegate to gas-oracle skill); both are derived views built on top of this package and have their own integration skills.
 ---
 
 # Integrating `@valve-tech/chain-source`
@@ -41,9 +41,10 @@ import {
 } from '@valve-tech/chain-source'
 ```
 
-`package.json` will show `"@valve-tech/chain-source": "^0.10.x"` — and
-typically also one or both of `@valve-tech/gas-oracle` /
-`@valve-tech/tx-tracker` if they're using the shared-source shape.
+`package.json` will show `@valve-tech/chain-source` at any `0.x` of
+the package on the toolkit's synced release line — and typically also
+one or both of `@valve-tech/gas-oracle` / `@valve-tech/tx-tracker` if
+they're using the shared-source shape.
 
 ## The capability matrix — what each state means for your code
 
@@ -52,15 +53,18 @@ code path whose correctness depends on the underlying RPC's surface.
 
 | Field | States | What to do |
 |---|---|---|
-| `newHeads` | `subscription` / `poll-only` / `unavailable` | If `subscription`, you'll get push events. If `poll-only`, you're on the interval timer (default 10s). `unavailable` means the transport has no `subscribe` at all (HTTP-only). |
+| `newHeads` | `subscription` / `poll-only` / `unavailable` | If `subscription`, you'll get push events. If `poll-only`, you're on the adaptive poll tick — it fires at the chain's estimated block time, backing off 2s→30s while the head is stuck; `pollIntervalMs` is only the fallback when estimation fails. `unavailable` means the transport has no `subscribe` at all (HTTP-only). |
 | `newPendingTransactions` | `subscription` / `poll-only` / `unavailable` | Same shape. `poll-only` here means mempool falls back to the `txpool_content` tick. `unavailable` means there's no mempool path at all on this provider — `subscribeMempool` will never fire and `getMempoolSnapshot()` returns `null`. |
 | `txpoolContent` | `available` / `gated` | Most public RPCs gate this. If `gated`, mempool is silent unless WS push is available. |
 | `receiptByHash` | `available` / `unavailable` | `unavailable` is rare but real on some L2s/sidechains. tx-tracker's receipt-poll fallback path becomes a no-op. |
 | `reprobeOnReconnect` | boolean | `true` for WS transports that signal reconnect; `false` for HTTP. Informational. |
+| `ready` | boolean (optional) | `false` while the construction-time probe is still in flight — the other fields are the defensive default, not authoritative. `true` (or `undefined`, in synthetic snapshots) once the probe has completed. |
 
 Always read capabilities AFTER `await source.ready()` if you're
 branching at construction time — before that, you get a defensive
-default with everything `unavailable` / `gated`.
+default with everything `unavailable` / `gated`. In code paths where
+you can't `await`, check `caps.ready === false` to detect the
+in-flight probe instead of branching on the defensive values.
 
 ## Per-RPC capability profiles (what to expect)
 
@@ -69,7 +73,7 @@ default with everything `unavailable` / `gated`.
 | Self-hosted geth/reth (HTTP+WS) | `subscription` | `subscription` | `available` | Full surface; the default-everything-works case. |
 | Self-hosted geth/reth (HTTP only) | `unavailable` | `poll-only` | `available` | No push; poll cycle drives everything. |
 | Alchemy / Infura / QuickNode (WS) | `subscription` | `subscription` (Alchemy) / `unavailable` (some) | `gated` | Push-based blocks; mempool depends on plan tier. |
-| Public RPC aggregators (LlamaNodes, Ankr, etc., HTTP) | `unavailable` | `unavailable` | `gated` | Block-poll only; mempool is silent. Set `poll: { mempool: false }` to skip the doomed RPC. |
+| Public RPC aggregators (LlamaNodes, Ankr, etc., HTTP) | `unavailable` | `unavailable` | `gated` | Typical profile, but varies — verify per node. Block-poll only; mempool is silent. Set `poll: { mempool: false }` to skip the doomed RPC. |
 | PulseChain RPCs (typical) | varies by node | varies | often `gated` | Verify `txpool_content` per node — public PulseChain RPCs frequently gate it. |
 
 If `txpoolContent === 'gated'` AND `newPendingTransactions === 'unavailable'`,
@@ -140,9 +144,15 @@ import { createChainSource } from '@valve-tech/chain-source'
 const client = createPublicClient({ chain: mainnet, transport: http() })
 const source = createChainSource({
   client,
-  pollIntervalMs: 12_000,                         // optional; default 10_000
+  // Polling is ADAPTIVE by default (v0.16+): each tick is scheduled at
+  // the chain's estimated block time, backing off 2s→30s while the
+  // head is stuck. `pollIntervalMs` is only the fallback used when
+  // block-time estimation fails (or adaptive is disabled).
+  pollIntervalMs: 12_000,                         // optional fallback; default 10_000
+  // adaptivePolling: { enabled: false },         // fixed-interval ticks (pre-v0.16 behavior)
   poll: { mempool: false },                       // skip doomed txpool_content
   onError: (method, err) => console.warn(method, err),
+  logger: (level, msg, meta) => console.debug(level, msg, meta),  // optional observability
 })
 
 await source.ready()  // wait for capability probe before branching
@@ -240,8 +250,15 @@ type EventSource =
   | 'subscription'        // arrived via eth_subscribe (push)
   | 'block-poll'          // arrived via the source's eth_getBlockByNumber tick
   | 'mempool-snapshot'    // arrived via the source's txpool_content tick
-  | 'receipt-poll'        // tx-tracker fallback per-hash receipt poll
+  | 'receipt-poll'        // any per-hash status probe (see below)
 ```
+
+`'receipt-poll'` is a CATEGORY, not a single mechanism: it covers any
+per-hash status probe — tx-tracker's receipt-poll fallback, its
+consumer-facing `probeMined`, and per-hash status polls alike. When a
+new arrival path is per-hash, widen the meaning of `'receipt-poll'`
+rather than minting a new `EventSource` value, unless the new path
+has a structurally different constraint.
 
 When you build your own derived view, follow the same pattern —
 attach a `source` field to your emitted events so consumers can filter

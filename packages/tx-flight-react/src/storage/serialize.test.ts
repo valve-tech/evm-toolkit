@@ -105,3 +105,13 @@ test('legacy-fixture: a TrackedTx without submittedGas round-trips (most common 
   expect(round[0].submittedGas).toBeUndefined()
   expect(round[0].id).toBe('tx-legacy')
 })
+
+test('serialize/deserialize are re-exported from the /storage public surface', async () => {
+  // Consumers persisting TrackedTx through their own storage layer
+  // need the bigint-safe codec without reaching into package
+  // internals. Locks the subpath export so the integration skill's
+  // guidance stays true.
+  const surface = await import('./index.js')
+  expect(surface.serialize).toBe(serialize)
+  expect(surface.deserialize).toBe(deserialize)
+})

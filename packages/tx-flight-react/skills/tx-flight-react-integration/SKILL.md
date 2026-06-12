@@ -1,6 +1,6 @@
 ---
 name: tx-flight-react-integration
-description: Integrate `@valve-tech/tx-flight-react` — React UI primitives for an in-flight transaction strip — into a dapp. Use when the user is building or asking about a "transaction strip", "in-flight transactions" UI, "recent txs" panel, "pending tx toast list", or "show me my recent transactions confirming/failing/dropped" panel; wiring `<TxFlightProvider>` + `useTxFlight` into a React 18/19 app; picking between `addWithWalletAdapter` (sync, types-only wallet-adapter import), `addByHash` (async, dynamic-imports tx-tracker + chain-source), or `addManual` (back-fill); choosing a storage adapter (`localStorageAdapter` / `indexedDBAdapter` / `memoryAdapter`); enabling rehydrate-on-reload via `clientFactory`; or composing the headless components (`<TxFlightList>`, `<TxFlightItem>`, `<TxFlightStatusIcon>`, `<TxFlightHashLink>`, `<TxFlightAge>`, `<TxFlightActions>`). Also fires on imports of `@valve-tech/tx-flight-react`, on questions about RSC vs client-component boundaries within the package, multi-instance scoping by `id`, or "why doesn't `addByHash` work" (usually missing optional peer deps). Skip when the user is NOT in React (delegate to wallet-adapter-integration for vanilla JS / SDK code, or tx-tracker-integration for raw tx tracking), or only wants to define the SDK-side `WriteHookParams` shape without React state (delegate to wallet-adapter-integration).
+description: Integrate `@valve-tech/tx-flight-react` — React UI primitives for an in-flight transaction strip — into a dapp. Use for a "transaction strip", "in-flight transactions" UI, "recent txs" panel; wiring `<TxFlightProvider>` + `useTxFlight` into React 18/19; picking `addWithWalletAdapter` vs `addByHash` (incl. `readOnly` for relayer-observed txs) vs `addManual`; storage adapters (`localStorageAdapter` / `indexedDBAdapter` / `memoryAdapter`); rehydrate via `clientFactory`; or the headless `<TxFlight*>` components (List/Item/StatusIcon/HashLink/Age/Actions). Also fires on imports of `@valve-tech/tx-flight-react`, RSC vs client-component boundaries, multi-instance scoping by `id`, or "why doesn't `addByHash` work" (usually missing optional peer deps). Skip when the user is NOT in React (delegate to wallet-adapter-integration for vanilla JS / SDK code, or tx-tracker-integration for raw tx tracking), or only wants the SDK-side `WriteHookParams` shape without React state (delegate to wallet-adapter-integration).
 ---
 
 # Integrating `@valve-tech/tx-flight-react`
@@ -25,8 +25,18 @@ How is the user submitting the tx?
 │   → use `addByHash`. Async (tx-tracker + chain-source dynamic-import).
 │     Strip builds a private ChainSource + TxTracker; tears down on
 │     `flight.remove(id)` or unmount.
+│     Tuning knobs: `confirmations` (default 1), `staleAfterBlocks`
+│     (default 12), `withReceipts` (fetch receipt at inclusion;
+│     surfaces `failed` on revert; +1 RPC).
+│     ├── Tx submitted by someone else (relayer, server-observed) but
+│     │   you still want live tracking
+│     │   → `addByHash` with `readOnly: true` — marks the entry as
+│     │     not-yours (no nonce slot held). Pass `submittedAt` when the
+│     │     original submit time is known, so the age indicator
+│     │     reflects reality instead of starting at add-time.
+│     └── Tx is yours (you hold the nonce slot) → plain `addByHash`.
 └── Already have a fully-formed `TrackedTx` (server push,
-    observed-elsewhere, manually constructed)
+    observed-elsewhere with no client to watch, manually constructed)
     → use `addManual`. Sync. Subsequent updates are caller's
       responsibility (call `addManual` again with same `tx.id`).
 ```
@@ -42,7 +52,7 @@ import {
 import { localStorageAdapter } from '@valve-tech/tx-flight-react/storage'
 ```
 
-`package.json` will show `"@valve-tech/tx-flight-react": "^0.10.x"`. Optional peers (install only if used):
+`package.json` will show `@valve-tech/tx-flight-react` at any `0.x` of the toolkit's synced release line. Optional peers (install only if used):
 - `@valve-tech/wallet-adapter` — for `addWithWalletAdapter`
 - `@valve-tech/tx-tracker` + `@valve-tech/chain-source` — for `addByHash`
 
@@ -77,7 +87,7 @@ function SubmitButton() {
 }
 ```
 
-Defaults: `id="default"`, `localStorageAdapter` (key `tx-flight:default`), `maxItems: 50`, `terminalRetentionMs: 60_000` (1 minute).
+Defaults: `id="default"`, `localStorageAdapter` (key `tx-flight:default`), `maxItems: 50`, `terminalRetentionMs: 60_000` (1 minute). Storage saves are debounced ~250ms — don't expect a synchronous write per state change.
 
 ## Anti-patterns to flag
 
@@ -103,9 +113,12 @@ When reviewing user code, watch for these and suggest fixes:
    <TxFlightProvider id="settings">...</TxFlightProvider>
    ```
 
-5. **Rendering `<TxFlightAge>` or `<TxFlightList>` from a React Server Component.** Both use hooks (`useEffect`, `useTxFlight`). RSC-safe components: `<TxFlightItem>` (default render path), `<TxFlightStatusIcon>`, `<TxFlightHashLink>`, `<TxFlightActions>`. The Provider itself is `'use client'`.
+5. **Expecting `<TxFlightList>` / `<TxFlightAge>` to work without a client boundary.** Both carry `'use client'` (they use hooks), so importing them FROM a React Server Component is legal — Next.js inserts the boundary for you. The real constraints: they need a `<TxFlightProvider>` ancestor (also `'use client'`) and a browser runtime for live state. `<TxFlightStatusIcon>`, `<TxFlightHashLink>`, and `<TxFlightItem>`'s default render path are hook-free and genuinely RSC-safe.
 
-6. **`<TxFlightHashLink>` with no `explorer` prop.** Silently degrades to `<span>` (no link). If the user wants a link, pass `explorer="https://etherscan.io"` (or a per-chainId resolver).
+6. **`<TxFlightHashLink>` with a string `explorer` prop.** The prop is a resolver function, `(tx: TrackedTx) => string` — passing `explorer="https://etherscan.io"` is a type error. With no `explorer` at all, it silently degrades to a `<span>` (no link). Correct usage:
+   ```tsx
+   <TxFlightHashLink tx={tx} explorer={(t) => `https://etherscan.io/tx/${t.hash}`} />
+   ```
 
 7. **Custom `TxFlightStorage` adapter that throws on SSR.** If your adapter dereferences `window` / `localStorage` / `indexedDB` without a runtime gate, the server-side render crashes. Built-ins return `null` from `load` and resolve `save` no-op when the runtime is missing. Mirror that pattern.
 
@@ -114,6 +127,8 @@ When reviewing user code, watch for these and suggest fixes:
 9. **Wiring `onDropped` / `onReplaced` against `addWithWalletAdapter` alone.** wallet-adapter doesn't fire those (per its skill). If the user wants them, they need `addByHash` (which uses tx-tracker), or they need to also wire tx-tracker manually.
 
 10. **Persisting state but expecting `preparing` / `awaiting-signature` to resume on reload.** They can't — the wallet popup state isn't recoverable. The strip translates them to `failed` with `notes: 'lost during reload'`. Only `pending` (with hash) and terminal entries survive verbatim.
+
+11. **Wiring `onSpeedUp` / `onCancel` on read-only entries.** A tx added with `addByHash({ readOnly: true, ... })` (relayer-submitted, server-observed) is one the consumer doesn't hold the nonce slot for — a same-nonce replacement can't be signed. The library tracks read-only entries identically; it's YOUR `<TxFlightActions>` wiring that must skip the speed-up/cancel callbacks when `tx.readOnly === true`. Read-site rule: check `tx.readOnly === true` for "read-only" — never `tx.readOnly === false` for "actionable" — because records persisted before the field existed rehydrate with `readOnly: undefined` and must count as actionable.
 
 ## Storage adapter selection
 

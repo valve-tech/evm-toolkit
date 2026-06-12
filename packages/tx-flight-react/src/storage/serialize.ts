@@ -29,6 +29,12 @@ const gasFromWire = (gas: SerializedGas): TrackedTxGas => ({
   maxPriorityFeePerGas: BigInt(gas.maxPriorityFeePerGas),
 })
 
+/**
+ * Bigint-safe `JSON.stringify` for `TrackedTx[]` — hex-encodes the
+ * `submittedGas` bigint fields at the wire boundary. Pair with
+ * {@link deserialize}; this is what the built-in adapters use, exposed
+ * for consumers persisting through their own storage layer.
+ */
 export const serialize = (txs: readonly TrackedTx[]): string =>
   JSON.stringify(
     txs.map(({ submittedGas, ...rest }): SerializedTrackedTx => ({
@@ -37,6 +43,11 @@ export const serialize = (txs: readonly TrackedTx[]): string =>
     })),
   )
 
+/**
+ * Inverse of {@link serialize} — decodes hex-encoded gas fields back
+ * to bigints. Accepts records persisted by older toolkit versions
+ * (missing optional fields pass through untouched).
+ */
 export const deserialize = (raw: string): TrackedTx[] => {
   const parsed = JSON.parse(raw) as SerializedTrackedTx[]
   return parsed.map(({ submittedGas, ...rest }): TrackedTx => ({

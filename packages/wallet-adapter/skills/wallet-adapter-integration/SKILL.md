@@ -1,6 +1,6 @@
 ---
 name: wallet-adapter-integration
-description: Integrate `@valve-tech/wallet-adapter` — framework-agnostic vocabulary for EVM wallet integration — into an SDK, dapp, or in-flight tx UI. Use when the user is wiring up `sendTransactionWithHooks` or `awaitReceiptWithHooks`, defining a `WalletAdapter` to decouple their SDK from wagmi/ethers/viem-direct/smart-account, building a transaction-status UI on top of `TX_STATUS` / `TrackedTx`, or asks "how do I detect wallet rejection vs on-chain revert" (`WalletRejectedError` vs `ContractRevertedError` instanceof discrimination). Also fires on imports of `@valve-tech/wallet-adapter` and questions about the `WriteHookParams` lifecycle (`onAwaitingSignature`, `onTransactionHash`, `onConfirmed`, `onFailed`, `onDropped`, `onReplaced`), the `onPhase` discriminated-union shape, the `TxContext` info bag (`{ chainId, request }` carried on every event), `WritePhaseSteps` declaration merging, the `includeBlock` block-fetch toggle, or composing the helpers with `@valve-tech/tx-tracker` (which fires the `onDropped`/`onReplaced` hooks the helpers themselves don't fire). Skip when the user wants per-tx state-machine work without the wallet helpers (delegate to tx-tracker-integration), wants a ready-made React UI for in-flight txs (delegate to tx-flight-react-integration — that package wraps these helpers), or only wants to detect viem error shapes without the helpers (delegate to viem-errors-integration).
+description: Integrate `@valve-tech/wallet-adapter` — framework-agnostic EVM wallet vocabulary — into an SDK, dapp, or in-flight tx UI. Use when wiring up `sendTransactionWithHooks` or `awaitReceiptWithHooks`, defining a `WalletAdapter` to decouple an SDK from wagmi/ethers/viem/smart-account, building tx-status UI on `TX_STATUS` / `TrackedTx`, or asks "how do I detect wallet rejection vs on-chain revert". Also fires on imports of the package and questions about the `WriteHookParams` lifecycle hooks, the `onPhase` discriminated-union shape, the `TxContext` info bag, `WritePhaseSteps` declaration merging, `includeBlock`, or composing with `@valve-tech/tx-tracker`. Skip when the user wants per-tx state-machine work without the wallet helpers (delegate to tx-tracker-integration), wants a ready-made React UI for in-flight txs (delegate to tx-flight-react-integration — that package wraps these helpers), or only wants to detect viem error shapes without the helpers (delegate to viem-errors-integration).
 ---
 
 # Integrating `@valve-tech/wallet-adapter`
@@ -48,7 +48,7 @@ import {
 } from '@valve-tech/wallet-adapter'
 ```
 
-`package.json` will show `"@valve-tech/wallet-adapter": "^0.10.x"`.
+`package.json` will show `@valve-tech/wallet-adapter` at some `0.x` version — any `0.x` of the package on the toolkit's synced release line.
 
 ## The two-helper pattern (canonical SDK shape)
 
@@ -105,6 +105,8 @@ Two splits, on purpose: the wallet side and the chain side. Protocol-specific wo
 - on network/RPC/abort: `onFailed({ error: <thrown> })` (no hash/receipt/block) + `onPhase('failed', ...)`, re-throws unchanged
 
 **Neither helper fires `onDropped` or `onReplaced`.** Those are part of the `WriteHookParams` contract but require multi-block observation + nonce-watching — that's `@valve-tech/tx-tracker`'s job. The hooks live here so consumers wire **one** set of callbacks.
+
+`WritePhaseSteps` is declared as an `interface` (not a `type`) precisely so consumers can extend the phase map via declaration merging — a tracker that surfaces implementation-specific transitions adds phases without forking the `onPhase` union.
 
 ## Anti-patterns to flag
 
@@ -183,15 +185,32 @@ const tracker = createTxTracker({ source, chainId: 1 })
 const hash = await sendTransactionWithHooks({
   wallet, request,
   hooks: {
-    onTransactionHash: ({ hash }) => tracker.track(hash, {
-      onDropped:  () => userHooks.onDropped?.({ chainId: request.chainId, request, hash }),
-      onReplaced: ({ replacement }) => userHooks.onReplaced?.({
-        chainId: request.chainId, request, original: hash, replacement,
-      }),
-    }),
+    onTransactionHash: ({ hash }) => {
+      tracker.subscribe(hash, (event) => {
+        if (event.kind === 'replaced-by') {
+          userHooks.onReplaced?.({
+            chainId: request.chainId, request,
+            original: hash, replacement: event.replacementHash,
+          })
+        }
+        if (event.kind === 'unseen-for-N-blocks') {
+          // The tracker reports evidence ("unseen for N blocks"), not a
+          // verdict — this consumer chooses to surface it as dropped.
+          userHooks.onDropped?.({ chainId: request.chainId, request, hash })
+        }
+      })
+    },
   },
 })
 ```
+
+Note the shape: `tracker.track()` and `tracker.subscribe()` take NO
+callbacks like `onDropped` / `onReplaced` — `track(hash)` returns an
+AsyncIterable of events and `subscribe(hash, cb)` delivers the same
+events to a callback. The tracker speaks its own neutral event
+vocabulary (`replaced-by`, `unseen-for-N-blocks`, ...); mapping those
+observations onto the `WriteHookParams` hooks is the CONSUMER's job,
+as above — the tracker never fires wallet-adapter hooks for you.
 
 For per-tx state-machine work (subscribe by hash, watch for replacement, detect drops, reorg-safety), redirect to the tx-tracker integration skill at `node_modules/@valve-tech/tx-tracker/skills/tx-tracker-integration/SKILL.md`.
 
@@ -216,6 +235,8 @@ function subtitle(tx: TrackedTx): string {
 ```
 
 Pre-hash states (`preparing`, `awaitingSignature`) carry no `hash` — they exist so the strip has something to show during gas-estimation + wallet-sign.
+
+`TrackedTx.readOnly` marks a tx the consumer is only observing, not authoring — e.g. a relayer-submitted tx whose hash arrived from outside the wallet flow. The consumer doesn't hold the nonce slot and can't replace, so skip wiring speed-up / cancel actions for these entries. Read sites must check `tx.readOnly === true`, never truthiness — records persisted before the field existed rehydrate with `undefined`, and the explicit check keeps the runtime intent unambiguous.
 
 ## Where to find more
 

@@ -94,9 +94,10 @@ export interface CreateGasOracleOptions {
   priorityFeeDecayCap?: bigint | null
   /**
    * Where the chain draws its priority cutoff in the EIP-2718 type space.
-   * `'flat'` (default) treats every tx equally — right for extractive
-   * networks. `'eip1559'` derives standard/fast/instant from type-2+
-   * samples only — right for chains that honor 1559 ordering.
+   * `'eip1559'` (default since v0.8.0) derives standard/fast/instant from
+   * type-2+ samples only — right for chains that honor 1559 ordering.
+   * `'flat'` treats every tx equally — right for extractive networks
+   * (use `presetForChainId` / `chainPresets` for known flat chains).
    */
   priorityModel?: PriorityModel
   /**

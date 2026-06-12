@@ -6,6 +6,21 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- `Capabilities` docstring claimed the probe runs on `source.start()`;
+  it runs eagerly at construction. The docstring now also points at
+  `source.ready()` / the `ready` flag.
+- Integration skill (2026-06-12 audit): replaced the pre-v0.16
+  fixed-10s-poll description with the adaptive scheduler (block-time
+  ticks, 2s-30s backoff, `pollIntervalMs` as fallback only); documented
+  `adaptivePolling` and `logger` options; widened the `'receipt-poll'`
+  gloss to the per-hash-probe category; added the `ready` capability
+  field; removed the rotted version pin; trimmed the description under
+  1024 chars.
+
 ## [0.18.0] — 2026-06-01
 
 ### Notes
