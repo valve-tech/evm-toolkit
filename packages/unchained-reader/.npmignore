@@ -1,0 +1,13 @@
+# .npmignore overrides .gitignore for `npm publish`. The package.json
+# `files` allowlist already narrows the tarball to dist/skills/etc, so
+# src/ never ships — these entries are belt-and-suspenders for the
+# per-file noise should the allowlist ever change.
+
+# Test sources + vendored binary fixtures: needed for tsc + vitest in
+# the repo, useless (and bloaty) to consumers.
+src/*.test.ts
+src/__fixtures__/
+
+*.tsbuildinfo
+.DS_Store
+coverage/

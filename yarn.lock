@@ -1045,6 +1045,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@valve-tech/unchained-reader@workspace:packages/unchained-reader":
+  version: 0.0.0-use.local
+  resolution: "@valve-tech/unchained-reader@workspace:packages/unchained-reader"
+  languageName: unknown
+  linkType: soft
+
 "@valve-tech/viem-errors@workspace:^, @valve-tech/viem-errors@workspace:packages/viem-errors":
   version: 0.0.0-use.local
   resolution: "@valve-tech/viem-errors@workspace:packages/viem-errors"
