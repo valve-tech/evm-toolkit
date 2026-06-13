@@ -21,6 +21,13 @@ const fetcher = createFetcher({
   gatewayUrl: IPFS_GATEWAY,
   cache: createBrowserCache(),
   concurrency: 6,
+  // Some mainnet chunks aren't pinned on this gateway; without a timeout
+  // an unavailable CID hangs the whole query on a DHT lookup. Bound it so
+  // the unavailable chunks surface as failures and the rest still render.
+  // No retry: a timed-out CID is almost always unpinned, so retrying just
+  // doubles the wait for the same failure.
+  timeoutMs: 15_000,
+  maxRetries: 0,
 })
 
 /** Fetch + parse the manifest JSON for a CID from the gateway. */

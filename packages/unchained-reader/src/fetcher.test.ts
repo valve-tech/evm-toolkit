@@ -25,14 +25,14 @@ describe('createFetcher', () => {
     const f = createFetcher({ gatewayUrl: 'https://ipfs.example', fetch })
     const got = await f.fetchCid('QmABC')
     expect(Array.from(got)).toEqual(Array.from(body))
-    expect(fetch).toHaveBeenCalledWith('https://ipfs.example/ipfs/QmABC')
+    expect(fetch.mock.calls[0][0]).toBe('https://ipfs.example/ipfs/QmABC')
   })
 
   it('normalizes a trailing slash on the gateway URL', async () => {
     const fetch = vi.fn(okFetch(bytes(1)))
     const f = createFetcher({ gatewayUrl: 'https://ipfs.example/', fetch })
     await f.fetchCid('QmABC')
-    expect(fetch).toHaveBeenCalledWith('https://ipfs.example/ipfs/QmABC')
+    expect(fetch.mock.calls[0][0]).toBe('https://ipfs.example/ipfs/QmABC')
   })
 
   it('serves from cache without hitting the network on a hit', async () => {
@@ -78,6 +78,36 @@ describe('createFetcher', () => {
     const fetch: FetchLike = async () => ({ ok: false, status: 504, arrayBuffer: async () => new ArrayBuffer(0) })
     const f = createFetcher({ gatewayUrl: 'https://ipfs.example', fetch, maxRetries: 0 })
     await expect(f.fetchCid('QmGateway')).rejects.toThrow(/504/)
+  })
+
+  it('times out a hanging fetch and rejects (never stalls forever)', async () => {
+    // A gateway that accepts the request but never responds — exactly what
+    // an unpinned CID does (the gateway hangs on a DHT lookup). The fetch
+    // must abort on the timeout, not hang the whole query.
+    const fetch: FetchLike = (_url, init) =>
+      new Promise((_resolve, reject) => {
+        init?.signal?.addEventListener('abort', () =>
+          reject(new Error('aborted by timeout')),
+        )
+      })
+    const f = createFetcher({
+      gatewayUrl: 'https://ipfs.example',
+      fetch,
+      timeoutMs: 100,
+      maxRetries: 0,
+    })
+    await expect(f.fetchCid('QmHang')).rejects.toThrow(/timed out|aborted/i)
+  })
+
+  it('passes an abort signal to the underlying fetch', async () => {
+    let sawSignal = false
+    const fetch: FetchLike = async (_url, init) => {
+      sawSignal = init?.signal instanceof AbortSignal
+      return { ok: true, status: 200, arrayBuffer: async () => bytes(1).buffer }
+    }
+    const f = createFetcher({ gatewayUrl: 'https://ipfs.example', fetch })
+    await f.fetchCid('QmABC')
+    expect(sawSignal).toBe(true)
   })
 
   it('never exceeds the concurrency cap of in-flight fetches', async () => {

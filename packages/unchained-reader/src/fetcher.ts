@@ -20,8 +20,13 @@ export interface FetchResponse {
   arrayBuffer(): Promise<ArrayBuffer>
 }
 
+/** The init bag passed to `fetch` — only the abort signal is used. */
+export interface FetchInit {
+  signal?: AbortSignal
+}
+
 /** Minimal subset of the platform `fetch` — what callers must provide. */
-export type FetchLike = (url: string) => Promise<FetchResponse>
+export type FetchLike = (url: string, init?: FetchInit) => Promise<FetchResponse>
 
 /**
  * Content cache keyed by CID. Both methods are async so consumers can
@@ -44,6 +49,13 @@ export interface FetcherConfig {
   concurrency?: number
   /** Extra attempts after the first failure. Default 1 (one retry). */
   maxRetries?: number
+  /**
+   * Per-request timeout in ms. A gateway that accepts the request but
+   * never responds (e.g. an unpinned CID it tries to resolve over the
+   * DHT) would otherwise hang the whole query forever. On timeout the
+   * request is aborted and treated as a failure. Default 20000.
+   */
+  timeoutMs?: number
 }
 
 export interface Fetcher {
@@ -84,15 +96,27 @@ export const createFetcher = (config: FetcherConfig): Fetcher => {
   const fetchImpl = resolveFetch(config.fetch)
   const base = config.gatewayUrl.replace(/\/+$/, '')
   const maxRetries = config.maxRetries ?? 1
+  const timeoutMs = config.timeoutMs ?? 20_000
   const limit = createLimiter(config.concurrency ?? 6)
   const { cache } = config
 
   const fetchOnce = async (cid: string): Promise<Uint8Array> => {
-    const res = await fetchImpl(`${base}/ipfs/${cid}`)
-    if (!res.ok) {
-      throw new Error(`unchained-reader: gateway returned HTTP ${res.status} for ${cid}`)
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), timeoutMs)
+    try {
+      const res = await fetchImpl(`${base}/ipfs/${cid}`, { signal: controller.signal })
+      if (!res.ok) {
+        throw new Error(`unchained-reader: gateway returned HTTP ${res.status} for ${cid}`)
+      }
+      return new Uint8Array(await res.arrayBuffer())
+    } catch (err) {
+      if (controller.signal.aborted) {
+        throw new Error(`unchained-reader: fetch for ${cid} timed out after ${timeoutMs}ms`)
+      }
+      throw err
+    } finally {
+      clearTimeout(timer)
     }
-    return new Uint8Array(await res.arrayBuffer())
   }
 
   const fetchWithRetry = async (cid: string): Promise<Uint8Array> => {

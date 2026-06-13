@@ -7,18 +7,23 @@ import { hydrate, type TxRow } from './lib/rpc'
 import { isAddressLike, shortAddr, shortHash } from './lib/format'
 import { ResultsTable } from './components/ResultsTable'
 
-// Samples chosen to land inside the default "recent chunks" scope so a
-// single click shows real history. 943 is verified against the live chain
-// (appears as `to` in chunk 024250260-024500000).
+// One-click sample, only where it lands inside the default "recent
+// chunks" scope and stays cheap. 943 is verified against the live chain
+// (appears as `to` in chunk 024250260-024500000). 369 / mainnet are
+// omitted on purpose: their recent chunks are ~20 MB each, so a sample
+// must be a low-appearance address — paste your own. The reader itself
+// works identically on all three chains.
 const SAMPLES: Record<number, string> = {
   943: '0x002c67e5f1d6eec758e1ec02087f2e63c869d18c',
-  369: '0x0000000000000000000000000000000000000000',
-  1: '0x0000000000000000000000000000000000000000',
 }
 
 type Phase = 'idle' | 'scanning' | 'hydrating' | 'done' | 'error'
 
-const HYDRATE_CONCURRENCY = 8
+const HYDRATE_CONCURRENCY = 4
+// The public vk_demo endpoint is rate-limited to ~5 req/s per IP. Bounding
+// concurrency isn't enough (4 fast requests still burst past 5/s), so we
+// pace the *start* of each hydration ~220ms apart (~4.5 req/s).
+const HYDRATE_MIN_INTERVAL_MS = 220
 
 const emptyProgress: Progress = {
   chunksTotal: 0,
@@ -86,11 +91,21 @@ export const App = () => {
       setPhase('hydrating')
 
       // Hydrate tx details with a small concurrency pool, updating rows live.
+      // A shared rate gate paces request starts under the vk_demo limit.
       const queue = [...result.appearances]
+      let nextSlot = 0
+      const acquireSlot = async (): Promise<void> => {
+        const now = Date.now()
+        const wait = Math.max(0, nextSlot - now)
+        nextSlot = Math.max(now, nextSlot) + HYDRATE_MIN_INTERVAL_MS
+        if (wait > 0) await new Promise((r) => setTimeout(r, wait))
+      }
       const worker = async (): Promise<void> => {
         while (queue.length > 0 && !ac.signal.aborted) {
           const app = queue.shift()!
           const k = key(app.blockNumber, app.transactionIndex)
+          await acquireSlot()
+          if (ac.signal.aborted) return
           try {
             const row = await hydrate(chain.rpcUrl, app)
             setRows((prev) => new Map(prev).set(k, row))
