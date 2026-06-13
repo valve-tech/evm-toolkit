@@ -28,22 +28,36 @@ export const queryViaChifra: StreamQuery = async (chain, address, _scope, handle
 
   const client = createTrueblocksClient({ baseUrl: CHIFRA_URL, fetch: trackedFetch })
 
-  // chifra searches its full local index; recent-vs-full scope doesn't apply.
-  const res = await client.list({ addrs: [address], chain: chain.chifraChain, fmt: 'json' })
-  if (signal.aborted) return { scanned: null, failures: [] }
-
-  const appearances: Appearance[] = []
-  for (const record of res.data ?? []) {
-    const blockNumber = (record as { blockNumber?: number }).blockNumber
-    const transactionIndex = (record as { transactionIndex?: number }).transactionIndex
-    if (typeof blockNumber === 'number' && typeof transactionIndex === 'number') {
-      appearances.push({
-        blockNumber: BigInt(blockNumber),
-        transactionIndex: BigInt(transactionIndex),
-      })
+  // The daemon caps /list at ~250 records per call (its default max_records),
+  // so page through with firstRecord/maxRecords until a short page. Each page
+  // is streamed to onAppearances as it arrives, so hydration of page N starts
+  // while page N+1 is still being fetched — no waiting for the whole list.
+  // (chifra searches its full local index; recent-vs-full scope doesn't apply.)
+  const PAGE = 250
+  for (let firstRecord = 0; ; firstRecord += PAGE) {
+    if (signal.aborted) break
+    const res = await client.list({
+      addrs: [address],
+      chain: chain.chifraChain,
+      fmt: 'json',
+      firstRecord,
+      maxRecords: PAGE,
+    })
+    const records = res.data ?? []
+    const appearances: Appearance[] = []
+    for (const record of records) {
+      const blockNumber = (record as { blockNumber?: number }).blockNumber
+      const transactionIndex = (record as { transactionIndex?: number }).transactionIndex
+      if (typeof blockNumber === 'number' && typeof transactionIndex === 'number') {
+        appearances.push({
+          blockNumber: BigInt(blockNumber),
+          transactionIndex: BigInt(transactionIndex),
+        })
+      }
     }
+    if (appearances.length > 0) handlers.onAppearances(appearances)
+    if (records.length < PAGE) break // last (short) page
   }
-  handlers.onAppearances(appearances)
 
   return { scanned: null, failures: [] } satisfies QueryOutcome
 }
