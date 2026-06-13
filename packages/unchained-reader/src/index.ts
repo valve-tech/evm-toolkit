@@ -22,7 +22,12 @@ export type {
 export { FailureReason } from './types.js'
 
 // Address helpers
-export { normalizeAddress, addressToBytes, bytesToAddress } from './address.js'
+export {
+  normalizeAddress,
+  addressToBytes,
+  bytesToAddress,
+  isReservedAddress,
+} from './address.js'
 export type { HexAddress } from './address.js'
 
 // Pure parsing layer

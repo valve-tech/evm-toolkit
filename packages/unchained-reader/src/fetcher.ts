@@ -45,8 +45,15 @@ export interface FetcherConfig {
   fetch?: FetchLike
   /** Optional content cache. */
   cache?: ChunkCache
-  /** Max concurrent in-flight gateway requests. Default 6. */
+  /** Max concurrent NORMAL (bloom) gateway requests. Default 6. */
   concurrency?: number
+  /**
+   * Max concurrent PRIORITY (index-chunk) requests, in a SEPARATE pool from
+   * `concurrency`. Index chunks are large (tens of MB); giving them their
+   * own lane means a burst of bloom hits downloads chunks promptly without
+   * stalling the ongoing bloom scan (and vice versa). Default 4.
+   */
+  priorityConcurrency?: number
   /** Extra attempts after the first failure. Default 1 (one retry). */
   maxRetries?: number
   /**
@@ -58,9 +65,20 @@ export interface FetcherConfig {
   timeoutMs?: number
 }
 
+/** Options for a single {@link Fetcher.fetchCid} call. */
+export interface FetchCidOptions {
+  /**
+   * Use the separate priority pool (`priorityConcurrency`) instead of the
+   * normal one. Index-chunk fetches set this so a bloom *hit* downloads its
+   * chunk in a reserved lane — promptly, and without stalling the ongoing
+   * bloom scan that shares no slots with it.
+   */
+  priority?: boolean
+}
+
 export interface Fetcher {
   /** Fetch a CID's bytes (cache-first), retrying + queueing as configured. */
-  fetchCid(cid: string): Promise<Uint8Array>
+  fetchCid(cid: string, opts?: FetchCidOptions): Promise<Uint8Array>
 }
 
 const resolveFetch = (injected?: FetchLike): FetchLike => {
@@ -97,7 +115,10 @@ export const createFetcher = (config: FetcherConfig): Fetcher => {
   const base = config.gatewayUrl.replace(/\/+$/, '')
   const maxRetries = config.maxRetries ?? 1
   const timeoutMs = config.timeoutMs ?? 20_000
-  const limit = createLimiter(config.concurrency ?? 6)
+  // Two independent pools so big index-chunk downloads never starve the
+  // ongoing bloom scan (and vice versa).
+  const bloomLimit = createLimiter(config.concurrency ?? 6)
+  const indexLimit = createLimiter(config.priorityConcurrency ?? 4)
   const { cache } = config
 
   const fetchOnce = async (cid: string): Promise<Uint8Array> => {
@@ -131,12 +152,13 @@ export const createFetcher = (config: FetcherConfig): Fetcher => {
     throw lastErr instanceof Error ? lastErr : new Error(String(lastErr))
   }
 
-  const fetchCid = async (cid: string): Promise<Uint8Array> => {
+  const fetchCid = async (cid: string, opts?: FetchCidOptions): Promise<Uint8Array> => {
     if (cache) {
       const hit = await cache.get(cid)
       if (hit) return hit
     }
-    const bytes = await limit(() => fetchWithRetry(cid))
+    const limiter = opts?.priority ? indexLimit : bloomLimit
+    const bytes = await limiter(() => fetchWithRetry(cid))
     if (cache) await cache.put(cid, bytes)
     return bytes
   }

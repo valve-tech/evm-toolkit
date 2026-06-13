@@ -37,3 +37,18 @@ export const bytesToAddress = (bytes: Uint8Array): HexAddress => {
 /** Normalize any accepted address form to lowercase 0x-prefixed. */
 export const normalizeAddress = (address: string): HexAddress =>
   bytesToAddress(addressToBytes(address))
+
+/**
+ * True if the address is `<= 0xffff` — i.e. its high 18 bytes are all zero.
+ * This is the precompile / reserved range (0x0…0000–0x0…ffff). chifra and
+ * the Unchained Index do NOT index these, so querying one is meaningless;
+ * worse, a near-zero bit pattern triggers bloom false-positives in nearly
+ * every chunk. Treat as invalid in both the UI and any server.
+ */
+export const isReservedAddress = (address: string): boolean => {
+  const bytes = addressToBytes(address)
+  for (let i = 0; i < 18; i += 1) {
+    if (bytes[i] !== 0) return false
+  }
+  return true
+}

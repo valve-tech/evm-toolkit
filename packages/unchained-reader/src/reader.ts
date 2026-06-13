@@ -34,6 +34,8 @@ export interface Progress {
   chunksFetched: number
   /** Appearances accumulated so far. */
   appearancesFound: number
+  /** Total bytes pulled from the gateway so far (blooms + index chunks). */
+  bytesFetched: number
 }
 
 export interface GetAppearancesOptions {
@@ -41,6 +43,15 @@ export interface GetAppearancesOptions {
   blockRange?: BlockRange
   /** Called after each bloom/chunk step with a fresh progress snapshot. */
   onProgress?: (progress: Progress) => void
+  /**
+   * Streaming sink: fires the moment a chunk's index is parsed and yields
+   * one or more appearances, BEFORE the whole query finishes. Lets a UI
+   * render (and hydrate) results as they arrive instead of waiting for the
+   * full scan. Chunks resolve concurrently, so calls arrive out of block
+   * order — sort on the consumer side. The final `AppearancesResult`
+   * still carries the complete, sorted set.
+   */
+  onAppearances?: (found: Appearance[], chunk: ChunkRef) => void
   /** Abort an in-flight query. */
   signal?: AbortSignal
 }
@@ -116,6 +127,7 @@ export const createUnchainedReader = (config: ReaderConfig): UnchainedReader => 
       hits: 0,
       chunksFetched: 0,
       appearancesFound: 0,
+      bytesFetched: 0,
     }
     const report = (): void => opts.onProgress?.({ ...progress })
 
@@ -128,8 +140,10 @@ export const createUnchainedReader = (config: ReaderConfig): UnchainedReader => 
       if (aborted()) return
       let bloom
       try {
-        bloom = parseBloom(await config.fetcher.fetchCid(chunk.bloomHash))
+        const bloomBytes = await config.fetcher.fetchCid(chunk.bloomHash)
+        bloom = parseBloom(bloomBytes)
         progress.bloomsFetched += 1
+        progress.bytesFetched += bloomBytes.length
         report()
       } catch (err) {
         failures.push(failure(chunk, chunk.bloomHash, err))
@@ -142,13 +156,19 @@ export const createUnchainedReader = (config: ReaderConfig): UnchainedReader => 
 
       if (aborted()) return
       try {
-        const found = appearancesOf(await config.fetcher.fetchCid(chunk.indexHash), normalized)
+        // Priority: a bloom hit downloads its index chunk NOW, jumping the
+        // queue ahead of the remaining bloom fetches, so appearances stream
+        // as they're found instead of after the whole bloom scan drains.
+        const indexBytes = await config.fetcher.fetchCid(chunk.indexHash, { priority: true })
+        progress.bytesFetched += indexBytes.length
+        const found = appearancesOf(indexBytes, normalized)
         progress.chunksFetched += 1
         const kept = opts.blockRange
           ? found.filter((a) => inRange(a, opts.blockRange as BlockRange))
           : found
         appearances.push(...kept)
         progress.appearancesFound += kept.length
+        if (kept.length > 0) opts.onAppearances?.(kept, chunk)
         report()
       } catch (err) {
         failures.push(failure(chunk, chunk.indexHash, err))

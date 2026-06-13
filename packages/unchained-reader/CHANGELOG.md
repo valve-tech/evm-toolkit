@@ -23,12 +23,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
     `src/__fixtures__/`).
   - I/O layer: `createFetcher` — configurable IPFS `gatewayUrl`, bounded
     concurrency, retry-once policy, an injectable `ChunkCache`
-    (`get`/`put`) for the browser Cache API / IndexedDB / disk, and an
-    injectable `fetch` for runtimes without a global.
+    (`get`/`put`) for the browser Cache API / IndexedDB / disk, an
+    injectable `fetch` for runtimes without a global, and a separate
+    priority pool (`priorityConcurrency`, used via `fetchCid(cid, { priority })`)
+    so large index-chunk fetches from bloom hits download in their own lane —
+    appearances stream as found, and the big chunk downloads never stall the
+    ongoing bloom scan (nor vice versa).
   - Orchestrator: `createUnchainedReader(config).getAppearances(address,
     opts)` — manifest → range-filtered chunks → lazy concurrent bloom
     fetch → index fetch on bloom hit → sorted appearances. First-class
-    progress (`onProgress`) and a `failures` array (no silent downgrade —
+    progress (`onProgress`), streaming results (`onAppearances`, fired the
+    moment each chunk yields appearances so a UI can render/hydrate before
+    the full scan finishes), and a `failures` array (no silent downgrade —
     a partial answer is reported as partial). `AbortSignal` support.
   - Manifest resolution: `manifestCid` (primary), pre-parsed `manifest`,
     or an injected `resolveManifest` thunk for URL/contract-published
