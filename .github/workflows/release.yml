@@ -189,3 +189,10 @@ jobs:
           cd packages/auth-lite
           yarn pack --out=/tmp/auth-lite.tgz
           npm publish /tmp/auth-lite.tgz --access public --provenance
+
+      # No @valve-tech deps — a leaf dev-tool CLI, so order is free.
+      - name: Publish @valve-tech/agent-skills
+        run: |
+          cd packages/agent-skills
+          yarn pack --out=/tmp/agent-skills.tgz
+          npm publish /tmp/agent-skills.tgz --access public --provenance

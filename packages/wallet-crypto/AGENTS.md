@@ -127,3 +127,10 @@ for AI agents in consumer projects.
 npm view @valve-tech/wallet-crypto@latest --json | jq .dist.attestations
 npm audit signatures
 ```
+
+## Integration skills
+
+This package bundles its integration skill under `skills/`. Run
+`npx @valve-tech/agent-skills install` to copy all installed
+`@valve-tech/*` skills into `.claude/skills/`, or read this one in
+place at `node_modules/@valve-tech/wallet-crypto/skills/`.

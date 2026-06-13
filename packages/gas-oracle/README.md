@@ -560,6 +560,13 @@ Every fee field is a `bigint`. Callers serializing across HTTP / Redis
 no native bigint and `JSON.stringify` will throw on raw bigint values.
 The package keeps the canonical numeric form internally.
 
+## For AI agents
+
+Machine-readable integration skills ship in this tarball under
+`skills/`. Run `npx @valve-tech/agent-skills install` to copy all
+installed `@valve-tech/*` skills into `.claude/skills/`, or read them
+in place at `node_modules/@valve-tech/gas-oracle/skills/`.
+
 ## License
 
 MIT

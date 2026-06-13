@@ -190,6 +190,13 @@ console.log(new TextDecoder().decode(decrypted))
   you get the same three-signal coverage (EIP-1193 4001, class name,
   message regex) without extra work.
 
+## For AI agents
+
+Machine-readable integration skills ship in this tarball under
+`skills/`. Run `npx @valve-tech/agent-skills install` to copy all
+installed `@valve-tech/*` skills into `.claude/skills/`, or read them
+in place at `node_modules/@valve-tech/wallet-crypto/skills/`.
+
 ## License
 
 MIT

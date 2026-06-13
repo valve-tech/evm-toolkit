@@ -296,6 +296,13 @@ the wallet libraries.
   `beginTx` time and attach `hash` later. This lets pre-hash UI render
   before the wallet returns.
 
+## For AI agents
+
+Machine-readable integration skills ship in this tarball under
+`skills/`. Run `npx @valve-tech/agent-skills install` to copy all
+installed `@valve-tech/*` skills into `.claude/skills/`, or read them
+in place at `node_modules/@valve-tech/wallet-adapter/skills/`.
+
 ## License
 
 MIT

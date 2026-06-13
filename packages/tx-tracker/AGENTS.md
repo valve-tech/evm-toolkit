@@ -235,3 +235,10 @@ npm audit signatures
 
 The attestation links the published tarball to the GitHub Actions
 workflow run that built it.
+
+## Integration skills
+
+This package bundles its integration skill under `skills/`. Run
+`npx @valve-tech/agent-skills install` to copy all installed
+`@valve-tech/*` skills into `.claude/skills/`, or read this one in
+place at `node_modules/@valve-tech/tx-tracker/skills/`.

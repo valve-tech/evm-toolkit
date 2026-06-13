@@ -223,6 +223,13 @@ Set `adaptivePolling: { enabled: false }` to revert to the v0.15
 dumb-interval behavior (one tick per `pollIntervalMs` regardless of
 chain state).
 
+## For AI agents
+
+Machine-readable integration skills ship in this tarball under
+`skills/`. Run `npx @valve-tech/agent-skills install` to copy all
+installed `@valve-tech/*` skills into `.claude/skills/`, or read them
+in place at `node_modules/@valve-tech/chain-source/skills/`.
+
 ## License
 
 MIT

@@ -936,6 +936,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@valve-tech/agent-skills@workspace:packages/agent-skills":
+  version: 0.0.0-use.local
+  resolution: "@valve-tech/agent-skills@workspace:packages/agent-skills"
+  bin:
+    valve-agent-skills: dist/cli.js
+  languageName: unknown
+  linkType: soft
+
 "@valve-tech/auth-lite@workspace:packages/auth-lite":
   version: 0.0.0-use.local
   resolution: "@valve-tech/auth-lite@workspace:packages/auth-lite"
