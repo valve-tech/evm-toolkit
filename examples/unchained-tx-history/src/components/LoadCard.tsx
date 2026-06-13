@@ -80,6 +80,9 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
   // Bytes THIS browser pulled beyond the scan: SSE stream (backend mode) +
   // tx hydration responses (both modes).
   const [clientExtra, setClientExtra] = useState(0)
+  // Total appearances found. `order` only holds the ones in flight / done —
+  // the rest wait in the queue rather than painting a wall of pending rows.
+  const [found, setFound] = useState(0)
 
   // Run the query exactly once, on mount. Abort on unmount.
   useEffect(() => {
@@ -98,6 +101,10 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
           continue
         }
         const k = key(app.blockNumber, app.transactionIndex)
+        // Claim → render the row in flight. Only ~HYDRATE_CONCURRENCY are
+        // ever pending at once; the rest stay queued, not on screen.
+        setOrder((prev) => (prev.includes(k) ? prev : [...prev, k].sort(cmpKey)))
+        setRows((prev) => new Map(prev).set(k, 'pending'))
         let settled = false
         for (let attempt = 0; attempt < HYDRATE_RETRIES && !settled; attempt += 1) {
           await rpcGate.acquire(ac.signal) // global pacing + 429 backpressure
@@ -123,22 +130,17 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
     }
     const workers = Array.from({ length: HYDRATE_CONCURRENCY }, worker)
 
-    const onAppearances = (found: Appearance[]): void => {
-      const fresh: string[] = []
-      for (const a of found) {
+    const onAppearances = (incoming: Appearance[]): void => {
+      let fresh = 0
+      for (const a of incoming) {
         const k = key(a.blockNumber, a.transactionIndex)
         if (seen.has(k)) continue
         seen.add(k)
-        fresh.push(k)
         queue.push(a)
+        fresh += 1
       }
-      if (fresh.length === 0) return
-      setOrder((prev) => [...prev, ...fresh].sort(cmpKey))
-      setRows((prev) => {
-        const next = new Map(prev)
-        fresh.forEach((k) => next.set(k, 'pending'))
-        return next
-      })
+      // Count them now; a row is only rendered once a worker starts it.
+      if (fresh > 0) setFound((n) => n + fresh)
     }
 
     const go = async (): Promise<void> => {
@@ -203,11 +205,11 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
   const phaseNote =
     phase === 'done'
       ? SOURCE === 'chifra'
-        ? `Done — ${order.length.toLocaleString()} appearance${order.length === 1 ? '' : 's'} via chifra daemon.`
+        ? `Done — ${found.toLocaleString()} appearance${found === 1 ? '' : 's'} via chifra daemon.`
         : `Done — scanned ${progress.bloomsFetched.toLocaleString()} blooms, parsed ${progress.chunksFetched.toLocaleString()} chunks.`
       : SOURCE === 'chifra'
-        ? order.length > 0
-          ? `chifra returned ${order.length.toLocaleString()} · hydrating ${hydratedCount.toLocaleString()}/${order.length.toLocaleString()}…`
+        ? found > 0
+          ? `chifra returned ${found.toLocaleString()} · hydrating ${hydratedCount.toLocaleString()}/${found.toLocaleString()}…`
           : 'Querying chifra daemon…'
         : loadStatus
           ? `Loading blooms into memory — ${loadStatus.done.toLocaleString()}/${loadStatus.total.toLocaleString()} (first query for this chain)…`
@@ -233,7 +235,7 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
           <span className="load-addr">{shortAddr(address)}</span>
           <span className={`load-status load-status-${phase}`}>{statusLabel}</span>
           <span className="load-count">
-            {order.length.toLocaleString()} txn{order.length === 1 ? '' : 's'}
+            {found.toLocaleString()} txn{found === 1 ? '' : 's'}
           </span>
         </button>
         <button type="button" className="load-close" aria-label="Remove" onClick={onRemove}>
@@ -284,7 +286,7 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
                     <em>{SOURCE === 'backend' ? '(you / server scan)' : '(this browser)'}</em>
                   </span>
                   <span className="metric">
-                    <b>{hydratedCount.toLocaleString()}</b> of {order.length.toLocaleString()} txns
+                    <b>{hydratedCount.toLocaleString()}</b> of {found.toLocaleString()} txns
                     hydrated
                   </span>
                   <span className="metric">
@@ -303,10 +305,16 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
           )}
 
           {order.length > 0 && (
-            <ResultsTable chain={chain} self={address.toLowerCase()} order={order} rows={rows} />
+            <ResultsTable
+              chain={chain}
+              self={address.toLowerCase()}
+              order={order}
+              rows={rows}
+              total={found}
+            />
           )}
 
-          {phase === 'done' && order.length === 0 && !error && (
+          {phase === 'done' && found === 0 && !error && (
             <div className="panel empty">
               <strong>No appearances for {shortAddr(address)}</strong> on {chain.label}.
               {scanned && (

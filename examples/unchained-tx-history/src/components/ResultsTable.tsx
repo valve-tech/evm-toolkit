@@ -12,9 +12,11 @@ interface Props {
   self: string
   order: string[]
   rows: Map<string, Cell>
+  /** Total appearances found (order only holds the ones in flight / done). */
+  total: number
 }
 
-export const ResultsTable = ({ chain, self, order, rows }: Props) => {
+export const ResultsTable = ({ chain, self, order, rows, total }: Props) => {
   const [sortKey, setSortKey] = useState<SortKey>('block')
   const [desc, setDesc] = useState(true)
 
@@ -74,7 +76,7 @@ export const ResultsTable = ({ chain, self, order, rows }: Props) => {
       <div className="results-head">
         <h2>Appearances</h2>
         <span className="count">
-          {hydratedCount.toLocaleString()} of {order.length.toLocaleString()} loaded
+          {hydratedCount.toLocaleString()} of {total.toLocaleString()} loaded
         </span>
       </div>
       <table>
