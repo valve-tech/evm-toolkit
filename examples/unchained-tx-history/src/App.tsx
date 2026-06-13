@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { isReservedAddress } from '@valve-tech/unchained-reader'
 
-import { CHAINS, DEFAULT_RECENT_CHUNKS, type ChainConfig } from './config'
+import { CHAINS, type ChainConfig } from './config'
 import { isAddressLike } from './lib/format'
 import { LoadCard, type LoadParams } from './components/LoadCard'
 
@@ -16,7 +16,7 @@ const SAMPLES: Record<number, string> = {
 export const App = () => {
   const [chain, setChain] = useState<ChainConfig>(CHAINS[0])
   const [address, setAddress] = useState('')
-  const [fullHistory, setFullHistory] = useState(false)
+  const [fullHistory, setFullHistory] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [loads, setLoads] = useState<LoadParams[]>([])
   const nextId = useRef(1)
@@ -68,35 +68,45 @@ export const App = () => {
       <section className="controls">
         <div className="search-row" role="group">
           <ChainMenu chain={chain} onSelect={setChain} />
-          <input
-            className="addr-input"
-            placeholder="0x… address"
-            value={address}
-            spellCheck={false}
-            autoComplete="off"
-            onChange={(e) => setAddress(e.target.value)}
-            onKeyDown={onKeyDown}
-          />
+          <div className="addr-wrap">
+            <input
+              className="addr-input"
+              placeholder="0x… address"
+              value={address}
+              spellCheck={false}
+              autoComplete="off"
+              onChange={(e) => setAddress(e.target.value)}
+              onKeyDown={onKeyDown}
+            />
+            <label
+              className="history-toggle"
+              title={
+                fullHistory
+                  ? 'Searching ALL history — every chunk (slower). Toggle off for recent chunks only.'
+                  : 'Recent chunks only. Toggle on to search all history (slower).'
+              }
+            >
+              <input
+                type="checkbox"
+                checked={fullHistory}
+                onChange={(e) => setFullHistory(e.target.checked)}
+                aria-label="Search all history"
+              />
+              <span className="switch" aria-hidden="true" />
+            </label>
+          </div>
           <button className="go-btn" onClick={submit}>
             Verify
           </button>
         </div>
 
-        <div className="opts-row">
-          <label title="By default only the most recent chunks are scanned. Full history can be GBs of bloom fetches on a busy chain.">
-            <input
-              type="checkbox"
-              checked={fullHistory}
-              onChange={(e) => setFullHistory(e.target.checked)}
-            />
-            Search all history (slower){fullHistory ? '' : ` · default: last ${DEFAULT_RECENT_CHUNKS} chunks`}
-          </label>
-          {SAMPLES[chain.chainId] && (
+        {SAMPLES[chain.chainId] && (
+          <div className="opts-row">
             <button className="sample-btn" onClick={() => setAddress(SAMPLES[chain.chainId])}>
               try a sample address
             </button>
-          )}
-        </div>
+          </div>
+        )}
         {error && <div className="form-error">{error}</div>}
       </section>
 
