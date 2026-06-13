@@ -1,0 +1,20 @@
+{
+  "name": "@valve-tech/example-unchained-index-server",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Short-term backend for the unchained-tx-history demo: loads a chain's Unchained Index bloom filters into memory once, then answers each address query with an in-RAM bloom scan, fetching only matching index chunks and streaming appearances back over SSE. Built on @valve-tech/unchained-reader.",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "typecheck": "tsc -p . --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run --passWithNoTests",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@valve-tech/unchained-reader": "workspace:^",
+    "viem": "^2.21.0"
+  }
+}

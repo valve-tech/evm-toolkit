@@ -1600,6 +1600,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@valve-tech/example-unchained-index-server@workspace:examples/unchained-index-server":
+  version: 0.0.0-use.local
+  resolution: "@valve-tech/example-unchained-index-server@workspace:examples/unchained-index-server"
+  dependencies:
+    "@valve-tech/unchained-reader": "workspace:^"
+    viem: "npm:^2.21.0"
+  languageName: unknown
+  linkType: soft
+
 "@valve-tech/example-unchained-tx-history@workspace:examples/unchained-tx-history":
   version: 0.0.0-use.local
   resolution: "@valve-tech/example-unchained-tx-history@workspace:examples/unchained-tx-history"
@@ -1675,7 +1684,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/unchained-reader@npm:^0.18.0, @valve-tech/unchained-reader@workspace:packages/unchained-reader":
+"@valve-tech/unchained-reader@npm:^0.18.0, @valve-tech/unchained-reader@workspace:^, @valve-tech/unchained-reader@workspace:packages/unchained-reader":
   version: 0.0.0-use.local
   resolution: "@valve-tech/unchained-reader@workspace:packages/unchained-reader"
   languageName: unknown
