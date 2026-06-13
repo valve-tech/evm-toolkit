@@ -1,0 +1,27 @@
+{
+  "name": "@valve-tech/example-unchained-tx-history",
+  "version": "0.18.0",
+  "private": true,
+  "description": "Static web app: type any address, watch its transaction history stream in — read trustlessly from the TrueBlocks Unchained Index with nothing but an RPC URL and an IPFS gateway. Demonstrates @valve-tech/unchained-reader.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@valve-tech/unchained-reader": "^0.18.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "vite": "^5.4.0"
+  }
+}
