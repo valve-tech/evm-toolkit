@@ -81,6 +81,16 @@ export interface Hydrated {
   bytes: number
 }
 
+/** Thrown when the rate-limited RPC returns 429, so the caller can back off. */
+export class RpcRateLimitError extends Error {
+  readonly retryAfterMs?: number
+  constructor(retryAfterMs?: number) {
+    super('rate limited (HTTP 429)')
+    this.name = 'RpcRateLimitError'
+    this.retryAfterMs = retryAfterMs
+  }
+}
+
 /**
  * Hydrate one appearance into a full tx row via plain JSON-RPC. Reads the
  * raw response text so the caller can account for the actual bytes this
@@ -98,6 +108,10 @@ export const hydrate = async (rpcUrl: string, app: Appearance): Promise<Hydrated
       params: [`0x${app.blockNumber.toString(16)}`, `0x${app.transactionIndex.toString(16)}`],
     }),
   })
+  if (res.status === 429) {
+    const ra = res.headers.get('retry-after')
+    throw new RpcRateLimitError(ra ? Number(ra) * 1000 : undefined)
+  }
   if (!res.ok) throw new Error(`hydrate: HTTP ${res.status}`)
   const text = await res.text()
   const bytes = new TextEncoder().encode(text).length

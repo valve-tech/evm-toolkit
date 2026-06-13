@@ -11,7 +11,8 @@ import { BACKEND_URL, CHIFRA_URL, DEFAULT_RECENT_CHUNKS, type ChainConfig } from
 import { queryHistory, type QueryFailure, type StreamQuery } from '../lib/history'
 import { queryViaBackend } from '../lib/backend'
 import { queryViaChifra } from '../lib/chifra'
-import { hydrate, type TxRow } from '../lib/rpc'
+import { hydrate, RpcRateLimitError, type TxRow } from '../lib/rpc'
+import { rpcGate } from '../lib/rpc-gate'
 import { shortAddr, shortHash, formatBytes } from '../lib/format'
 import { ResultsTable } from './ResultsTable'
 
@@ -36,9 +37,11 @@ const cmpKey = (a: string, b: string): number => {
   return 0
 }
 
+// Workers per card; the GLOBAL rpcGate (shared across all cards) paces the
+// actual request rate and applies 429 backpressure, so this is just how many
+// hydrations a card will have in flight waiting at the gate.
 const HYDRATE_CONCURRENCY = 4
-// vk_demo is ~5 req/s per IP; pace hydration starts ~220ms apart (~4.5/s).
-const HYDRATE_MIN_INTERVAL_MS = 220
+const HYDRATE_RETRIES = 5
 
 const emptyProgress: Progress = {
   chunksTotal: 0,
@@ -84,14 +87,7 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
     const queue: Appearance[] = []
     const seen = new Set<string>()
     let scanDone = false
-    let nextSlot = 0
 
-    const acquireSlot = async (): Promise<void> => {
-      const now = Date.now()
-      const wait = Math.max(0, nextSlot - now)
-      nextSlot = Math.max(now, nextSlot) + HYDRATE_MIN_INTERVAL_MS
-      if (wait > 0) await new Promise((r) => setTimeout(r, wait))
-    }
     const worker = async (): Promise<void> => {
       for (;;) {
         if (ac.signal.aborted) return
@@ -102,16 +98,27 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
           continue
         }
         const k = key(app.blockNumber, app.transactionIndex)
-        await acquireSlot()
-        if (ac.signal.aborted) return
-        setRpcCalls((c) => c + 1)
-        try {
-          const { row, bytes } = await hydrate(chain.rpcUrl, app)
-          setClientExtra((c) => c + bytes)
-          setRows((prev) => new Map(prev).set(k, row))
-        } catch {
-          setRows((prev) => new Map(prev).set(k, 'error'))
+        let settled = false
+        for (let attempt = 0; attempt < HYDRATE_RETRIES && !settled; attempt += 1) {
+          await rpcGate.acquire(ac.signal) // global pacing + 429 backpressure
+          if (ac.signal.aborted) return
+          setRpcCalls((c) => c + 1)
+          try {
+            const { row, bytes } = await hydrate(chain.rpcUrl, app)
+            rpcGate.reward()
+            setClientExtra((c) => c + bytes)
+            setRows((prev) => new Map(prev).set(k, row))
+            settled = true
+          } catch (err) {
+            if (err instanceof RpcRateLimitError) {
+              rpcGate.throttle(err.retryAfterMs) // slow everyone, then retry this tx
+              continue
+            }
+            setRows((prev) => new Map(prev).set(k, 'error'))
+            settled = true
+          }
         }
+        if (!settled) setRows((prev) => new Map(prev).set(k, 'error')) // gave up after retries
       }
     }
     const workers = Array.from({ length: HYDRATE_CONCURRENCY }, worker)
