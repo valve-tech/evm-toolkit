@@ -7,9 +7,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { Appearance, Progress } from '@valve-tech/unchained-reader'
 
-import { BACKEND_URL, DEFAULT_RECENT_CHUNKS, type ChainConfig } from '../config'
+import { BACKEND_URL, CHIFRA_URL, DEFAULT_RECENT_CHUNKS, type ChainConfig } from '../config'
 import { queryHistory, type QueryFailure, type StreamQuery } from '../lib/history'
 import { queryViaBackend } from '../lib/backend'
+import { queryViaChifra } from '../lib/chifra'
 import { hydrate, type TxRow } from '../lib/rpc'
 import { shortAddr, shortHash, formatBytes } from '../lib/format'
 import { ResultsTable } from './ResultsTable'
@@ -48,7 +49,12 @@ const emptyProgress: Progress = {
   bytesFetched: 0,
 }
 
-const querySource: StreamQuery = BACKEND_URL ? queryViaBackend : queryHistory
+// Source priority: chifra daemon (fastest, direct /list) → in-memory bloom
+// backend → trustless browser scan.
+type Source = 'chifra' | 'backend' | 'direct'
+const SOURCE: Source = CHIFRA_URL ? 'chifra' : BACKEND_URL ? 'backend' : 'direct'
+const querySource: StreamQuery =
+  SOURCE === 'chifra' ? queryViaChifra : SOURCE === 'backend' ? queryViaBackend : queryHistory
 
 const key = (b: bigint, t: bigint): string => `${b}:${t}`
 
@@ -65,7 +71,9 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
     null,
   )
   const [loadStatus, setLoadStatus] = useState<{ done: number; total: number } | null>(null)
-  const [rpcCalls, setRpcCalls] = useState(BACKEND_URL ? 0 : 1)
+  // Direct mode resolves the manifest with one client-side eth_call; chifra
+  // and backend do their resolution server-side. Hydration adds one per tx.
+  const [rpcCalls, setRpcCalls] = useState(SOURCE === 'direct' ? 1 : 0)
   // Bytes THIS browser pulled beyond the scan: SSE stream (backend mode) +
   // tx hydration responses (both modes).
   const [clientExtra, setClientExtra] = useState(0)
@@ -171,11 +179,32 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
   )
   // What THIS browser actually pulled vs (backend mode) the server-side scan.
   // Direct mode: the browser does the scan, so its wire = scan + hydration.
-  const clientWire = clientExtra + (BACKEND_URL ? 0 : progress.bytesFetched)
-  const serverScan = BACKEND_URL ? progress.bytesFetched : 0
+  const clientWire = clientExtra + (SOURCE === 'direct' ? progress.bytesFetched : 0)
+  const serverScan = SOURCE === 'backend' ? progress.bytesFetched : 0
 
   const statusLabel =
-    phase === 'error' ? 'error' : phase === 'done' ? 'done' : loadStatus ? 'loading blooms' : 'scanning'
+    phase === 'error'
+      ? 'error'
+      : phase === 'done'
+        ? 'done'
+        : SOURCE === 'chifra'
+          ? 'querying'
+          : loadStatus
+            ? 'loading blooms'
+            : 'scanning'
+
+  const phaseNote =
+    phase === 'done'
+      ? SOURCE === 'chifra'
+        ? `Done — ${order.length.toLocaleString()} appearance${order.length === 1 ? '' : 's'} via chifra daemon.`
+        : `Done — scanned ${progress.bloomsFetched.toLocaleString()} blooms, parsed ${progress.chunksFetched.toLocaleString()} chunks.`
+      : SOURCE === 'chifra'
+        ? order.length > 0
+          ? `chifra returned ${order.length.toLocaleString()} · hydrating ${hydratedCount.toLocaleString()}/${order.length.toLocaleString()}…`
+          : 'Querying chifra daemon…'
+        : loadStatus
+          ? `Loading blooms into memory — ${loadStatus.done.toLocaleString()}/${loadStatus.total.toLocaleString()} (first query for this chain)…`
+          : `Streaming — ${progress.bloomsFetched.toLocaleString()}/${progress.chunksTotal.toLocaleString()} blooms scanned · ${progress.appearancesFound.toLocaleString()} appearance${progress.appearancesFound === 1 ? '' : 's'} so far…`
 
   return (
     <section className={`load-card${phase === 'error' ? ' is-error' : ''}`}>
@@ -207,15 +236,17 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
 
       {!collapsed && (
         <div className="load-body">
-          {(phase === 'scanning' || phase === 'done') &&
-            (progress.chunksTotal > 0 || loadStatus !== null) && (
-              <section className="progress">
+          {(phase === 'scanning' || phase === 'done') && (
+            <section className="progress">
+              {SOURCE !== 'chifra' && (progress.chunksTotal > 0 || loadStatus !== null) && (
                 <div className="progress-bar-track">
                   <div
                     className={`progress-bar-fill${phase === 'scanning' && pct === 0 ? ' indeterminate' : ''}`}
                     style={{ width: `${pct}%` }}
                   />
                 </div>
+              )}
+              {SOURCE !== 'chifra' && (progress.chunksTotal > 0 || loadStatus !== null) && (
                 <div className="stat-grid">
                   <Stat n={progress.chunksTotal} k="chunks in scope" tip="Index chunks inside the searched range — the address can only appear within these. Each chunk is one small bloom filter + one larger index file on IPFS." />
                   <Stat n={progress.bloomsFetched} k="blooms read" tip="Bloom filters downloaded — one per chunk in scope. Every bloom must be fetched to test it, so this rises to equal the chunks in scope." />
@@ -223,24 +254,27 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
                   <Stat n={progress.chunksFetched} k="chunks parsed" tip="Index files actually downloaded and parsed — one per bloom hit. These hold the authoritative list of the address's appearances." />
                   <Stat n={progress.appearancesFound} k="appearances" accent tip="Confirmed (block, transaction-index) appearances found in the parsed indexes. Each becomes a row in the table below." />
                 </div>
-                <div className="metrics">
+              )}
+              <div className="metrics">
                   <span
                     className="metric"
                     title={
-                      BACKEND_URL
+                      SOURCE === 'backend'
                         ? 'Left: bytes your browser pulled (SSE stream + tx hydration). Right: bytes the server scanned from IPFS (blooms + index chunks) — NOT transferred to you.'
-                        : 'Bytes your browser pulled: blooms + index chunks + tx hydration.'
+                        : SOURCE === 'chifra'
+                          ? 'Bytes your browser pulled from the chifra daemon: the appearance list + tx hydration.'
+                          : 'Bytes your browser pulled: blooms + index chunks + tx hydration.'
                     }
                   >
                     <b>{formatBytes(clientWire)}</b>
-                    {BACKEND_URL ? (
+                    {SOURCE === 'backend' ? (
                       <>
                         {' / '}
                         <b>{formatBytes(serverScan)}</b>
                       </>
                     ) : null}{' '}
                     over the wire{' '}
-                    <em>{BACKEND_URL ? '(you / server scan)' : '(this browser)'}</em>
+                    <em>{SOURCE === 'backend' ? '(you / server scan)' : '(this browser)'}</em>
                   </span>
                   <span className="metric">
                     <b>{hydratedCount.toLocaleString()}</b> of {order.length.toLocaleString()} txns
@@ -250,15 +284,7 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
                     <b>{rpcCalls.toLocaleString()}</b> private RPC call{rpcCalls === 1 ? '' : 's'}
                   </span>
                 </div>
-                <p className="phase-note">
-                  {phase === 'scanning' && loadStatus
-                    ? `Loading blooms into memory — ${loadStatus.done.toLocaleString()}/` +
-                      `${loadStatus.total.toLocaleString()} (first query for this chain)…`
-                    : phase === 'scanning'
-                      ? `Streaming — ${progress.bloomsFetched}/${progress.chunksTotal} blooms scanned · ` +
-                        `${progress.appearancesFound} appearance${progress.appearancesFound === 1 ? '' : 's'} so far…`
-                      : `Done — scanned ${progress.bloomsFetched} blooms, parsed ${progress.chunksFetched} chunks.`}
-                </p>
+                <p className="phase-note">{phaseNote}</p>
               </section>
             )}
 

@@ -13,6 +13,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@valve-tech/trueblocks-sdk": "^0.18.0",
     "@valve-tech/unchained-reader": "^0.18.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

@@ -1615,6 +1615,7 @@ __metadata:
   dependencies:
     "@types/react": "npm:^18.3.0"
     "@types/react-dom": "npm:^18.3.0"
+    "@valve-tech/trueblocks-sdk": "npm:^0.18.0"
     "@valve-tech/unchained-reader": "npm:^0.18.0"
     "@vitejs/plugin-react": "npm:^4.3.0"
     react: "npm:^18.3.1"
@@ -1634,7 +1635,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/trueblocks-sdk@workspace:packages/trueblocks-sdk":
+"@valve-tech/trueblocks-sdk@npm:^0.18.0, @valve-tech/trueblocks-sdk@workspace:packages/trueblocks-sdk":
   version: 0.0.0-use.local
   resolution: "@valve-tech/trueblocks-sdk@workspace:packages/trueblocks-sdk"
   dependencies:

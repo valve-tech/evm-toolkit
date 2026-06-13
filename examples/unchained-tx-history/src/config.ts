@@ -15,6 +15,12 @@ export interface ChainConfig {
   label: string
   /** TrueBlocks chain key, the map key in the UnchainedIndex contract. */
   chainKey: string
+  /**
+   * chifra daemon chain name (the `chain` param of `chifra list`). Often the
+   * same as `chainKey`, but the daemon's config can name a chain differently
+   * — keep this separate so it's easy to correct per chain.
+   */
+  chifraChain: string
   /** JSON-RPC endpoint for tx hydration on this chain. */
   rpcUrl: string
   /** Native-currency symbol, for value formatting. */
@@ -33,6 +39,18 @@ export const IPFS_GATEWAY = 'https://ipfs.valve.city'
  * browser. Empty string → direct, fully trustless path.
  */
 export const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL ?? '').replace(/\/+$/, '')
+
+/**
+ * chifra daemon base URL. When set (default: valve's), the app asks the
+ * daemon's `/list` endpoint for appearances directly via
+ * `@valve-tech/trueblocks-sdk` — instant, no bloom/chunk download at all —
+ * and is the preferred source. Set `VITE_CHIFRA_URL=''` to fall back to the
+ * backend / direct (trustless browser) paths. NOTE: the browser calls this
+ * cross-origin, so the daemon must send permissive CORS.
+ */
+export const CHIFRA_URL = (
+  import.meta.env.VITE_CHIFRA_URL ?? 'https://chifra.valve.city'
+).replace(/\/+$/, '')
 
 /**
  * The Unchained Index manifest-publication contract (permissionless,
@@ -56,6 +74,7 @@ export const CHAINS: ChainConfig[] = [
     chainId: 369,
     label: 'PulseChain',
     chainKey: 'pulsechain',
+    chifraChain: 'pulsechain',
     rpcUrl: 'https://rpc.valve.city/v1/vk_demo/evm/369',
     symbol: 'PLS',
     explorerUrl: 'https://explore.valve.city',
@@ -64,6 +83,7 @@ export const CHAINS: ChainConfig[] = [
     chainId: 943,
     label: 'PulseChain Testnet v4',
     chainKey: 'pulsechain-v4',
+    chifraChain: 'pulsechain-v4',
     rpcUrl: 'https://rpc.valve.city/v1/vk_demo/evm/943',
     symbol: 'tPLS',
     explorerUrl: 'https://explore.valve.city',
@@ -72,6 +92,7 @@ export const CHAINS: ChainConfig[] = [
     chainId: 1,
     label: 'Ethereum',
     chainKey: 'mainnet',
+    chifraChain: 'mainnet',
     rpcUrl: 'https://rpc.valve.city/v1/vk_demo/evm/1',
     symbol: 'ETH',
     explorerUrl: 'https://explore.valve.city',
