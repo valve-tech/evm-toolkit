@@ -150,6 +150,45 @@ a:hover { border-bottom-color: var(--red); }
 .chain-option:hover { background: var(--bg-elev); color: var(--text); }
 .chain-list [aria-selected="true"] .chain-option { color: var(--text); }
 .chain-list [aria-selected="true"] .chain-option .chain-ico { box-shadow: 0 0 0 1px var(--red); }
+.chain-noindex {
+  margin-left: auto;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  border: 1px solid var(--line-bright);
+  border-radius: 2px;
+  padding: 1px 5px;
+  white-space: nowrap;
+}
+.chain-add { border-top: 1px solid var(--line); margin-top: 4px; padding-top: 4px; }
+.chain-option.chain-add-btn { color: var(--red); }
+.chain-add-form { display: flex; gap: 6px; padding: 6px; }
+.chain-add-input {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 7px 9px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--line-bright);
+  border-radius: 2px;
+  outline: none;
+}
+.chain-add-input:focus { border-color: var(--red); }
+.chain-add-go {
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 0 12px;
+  background: var(--red);
+  color: #fff;
+  border: 1px solid var(--red);
+  border-radius: 2px;
+  cursor: pointer;
+}
+.chain-add-go:disabled { opacity: 0.5; cursor: not-allowed; }
+.chain-add-err { padding: 2px 7px 7px; color: var(--danger); font-size: 11px; line-height: 1.4; }
 .chain-ico {
   display: block;
   width: 18px;

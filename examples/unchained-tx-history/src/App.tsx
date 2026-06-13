@@ -3,6 +3,7 @@ import { isReservedAddress } from '@valve-tech/unchained-reader'
 
 import { CHAINS, type ChainConfig } from './config'
 import { isAddressLike } from './lib/format'
+import { detectChain, loadCustomChains, saveCustomChains } from './lib/chains'
 import { LoadCard, type LoadParams } from './components/LoadCard'
 
 // One-click sample, only where it lands inside the default "recent chunks"
@@ -14,12 +15,29 @@ const SAMPLES: Record<number, string> = {
 }
 
 export const App = () => {
+  const [chains, setChains] = useState<ChainConfig[]>(() => [...CHAINS, ...loadCustomChains()])
   const [chain, setChain] = useState<ChainConfig>(CHAINS[0])
   const [address, setAddress] = useState('')
   const [fullHistory, setFullHistory] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [loads, setLoads] = useState<LoadParams[]>([])
   const nextId = useRef(1)
+
+  // Paste any EVM RPC → detect its chain id → name/symbol/explorer from viem,
+  // icon from gib.show. If the id matches a built-in indexed chain it inherits
+  // the index keys (so chifra/Unchained still work) and just swaps the RPC.
+  const addCustomRpc = async (rpcUrl: string): Promise<void> => {
+    const detected = await detectChain(rpcUrl)
+    setChains((prev) => {
+      const next = [
+        ...prev.filter((c) => !(c.chainId === detected.chainId && c.rpcUrl === detected.rpcUrl)),
+        detected,
+      ]
+      saveCustomChains(next.filter((c) => !CHAINS.includes(c)))
+      return next
+    })
+    setChain(detected)
+  }
 
   // Each search "cuts off" into its own card without disturbing the ones
   // already loading/loaded — newest first.
@@ -67,7 +85,12 @@ export const App = () => {
 
       <section className="controls">
         <div className="search-row" role="group">
-          <ChainMenu chain={chain} onSelect={setChain} />
+          <ChainMenu
+            chain={chain}
+            chains={chains}
+            onSelect={setChain}
+            onAddRpc={addCustomRpc}
+          />
           <div className="addr-wrap">
             <input
               className="addr-input"
@@ -136,15 +159,23 @@ export const App = () => {
   )
 }
 
-/** Compact chain dropdown that sits inline in the search row. */
+/** Chain dropdown for the search row — built-in + user-added custom RPCs. */
 const ChainMenu = ({
   chain,
+  chains,
   onSelect,
+  onAddRpc,
 }: {
   chain: ChainConfig
+  chains: ChainConfig[]
   onSelect: (c: ChainConfig) => void
+  onAddRpc: (rpcUrl: string) => Promise<void>
 }) => {
   const [open, setOpen] = useState(false)
+  const [adding, setAdding] = useState(false)
+  const [rpc, setRpc] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [err, setErr] = useState<string | null>(null)
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (!open) return
@@ -154,6 +185,22 @@ const ChainMenu = ({
     document.addEventListener('mousedown', onDoc)
     return () => document.removeEventListener('mousedown', onDoc)
   }, [open])
+
+  const submitRpc = async (): Promise<void> => {
+    if (!rpc.trim() || busy) return
+    setBusy(true)
+    setErr(null)
+    try {
+      await onAddRpc(rpc)
+      setAdding(false)
+      setRpc('')
+      setOpen(false)
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : String(e))
+    } finally {
+      setBusy(false)
+    }
+  }
 
   return (
     <div className="chain-menu" ref={ref}>
@@ -176,8 +223,8 @@ const ChainMenu = ({
       </button>
       {open && (
         <ul className="chain-list" role="listbox">
-          {CHAINS.map((c) => (
-            <li key={c.chainId} role="option" aria-selected={c.chainId === chain.chainId}>
+          {chains.map((c) => (
+            <li key={`${c.chainId}-${c.rpcUrl}`} role="option" aria-selected={c === chain}>
               <button
                 type="button"
                 className="chain-option"
@@ -194,9 +241,49 @@ const ChainMenu = ({
                   height={18}
                 />
                 <span>{c.label}</span>
+                {!c.chainKey && (
+                  <span className="chain-noindex" title="No Unchained Index for this chain — hydration only">
+                    no index
+                  </span>
+                )}
               </button>
             </li>
           ))}
+          <li className="chain-add">
+            {adding ? (
+              <div className="chain-add-form">
+                <input
+                  className="chain-add-input"
+                  placeholder="https://your-rpc.example…"
+                  value={rpc}
+                  spellCheck={false}
+                  autoFocus
+                  disabled={busy}
+                  onChange={(e) => setRpc(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') void submitRpc()
+                  }}
+                />
+                <button
+                  type="button"
+                  className="chain-add-go"
+                  disabled={busy}
+                  onClick={() => void submitRpc()}
+                >
+                  {busy ? '…' : 'Add'}
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                className="chain-option chain-add-btn"
+                onClick={() => setAdding(true)}
+              >
+                + Custom RPC…
+              </button>
+            )}
+            {err && <div className="chain-add-err">{err}</div>}
+          </li>
         </ul>
       )}
     </div>
