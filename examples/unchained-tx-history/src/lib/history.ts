@@ -1,8 +1,12 @@
 /**
- * Glue between the UI and `@valve-tech/unchained-reader`: resolve the
- * manifest live from chain, bound the scope to recent chunks (unless the
- * user asked for everything), and return the address's appearances with
- * progress + failures surfaced.
+ * Direct (trustless) query path: resolve the manifest live from chain,
+ * bound the scope to recent chunks (unless the user asked for everything),
+ * and stream the address's appearances + failures straight from
+ * `@valve-tech/unchained-reader` in the browser.
+ *
+ * Implements the shared {@link StreamQuery} contract so the App can swap in
+ * the backend-accelerated path ({@link ./backend}) without changing its
+ * render/hydrate logic.
  */
 import {
   createFetcher,
@@ -10,7 +14,7 @@ import {
   parseManifest,
   type Manifest,
   type Progress,
-  type AppearancesResult,
+  type Appearance,
 } from '@valve-tech/unchained-reader'
 
 import { IPFS_GATEWAY, DEFAULT_RECENT_CHUNKS, type ChainConfig } from '../config'
@@ -42,22 +46,44 @@ export interface QueryScope {
   fullHistory: boolean
 }
 
-export interface QueryHandle {
-  manifest: Manifest
-  result: AppearancesResult
+/** The block window actually scanned (first..last of the in-scope chunks). */
+export interface Scanned {
+  first: bigint
+  last: bigint
+  chunks: number
 }
 
-/**
- * Run a full lookup for an address on a chain. `onProgress` fires
- * throughout; `signal` cancels.
- */
-export const queryHistory = async (
+/** A chunk that couldn't be read — surfaced so partial results read as partial. */
+export interface QueryFailure {
+  first: bigint
+  last: bigint
+  cid: string
+  reason: string
+}
+
+export interface QueryOutcome {
+  scanned: Scanned | null
+  failures: QueryFailure[]
+}
+
+/** Streaming callbacks shared by the direct and backend query paths. */
+export interface StreamHandlers {
+  onProgress: (p: Progress) => void
+  onAppearances: (found: Appearance[]) => void
+  /** Backend only: one-time bloom-load progress while a cold chain warms. */
+  onStatus?: (s: { loadingDone: number; loadingTotal: number }) => void
+}
+
+/** The contract both query sources implement. */
+export type StreamQuery = (
   chain: ChainConfig,
   address: string,
   scope: QueryScope,
-  onProgress: (p: Progress) => void,
+  handlers: StreamHandlers,
   signal: AbortSignal,
-): Promise<QueryHandle> => {
+) => Promise<QueryOutcome>
+
+export const queryHistory: StreamQuery = async (chain, address, scope, handlers, signal) => {
   const cid = await resolveManifestCid(chain.chainKey)
   const full = await loadManifest(cid)
 
@@ -68,6 +94,22 @@ export const queryHistory = async (
       : { ...full, chunks: full.chunks.slice(-DEFAULT_RECENT_CHUNKS) }
 
   const reader = createUnchainedReader({ fetcher, manifest })
-  const result = await reader.getAppearances(address, { onProgress, signal })
-  return { manifest, result }
+  const result = await reader.getAppearances(address, {
+    onProgress: handlers.onProgress,
+    onAppearances: handlers.onAppearances,
+    signal,
+  })
+
+  const cs = manifest.chunks
+  return {
+    scanned: cs.length
+      ? { first: cs[0].range.first, last: cs[cs.length - 1].range.last, chunks: cs.length }
+      : null,
+    failures: result.failures.map((f) => ({
+      first: f.range.first,
+      last: f.range.last,
+      cid: f.cid,
+      reason: f.reason,
+    })),
+  }
 }

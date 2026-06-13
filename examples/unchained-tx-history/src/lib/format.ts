@@ -17,3 +17,16 @@ export const formatValue = (wei: bigint, decimals = 18): string => {
 }
 
 export const isAddressLike = (s: string): boolean => /^0x[0-9a-fA-F]{40}$/.test(s.trim())
+
+/** Human byte size: 1536 → "1.5 KB", 5_000_000 → "4.8 MB". */
+export const formatBytes = (n: number): string => {
+  if (n < 1024) return `${n} B`
+  const units = ['KB', 'MB', 'GB']
+  let v = n / 1024
+  let i = 0
+  while (v >= 1024 && i < units.length - 1) {
+    v /= 1024
+    i += 1
+  }
+  return `${v < 10 ? v.toFixed(1) : Math.round(v)} ${units[i]}`
+}

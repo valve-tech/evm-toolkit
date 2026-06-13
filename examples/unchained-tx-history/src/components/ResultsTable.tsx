@@ -52,10 +52,21 @@ export const ResultsTable = ({ chain, self, order, rows }: Props) => {
   }
   const arrow = (k: SortKey) => (k === sortKey ? <span className="arrow">{desc ? '↓' : '↑'}</span> : null)
 
+  const exLink = (path: string, label: string, cls = '') => (
+    <a
+      className={`ex-link ${cls}`.trim()}
+      href={`${chain.explorerUrl}/${path}`}
+      target="_blank"
+      rel="noreferrer"
+    >
+      {label}
+    </a>
+  )
+
   const addrCell = (a: string | null) => {
     if (!a) return <span className="addr-pill">— (contract creation)</span>
     const isSelf = a.toLowerCase() === self
-    return <span className={`addr-pill${isSelf ? ' self' : ''}`}>{shortAddr(a)}</span>
+    return exLink(`address/${a}`, shortAddr(a), `addr-pill${isSelf ? ' self' : ''}`)
   }
 
   return (
@@ -63,7 +74,7 @@ export const ResultsTable = ({ chain, self, order, rows }: Props) => {
       <div className="results-head">
         <h2>Appearances</h2>
         <span className="count">
-          {order.length.toLocaleString()} found · {hydratedCount.toLocaleString()} hydrated
+          {hydratedCount.toLocaleString()} of {order.length.toLocaleString()} loaded
         </span>
       </div>
       <table>
@@ -89,18 +100,12 @@ export const ResultsTable = ({ chain, self, order, rows }: Props) => {
               ) : cell === 'error' ? (
                 <span className="row-error">unavailable</span>
               ) : cell ? (
-                chain.explorerTxUrl ? (
-                  <a href={chain.explorerTxUrl + cell.hash} target="_blank" rel="noreferrer">
-                    {shortHash(cell.hash)}
-                  </a>
-                ) : (
-                  shortHash(cell.hash)
-                )
+                exLink(`tx/${cell.hash}`, shortHash(cell.hash))
               ) : null
             const row = typeof cell === 'object' && cell ? cell : null
             return (
               <tr key={k}>
-                <td className="num">{block}</td>
+                <td className="num">{exLink(`block/${block}`, block)}</td>
                 <td className="num hide-sm">{idx}</td>
                 <td className="hash">{hashCell}</td>
                 <td>{row ? addrCell(row.from) : <span className="pending">…</span>}</td>

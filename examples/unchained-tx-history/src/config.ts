@@ -19,12 +19,20 @@ export interface ChainConfig {
   rpcUrl: string
   /** Native-currency symbol, for value formatting. */
   symbol: string
-  /** Block explorer base for tx links (optional). */
-  explorerTxUrl?: string
+  /** Block-explorer base (no trailing slash) for tx/block/address links. */
+  explorerUrl: string
 }
 
 /** IPFS gateway serving the index chunks + blooms. */
 export const IPFS_GATEWAY = 'https://ipfs.valve.city'
+
+/**
+ * Optional backend accelerator. When `VITE_BACKEND_URL` is set at build/dev
+ * time, the app streams from `@valve-tech/example-unchained-index-server`
+ * (in-memory bloom scan) instead of doing the multi-GB bloom scan in the
+ * browser. Empty string → direct, fully trustless path.
+ */
+export const BACKEND_URL = (import.meta.env.VITE_BACKEND_URL ?? '').replace(/\/+$/, '')
 
 /**
  * The Unchained Index manifest-publication contract (permissionless,
@@ -42,20 +50,23 @@ export const VALVE_PUBLISHER = '0xEDE750e437251eb69423713D5bE21CbE88116141'
  */
 export const MANIFEST_LOOKUP_RPC = 'https://rpc.valve.city/v1/vk_demo/evm/1'
 
+// PulseChain (369) leads — it is the default chain (CHAINS[0]).
 export const CHAINS: ChainConfig[] = [
-  {
-    chainId: 943,
-    label: 'PulseChain Testnet v4',
-    chainKey: 'pulsechain-v4',
-    rpcUrl: 'https://rpc.valve.city/v1/vk_demo/evm/943',
-    symbol: 'tPLS',
-  },
   {
     chainId: 369,
     label: 'PulseChain',
     chainKey: 'pulsechain',
     rpcUrl: 'https://rpc.valve.city/v1/vk_demo/evm/369',
     symbol: 'PLS',
+    explorerUrl: 'https://explore.valve.city',
+  },
+  {
+    chainId: 943,
+    label: 'PulseChain Testnet v4',
+    chainKey: 'pulsechain-v4',
+    rpcUrl: 'https://rpc.valve.city/v1/vk_demo/evm/943',
+    symbol: 'tPLS',
+    explorerUrl: 'https://explore.valve.city',
   },
   {
     chainId: 1,
@@ -63,7 +74,7 @@ export const CHAINS: ChainConfig[] = [
     chainKey: 'mainnet',
     rpcUrl: 'https://rpc.valve.city/v1/vk_demo/evm/1',
     symbol: 'ETH',
-    explorerTxUrl: 'https://etherscan.io/tx/',
+    explorerUrl: 'https://explore.valve.city',
   },
 ]
 
