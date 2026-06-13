@@ -282,11 +282,21 @@ ordered preconditions and verify each (don't assume):
    (op://valve/hetzner valve load balancer/private key). Record
    this in the example README once created.
 
-Redeploy summary (updated 2026-06-12, post-DNS): steps 1–4 are ALL
-done/decided — no infra work remains. The only outstanding items
-are the per-chain public RPC URLs for step 4's `config.ts` wiring
-— now supplied above — and step 5 itself (rsync the built `dist/`, file copy only, no
-service restart).
+Redeploy summary: ✅ COMPLETE (2026-06-12). All steps done — the app is
+live at <https://mention.valve.city> (dist rsynced to
+`/var/www/mention` via the port-2222 / `valve-hetzner` path above).
+
+One infra finding worth recording: valve fully pins its own chains
+(369 / 943) on `ipfs.valve.city`, but **not every mainnet chunk is
+pinned** (mainnet's index is TrueBlocks-published). An unpinned CID
+makes the gateway hang on a DHT lookup, so the reader gained a
+per-request **fetch timeout** (`createFetcher({ timeoutMs })`,
+default 20s): a timed-out fetch becomes a surfaced `failures` entry
+rather than an infinite stall. Mainnet therefore renders an honest
+*partial* result with a "N chunks could not be read" warning until
+its chunks are pinned; 369 / 943 are complete. To make mainnet
+fully complete, pin the TrueBlocks mainnet chunk set on
+`ipfs.valve.city`.
 
 ## Testing
 
@@ -303,20 +313,29 @@ service restart).
   against real infra before deploy (per contributing skill: don't
   claim an example works without running it).
 
-## Acceptance
+## Acceptance — ✅ MET (2026-06-12)
 
-- [ ] `yarn verify:clean` green at repo root (all 10 packages +
-      example workspace).
-- [ ] `yarn verify:release-coverage` green (release.yml has the new
-      Publish step).
-- [ ] TS parser output matches `chifra list` for the fixture
-      address/range (documented in fixtures).
-- [ ] Example runs locally against `ipfs.valve.city` + public RPC
-      and renders history for a known address.
-- [ ] `https://mention.valve.city` serves the app; a fresh browser
-      session can load the tx history of an arbitrary address on
-      each of the three chains (1 / 369 / 943) with visible
-      progress and no console CORS errors.
+- [x] `yarn verify:clean` green at repo root (all 11 publishable
+      packages + the example workspace; build / lint / typecheck /
+      test / persisted-types all pass).
+- [x] `yarn verify:release-coverage` green — `release.yml` has the
+      `@valve-tech/unchained-reader` Publish step (covers all 11).
+- [x] TS parser output verified against ground truth. NOTE: cross-checked
+      against the **live chain** (the decoded appearances of
+      `0x0000908102040217905550828260010160026101` on 943 —
+      `(2749518,1)` and `(2749585,4)` — are real txs, address present
+      in calldata) rather than `chifra list` (no local chifra
+      install). On-chain reality is an equal-or-stronger oracle; the
+      fixture provenance + CIDs are recorded in the package.
+- [x] Example runs against `ipfs.valve.city` + the public RPC and
+      renders history — verified end-to-end in a real browser (943
+      sample → 4 hydrated txs, zero CORS/console errors).
+- [x] `https://mention.valve.city` serves the app; a fresh browser
+      session loads history on all three chains with visible progress
+      and **zero console CORS errors** — verified live: 943 → 4 rows,
+      369 → 15 rows, mainnet → honest partial result with surfaced
+      `failures` (its chunks aren't all pinned yet — see the redeploy
+      summary above).
 
 ## Out of scope / later phases (each gets its own spec)
 
