@@ -196,3 +196,10 @@ jobs:
           cd packages/agent-skills
           yarn pack --out=/tmp/agent-skills.tgz
           npm publish /tmp/agent-skills.tgz --access public --provenance
+
+      # Zero runtime deps — order is free.
+      - name: Publish @valve-tech/unchained-reader
+        run: |
+          cd packages/unchained-reader
+          yarn pack --out=/tmp/unchained-reader.tgz
+          npm publish /tmp/unchained-reader.tgz --access public --provenance
