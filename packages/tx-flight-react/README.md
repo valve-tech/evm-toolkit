@@ -319,6 +319,13 @@ hooks (`StatusIcon`, `HashLink`, `Actions`, `Item`) are RSC-safe.
 interval, storage IO, watcher subscriptions) live inside `useEffect`
 and never run during `renderToString`.
 
+## For AI agents
+
+Machine-readable integration skills ship in this tarball under
+`skills/`. Run `npx @valve-tech/agent-skills install` to copy all
+installed `@valve-tech/*` skills into `.claude/skills/`, or read them
+in place at `node_modules/@valve-tech/tx-flight-react/skills/`.
+
 ## License
 
 MIT

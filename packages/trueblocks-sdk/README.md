@@ -131,6 +131,13 @@ const result = await client.blocks.logs({ blocks: ['18000000'] })
 Per-method query parameters are typed against the upstream OpenAPI
 spec — your editor surfaces the available options via IntelliSense.
 
+## For AI agents
+
+Machine-readable integration skills ship in this tarball under
+`skills/`. Run `npx @valve-tech/agent-skills install` to copy all
+installed `@valve-tech/*` skills into `.claude/skills/`, or read them
+in place at `node_modules/@valve-tech/trueblocks-sdk/skills/`.
+
 ## License
 
 MIT, in line with the rest of the `@valve-tech/*` toolkit. The

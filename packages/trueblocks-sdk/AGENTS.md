@@ -223,3 +223,10 @@ for trigger conditions, anti-pattern flags, and integration recipes.
 npm view @valve-tech/trueblocks-sdk@latest --json | jq .dist.attestations
 npm audit signatures
 ```
+
+## Integration skills
+
+This package bundles its integration skill under `skills/`. Run
+`npx @valve-tech/agent-skills install` to copy all installed
+`@valve-tech/*` skills into `.claude/skills/`, or read this one in
+place at `node_modules/@valve-tech/trueblocks-sdk/skills/`.

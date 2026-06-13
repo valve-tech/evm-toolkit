@@ -299,6 +299,13 @@ npm audit signatures
 The attestation links the published tarball to the GitHub Actions
 workflow run that built it.
 
+## For AI agents
+
+Machine-readable integration skills ship in this tarball under
+`skills/`. Run `npx @valve-tech/agent-skills install` to copy all
+installed `@valve-tech/*` skills into `.claude/skills/`, or read them
+in place at `node_modules/@valve-tech/tx-tracker/skills/`.
+
 ## License
 
 MIT

@@ -209,6 +209,13 @@ const { sessionToken } = await fetch('/auth/verify', {
   `WalletDeclined` rejection detection. You don't need to import it
   directly.
 
+## For AI agents
+
+Machine-readable integration skills ship in this tarball under
+`skills/`. Run `npx @valve-tech/agent-skills install` to copy all
+installed `@valve-tech/*` skills into `.claude/skills/`, or read them
+in place at `node_modules/@valve-tech/auth-lite/skills/`.
+
 ## License
 
 MIT

@@ -123,6 +123,13 @@ catch (err) {
   copy (`HashMismatch` → "Proof did not match the deposit") belongs
   in your dapp's `customErrors` map, not in this package.
 
+## For AI agents
+
+Machine-readable integration skills ship in this tarball under
+`skills/`. Run `npx @valve-tech/agent-skills install` to copy all
+installed `@valve-tech/*` skills into `.claude/skills/`, or read them
+in place at `node_modules/@valve-tech/viem-errors/skills/`.
+
 ## License
 
 MIT
