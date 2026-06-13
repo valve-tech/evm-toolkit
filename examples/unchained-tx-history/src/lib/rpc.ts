@@ -75,19 +75,45 @@ interface RawTx {
   value: string
 }
 
-/** Hydrate one appearance into a full tx row via plain JSON-RPC. */
-export const hydrate = async (rpcUrl: string, app: Appearance): Promise<TxRow> => {
-  const tx = await rpc<RawTx | null>(rpcUrl, 'eth_getTransactionByBlockNumberAndIndex', [
-    `0x${app.blockNumber.toString(16)}`,
-    `0x${app.transactionIndex.toString(16)}`,
-  ])
+/** A hydrated row plus the bytes its RPC response cost over the wire. */
+export interface Hydrated {
+  row: TxRow
+  bytes: number
+}
+
+/**
+ * Hydrate one appearance into a full tx row via plain JSON-RPC. Reads the
+ * raw response text so the caller can account for the actual bytes this
+ * browser pulled over the wire (the only client-side download in backend
+ * mode, alongside the SSE stream).
+ */
+export const hydrate = async (rpcUrl: string, app: Appearance): Promise<Hydrated> => {
+  const res = await fetch(rpcUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'eth_getTransactionByBlockNumberAndIndex',
+      params: [`0x${app.blockNumber.toString(16)}`, `0x${app.transactionIndex.toString(16)}`],
+    }),
+  })
+  if (!res.ok) throw new Error(`hydrate: HTTP ${res.status}`)
+  const text = await res.text()
+  const bytes = new TextEncoder().encode(text).length
+  const json = JSON.parse(text) as { result?: RawTx | null; error?: { message: string } }
+  if (json.error) throw new Error(`hydrate: ${json.error.message}`)
+  const tx = json.result
   if (!tx) throw new Error(`no tx at block ${app.blockNumber} index ${app.transactionIndex}`)
   return {
-    blockNumber: app.blockNumber,
-    transactionIndex: app.transactionIndex,
-    hash: tx.hash,
-    from: tx.from,
-    to: tx.to,
-    value: BigInt(tx.value),
+    row: {
+      blockNumber: app.blockNumber,
+      transactionIndex: app.transactionIndex,
+      hash: tx.hash,
+      from: tx.from,
+      to: tx.to,
+      value: BigInt(tx.value),
+    },
+    bytes,
   }
 }

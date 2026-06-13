@@ -222,6 +222,34 @@ a:hover { border-bottom-color: var(--red); }
 .history-toggle > input:checked + .switch::after { transform: translateX(14px); background: #fff; }
 .history-toggle:hover .switch { filter: brightness(1.15); }
 .history-toggle > input:focus-visible + .switch { box-shadow: 0 0 0 2px var(--red); }
+.history-toggle[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 9px);
+  width: 230px;
+  background: #0c0c0e;
+  color: var(--text);
+  border: 1px solid var(--line-bright);
+  border-bottom: 2px solid var(--red);
+  border-radius: 2px;
+  padding: 9px 11px;
+  font-family: var(--sans);
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: left;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.13s ease, transform 0.13s ease;
+  z-index: 40;
+}
+.history-toggle:hover[data-tip]::after,
+.history-toggle:focus-within[data-tip]::after {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 .go-btn {
   font-family: var(--display);

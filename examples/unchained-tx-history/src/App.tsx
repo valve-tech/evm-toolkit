@@ -80,7 +80,7 @@ export const App = () => {
             />
             <label
               className="history-toggle"
-              title={
+              data-tip={
                 fullHistory
                   ? 'Searching ALL history — every chunk (slower). Toggle off for recent chunks only.'
                   : 'Recent chunks only. Toggle on to search all history (slower).'

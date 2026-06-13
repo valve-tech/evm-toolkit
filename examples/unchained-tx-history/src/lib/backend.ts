@@ -97,6 +97,7 @@ export const queryViaBackend: StreamQuery = async (chain, address, scope, handle
   for (;;) {
     const { value, done } = await reader.read()
     if (done) break
+    handlers.onWire?.(value.length) // bytes this browser pulled over the SSE stream
     buf += decoder.decode(value, { stream: true })
     let idx: number
     while ((idx = buf.indexOf('\n\n')) !== -1) {

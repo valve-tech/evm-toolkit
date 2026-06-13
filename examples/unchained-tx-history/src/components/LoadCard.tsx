@@ -66,6 +66,9 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
   )
   const [loadStatus, setLoadStatus] = useState<{ done: number; total: number } | null>(null)
   const [rpcCalls, setRpcCalls] = useState(BACKEND_URL ? 0 : 1)
+  // Bytes THIS browser pulled beyond the scan: SSE stream (backend mode) +
+  // tx hydration responses (both modes).
+  const [clientExtra, setClientExtra] = useState(0)
 
   // Run the query exactly once, on mount. Abort on unmount.
   useEffect(() => {
@@ -95,7 +98,8 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
         if (ac.signal.aborted) return
         setRpcCalls((c) => c + 1)
         try {
-          const row = await hydrate(chain.rpcUrl, app)
+          const { row, bytes } = await hydrate(chain.rpcUrl, app)
+          setClientExtra((c) => c + bytes)
           setRows((prev) => new Map(prev).set(k, row))
         } catch {
           setRows((prev) => new Map(prev).set(k, 'error'))
@@ -132,6 +136,7 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
             onProgress: (p) => setProgress(p),
             onAppearances,
             onStatus: (s) => setLoadStatus({ done: s.loadingDone, total: s.loadingTotal }),
+            onWire: (b) => setClientExtra((c) => c + b),
           },
           ac.signal,
         )
@@ -164,6 +169,10 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
     () => [...rows.values()].filter((r) => typeof r === 'object').length,
     [rows],
   )
+  // What THIS browser actually pulled vs (backend mode) the server-side scan.
+  // Direct mode: the browser does the scan, so its wire = scan + hydration.
+  const clientWire = clientExtra + (BACKEND_URL ? 0 : progress.bytesFetched)
+  const serverScan = BACKEND_URL ? progress.bytesFetched : 0
 
   const statusLabel =
     phase === 'error' ? 'error' : phase === 'done' ? 'done' : loadStatus ? 'loading blooms' : 'scanning'
@@ -215,9 +224,23 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
                   <Stat n={progress.appearancesFound} k="appearances" accent tip="Confirmed (block, transaction-index) appearances found in the parsed indexes. Each becomes a row in the table below." />
                 </div>
                 <div className="metrics">
-                  <span className="metric">
-                    <b>{formatBytes(progress.bytesFetched)}</b> over the wire{' '}
-                    <em>{BACKEND_URL ? '(server-side scan)' : '(this browser)'}</em>
+                  <span
+                    className="metric"
+                    title={
+                      BACKEND_URL
+                        ? 'Left: bytes your browser pulled (SSE stream + tx hydration). Right: bytes the server scanned from IPFS (blooms + index chunks) — NOT transferred to you.'
+                        : 'Bytes your browser pulled: blooms + index chunks + tx hydration.'
+                    }
+                  >
+                    <b>{formatBytes(clientWire)}</b>
+                    {BACKEND_URL ? (
+                      <>
+                        {' / '}
+                        <b>{formatBytes(serverScan)}</b>
+                      </>
+                    ) : null}{' '}
+                    over the wire{' '}
+                    <em>{BACKEND_URL ? '(you / server scan)' : '(this browser)'}</em>
                   </span>
                   <span className="metric">
                     <b>{hydratedCount.toLocaleString()}</b> of {order.length.toLocaleString()} txns

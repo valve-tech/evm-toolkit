@@ -72,6 +72,8 @@ export interface StreamHandlers {
   onAppearances: (found: Appearance[]) => void
   /** Backend only: one-time bloom-load progress while a cold chain warms. */
   onStatus?: (s: { loadingDone: number; loadingTotal: number }) => void
+  /** Backend only: bytes received over the SSE stream (client-side wire). */
+  onWire?: (bytes: number) => void
 }
 
 /** The contract both query sources implement. */
