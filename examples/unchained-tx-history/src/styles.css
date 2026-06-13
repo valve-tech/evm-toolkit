@@ -90,7 +90,7 @@ a:hover { border-bottom-color: var(--red); }
 /* ---- controls (no card — straight on the wall) ---- */
 .controls { margin-top: 34px; }
 
-/* one connected control group: [chain ▾][address][verify] */
+/* one connected control group: [chain ⌄][address][verify] */
 .search-row { display: flex; gap: 0; align-items: stretch; }
 
 /* chain picker — a dropdown menu inline in the search row */
@@ -114,7 +114,7 @@ a:hover { border-bottom-color: var(--red); }
 }
 .chain-trigger:hover { border-color: var(--text-faint); }
 .chain-trigger[aria-expanded="true"] { border-color: var(--red); }
-.chain-trigger .caret { color: var(--text-faint); font-size: 10px; margin-left: 2px; }
+.chain-trigger .chevron { color: var(--text-faint); font-size: 11px; margin-left: 2px; }
 .chain-trigger:disabled { opacity: 0.5; cursor: not-allowed; }
 .chain-list {
   position: absolute;
@@ -252,7 +252,7 @@ a:hover { border-bottom-color: var(--red); }
   text-align: left;
 }
 .load-head-main:hover { background: var(--bg-elev); }
-.load-head .caret { color: var(--text-faint); font-size: 11px; }
+.load-head .chevron { color: var(--text-faint); font-size: 12px; }
 .load-addr { color: var(--text); }
 .load-status {
   font-size: 10px;

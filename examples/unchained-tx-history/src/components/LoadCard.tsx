@@ -177,7 +177,7 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
           aria-expanded={!collapsed}
           onClick={() => setCollapsed((c) => !c)}
         >
-          <span className="caret" aria-hidden="true">{collapsed ? '▸' : '▾'}</span>
+          <span className="chevron" aria-hidden="true">{collapsed ? '›' : '⌄'}</span>
           <img
             className="chain-ico"
             src={`https://gib.show/image/eip155-${chain.chainId}`}

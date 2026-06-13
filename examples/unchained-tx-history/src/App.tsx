@@ -162,7 +162,7 @@ const ChainMenu = ({
           height={18}
         />
         <span className="chain-name">{chain.label}</span>
-        <span className="caret" aria-hidden="true">▾</span>
+        <span className="chevron" aria-hidden="true">⌄</span>
       </button>
       {open && (
         <ul className="chain-list" role="listbox">
