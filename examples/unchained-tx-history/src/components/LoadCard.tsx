@@ -72,6 +72,10 @@ type Source = 'chifra' | 'backend' | 'direct'
 
 const key = (b: bigint, t: bigint): string => `${b}:${t}`
 
+/** Compact duration: "340 ms" under a second, "1.2 s" / "12 s" above. */
+const formatMs = (ms: number): string =>
+  ms < 950 ? `${Math.round(ms)} ms` : `${(ms / 1000).toFixed(ms < 9500 ? 1 : 0)} s`
+
 export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: () => void }) => {
   const { chain, address, fullHistory, chifraUrl, order: loadOrder } = params
   // Source is per-search now (the chifra instance can be swapped at runtime).
@@ -115,12 +119,19 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
   const [started, setStarted] = useState(0)
   const budgetRef = useRef(PAGE_SIZE)
   const startedRef = useRef(0)
+  // Cost timing (refs, read at render — which re-runs as rows settle): mount,
+  // first-appearance, and last-activity marks. finding = mount→first; the rest
+  // is hydration.
+  const tStartRef = useRef(0)
+  const tFirstRef = useRef(0)
+  const tLastRef = useRef(0)
   useEffect(() => {
     budgetRef.current = budget
   }, [budget])
 
   // Run the query exactly once, on mount. Abort on unmount.
   useEffect(() => {
+    tStartRef.current = performance.now()
     const ac = new AbortController()
     const queue: Appearance[] = []
     const seen = new Set<string>()
@@ -133,6 +144,7 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
     // eating vertical space). The in-flight count shows only in the summary.
     const showSettled = (entries: Array<[string, TxRow | 'error']>): void => {
       if (entries.length === 0) return
+      tLastRef.current = performance.now()
       setRows((prev) => {
         const next = new Map(prev)
         for (const [k, v] of entries) next.set(k, v)
@@ -223,7 +235,12 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
         fresh += 1
       }
       // Count them now; a row is only rendered once a worker starts it.
-      if (fresh > 0) setFound((n) => n + fresh)
+      if (fresh > 0) {
+        const now = performance.now()
+        if (tFirstRef.current === 0) tFirstRef.current = now // end of the "finding" phase
+        tLastRef.current = now
+        setFound((n) => n + fresh)
+      }
     }
 
     const go = async (): Promise<void> => {
@@ -313,6 +330,13 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
   const target = Math.min(budget, grandTotal || budget)
   const moreToLoad = !feedExhausted || found > started
   const working = !appearancesDone || inFlight > 0
+
+  // Cost timing for the metrics row: total elapsed, split into finding the
+  // appearances vs hydrating them. Reads the refs each render (re-runs as rows
+  // settle), so it ticks while loading and freezes when idle/done.
+  const elapsedMs = (tLastRef.current || tStartRef.current) - tStartRef.current
+  const findMs = (tFirstRef.current || tStartRef.current) - tStartRef.current
+  const hydrateMs = Math.max(0, elapsedMs - findMs)
 
   // Done once every appearance has been FETCHED and hydrated.
   useEffect(() => {
@@ -467,6 +491,13 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
                   </span>
                   <span className="metric">
                     <b>{rpcCalls.toLocaleString()}</b> private RPC call{rpcCalls === 1 ? '' : 's'}
+                  </span>
+                  <span
+                    className="metric metric-tip"
+                    tabIndex={0}
+                    data-tip={`elapsed · ${formatMs(elapsedMs)}\nfinding appearances · ${formatMs(findMs)}\nhydrating txns · ${formatMs(hydrateMs)}`}
+                  >
+                    <b>{formatMs(elapsedMs)}</b> elapsed
                   </span>
                 </div>
                 {phase === 'done' && <p className="phase-note">{phaseNote}</p>}

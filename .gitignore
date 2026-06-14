@@ -28,3 +28,4 @@ progress.txt
 # and README.md ARE committed — they're the contract.
 docs/api/*/
 .docs-check-tmp/
+.superpowers/
