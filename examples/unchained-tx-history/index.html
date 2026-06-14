@@ -3,16 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Taggings in the city · valve.city</title>
-    <meta name="description" content="Every address leaves tags around the chain. This page reads them straight off the TrueBlocks Unchained Index in your browser — from an RPC URL and an IPFS gateway. No backend, no API key." />
+    <title>Tagged in the city — every transaction an address appears in</title>
+    <meta
+      name="description"
+      content="See every transaction an EVM address appears in. A TrueBlocks chifra index serves the appearances; transactions hydrate client-side over batched JSON-RPC — or run it fully trustless against your own node and IPFS gateway. PulseChain & Ethereum."
+    />
     <meta name="theme-color" content="#0b0b0d" />
+    <link rel="canonical" href="https://mention.valve.city/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="valve.city" />
+    <meta property="og:url" content="https://mention.valve.city/" />
+    <meta property="og:title" content="Tagged in the city — every transaction an address appears in" />
+    <meta
+      property="og:description"
+      content="A TrueBlocks chifra index serves an address's appearances; transactions hydrate client-side over batched JSON-RPC — or run it fully trustless against your own node and IPFS gateway."
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Tagged in the city — every transaction an address appears in" />
+    <meta
+      name="twitter:description"
+      content="A TrueBlocks chifra index serves an address's appearances; transactions hydrate client-side over batched JSON-RPC — or run it fully trustless."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Inter = legible UI/headline. The rest are the graffiti background palette. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Saira+Stencil+One&family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Saira+Stencil+One&family=Permanent+Marker&family=Bangers&family=Bungee&family=Monoton&family=Kaushan+Script&family=Rock+Salt&family=Yellowtail&family=Marck+Script&family=Caveat+Brush&family=Sigmar+One&display=swap"
       rel="stylesheet"
     />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%96%8D%3C/text%3E%3C/svg%3E" />
+    <!-- Resolve the theme BEFORE first paint to avoid a flash: a saved choice
+         wins, otherwise follow the OS preference. App.tsx takes over from here. -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('unchained-tx-history.theme')
+          var theme =
+            saved === 'light' || saved === 'dark'
+              ? saved
+              : matchMedia('(prefers-color-scheme: light)').matches
+                ? 'light'
+                : 'dark'
+          document.documentElement.dataset.theme = theme
+        } catch (e) {
+          document.documentElement.dataset.theme = 'dark'
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -1,11 +1,12 @@
 /*
- * "Taggings in the city" — a stencil / street-art skin (Banksy register):
- * charcoal wall, off-white, ONE red accent. Symmetric, restrained, no
- * tilt. Stencil display type (Saira Stencil One) over a clean grotesque
- * (Inter). Elegance through contrast and whitespace, not colour count.
+ * "Tagged in the city" — a street-art skin (Banksy register): charcoal
+ * wall, off-white, ONE red accent. Symmetric, restrained, no tilt. The
+ * masthead headline face is switchable at runtime (see the font picker /
+ * `--headline*` vars) over a clean grotesque (Inter). Elegance through
+ * contrast and whitespace, not colour count.
  */
 :root {
-  --bg: #16171b;
+  --bg: #0d0e12; /* == --asphalt: the corridor road continues into the page */
   --bg-panel: #1c1d22;
   --bg-elev: #24252b;
   --line: #2c2d34;
@@ -13,6 +14,24 @@
   --text: #ecebe6;
   --text-dim: #9a9aa2;
   --text-faint: #66666f;
+
+  /* Base colour of the hero band as an R,G,B triple — drives the centre scrim
+     (distance fog over the alley) and the headline's halo. A token so the light
+     theme can flip it from near-black to concrete. */
+  --scrim-rgb: 22, 23, 27;
+  /* faint top-of-page glow in the body vignette */
+  --top-glow: rgba(255, 255, 255, 0.035);
+  /* The alley backdrop is three flat surfaces, each its own shade so the
+     corridor's planes read as distinct: night sky up top, concrete walls at the
+     sides, asphalt road below (darkest). */
+  --sky-top: #161a26;
+  --sky-horizon: #4a5570; /* moonlit hazy horizon — the bright "end of the block" */
+  --wall-face: #2b2e3a; /* concrete, clearly above the road */
+  --brick: #3a2329; /* classic red brick, muted for the night scene */
+  --mortar: #241519; /* dark mortar lines between the bricks */
+  --asphalt: #0d0e12; /* == --bg, so the road continues seamlessly off the band */
+  --asphalt-haze: #2c313f; /* wet asphalt catching the horizon light */
+  --focal-glow: 150, 168, 205; /* moonlight bloom at the vanishing point */
 
   --red: #e4002b;       /* the single accent — use sparingly */
   --red-dim: #8f1322;
@@ -23,6 +42,46 @@
   --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --display: "Saira Stencil One", "Anton", Impact, sans-serif;
+
+  /* Masthead headline = Monoton: a neon-sign display deliberately UNLIKE the
+     hand/spray graffiti behind it, so the front reads as "the sign", never as
+     another tag. Monoton is kept OUT of the background font set for the same
+     reason. */
+  --headline: "Monoton", cursive;
+  --headline-transform: uppercase;
+  --headline-tracking: 0.015em;
+}
+
+/* ---- light theme: wet concrete. Warm pale greys, near-black ink, the SAME
+   single red accent (a hair deeper so it holds on pale stock). Initial theme is
+   resolved before paint in index.html (saved choice → OS preference); the footer
+   toggle in App.tsx overrides + persists it. ---- */
+:root[data-theme="light"] {
+  --bg: #d7d4cc;
+  --bg-panel: #e5e2db;
+  --bg-elev: #efede7;
+  --line: #c3c0b6;
+  --line-bright: #a9a59a;
+  --text: #1b1c20;
+  --text-dim: #56554e;
+  --text-faint: #837f77;
+
+  --red: #cc0026;
+  --red-dim: #a32030;
+  --accent: var(--red);
+  --warn: #976412;
+  --danger: #cc0026;
+
+  --scrim-rgb: 219, 216, 209; /* concrete fog over the alley + headline halo */
+  --top-glow: rgba(40, 38, 34, 0.06);
+  --sky-top: #ccced2;
+  --sky-horizon: #e4e3de;
+  --wall-face: #d2cfc6;
+  --brick: #b06a5d; /* terracotta red brick */
+  --mortar: #d9cdc2; /* pale mortar lines */
+  --asphalt: #d7d4cc; /* == --bg, so the road continues seamlessly off the band */
+  --asphalt-haze: #c6c4bb; /* slightly darker far floor toward the horizon */
+  --focal-glow: 255, 252, 245; /* pale daylight haze at the vanishing point */
 }
 
 * { box-sizing: border-box; }
@@ -35,6 +94,8 @@ html, body {
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* ease the flip when the footer toggle changes the theme */
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 /* Concrete wall: a faint grain + one cold vignette. Restrained. */
@@ -42,14 +103,14 @@ body {
   min-height: 100vh;
   background-color: var(--bg);
   background-image:
-    radial-gradient(60rem 40rem at 50% -15%, rgba(255, 255, 255, 0.035), transparent 60%),
+    radial-gradient(60rem 40rem at 50% -15%, var(--top-glow), transparent 60%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
 }
 
 a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--red-dim); }
 a:hover { border-bottom-color: var(--red); }
 
-.wrap { max-width: 980px; margin: 0 auto; padding: 0 24px 90px; }
+.wrap { position: relative; z-index: 2; max-width: 980px; margin: 0 auto; padding: 0 24px 90px; }
 
 /* ---- masthead (centred, iconic) ---- */
 .masthead { padding: 70px 0 30px; text-align: center; }
@@ -63,19 +124,143 @@ a:hover { border-bottom-color: var(--red); }
 }
 .masthead h1 {
   margin: 0 auto;
-  max-width: 16ch;
-  font-family: var(--display);
+  max-width: 14ch;
+  font-family: var(--headline);
   font-weight: 400;
-  font-size: clamp(40px, 7.5vw, 82px);
-  line-height: 0.96;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
+  font-size: clamp(38px, 6.6vw, 72px);
+  line-height: 1.08;
+  letter-spacing: var(--headline-tracking);
+  text-transform: var(--headline-transform);
   color: var(--text);
+  /* dark halo so the thin neon strokes never let the wall bleed through */
+  text-shadow: 0 2px 30px rgba(var(--scrim-rgb), 0.95), 0 0 8px rgba(var(--scrim-rgb), 0.9);
+}
+
+/* ---- graffiti background: a bright "tagged wall" of unreadable noise ----
+   Fixed full-bleed layer of scattered spray-paint tags behind everything.
+   aria-hidden + pointer-events:none — pure atmosphere, never read or clicked.
+   A radial scrim over it keeps the centred content legible. */
+.graffiti-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(640px, 86vh, 900px);
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+  /* The band is a 3D viewport looking down a corridor. perspective = the
+     camera's distance from the scene: SMALLER px = camera closer = stronger
+     perspective = the walls converge HARD to the vanishing point (a deep, long
+     block). Larger px flattens it. The vanishing point is the perspective
+     origin — the horizon (44%), where the flat sky meets the flat asphalt
+     behind the edge-on side walls. */
+  perspective: 300px;
+  perspective-origin: 50% 44%;
+}
+/* The corridor side walls (brick facade + graffiti tags) are perspective-
+   projected on a canvas — see CorridorBackground.tsx. The canvas fills the band;
+   the sky/ground triangles it leaves transparent reveal the .backdrop behind it,
+   and .vanish fogs the focal point on top. */
+.corridor {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+/* Flat backdrop BEHIND the 3D walls: the "large rectangle" we render the page
+   inside. Sky up top, asphalt below, meeting at the horizon (44%) — the line
+   the walls collapse toward. No 3D here; it's the far surface the corridor
+   recedes onto. */
+.backdrop {
+  position: absolute;
+  inset: 0;
+}
+.sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 44%;
+  background: linear-gradient(to bottom, var(--sky-top), var(--sky-horizon));
+}
+.ground {
+  position: absolute;
+  top: 44%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, var(--asphalt-haze), var(--asphalt));
+}
+/* The vanishing point: a circular fog disc centred on the perspective origin
+   (50% 40%), solid at the core and fading radially to transparent. Layered
+   above the walls so the corridor reads as collapsing INTO this focal point.
+   Uses --scrim-rgb so it's near-black in dark mode, concrete in light. */
+.vanish {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  width: 52vw;
+  height: 52vw;
+  max-width: 640px;
+  max-height: 640px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(var(--focal-glow), 0.3) 0%,
+    rgba(var(--focal-glow), 0.16) 24%,
+    rgba(var(--focal-glow), 0.06) 48%,
+    transparent 68%
+  );
+}
+.graffiti-scrim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: clamp(640px, 86vh, 900px);
+  z-index: 1;
+  pointer-events: none;
+  background:
+    /* strong dark core over the whole content column — headline, lede AND
+       controls sit on a calm zone; the wall only sings out at the edges */
+    radial-gradient(56rem 48rem at 50% 34%, rgba(var(--scrim-rgb), 0.9), rgba(var(--scrim-rgb), 0.66) 34%, rgba(var(--scrim-rgb), 0.34) 60%, transparent 82%),
+    /* fade the band to solid at its base so the hero blends into the page
+       and everything below (results, how-it-works, footer) is on clean bg */
+    linear-gradient(180deg, transparent 55%, var(--bg) 92%);
 }
 .masthead h1 .chain-dim {
   color: var(--red);
   /* sprayed-through-stencil: a soft halo around the one red word */
   text-shadow: 0 0 26px rgba(228, 0, 43, 0.35);
+}
+/* The accent word reels through fonts on load; the slot is locked to the
+   resting Monoton width (set in JS) so the line never reflows. The reel is
+   centred and allowed to overflow visibly — width stays fixed, so nothing
+   after it shifts. */
+.acc-slot {
+  display: inline-block;
+  position: relative; /* containing block for the absolutely-pinned reel */
+  width: auto; /* JS overwrites with the locked px width+height once fonts ready */
+  text-align: center;
+  white-space: nowrap;
+}
+.acc-reel {
+  /* `inline`, NOT inline-block: an inline box contributes the (constant,
+     font-size-based) line-height to the line box, so swapping font-family —
+     even to a tall graffiti face — overflows visibly without growing the line
+     or pushing the copy below. inline-block contributed its actual glyph
+     height, which thrashed the page vertically. Horizontal reflow is already
+     pinned by the JS-locked slot width. */
+  display: inline;
+  /* "tagged" rests as a graffiti marker tag — deliberately UNLIKE the Monoton
+     neon sign of the rest of the headline. The load flourish reels through the
+     other faces and settles back onto this one. */
+  font-family: "Permanent Marker", cursive;
 }
 .lede {
   margin: 22px auto 0;
@@ -89,6 +274,9 @@ a:hover { border-bottom-color: var(--red); }
 
 /* ---- controls (no card — straight on the wall) ---- */
 .controls { margin-top: 34px; }
+/* source + chain pickers sit in their own compact row ABOVE the search bar, so
+   the address input + Search always get the full width (responsive). */
+.menu-row { display: flex; align-items: stretch; margin-bottom: 8px; }
 
 /* one connected control group: [chain ⌄][address][verify] */
 .search-row { display: flex; gap: 0; align-items: stretch; }
@@ -107,21 +295,33 @@ a:hover { border-bottom-color: var(--red); }
   background: var(--bg);
   color: var(--text);
   border: 1px solid var(--line-bright);
-  border-radius: 2px 0 0 2px;
+  border-radius: 0;
   cursor: pointer;
   white-space: nowrap;
   transition: border-color 0.14s ease;
 }
+/* leftmost control in the row carries the left rounding; neighbours share a border */
+.menu-row > .chain-menu:first-child .chain-trigger { border-radius: 2px 0 0 2px; }
+.menu-row > .chain-menu:last-child .chain-trigger { border-radius: 0 2px 2px 0; }
+.menu-row > .chain-menu + .chain-menu .chain-trigger { border-left: none; }
 .chain-trigger:hover { border-color: var(--text-faint); }
 .chain-trigger[aria-expanded="true"] { border-color: var(--red); }
-.chain-trigger .chevron { color: var(--text-faint); font-size: 11px; margin-left: 2px; }
+.chain-trigger .chevron {
+  color: var(--text-faint);
+  font-size: 20px;
+  line-height: 1;
+  margin-left: 2px;
+  display: inline-block;
+  /* bigger + flatter (vertical squash) + nudged up out of the baseline */
+  transform: scaleY(0.6) translateY(-1px);
+}
 .chain-trigger:disabled { opacity: 0.5; cursor: not-allowed; }
 .chain-list {
   position: absolute;
-  top: calc(100% + 6px);
+  top: 100%; /* flush with the trigger — no gutter */
   left: 0;
   z-index: 40;
-  min-width: 220px;
+  min-width: 260px;
   margin: 0;
   padding: 4px;
   list-style: none;
@@ -150,6 +350,24 @@ a:hover { border-bottom-color: var(--red); }
 .chain-option:hover { background: var(--bg-elev); color: var(--text); }
 .chain-list [aria-selected="true"] .chain-option { color: var(--text); }
 .chain-list [aria-selected="true"] .chain-option .chain-ico { box-shadow: 0 0 0 1px var(--red); }
+
+/* chifra source picker — a small "src" tag + the daemon host (or "trustless") */
+.chifra-menu .chain-trigger { gap: 7px; }
+.chifra-tag {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  border: 1px solid var(--line-bright);
+  border-radius: 2px;
+  padding: 1px 4px;
+}
+.chifra-host { color: var(--text-dim); }
+/* roomy dropdown that flows past the (narrow) trigger; label stacked over sub */
+.chifra-menu .chain-list { min-width: 260px; }
+.chifra-opt { flex-direction: column; align-items: flex-start; gap: 2px; }
+.chifra-opt-name { color: var(--text); }
+.chifra-sub { color: var(--text-faint); font-size: 11px; }
 .chain-noindex {
   margin-left: auto;
   font-size: 9px;
@@ -162,7 +380,8 @@ a:hover { border-bottom-color: var(--red); }
   white-space: nowrap;
 }
 .chain-add { border-top: 1px solid var(--line); margin-top: 4px; padding-top: 4px; }
-.chain-option.chain-add-btn { color: var(--red); }
+/* match the input-form height so toggling to "+ Custom…" never shifts the menu */
+.chain-option.chain-add-btn { color: var(--red); min-height: 42px; }
 .chain-add-form { display: flex; gap: 6px; padding: 6px; }
 .chain-add-input {
   flex: 1;
@@ -208,9 +427,8 @@ a:hover { border-bottom-color: var(--red); }
   padding: 14px 54px 14px 16px;
   background: var(--bg);
   border: 1px solid var(--line-bright);
-  border-left: none;
   border-right: none;
-  border-radius: 0;
+  border-radius: 2px 0 0 2px; /* leftmost element of the search bar now */
   color: var(--text);
   outline: none;
   transition: border-color 0.14s ease;
@@ -304,6 +522,32 @@ a:hover { border-bottom-color: var(--red); }
   transition: background 0.14s ease, color 0.14s ease;
 }
 .go-btn:hover { background: transparent; color: var(--red); }
+/* compound Search button: [ SEARCH | ⌄ ] — the caret flips the load order */
+.go-group { display: flex; align-items: stretch; }
+.go-group .go-btn { border-radius: 0; }
+.go-caret {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 9px;
+  background: var(--red);
+  color: #fff;
+  border: 1px solid var(--red);
+  border-left-color: rgba(255, 255, 255, 0.28);
+  border-radius: 0 2px 2px 0;
+  cursor: pointer;
+  transition: background 0.14s ease, color 0.14s ease;
+}
+.go-caret:hover { background: transparent; color: var(--red); }
+.go-caret .chevron {
+  font-size: 18px;
+  line-height: 1;
+  display: inline-block;
+  transform: scaleY(0.6) translateY(-1px);
+}
+/* the menu wrapper must stretch the caret to the row height (it was 20px) */
+.order-menu { display: flex; }
+.order-list { left: auto; right: 0; min-width: 170px; }
 .go-btn:disabled {
   background: transparent;
   border-color: var(--line-bright);
@@ -365,7 +609,13 @@ a:hover { border-bottom-color: var(--red); }
   text-align: left;
 }
 .load-head-main:hover { background: var(--bg-elev); }
-.load-head .chevron { color: var(--text-faint); font-size: 12px; }
+.load-head .chevron {
+  color: var(--text-faint);
+  font-size: 23px;
+  line-height: 1;
+  display: inline-block;
+  transform: scaleY(0.6) translateY(-1px);
+}
 .load-addr { color: var(--text); }
 .load-status {
   font-size: 10px;
@@ -390,6 +640,27 @@ a:hover { border-bottom-color: var(--red); }
   font-size: 13px;
 }
 .load-close:hover { color: var(--danger); background: var(--bg-elev); }
+.load-more-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+.load-more-btn {
+  padding: 8px 18px;
+  background: var(--bg-elev);
+  border: 1px solid var(--line-bright);
+  border-radius: 2px;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+.load-more-btn:hover:not(:disabled) { border-color: var(--red); }
+.load-more-btn:disabled { opacity: 0.55; cursor: default; }
+.load-more-note { color: var(--text-faint); font-size: 12px; }
 .load-body { padding: 2px 16px 16px; }
 .load-body .progress { margin-top: 16px; }
 .load-body .results { margin-top: 20px; }
@@ -408,6 +679,51 @@ a:hover { border-bottom-color: var(--red); }
   animation: slide 1.1s ease-in-out infinite;
 }
 @keyframes slide { 0% { margin-left: -30%; } 100% { margin-left: 100%; } }
+.progress-bar-track.slim { height: 4px; border-radius: 2px; }
+
+/* ---- spinner + two-step loading readout ---- */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border: 2px solid var(--line-bright);
+  border-top-color: var(--red);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: -1px;
+  margin-right: 6px;
+  flex: none;
+}
+.load-status .spinner { margin-right: 6px; }
+
+.load-steps { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+.lstep {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: 0.01em;
+  color: var(--text-faint);
+}
+.lstep.is-active { color: var(--text); }
+.lstep.is-done { color: var(--text-dim); }
+.lstep-val { margin-left: auto; color: var(--text-dim); }
+.lstep.is-active .lstep-val { color: var(--text); }
+.lstep .spinner { margin-right: 0; }
+.lstep-dot {
+  width: 11px;
+  height: 11px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  line-height: 1;
+}
+.lstep-dot.done { color: #39d98a; }
+.lstep-dot.idle { border: 2px solid var(--line); border-radius: 50%; box-sizing: border-box; }
 
 .stat-grid {
   display: grid;
@@ -576,6 +892,62 @@ td.val { text-align: right; color: var(--text); }
 .empty-hint strong { color: var(--text); }
 
 /* ---- footer ---- */
+/* ---- how it works (reproduce-it-yourself) ---- */
+.howto {
+  max-width: 860px;
+  margin: 86px auto 0;
+  padding-top: 30px;
+  border-top: 1px solid var(--line);
+}
+.howto .eyebrow { text-align: left; margin-bottom: 12px; }
+.howto-title {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: clamp(24px, 3.4vw, 34px);
+  letter-spacing: -0.015em;
+  margin: 0 0 10px;
+  color: var(--text);
+}
+.howto-intro {
+  margin: 0 0 34px;
+  max-width: 60ch;
+  color: var(--text-dim);
+  line-height: 1.6;
+  font-size: 15px;
+}
+.howto-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.howto-steps li { display: flex; gap: 22px; align-items: flex-start; }
+.howto-n {
+  flex: none;
+  width: 2.2ch;
+  font-family: var(--display);
+  font-size: 30px;
+  line-height: 1;
+  color: var(--red);
+}
+.howto-steps h3 {
+  margin: 1px 0 7px;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--text);
+}
+.howto-steps p {
+  margin: 0;
+  max-width: 64ch;
+  color: var(--text-dim);
+  line-height: 1.62;
+  font-size: 14.5px;
+}
+.howto-steps code { font-family: var(--mono); font-size: 12.5px; color: var(--text); }
+
 .colophon {
   margin-top: 64px;
   padding-top: 24px;
@@ -587,13 +959,36 @@ td.val { text-align: right; color: var(--text); }
 }
 .colophon code { font-family: var(--mono); color: var(--text-dim); }
 .colophon a { color: var(--text-dim); border-bottom-color: var(--line-bright); }
+/* theme switch — lives in the footer, low-key. Sun in dark mode (tap for light),
+   moon in light mode (tap for dark). */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: max-content;
+  margin: 0 auto 18px;
+  padding: 5px 12px;
+  background: transparent;
+  border: 1px solid var(--line-bright);
+  border-radius: 2px;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.theme-toggle:hover { border-color: var(--text-faint); color: var(--text); }
+.theme-toggle .ico { font-size: 13px; line-height: 1; }
 
 @media (max-width: 680px) {
+  .menu-row > .chain-menu { flex: 1; }
+  .menu-row .chain-trigger { width: 100%; justify-content: space-between; }
   .search-row { flex-direction: column; gap: 8px; }
-  .chain-menu { width: 100%; }
-  .chain-trigger, .addr-input, .go-btn { border-radius: 2px; width: 100%; }
-  .addr-input { border-left: 1px solid var(--line-bright); border-right: 1px solid var(--line-bright); }
-  .go-btn { padding: 12px; }
+  .addr-wrap, .go-group { width: 100%; }
+  .addr-input { border-right: 1px solid var(--line-bright); border-radius: 2px; }
+  .go-group .go-btn { flex: 1; border-radius: 2px 0 0 2px; padding: 12px; }
   .stat-grid { grid-template-columns: repeat(2, 1fr); }
   .stat[data-tip]::after { width: 200px; }
   .hide-sm { display: none; }

@@ -91,6 +91,88 @@ export class RpcRateLimitError extends Error {
   }
 }
 
+/** One entry of a JSON-RPC batch response for the hydration calls. */
+export interface BatchResponseItem {
+  id: number
+  result?: RawTx | null
+  error?: { message: string }
+}
+
+/**
+ * Pure: fold a JSON-RPC batch response back onto the appearances it was built
+ * from. Each sub-request's `id` is the index of its appearance, so results are
+ * matched by id — JSON-RPC does not guarantee response order, and a custom RPC
+ * may reorder. A null result (no tx at that block/index), an error entry, or a
+ * missing id routes that appearance to `failed` for the caller to retry or
+ * mark unavailable. Surviving entries become rows carrying the appearance's
+ * authoritative block/index plus the tx's hash/from/to/value.
+ */
+export const foldBatchTxResponse = (
+  apps: Appearance[],
+  items: BatchResponseItem[],
+): { rows: TxRow[]; failed: Appearance[] } => {
+  const byId = new Map<number, BatchResponseItem>()
+  for (const item of items) byId.set(item.id, item)
+
+  const rows: TxRow[] = []
+  const failed: Appearance[] = []
+  apps.forEach((app, id) => {
+    const item = byId.get(id)
+    const tx = item?.result
+    if (!item || item.error || !tx) {
+      failed.push(app)
+      return
+    }
+    rows.push({
+      blockNumber: app.blockNumber,
+      transactionIndex: app.transactionIndex,
+      hash: tx.hash,
+      from: tx.from,
+      to: tx.to,
+      value: BigInt(tx.value),
+    })
+  })
+  return { rows, failed }
+}
+
+/**
+ * Hydrate a batch of appearances in ONE JSON-RPC batch request — an array of
+ * `eth_getTransactionByBlockNumberAndIndex` calls keyed by appearance index.
+ * Collapses N round trips into one HTTP request (the daemon's `chifra
+ * transactions` is far too slow for this; lean per-tx RPC, batched, is the
+ * fast path). Returns the hydrated rows, the appearances that came back
+ * empty/errored (for the caller to retry), and the bytes this response cost.
+ * A 429 on the batch throws {@link RpcRateLimitError} so the whole batch backs
+ * off and is retried together.
+ */
+export const hydrateBatch = async (
+  rpcUrl: string,
+  apps: Appearance[],
+): Promise<{ rows: TxRow[]; failed: Appearance[]; bytes: number }> => {
+  const body = apps.map((app, id) => ({
+    jsonrpc: '2.0',
+    id,
+    method: 'eth_getTransactionByBlockNumberAndIndex',
+    params: [`0x${app.blockNumber.toString(16)}`, `0x${app.transactionIndex.toString(16)}`],
+  }))
+  const res = await fetch(rpcUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  })
+  if (res.status === 429) {
+    const ra = res.headers.get('retry-after')
+    throw new RpcRateLimitError(ra ? Number(ra) * 1000 : undefined)
+  }
+  if (!res.ok) throw new Error(`hydrateBatch: HTTP ${res.status}`)
+  const text = await res.text()
+  const bytes = new TextEncoder().encode(text).length
+  const parsed = JSON.parse(text) as unknown
+  const items = Array.isArray(parsed) ? (parsed as BatchResponseItem[]) : []
+  const { rows, failed } = foldBatchTxResponse(apps, items)
+  return { rows, failed, bytes }
+}
+
 /**
  * Hydrate one appearance into a full tx row via plain JSON-RPC. Reads the
  * raw response text so the caller can account for the actual bytes this

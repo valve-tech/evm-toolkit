@@ -1,16 +1,17 @@
 /**
- * One global, adaptive scheduler for the rate-limited public RPC. EVERY tx
- * hydration — across every load card on the page — funnels through this
- * single gate, so the combined request rate stays under the key's limit no
- * matter how many queries run at once (each card otherwise has its own
- * worker pool).
+ * One global, adaptive scheduler for the public RPC. EVERY hydration batch —
+ * across every load card on the page — funnels through this single gate, so
+ * the combined request rate stays polite no matter how many queries run at
+ * once (each card otherwise has its own worker pool).
  *
- * The valve `vk_demo` key is ~5 req/s and 5k/day per IP. We pace under the
- * per-second cap and apply backpressure on 429s: slow the steady rate (and
- * honor `Retry-After` when the server sends it), then ease back toward full
- * speed after a run of successes.
+ * Each `acquire()` gates one JSON-RPC *batch* (~BATCH_SIZE txs), so the per-
+ * second pace below buys many times that in transactions. The public community
+ * nodes (rpc.pulsechain.com, g4mm4) publish no per-IP cap, so we pace
+ * conservatively and lean on 429 backpressure: slow the steady rate (honoring
+ * `Retry-After` when sent), then ease back toward full speed after a run of
+ * successes.
  */
-const FLOOR_MS = 250 // ~4 req/s at full speed — margin under the ~5/s cap
+const FLOOR_MS = 250 // ~4 batch requests/s at full speed — gentle on public nodes
 const CEIL_MS = 3000
 
 let intervalMs = FLOOR_MS

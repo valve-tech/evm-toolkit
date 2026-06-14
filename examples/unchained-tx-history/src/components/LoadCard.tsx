@@ -4,14 +4,15 @@
  * list of these — newest first — so every search becomes its own history
  * row that keeps its results while later searches run alongside it.
  */
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Appearance, Progress } from '@valve-tech/unchained-reader'
 
-import { BACKEND_URL, CHIFRA_URL, DEFAULT_RECENT_CHUNKS, type ChainConfig } from '../config'
+import { BACKEND_URL, DEFAULT_RECENT_CHUNKS, type ChainConfig } from '../config'
 import { queryHistory, type QueryFailure, type StreamQuery } from '../lib/history'
 import { queryViaBackend } from '../lib/backend'
-import { queryViaChifra } from '../lib/chifra'
-import { hydrate, RpcRateLimitError, type TxRow } from '../lib/rpc'
+import { createChifraCursor } from '../lib/chifra'
+import type { SortOrder } from '../lib/cursor'
+import { hydrateBatch, RpcRateLimitError, type TxRow } from '../lib/rpc'
 import { rpcGate } from '../lib/rpc-gate'
 import { shortAddr, shortHash, formatBytes } from '../lib/format'
 import { ResultsTable } from './ResultsTable'
@@ -21,6 +22,10 @@ export interface LoadParams {
   chain: ChainConfig
   address: string
   fullHistory: boolean
+  /** chifra daemon base URL for this search; '' means use the trustless path. */
+  chifraUrl: string
+  /** Load newest- or oldest-first. */
+  order: SortOrder
 }
 
 type Phase = 'scanning' | 'done' | 'error'
@@ -39,9 +44,18 @@ const cmpKey = (a: string, b: string): number => {
 
 // Workers per card; the GLOBAL rpcGate (shared across all cards) paces the
 // actual request rate and applies 429 backpressure, so this is just how many
-// hydrations a card will have in flight waiting at the gate.
+// batches a card will have in flight waiting at the gate.
 const HYDRATE_CONCURRENCY = 4
 const HYDRATE_RETRIES = 5
+// Appearances hydrated per JSON-RPC batch request. One `rpcGate.acquire()` and
+// one HTTP round trip cover the whole batch, so the gate's per-second pace now
+// buys BATCH_SIZE× the transactions — the throttling lever the public nodes
+// (rpc.pulsechain.com, g4mm4) tolerate far better than a request-per-tx flood.
+const BATCH_SIZE = 16
+// Hydration is bounded to this many of the newest appearances per "page";
+// "Load more" raises the budget by another page. Finding appearances stays
+// cheap and exhaustive — only the expensive RPC hydration paginates.
+const PAGE_SIZE = 50
 
 const emptyProgress: Progress = {
   chunksTotal: 0,
@@ -52,17 +66,18 @@ const emptyProgress: Progress = {
   bytesFetched: 0,
 }
 
-// Source priority: chifra daemon (fastest, direct /list) → in-memory bloom
-// backend → trustless browser scan.
+// Source priority for THIS search: a chifra daemon (fastest, direct /list) when
+// one is selected → in-memory bloom backend → trustless browser scan.
 type Source = 'chifra' | 'backend' | 'direct'
-const SOURCE: Source = CHIFRA_URL ? 'chifra' : BACKEND_URL ? 'backend' : 'direct'
-const querySource: StreamQuery =
-  SOURCE === 'chifra' ? queryViaChifra : SOURCE === 'backend' ? queryViaBackend : queryHistory
 
 const key = (b: bigint, t: bigint): string => `${b}:${t}`
 
 export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: () => void }) => {
-  const { chain, address, fullHistory } = params
+  const { chain, address, fullHistory, chifraUrl, order: loadOrder } = params
+  // Source is per-search now (the chifra instance can be swapped at runtime).
+  // chifra uses the lazy cursor below; backend/direct stream via `querySource`.
+  const source: Source = chifraUrl ? 'chifra' : BACKEND_URL ? 'backend' : 'direct'
+  const querySource: StreamQuery = source === 'backend' ? queryViaBackend : queryHistory
   const [collapsed, setCollapsed] = useState(false)
   const [phase, setPhase] = useState<Phase>('scanning')
   const [progress, setProgress] = useState<Progress>(emptyProgress)
@@ -76,13 +91,33 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
   const [loadStatus, setLoadStatus] = useState<{ done: number; total: number } | null>(null)
   // Direct mode resolves the manifest with one client-side eth_call; chifra
   // and backend do their resolution server-side. Hydration adds one per tx.
-  const [rpcCalls, setRpcCalls] = useState(SOURCE === 'direct' ? 1 : 0)
+  const [rpcCalls, setRpcCalls] = useState(source === 'direct' ? 1 : 0)
   // Bytes THIS browser pulled beyond the scan: SSE stream (backend mode) +
   // tx hydration responses (both modes).
   const [clientExtra, setClientExtra] = useState(0)
   // Total appearances found. `order` only holds the ones in flight / done —
   // the rest wait in the queue rather than painting a wall of pending rows.
   const [found, setFound] = useState(0)
+  // Phase ① (finding appearances) is complete once the query source has
+  // emitted everything; phase ② (hydration) keeps running until the workers
+  // drain. Tracked so the UI can show the two steps independently.
+  const [appearancesDone, setAppearancesDone] = useState(false)
+  // Grand total of appearances (chifra: from the cheap `count`; backend/direct:
+  // null until the scan finishes, then = found). `feedExhausted` = every
+  // appearance has been FETCHED (vs `appearancesDone` = the total is known).
+  const [total, setTotal] = useState<number | null>(null)
+  const [feedExhausted, setFeedExhausted] = useState(false)
+  // Pagination: `budget` is how many appearances we'll hydrate; `started` is how
+  // many have begun hydrating. Workers pause once `started` reaches `budget`
+  // and resume when "Load more" raises it. Refs mirror them for the worker
+  // closures (which are created once, on mount).
+  const [budget, setBudget] = useState(PAGE_SIZE)
+  const [started, setStarted] = useState(0)
+  const budgetRef = useRef(PAGE_SIZE)
+  const startedRef = useRef(0)
+  useEffect(() => {
+    budgetRef.current = budget
+  }, [budget])
 
   // Run the query exactly once, on mount. Abort on unmount.
   useEffect(() => {
@@ -91,41 +126,89 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
     const seen = new Set<string>()
     let scanDone = false
 
+    // Surface a batch's SETTLED results into the table. Only settled rows
+    // (hydrated, or terminally failed) ever enter `order` — pending rows are
+    // never rendered, since with batching there'd be up to
+    // HYDRATE_CONCURRENCY × BATCH_SIZE in flight at once (a wall of "fetching…"
+    // eating vertical space). The in-flight count shows only in the summary.
+    const showSettled = (entries: Array<[string, TxRow | 'error']>): void => {
+      if (entries.length === 0) return
+      setRows((prev) => {
+        const next = new Map(prev)
+        for (const [k, v] of entries) next.set(k, v)
+        return next
+      })
+      setOrder((prev) => {
+        const have = new Set(prev)
+        const add = entries.map(([k]) => k).filter((k) => !have.has(k))
+        return add.length > 0 ? [...prev, ...add].sort(cmpKey) : prev
+      })
+    }
+
     const worker = async (): Promise<void> => {
       for (;;) {
         if (ac.signal.aborted) return
-        const app = queue.shift()
-        if (app === undefined) {
+        // Nothing queued: done if the scan finished, else wait for more.
+        if (queue.length === 0) {
           if (scanDone) return
           await new Promise((r) => setTimeout(r, 40))
           continue
         }
-        const k = key(app.blockNumber, app.transactionIndex)
-        // Claim → render the row in flight. Only ~HYDRATE_CONCURRENCY are
-        // ever pending at once; the rest stay queued, not on screen.
-        setOrder((prev) => (prev.includes(k) ? prev : [...prev, k].sort(cmpKey)))
-        setRows((prev) => new Map(prev).set(k, 'pending'))
+        // Budget gate: we've hydrated our allotment — pause (the appearances
+        // stay queued) until "Load more" raises the budget. Stay alive; the
+        // scan may also still be filling the queue.
+        if (startedRef.current >= budgetRef.current) {
+          await new Promise((r) => setTimeout(r, 120))
+          continue
+        }
+        // Drain up to BATCH_SIZE appearances (within budget) and hydrate them
+        // in one JSON-RPC batch.
+        const batch: Appearance[] = []
+        while (batch.length < BATCH_SIZE && startedRef.current < budgetRef.current) {
+          const a = queue.shift()
+          if (a === undefined) break
+          startedRef.current += 1
+          batch.push(a)
+        }
+        if (batch.length === 0) {
+          await new Promise((r) => setTimeout(r, 40))
+          continue
+        }
+        setStarted(startedRef.current)
+        const keys = batch.map((a) => key(a.blockNumber, a.transactionIndex))
+
         let settled = false
         for (let attempt = 0; attempt < HYDRATE_RETRIES && !settled; attempt += 1) {
           await rpcGate.acquire(ac.signal) // global pacing + 429 backpressure
           if (ac.signal.aborted) return
-          setRpcCalls((c) => c + 1)
+          setRpcCalls((c) => c + 1) // ONE request per batch, however many txs
           try {
-            const { row, bytes } = await hydrate(chain.rpcUrl, app)
+            const { rows: hydrated, failed, bytes } = await hydrateBatch(chain.rpcUrl, batch)
             rpcGate.reward()
             setClientExtra((c) => c + bytes)
-            setRows((prev) => new Map(prev).set(k, row))
+            showSettled([
+              ...hydrated.map((row): [string, TxRow] => [
+                key(row.blockNumber, row.transactionIndex),
+                row,
+              ]),
+              // Per-item failures (no tx at that index / node error) are
+              // terminal — same as the old single-hydrate path.
+              ...failed.map((a): [string, 'error'] => [
+                key(a.blockNumber, a.transactionIndex),
+                'error',
+              ]),
+            ])
             settled = true
           } catch (err) {
             if (err instanceof RpcRateLimitError) {
-              rpcGate.throttle(err.retryAfterMs) // slow everyone, then retry this tx
+              rpcGate.throttle(err.retryAfterMs) // slow everyone, then retry the batch
               continue
             }
-            setRows((prev) => new Map(prev).set(k, 'error'))
+            showSettled(keys.map((k): [string, 'error'] => [k, 'error'])) // hard error
             settled = true
           }
         }
-        if (!settled) setRows((prev) => new Map(prev).set(k, 'error')) // gave up after retries
+        if (!settled) showSettled(keys.map((k): [string, 'error'] => [k, 'error'])) // gave up
       }
     }
     const workers = Array.from({ length: HYDRATE_CONCURRENCY }, worker)
@@ -145,22 +228,54 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
 
     const go = async (): Promise<void> => {
       try {
-        const outcome = await querySource(
-          chain,
-          address,
-          { fullHistory },
-          {
-            onProgress: (p) => setProgress(p),
-            onAppearances,
-            onStatus: (s) => setLoadStatus({ done: s.loadingDone, total: s.loadingTotal }),
-            onWire: (b) => setClientExtra((c) => c + b),
-          },
-          ac.signal,
-        )
-        if (ac.signal.aborted) return
-        setLoadStatus(null)
-        setFailures(outcome.failures)
-        if (outcome.scanned) setScanned(outcome.scanned)
+        if (source === 'chifra') {
+          // Lazy pull: learn the total from the cheap `count`, then fetch
+          // coordinate pages ONLY up to the current hydration budget — never the
+          // whole list for a busy address we'll show 50 of. More pages are
+          // pulled when "Load more" raises the budget.
+          const cursor = createChifraCursor(chifraUrl, chain, address, loadOrder, ac.signal, (b) =>
+            setClientExtra((c) => c + b),
+          )
+          let first = true
+          for (;;) {
+            if (ac.signal.aborted) return
+            if (!scanDone && seen.size < budgetRef.current) {
+              const page = await cursor.next(PAGE_SIZE)
+              if (ac.signal.aborted) return
+              if (cursor.total !== null) setTotal(cursor.total)
+              if (first) {
+                first = false
+                setAppearancesDone(true) // the total is known after the first pull
+              }
+              onAppearances(page.appearances)
+              if (page.done) scanDone = true
+            } else if (scanDone) {
+              break
+            } else {
+              // budget reached — idle until "Load more" raises it.
+              await new Promise((r) => setTimeout(r, 150))
+            }
+          }
+        } else {
+          const outcome = await querySource(
+            chain,
+            address,
+            { fullHistory },
+            {
+              onProgress: (p) => setProgress(p),
+              onAppearances,
+              onStatus: (s) => setLoadStatus({ done: s.loadingDone, total: s.loadingTotal }),
+              onWire: (b) => setClientExtra((c) => c + b),
+            },
+            ac.signal,
+          )
+          if (ac.signal.aborted) return
+          setAppearancesDone(true) // ① every appearance has now been emitted
+          setLoadStatus(null)
+          setFailures(outcome.failures)
+          if (outcome.scanned) setScanned(outcome.scanned)
+          scanDone = true
+        }
       } catch (err) {
         scanDone = true
         if (ac.signal.aborted) return
@@ -168,9 +283,11 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
         setPhase('error')
         return
       }
-      scanDone = true
-      await Promise.all(workers)
-      if (!ac.signal.aborted) setPhase('done')
+      if (ac.signal.aborted) return
+      setFeedExhausted(true) // every appearance has now been FETCHED
+      // Don't await the workers: with pagination they intentionally pause at the
+      // budget instead of draining; completion is derived from state below.
+      void workers
     }
     void go()
 
@@ -186,30 +303,48 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
     () => [...rows.values()].filter((r) => typeof r === 'object').length,
     [rows],
   )
+  // In-flight hydrations (begun but not yet settled) and whether more
+  // newest-first appearances remain beyond what we've started hydrating.
+  const inFlight = started - hydratedCount
+  // Grand total of appearances (chifra count, or all-found for backend/direct),
+  // and how many we're loading RIGHT NOW (one page) — the loading bar is paced
+  // against this, never the grand total, so it never reads as a stuck 50/2700.
+  const grandTotal = total ?? found
+  const target = Math.min(budget, grandTotal || budget)
+  const moreToLoad = !feedExhausted || found > started
+  const working = !appearancesDone || inFlight > 0
+
+  // Done once every appearance has been FETCHED and hydrated.
+  useEffect(() => {
+    if (phase === 'error') return
+    if (feedExhausted && (found === 0 || hydratedCount >= found)) setPhase('done')
+  }, [phase, feedExhausted, found, hydratedCount])
   // What THIS browser actually pulled vs (backend mode) the server-side scan.
   // Direct mode: the browser does the scan, so its wire = scan + hydration.
-  const clientWire = clientExtra + (SOURCE === 'direct' ? progress.bytesFetched : 0)
-  const serverScan = SOURCE === 'backend' ? progress.bytesFetched : 0
+  const clientWire = clientExtra + (source === 'direct' ? progress.bytesFetched : 0)
+  const serverScan = source === 'backend' ? progress.bytesFetched : 0
 
   const statusLabel =
     phase === 'error'
       ? 'error'
       : phase === 'done'
         ? 'done'
-        : SOURCE === 'chifra'
-          ? 'querying'
-          : loadStatus
-            ? 'loading blooms'
-            : 'scanning'
+        : !working
+          ? 'paused'
+          : source === 'chifra'
+            ? 'querying'
+            : loadStatus
+              ? 'loading blooms'
+              : 'scanning'
 
   const phaseNote =
     phase === 'done'
-      ? SOURCE === 'chifra'
-        ? `Done — ${found.toLocaleString()} appearance${found === 1 ? '' : 's'} via chifra daemon.`
+      ? source === 'chifra'
+        ? `Done — loaded ${hydratedCount.toLocaleString()} of ${grandTotal.toLocaleString()} via chifra daemon.`
         : `Done — scanned ${progress.bloomsFetched.toLocaleString()} blooms, parsed ${progress.chunksFetched.toLocaleString()} chunks.`
-      : SOURCE === 'chifra'
-        ? found > 0
-          ? `chifra returned ${found.toLocaleString()} · hydrating ${hydratedCount.toLocaleString()}/${found.toLocaleString()}…`
+      : source === 'chifra'
+        ? grandTotal > 0
+          ? `chifra: ${grandTotal.toLocaleString()} total · loaded ${hydratedCount.toLocaleString()}…`
           : 'Querying chifra daemon…'
         : loadStatus
           ? `Loading blooms into memory — ${loadStatus.done.toLocaleString()}/${loadStatus.total.toLocaleString()} (first query for this chain)…`
@@ -224,7 +359,6 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
           aria-expanded={!collapsed}
           onClick={() => setCollapsed((c) => !c)}
         >
-          <span className="chevron" aria-hidden="true">{collapsed ? '›' : '⌄'}</span>
           <img
             className="chain-ico"
             src={`https://gib.show/image/eip155-${chain.chainId}`}
@@ -233,10 +367,14 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
             height={16}
           />
           <span className="load-addr">{shortAddr(address)}</span>
-          <span className={`load-status load-status-${phase}`}>{statusLabel}</span>
-          <span className="load-count">
-            {found.toLocaleString()} txn{found === 1 ? '' : 's'}
+          <span className={`load-status load-status-${phase}`}>
+            {phase === 'scanning' && working && <span className="spinner" aria-hidden="true" />}
+            {statusLabel}
           </span>
+          <span className="load-count">
+            {grandTotal.toLocaleString()} txn{grandTotal === 1 ? '' : 's'}
+          </span>
+          <span className="chevron" aria-hidden="true">{collapsed ? '›' : '⌄'}</span>
         </button>
         <button type="button" className="load-close" aria-label="Remove" onClick={onRemove}>
           ✕
@@ -247,7 +385,45 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
         <div className="load-body">
           {(phase === 'scanning' || phase === 'done') && (
             <section className="progress">
-              {SOURCE !== 'chifra' && (progress.chunksTotal > 0 || loadStatus !== null) && (
+              {/* Two explicit steps so it's always clear what's loading vs done,
+                  on every source (chifra has no bloom bar of its own). */}
+              <div className="load-steps">
+                <div className={`lstep ${appearancesDone ? 'is-done' : 'is-active'}`}>
+                  <StepDot done={appearancesDone} active={!appearancesDone} />
+                  <span className="lstep-label">Finding appearances</span>
+                  <span className="lstep-val">
+                    {grandTotal.toLocaleString()}
+                    {appearancesDone ? ' found' : '…'}
+                  </span>
+                </div>
+                <div
+                  className={`lstep ${
+                    target > 0 && hydratedCount >= target
+                      ? 'is-done'
+                      : target > 0
+                        ? 'is-active'
+                        : 'is-idle'
+                  }`}
+                >
+                  <StepDot
+                    done={target > 0 && hydratedCount >= target}
+                    active={target > 0 && hydratedCount < target}
+                  />
+                  <span className="lstep-label">Loading transactions</span>
+                  <span className="lstep-val">
+                    {hydratedCount.toLocaleString()} / {target.toLocaleString()}
+                  </span>
+                </div>
+                {target > 0 && (
+                  <div className="progress-bar-track slim">
+                    <div
+                      className="progress-bar-fill"
+                      style={{ width: `${Math.min(100, Math.round((hydratedCount / target) * 100))}%` }}
+                    />
+                  </div>
+                )}
+              </div>
+              {source !== 'chifra' && (progress.chunksTotal > 0 || loadStatus !== null) && (
                 <div className="progress-bar-track">
                   <div
                     className={`progress-bar-fill${phase === 'scanning' && pct === 0 ? ' indeterminate' : ''}`}
@@ -255,7 +431,7 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
                   />
                 </div>
               )}
-              {SOURCE !== 'chifra' && (progress.chunksTotal > 0 || loadStatus !== null) && (
+              {source !== 'chifra' && (progress.chunksTotal > 0 || loadStatus !== null) && (
                 <div className="stat-grid">
                   <Stat n={progress.chunksTotal} k="chunks in scope" tip="Index chunks inside the searched range — the address can only appear within these. Each chunk is one small bloom filter + one larger index file on IPFS." />
                   <Stat n={progress.bloomsFetched} k="blooms read" tip="Bloom filters downloaded — one per chunk in scope. Every bloom must be fetched to test it, so this rises to equal the chunks in scope." />
@@ -268,38 +444,38 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
                   <span
                     className="metric"
                     title={
-                      SOURCE === 'backend'
+                      source === 'backend'
                         ? 'Left: bytes your browser pulled (SSE stream + tx hydration). Right: bytes the server scanned from IPFS (blooms + index chunks) — NOT transferred to you.'
-                        : SOURCE === 'chifra'
+                        : source === 'chifra'
                           ? 'Bytes your browser pulled from the chifra daemon: the appearance list + tx hydration.'
                           : 'Bytes your browser pulled: blooms + index chunks + tx hydration.'
                     }
                   >
                     <b>{formatBytes(clientWire)}</b>
-                    {SOURCE === 'backend' ? (
+                    {source === 'backend' ? (
                       <>
                         {' / '}
                         <b>{formatBytes(serverScan)}</b>
                       </>
                     ) : null}{' '}
                     over the wire{' '}
-                    <em>{SOURCE === 'backend' ? '(you / server scan)' : '(this browser)'}</em>
+                    <em>{source === 'backend' ? '(you / server scan)' : '(this browser)'}</em>
                   </span>
                   <span className="metric">
-                    <b>{hydratedCount.toLocaleString()}</b> of {found.toLocaleString()} txns
+                    <b>{hydratedCount.toLocaleString()}</b> of {grandTotal.toLocaleString()} txns
                     hydrated
                   </span>
                   <span className="metric">
                     <b>{rpcCalls.toLocaleString()}</b> private RPC call{rpcCalls === 1 ? '' : 's'}
                   </span>
                 </div>
-                <p className="phase-note">{phaseNote}</p>
+                {phase === 'done' && <p className="phase-note">{phaseNote}</p>}
               </section>
             )}
 
           {error && (
             <div className="panel error">
-              <h3>Couldn’t complete the trace</h3>
+              <h3>Couldn’t complete the lookup</h3>
               {error}
             </div>
           )}
@@ -310,8 +486,25 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
               self={address.toLowerCase()}
               order={order}
               rows={rows}
-              total={found}
+              total={grandTotal}
+              initialDesc={loadOrder === 'newest'}
             />
+          )}
+
+          {moreToLoad && (
+            <div className="load-more-row">
+              <button
+                type="button"
+                className="load-more-btn"
+                onClick={() => setBudget((b) => b + PAGE_SIZE)}
+                disabled={inFlight > 0}
+              >
+                {inFlight > 0 ? 'Loading…' : `Load ${PAGE_SIZE} more`}
+              </button>
+              <span className="load-more-note">
+                {hydratedCount.toLocaleString()} of {grandTotal.toLocaleString()} loaded
+              </span>
+            </div>
           )}
 
           {phase === 'done' && found === 0 && !error && (
@@ -353,6 +546,16 @@ export const LoadCard = ({ params, onRemove }: { params: LoadParams; onRemove: (
     </section>
   )
 }
+
+/** Per-step status glyph: spinner while active, green check when done, hollow dot when idle. */
+const StepDot = ({ done, active }: { done: boolean; active: boolean }) =>
+  done ? (
+    <span className="lstep-dot done" aria-hidden="true">✓</span>
+  ) : active ? (
+    <span className="spinner" aria-hidden="true" />
+  ) : (
+    <span className="lstep-dot idle" aria-hidden="true" />
+  )
 
 const Stat = ({ n, k, tip, accent }: { n: number; k: string; tip: string; accent?: boolean }) => (
   <div className="stat" tabIndex={0} data-tip={tip} aria-label={`${k}: ${tip}`}>

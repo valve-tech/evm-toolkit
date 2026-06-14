@@ -14,11 +14,13 @@ interface Props {
   rows: Map<string, Cell>
   /** Total appearances found (order only holds the ones in flight / done). */
   total: number
+  /** Initial block-sort direction (matches the load order). */
+  initialDesc?: boolean
 }
 
-export const ResultsTable = ({ chain, self, order, rows, total }: Props) => {
+export const ResultsTable = ({ chain, self, order, rows, total, initialDesc = true }: Props) => {
   const [sortKey, setSortKey] = useState<SortKey>('block')
-  const [desc, setDesc] = useState(true)
+  const [desc, setDesc] = useState(initialDesc)
 
   const hydratedCount = useMemo(
     () => order.filter((k) => typeof rows.get(k) === 'object').length,

@@ -7,8 +7,6 @@
  * for hydration (e.g. your own node, no rate limit). Custom chains persist in
  * localStorage.
  */
-import * as viemChains from 'viem/chains'
-
 import { CHAINS, type ChainConfig } from '../config'
 
 /** Just the fields we read off a viem chain (its full type union is fussy). */
@@ -19,15 +17,23 @@ interface ViemChainLite {
   blockExplorers?: { default: { url: string } }
 }
 
-const ALL_VIEM_CHAINS = (Object.values(viemChains) as unknown[]).filter(
-  (c): c is ViemChainLite =>
-    typeof c === 'object' &&
-    c !== null &&
-    typeof (c as { id?: unknown }).id === 'number' &&
-    typeof (c as { name?: unknown }).name === 'string',
-)
-const viemChainFor = (id: number): ViemChainLite | undefined =>
-  ALL_VIEM_CHAINS.find((c) => c.id === id)
+// viem/chains is large (hundreds of chains). Load it lazily — only when
+// someone actually adds a custom RPC — so it splits into its own chunk and
+// stays out of the initial bundle.
+let viemChainsCache: ViemChainLite[] | null = null
+const viemChainFor = async (id: number): Promise<ViemChainLite | undefined> => {
+  if (!viemChainsCache) {
+    const mod = await import('viem/chains')
+    viemChainsCache = (Object.values(mod) as unknown[]).filter(
+      (c): c is ViemChainLite =>
+        typeof c === 'object' &&
+        c !== null &&
+        typeof (c as { id?: unknown }).id === 'number' &&
+        typeof (c as { name?: unknown }).name === 'string',
+    )
+  }
+  return viemChainsCache.find((c) => c.id === id)
+}
 
 const LS_KEY = 'unchained-tx-history.custom-chains'
 
@@ -63,7 +69,7 @@ export const detectChain = async (rpcUrl: string): Promise<ChainConfig> => {
 
   const chainId = Number(BigInt(json.result))
   const indexed = CHAINS.find((c) => c.chainId === chainId) // inherit index keys if known
-  const vc = viemChainFor(chainId)
+  const vc = await viemChainFor(chainId)
 
   return {
     chainId,

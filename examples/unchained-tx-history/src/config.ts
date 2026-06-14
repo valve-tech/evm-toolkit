@@ -3,10 +3,10 @@
  * static site can hold no secrets. Swap any value to point the app at
  * your own infrastructure (see the README).
  *
- * The RPC endpoints use valve's deliberately public, per-IP-rate-limited
- * `vk_demo` key (read-only; transaction-submitting methods are denied at
- * the relay). Replace `rpcUrl` with any EVM RPC — the whole point is that
- * this app is trustless: bring your own node and nothing here depends on
+ * The RPC endpoints are public community nodes (rpc.pulsechain.com,
+ * rpc-ethereum.g4mm4.io) used read-only for tx hydration. Replace `rpcUrl`
+ * with any EVM RPC — the whole point is that this app can run trustless:
+ * bring your own node (and clear `CHIFRA_URL`) and nothing here depends on
  * valve.
  */
 
@@ -66,7 +66,7 @@ export const VALVE_PUBLISHER = '0xEDE750e437251eb69423713D5bE21CbE88116141'
  * record per chain key), so manifest resolution always eth_calls chain 1
  * regardless of which chain's history is being read.
  */
-export const MANIFEST_LOOKUP_RPC = 'https://rpc.valve.city/v1/vk_demo/evm/1'
+export const MANIFEST_LOOKUP_RPC = 'https://rpc-ethereum.g4mm4.io'
 
 // PulseChain (369) leads — it is the default chain (CHAINS[0]).
 export const CHAINS: ChainConfig[] = [
@@ -75,7 +75,7 @@ export const CHAINS: ChainConfig[] = [
     label: 'PulseChain',
     chainKey: 'pulsechain',
     chifraChain: 'pulsechain',
-    rpcUrl: 'https://rpc.valve.city/v1/vk_demo/evm/369',
+    rpcUrl: 'https://rpc.pulsechain.com',
     symbol: 'PLS',
     explorerUrl: 'https://explore.valve.city',
   },
@@ -84,7 +84,7 @@ export const CHAINS: ChainConfig[] = [
     label: 'PulseChain Testnet v4',
     chainKey: 'pulsechain-v4',
     chifraChain: 'pulsechain-v4',
-    rpcUrl: 'https://rpc.valve.city/v1/vk_demo/evm/943',
+    rpcUrl: 'https://rpc.v4.testnet.pulsechain.com',
     symbol: 'tPLS',
     explorerUrl: 'https://explore.valve.city',
   },
@@ -93,7 +93,7 @@ export const CHAINS: ChainConfig[] = [
     label: 'Ethereum',
     chainKey: 'mainnet',
     chifraChain: 'mainnet',
-    rpcUrl: 'https://rpc.valve.city/v1/vk_demo/evm/1',
+    rpcUrl: 'https://rpc-ethereum.g4mm4.io',
     symbol: 'ETH',
     explorerUrl: 'https://explore.valve.city',
   },
