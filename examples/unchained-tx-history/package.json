@@ -2,7 +2,7 @@
   "name": "@valve-tech/example-unchained-tx-history",
   "version": "0.18.0",
   "private": true,
-  "description": "Static web app: type any address, watch its transaction history stream in — read trustlessly from the TrueBlocks Unchained Index with nothing but an RPC URL and an IPFS gateway. Demonstrates @valve-tech/unchained-reader.",
+  "description": "Static web app: type any EVM address, see every transaction it appears in. A TrueBlocks chifra index serves the appearances; transactions hydrate client-side over batched JSON-RPC — or run it fully trustless against your own node + IPFS gateway. Demonstrates @valve-tech/trueblocks-sdk and @valve-tech/unchained-reader.",
   "type": "module",
   "scripts": {
     "dev": "vite",

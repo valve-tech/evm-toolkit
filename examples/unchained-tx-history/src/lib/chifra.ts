@@ -1,49 +1,84 @@
 /**
- * chifra-daemon query path. Asks the TrueBlocks daemon's `/list` endpoint
- * (via `@valve-tech/trueblocks-sdk`) for an address's appearances directly —
- * the daemon already has the index parsed on disk, so there is NO bloom or
- * chunk download. Fastest source; the browser pulls only the appearance list
- * (then hydrates tx detail over RPC like the other paths).
+ * chifra-daemon source as a pull-based {@link AppearanceCursor}.
  *
- * Implements the same {@link StreamQuery} contract as the direct + backend
- * paths, so the App renders identically.
+ * Asks the TrueBlocks daemon's `/list` endpoint (via `@valve-tech/trueblocks-sdk`)
+ * for an address's appearances. The daemon already has the index parsed on disk,
+ * so there is NO bloom or chunk download — the browser pulls only appearance
+ * coordinates (then hydrates tx detail over RPC).
+ *
+ * Crucially it is LAZY: one cheap `count` call gives the exact total, then we
+ * page (`firstRecord`/`maxRecords`, `reversed` for newest-first) only as the UI
+ * asks for more. A whale with thousands of appearances therefore costs one
+ * count + the pages actually shown, not its entire coordinate list up front.
+ *
+ * (We deliberately do NOT use `chifra transactions` to hydrate server-side:
+ * that endpoint drags a full receipt per tx and is pathologically slow for an
+ * address's history. Lean per-tx RPC hydration, batched, is far faster.)
  */
 import { createTrueblocksClient, type FetchFn } from '@valve-tech/trueblocks-sdk'
 import type { Appearance } from '@valve-tech/unchained-reader'
 
-import { CHIFRA_URL } from '../config'
-import type { QueryOutcome, StreamQuery } from './history'
+import type { ChainConfig } from '../config'
+import type { AppearanceCursor, AppearancePage, SortOrder } from './cursor'
 
-export const queryViaChifra: StreamQuery = async (chain, address, _scope, handlers, signal) => {
-  // Thread the abort signal through the sdk's single-arg fetch, and account
-  // for the bytes this browser pulls from the daemon (rebuild the Response so
-  // the sdk can still parse it).
+export const createChifraCursor = (
+  chifraUrl: string,
+  chain: ChainConfig,
+  address: string,
+  order: SortOrder,
+  signal: AbortSignal,
+  onWire?: (bytes: number) => void,
+): AppearanceCursor => {
+  // Thread the abort signal through the sdk's single-arg fetch, and account for
+  // the bytes this browser pulls. Read the byte count off a CLONE and hand the
+  // sdk the untouched original response — rebuilding it from decompressed text
+  // corrupts the sdk's `.json()` on large gzipped payloads.
   const trackedFetch: FetchFn = async (input, init) => {
     const res = await fetch(input, { ...init, signal })
-    if (!res.ok) return res
-    const text = await res.text()
-    handlers.onWire?.(new TextEncoder().encode(text).length)
-    return new Response(text, { status: res.status, statusText: res.statusText, headers: res.headers })
+    if (res.ok && onWire) {
+      res
+        .clone()
+        .arrayBuffer()
+        .then((buf) => onWire(buf.byteLength))
+        .catch(() => {})
+    }
+    return res
+  }
+  const client = createTrueblocksClient({ baseUrl: chifraUrl, fetch: trackedFetch })
+
+  let total: number | null = null
+  let counted = false
+  let firstRecord = 0
+  let done = false
+  const reversed = order === 'newest' // chifra `reversed` === reverse-chronological
+
+  const ensureCount = async (): Promise<void> => {
+    if (counted) return
+    counted = true
+    try {
+      const res = await client.list({ addrs: [address], chain: chain.chifraChain, count: true })
+      const n = (res.data?.[0] as { nRecords?: number } | undefined)?.nRecords
+      if (typeof n === 'number') total = n
+    } catch {
+      /* count is best-effort — we still detect the end via a short page */
+    }
   }
 
-  const client = createTrueblocksClient({ baseUrl: CHIFRA_URL, fetch: trackedFetch })
-
-  // The daemon caps /list at ~250 records per call (its default max_records),
-  // so page through with firstRecord/maxRecords until a short page. Each page
-  // is streamed to onAppearances as it arrives, so hydration of page N starts
-  // while page N+1 is still being fetched — no waiting for the whole list.
-  // (chifra searches its full local index; recent-vs-full scope doesn't apply.)
-  const PAGE = 250
-  for (let firstRecord = 0; ; firstRecord += PAGE) {
-    if (signal.aborted) break
+  const next = async (pageSize: number): Promise<AppearancePage> => {
+    await ensureCount()
+    if (done || signal.aborted) return { appearances: [], done: true }
     const res = await client.list({
       addrs: [address],
       chain: chain.chifraChain,
       fmt: 'json',
+      reversed,
       firstRecord,
-      maxRecords: PAGE,
+      maxRecords: pageSize,
     })
     const records = res.data ?? []
+    firstRecord += records.length
+    if (records.length < pageSize) done = true
+    if (total !== null && firstRecord >= total) done = true
     const appearances: Appearance[] = []
     for (const record of records) {
       const blockNumber = (record as { blockNumber?: number }).blockNumber
@@ -55,9 +90,14 @@ export const queryViaChifra: StreamQuery = async (chain, address, _scope, handle
         })
       }
     }
-    if (appearances.length > 0) handlers.onAppearances(appearances)
-    if (records.length < PAGE) break // last (short) page
+    return { appearances, done }
   }
 
-  return { scanned: null, failures: [] } satisfies QueryOutcome
+  return {
+    get total() {
+      return total
+    },
+    next,
+    outcome: () => ({ scanned: null, failures: [] }),
+  }
 }

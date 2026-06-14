@@ -1,35 +1,44 @@
 # unchained-tx-history
 
-A fully static web app that proves the TrueBlocks **Unchained Index** is
-trustlessly consumable from a browser with nothing but an RPC URL and an
-IPFS gateway — **no chifra daemon, no backend, no API key.**
+Type any EVM address → see every transaction it appears in. By default a
+TrueBlocks **chifra** daemon serves the appearance index (`chifra list`)
+straight from its on-disk copy of the **Unchained Index**, and each
+appearance is hydrated into a full transaction client-side over **batched**
+JSON-RPC (`eth_getTransactionByBlockNumberAndIndex`, ~16 to a request).
 
-Type an address → the page resolves the index manifest live from chain,
-streams bloom filters and index chunks from IPFS, parses the binary
-formats **in the browser** with
-[`@valve-tech/unchained-reader`](../../packages/unchained-reader), and
-hydrates each appearance into a full transaction over plain JSON-RPC.
+Or run it **fully trustless**: point it at your own RPC and IPFS gateway
+and the same Unchained Index is bloom-scanned **in the browser** with
+[`@valve-tech/unchained-reader`](../../packages/unchained-reader) — manifest
+resolved live from chain, blooms and chunks pulled from IPFS, no daemon, no
+backend, no API key.
 
 Live at **<https://mention.valve.city>**.
 
 ## What it demonstrates
 
-- **`@valve-tech/unchained-reader` end to end**: manifest → blooms →
-  chunks → appearances, all client-side. The bloom filter gates which
-  chunks are even worth fetching; only matching chunks are downloaded and
-  parsed.
-- **Trustless by construction**: the manifest CID is read live from the
-  permissionless UnchainedIndex contract (so it is never a stale baked-in
-  value), chunks come from any IPFS gateway, and transactions are
-  hydrated with vanilla `eth_getTransactionByBlockNumberAndIndex`. Swap
-  the RPC and gateway for your own and **nothing depends on valve**.
+- **Three interchangeable sources behind one streaming UI**: a chifra
+  daemon's `/list` (the default, via
+  [`@valve-tech/trueblocks-sdk`](../../packages/trueblocks-sdk)); an
+  in-memory bloom backend; or the fully client-side bloom scan with
+  [`@valve-tech/unchained-reader`](../../packages/unchained-reader). The
+  same render path handles all three.
+- **Batched hydration**: appearances are hydrated in JSON-RPC batches of
+  ~16 `eth_getTransactionByBlockNumberAndIndex` calls, paced by one global
+  adaptive rate gate with 429 backpressure — far fewer round trips than a
+  request-per-tx flood, and the public nodes tolerate it far better.
+- **Trustless by construction (the fallback path)**: the manifest CID is
+  read live from the permissionless UnchainedIndex contract (so it is
+  never a stale baked-in value), chunks come from any IPFS gateway, and
+  transactions are hydrated with vanilla JSON-RPC. Swap the RPC and gateway
+  for your own and **nothing depends on valve**.
 - **Honest progress + partial-answer surfacing**: a live counter shows
-  blooms read / hits / chunks parsed / appearances found, and any chunk
-  that fails to fetch or parse is shown explicitly — a partial result is
-  never presented as complete.
+  hydrated / total and bytes over the wire; the trustless path additionally
+  shows blooms read / hits / chunks parsed, and any chunk that fails to
+  fetch or parse is shown explicitly — a partial result is never presented
+  as complete.
 - **Bounded by default**: full mainnet history is hundreds of MB of bloom
-  fetches, so the app scans only the most recent chunks unless you tick
-  "search all history".
+  fetches, so the trustless scan bounds to recent chunks unless you tick
+  "search all history". (chifra searches its full local index regardless.)
 
 ## Run it
 
@@ -39,7 +48,7 @@ yarn workspace @valve-tech/example-unchained-tx-history dev
 ```
 
 Open the printed localhost URL, pick a chain (PulseChain Testnet v4 is the
-fastest — smallest index), and click **try a sample address** → **Trace**.
+fastest — smallest index), and click **try a sample address** → **Search**.
 
 Build the static bundle:
 
@@ -55,16 +64,16 @@ All config is public (a static site holds no secrets) and lives in
 
 | Constant | What it is |
 | --- | --- |
-| `IPFS_GATEWAY` | gateway serving the chunks/blooms (`ipfs.valve.city`) |
-| `CHAINS[].rpcUrl` | JSON-RPC for tx hydration — uses valve's public, rate-limited, read-only `vk_demo` key |
-| `MANIFEST_LOOKUP_RPC` | Ethereum RPC for the one manifest-resolution `eth_call` |
+| `CHIFRA_URL` | chifra daemon base for the default `/list` source (`chifra.valve.city`); set `VITE_CHIFRA_URL=''` to fall back to the backend / trustless paths |
+| `IPFS_GATEWAY` | gateway serving the chunks/blooms for the trustless path (`ipfs.valve.city`) |
+| `CHAINS[].rpcUrl` | JSON-RPC for tx hydration — public nodes (`rpc.pulsechain.com`, `rpc-ethereum.g4mm4.io`) |
+| `MANIFEST_LOOKUP_RPC` | Ethereum RPC for the one manifest-resolution `eth_call` (trustless path) |
 | `UNCHAINED_CONTRACT` / `VALVE_PUBLISHER` | where manifest CIDs are published on-chain |
-| `DEFAULT_RECENT_CHUNKS` | how many recent chunks the default (bounded) scope scans |
+| `DEFAULT_RECENT_CHUNKS` | how many recent chunks the default (bounded) trustless scan covers |
 
-To point at your own infra, replace `IPFS_GATEWAY` and the per-chain
-`rpcUrl`s with any gateway / EVM node. The `vk_demo` endpoints are
-deliberately public but rate-limited; for heavy use bring your own key or
-node.
+To point at your own infra, replace `CHIFRA_URL`, `IPFS_GATEWAY` and the
+per-chain `rpcUrl`s with any daemon / gateway / EVM node. The defaults are
+deliberately public but rate-limited; for heavy use bring your own node.
 
 ## Copying this out of the repo
 
