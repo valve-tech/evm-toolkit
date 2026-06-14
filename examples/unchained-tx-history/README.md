@@ -21,7 +21,9 @@ Live at **<https://mention.valve.city>**.
   [`@valve-tech/trueblocks-sdk`](../../packages/trueblocks-sdk)); an
   in-memory bloom backend; or the fully client-side bloom scan with
   [`@valve-tech/unchained-reader`](../../packages/unchained-reader). The
-  same render path handles all three.
+  same render path handles all three, and a **source menu** in the controls
+  swaps between them at runtime — valve's daemon, any other chifra daemon you
+  paste, or the trustless browser scan.
 - **Batched hydration**: appearances are hydrated in JSON-RPC batches of
   ~16 `eth_getTransactionByBlockNumberAndIndex` calls, paced by one global
   adaptive rate gate with 429 backpressure — far fewer round trips than a
@@ -36,9 +38,15 @@ Live at **<https://mention.valve.city>**.
   shows blooms read / hits / chunks parsed, and any chunk that fails to
   fetch or parse is shown explicitly — a partial result is never presented
   as complete.
-- **Bounded by default**: full mainnet history is hundreds of MB of bloom
-  fetches, so the trustless scan bounds to recent chunks unless you tick
-  "search all history". (chifra searches its full local index regardless.)
+- **Lazy, counted pagination**: the chifra source reads the exact appearance
+  **count** up front, then fetches coordinates a page at a time — only the
+  newest (or oldest; toggle it on the Search button) 50 are loaded, with a
+  **Load more** button for the rest. A whale costs the count plus the pages
+  you actually view, not its entire coordinate list. (The trustless scan
+  still bounds to recent chunks unless you tick "search all history".)
+- **Light & dark**: a "wet concrete" light theme toggles in the footer
+  (initially follows your OS preference, then remembers your choice); the
+  controls reflow responsively from desktop down to mobile.
 
 ## Run it
 
