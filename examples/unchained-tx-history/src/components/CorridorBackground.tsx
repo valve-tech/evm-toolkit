@@ -35,7 +35,8 @@ const pick = <T,>(a: readonly T[]): T => a[(Math.random() * a.length) | 0]
 const FOCAL = 6 // perspective: screen scale = FOCAL / (FOCAL + z). High = gentle
 // falloff, so tags barely change size across the corridor and read as one wall
 // sliding past (only ~1.1× at the very edge — no jarring zoom or grow/slide split).
-const ZMAX = 8 // depth (world units) a tag spans before recycling to the far end
+const ZMAX = 5 // depth (world units) a tag spans before recycling — shallower so
+// words stop further from the centre, leaving a big blank focal area
 const Z_EXIT = -0.7 // slide just past the edge (off the viewport), then recycle
 const TAG_COUNT = 190
 const SPEED = 0.8 // world units / second — a slow walk
@@ -207,12 +208,11 @@ export const CorridorBackground = () => {
       const dx = vpx - nearX
       const dy = (vpy - (H + over)) * (1 - tg.h) + (vpy + over) * tg.h
       const dl = Math.hypot(dx, dy) || 1
-      // The wall's DEPTH axis foreshortens faster (∝ scale²) than its height
-      // (∝ scale) — the corridor recedes away from you while the wall height
-      // doesn't. Giving the word's horizontal axis the extra `scale` lays it
-      // flat ON the wall plane instead of standing proud of it (which read as
-      // parallax). Vertical axis keeps the plain height foreshortening (ds).
-      const exMag = ds * scale
+      // Horizontal axis = the wall's depth direction. Dropping the extra `scale`
+      // (which had hard-foreshortened the depth axis ∝ scale²) renders the words
+      // ~2–3× wider — the receded ones especially — so they read as bigger tags
+      // rather than thin streaks. Vertical axis keeps its height foreshortening.
+      const exMag = ds
       ctx.save()
       ctx.globalAlpha = Math.min(0.9, scale * 1.5) // far end dissolves into the horizon fog
       ctx.translate(sx, sy)
@@ -231,7 +231,7 @@ export const CorridorBackground = () => {
       prev = now
       const vpx = W * 0.5
       const vpy = H * 0.44 // horizon — matches the CSS backdrop split + focal fog
-      const over = H * 0.6
+      const over = H * 0.35 // shorter walls (less overscan) → less area to paint
       if (!reduce) {
         brickPhase += SPEED * dt
         for (const tg of tags) {

@@ -145,7 +145,7 @@ a:hover { border-bottom-color: var(--red); }
   top: 0;
   left: 0;
   width: 100%;
-  height: clamp(640px, 86vh, 900px);
+  height: clamp(560px, 74vh, 780px);
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
@@ -203,18 +203,21 @@ a:hover { border-bottom-color: var(--red); }
   position: absolute;
   top: 44%;
   left: 50%;
-  width: 52vw;
-  height: 52vw;
-  max-width: 640px;
-  max-height: 640px;
+  width: 86vw;
+  height: 86vw;
+  max-width: 1040px;
+  max-height: 1040px;
   transform: translate(-50%, -50%);
   pointer-events: none;
+  /* big, soft focal haze — a large blank/fuzzed-out space the corridor
+     dissolves into at the centre */
   background: radial-gradient(
     circle,
-    rgba(var(--focal-glow), 0.3) 0%,
-    rgba(var(--focal-glow), 0.16) 24%,
-    rgba(var(--focal-glow), 0.06) 48%,
-    transparent 68%
+    rgba(var(--focal-glow), 0.42) 0%,
+    rgba(var(--focal-glow), 0.26) 22%,
+    rgba(var(--focal-glow), 0.12) 44%,
+    rgba(var(--focal-glow), 0.04) 62%,
+    transparent 76%
   );
 }
 .graffiti-scrim {
@@ -222,7 +225,7 @@ a:hover { border-bottom-color: var(--red); }
   top: 0;
   left: 0;
   width: 100%;
-  height: clamp(640px, 86vh, 900px);
+  height: clamp(560px, 74vh, 780px);
   z-index: 1;
   pointer-events: none;
   background:
