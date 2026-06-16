@@ -5,9 +5,12 @@
  * a sample distribution, returns rank-from-top, the field size, a percentile,
  * and the gas ahead of you. Pure; the inverse of gas-oracle's
  * `tipForBlockPosition` (which answers "what tip do I need for position X").
+ * The estimator panel uses this function exclusively.
  *
- * `tipForRank` re-exposes the package helper for the "tip to land in top N"
- * readout, so the panel can show both directions from the same data.
+ * `tipForRank` re-exposes the gas-oracle `tipForBlockPosition` helper (the
+ * inverse direction) and is available for a "tip to land in top N" readout.
+ * It is not currently rendered by the panel — it is a tested, documented
+ * helper for callers that need the opposite query direction.
  */
 import { tipForBlockPosition, type BlockPositionResult } from '@valve-tech/gas-oracle'
 import type { TipSample } from '@valve-tech/gas-oracle'

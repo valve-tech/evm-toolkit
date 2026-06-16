@@ -46,7 +46,7 @@ repaint on every block. **No wallet — read-only public RPC only.**
     against the live distribution (mempool or block-included) and reports the
     percentile.
   - **Capability panel**: live table of `chain-source` capability fields —
-    `newHeads`, `txpoolContent`, `getBlockReceipts` — with their current probe
+    `newHeads`, `txpoolContent`, `receiptByHash` — with their current probe
     result and the pending gas-demand figure from the mempool.
 
 - **Custom RPC detection.** Paste any `http(s)://` URL in the header input and

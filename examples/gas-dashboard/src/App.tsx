@@ -18,7 +18,7 @@ import { Banner } from './components/Banner'
 const HISTOGRAM_BUCKETS = 24
 
 export const App = (): JSX.Element => {
-  const [custom] = useState<ChainConfig[]>(() => loadCustomChains())
+  const [custom, setCustom] = useState<ChainConfig[]>(() => loadCustomChains())
   const allChains = useMemo(() => [...CHAINS, ...custom], [custom])
   const [chain, setChain] = useState<ChainConfig>(CHAINS[0])
   const [state, setState] = useState<GasOracleState | null>(null)
@@ -34,7 +34,7 @@ export const App = (): JSX.Element => {
     setCaps(null)
     setError(null)
     const dash = createDashboard(chain, {
-      onState: setState,
+      onState: (s) => { setState(s); setError(null) },
       onCapabilities: setCaps,
       onError: (e) => setError(e.message),
     })
@@ -84,6 +84,7 @@ export const App = (): JSX.Element => {
       const detected = await detectChain(rpcInput)
       const next = [...custom.filter((c) => c.rpcUrl !== detected.rpcUrl), detected]
       saveCustomChains(next)
+      setCustom(next)
       setChain(detected)
       setRpcInput('')
     } catch (e) {
