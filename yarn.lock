@@ -1569,7 +1569,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/chain-source@workspace:^, @valve-tech/chain-source@workspace:packages/chain-source":
+"@valve-tech/chain-source@npm:^0.18.0, @valve-tech/chain-source@workspace:^, @valve-tech/chain-source@workspace:packages/chain-source":
   version: 0.0.0-use.local
   resolution: "@valve-tech/chain-source@workspace:packages/chain-source"
   peerDependencies:
@@ -1600,6 +1600,26 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@valve-tech/example-tx-write-flight@workspace:examples/tx-write-flight":
+  version: 0.0.0-use.local
+  resolution: "@valve-tech/example-tx-write-flight@workspace:examples/tx-write-flight"
+  dependencies:
+    "@types/react": "npm:^18.3.0"
+    "@types/react-dom": "npm:^18.3.0"
+    "@valve-tech/chain-source": "npm:^0.18.0"
+    "@valve-tech/gas-oracle": "npm:^0.18.0"
+    "@valve-tech/tx-flight-react": "npm:^0.18.0"
+    "@valve-tech/tx-tracker": "npm:^0.18.0"
+    "@valve-tech/viem-errors": "npm:^0.18.0"
+    "@valve-tech/wallet-adapter": "npm:^0.18.0"
+    "@vitejs/plugin-react": "npm:^4.3.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
+    viem: "npm:^2.21.0"
+    vite: "npm:^5.4.0"
+  languageName: unknown
+  linkType: soft
+
 "@valve-tech/example-unchained-index-server@workspace:examples/unchained-index-server":
   version: 0.0.0-use.local
   resolution: "@valve-tech/example-unchained-index-server@workspace:examples/unchained-index-server"
@@ -1625,7 +1645,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/gas-oracle@workspace:packages/gas-oracle":
+"@valve-tech/gas-oracle@npm:^0.18.0, @valve-tech/gas-oracle@workspace:packages/gas-oracle":
   version: 0.0.0-use.local
   resolution: "@valve-tech/gas-oracle@workspace:packages/gas-oracle"
   dependencies:
@@ -1643,7 +1663,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/tx-flight-react@workspace:packages/tx-flight-react":
+"@valve-tech/tx-flight-react@npm:^0.18.0, @valve-tech/tx-flight-react@workspace:packages/tx-flight-react":
   version: 0.0.0-use.local
   resolution: "@valve-tech/tx-flight-react@workspace:packages/tx-flight-react"
   dependencies:
@@ -1675,7 +1695,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/tx-tracker@workspace:^, @valve-tech/tx-tracker@workspace:packages/tx-tracker":
+"@valve-tech/tx-tracker@npm:^0.18.0, @valve-tech/tx-tracker@workspace:^, @valve-tech/tx-tracker@workspace:packages/tx-tracker":
   version: 0.0.0-use.local
   resolution: "@valve-tech/tx-tracker@workspace:packages/tx-tracker"
   dependencies:
@@ -1691,7 +1711,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/viem-errors@workspace:^, @valve-tech/viem-errors@workspace:packages/viem-errors":
+"@valve-tech/viem-errors@npm:^0.18.0, @valve-tech/viem-errors@workspace:^, @valve-tech/viem-errors@workspace:packages/viem-errors":
   version: 0.0.0-use.local
   resolution: "@valve-tech/viem-errors@workspace:packages/viem-errors"
   peerDependencies:
@@ -1699,7 +1719,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/wallet-adapter@workspace:^, @valve-tech/wallet-adapter@workspace:packages/wallet-adapter":
+"@valve-tech/wallet-adapter@npm:^0.18.0, @valve-tech/wallet-adapter@workspace:^, @valve-tech/wallet-adapter@workspace:packages/wallet-adapter":
   version: 0.0.0-use.local
   resolution: "@valve-tech/wallet-adapter@workspace:packages/wallet-adapter"
   dependencies:
