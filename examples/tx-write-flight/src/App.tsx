@@ -19,7 +19,6 @@ import { localStorageAdapter } from '@valve-tech/tx-flight-react/storage'
 import {
   sendTransactionWithHooks,
   WalletRejectedError,
-  ContractRevertedError,
 } from '@valve-tech/wallet-adapter'
 import {
   bumpForReplacement,
@@ -41,6 +40,7 @@ import {
   buildCancelRequest,
   buildTransactionRequest,
   type Action,
+  type ResolvedGas,
 } from './lib/actions'
 import { wethAddressFor, wethSupported } from './lib/weth'
 import { resolveChain, type ChainDisplay } from './lib/chains'
@@ -85,7 +85,9 @@ const Flight = (): JSX.Element => {
   const [notice, setNotice] = useState<string | null>(null)
   const [kind, setKind] = useState<Action['kind']>('send')
   // Remember each sent request by tx id, for replacement (speed-up / cancel).
-  const sentRef = useRef<Map<string, { action: Action; nonce: number | null }>>(new Map())
+  const sentRef = useRef<
+    Map<string, { action: Action; nonce: number | null; sentGas: ResolvedGas }>
+  >(new Map())
 
   const connect = useCallback(async () => {
     const provider = getInjectedProvider()
@@ -144,6 +146,7 @@ const Flight = (): JSX.Element => {
         weth: wethAddressFor(chainId),
         gas: { maxFeePerGas: rec.maxFeePerGas, maxPriorityFeePerGas: rec.maxPriorityFeePerGas },
       })
+      const sentGas = { maxFeePerGas: rec.maxFeePerGas, maxPriorityFeePerGas: rec.maxPriorityFeePerGas }
       const wallet = injectedWalletAdapter(provider, account)
       const flow =
         action.kind === 'send' ? 'native-send' : action.kind === 'wrap' ? 'wrap' : 'unwrap'
@@ -159,7 +162,7 @@ const Flight = (): JSX.Element => {
             void stack.client
               .getTransaction({ hash })
               .then((tx) =>
-                sentRef.current.set(id, { action, nonce: Number(tx.nonce) }),
+                sentRef.current.set(id, { action, nonce: Number(tx.nonce), sentGas }),
               )
               .catch(() => undefined)
           },
@@ -169,17 +172,14 @@ const Flight = (): JSX.Element => {
               setNotice(null)
               return
             }
-            const decoded =
-              error instanceof ContractRevertedError
-                ? extractContractErrorName(error)
-                : extractContractErrorName(error)
+            const decoded = extractContractErrorName(error)
             setNotice(
               `${decoded ? `failed · ${decoded} — ` : ''}${getUserFriendlyErrorMessage(error)}`,
             )
           },
         },
       })
-      sentRef.current.set(id, { action, nonce: null })
+      sentRef.current.set(id, { action, nonce: null, sentGas })
 
       setBusy(true)
       setNotice(null)
@@ -208,14 +208,9 @@ const Flight = (): JSX.Element => {
         return
       }
       const walletClient = injectedWalletClient(provider, account, display.chain)
-      // What the tx is actually paying right now — captured at submit time on
-      // the TrackedTx; fall back to the standard tier if the wallet didn't echo
-      // its gas back.
-      const current = {
-        maxFeePerGas: tx.submittedGas?.maxFeePerGas ?? state.tiers.standard.maxFeePerGas,
-        maxPriorityFeePerGas:
-          tx.submittedGas?.maxPriorityFeePerGas ?? state.tiers.standard.maxPriorityFeePerGas,
-      }
+      // What the tx is actually paying right now — the resolved tier captured in
+      // sentRef at submit time (TrackedTx itself carries no request/gas).
+      const current = sent.sentGas
       const bumpTier =
         recommendBumpTier(state, { priorityTip: current.maxPriorityFeePerGas }) ?? 'instant'
       const target = state.tiers[bumpTier]
