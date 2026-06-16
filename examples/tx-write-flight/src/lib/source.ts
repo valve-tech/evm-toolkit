@@ -1,8 +1,11 @@
 /**
  * Recipe 2: ONE ChainSource per chain, fanned out to gas-oracle AND tx-tracker.
  * Never two poll loops against one RPC. The oracle and tracker are siblings
- * over one source — neither is layered on the other. Cached per chain id so a
- * reconnect to the same chain reuses the running poll loop.
+ * over one source — neither is layered on the other. The cache dedups
+ * concurrent callers for the SAME chain id while a stack is live (e.g. a
+ * chainChanged re-emit that lands on the same chain). It is not a
+ * reconnect-survival cache: `stop()` deletes the entry, so disconnect →
+ * reconnect rebuilds a fresh loop.
  */
 import { createPublicClient, custom, type Chain, type PublicClient } from 'viem'
 import { createChainSource, type ChainSource } from '@valve-tech/chain-source'

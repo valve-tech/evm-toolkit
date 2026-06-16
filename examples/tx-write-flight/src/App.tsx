@@ -18,6 +18,7 @@ import {
 import { localStorageAdapter } from '@valve-tech/tx-flight-react/storage'
 import {
   sendTransactionWithHooks,
+  awaitReceiptWithHooks,
   WalletRejectedError,
 } from '@valve-tech/wallet-adapter'
 import {
@@ -88,6 +89,24 @@ const Flight = (): JSX.Element => {
   const sentRef = useRef<
     Map<string, { action: Action; nonce: number | null; sentGas: ResolvedGas }>
   >(new Map())
+  // Active tx-tracker watches keyed by tx id, so we can tear each down on
+  // dismiss / unmount (the shared tracker outlives any single row).
+  const watchRef = useRef<Map<string, () => void>>(new Map())
+
+  // Build a fresh Connection for the wallet's CURRENT chain + account. Used by
+  // the initial connect AND by the chainChanged / accountsChanged listeners, so
+  // a mid-session network switch in the wallet rebuilds the stack rather than
+  // leaving `conn` stale (which would throw chain-mismatch on the next send).
+  const buildConnection = useCallback(
+    async (provider: Eip1193Provider, account: Hex): Promise<Connection> => {
+      const chainId = await getChainId(provider)
+      const display = await resolveChain(chainId, '')
+      const stack = getChainStack(provider, display.chain)
+      registerClient(chainId, stack.client)
+      return { provider, account, display, stack }
+    },
+    [],
+  )
 
   const connect = useCallback(async () => {
     const provider = getInjectedProvider()
@@ -96,12 +115,8 @@ const Flight = (): JSX.Element => {
       return
     }
     const account = await connectWallet(provider)
-    const chainId = await getChainId(provider)
-    const display = await resolveChain(chainId, '')
-    const stack = getChainStack(provider, display.chain)
-    registerClient(chainId, stack.client)
-    setConn({ provider, account, display, stack })
-  }, [])
+    setConn(await buildConnection(provider, account))
+  }, [buildConnection])
 
   const disconnect = useCallback(() => {
     conn?.stack.stop()
@@ -109,6 +124,56 @@ const Flight = (): JSX.Element => {
     setTiers(null)
     setBlockNumber(null)
   }, [conn])
+
+  // Priority 3: follow the wallet's chain + account. Registered while connected;
+  // a network switch re-resolves the chain and rebuilds `conn` (stopping the old
+  // stack), and an empty `accountsChanged` array means the wallet disconnected.
+  useEffect(() => {
+    if (!conn) return
+    const { provider } = conn
+    if (!provider.on || !provider.removeListener) return
+
+    const onChainChanged = (): void => {
+      void (async () => {
+        try {
+          const next = await buildConnection(provider, conn.account)
+          // Only stop the prior stack if the switch actually moved chains; a
+          // same-chain re-emit reuses the cached stack (don't tear it down).
+          if (next.stack !== conn.stack) conn.stack.stop()
+          setConn(next)
+          setTiers(null)
+          setBlockNumber(null)
+        } catch (error) {
+          setNotice(getUserFriendlyErrorMessage(error))
+        }
+      })()
+    }
+    const onAccountsChanged = (...args: unknown[]): void => {
+      const accounts = (args[0] as string[] | undefined) ?? []
+      if (accounts.length === 0) {
+        disconnect()
+        return
+      }
+      setConn((prev) => (prev ? { ...prev, account: accounts[0] as Hex } : prev))
+    }
+
+    provider.on('chainChanged', onChainChanged)
+    provider.on('accountsChanged', onAccountsChanged)
+    return () => {
+      provider.removeListener?.('chainChanged', onChainChanged)
+      provider.removeListener?.('accountsChanged', onAccountsChanged)
+    }
+  }, [conn, buildConnection, disconnect])
+
+  // Tear down any open tracker watches on unmount (the shared tracker in the
+  // per-chain stack outlives this component).
+  useEffect(() => {
+    const watches = watchRef.current
+    return () => {
+      for (const unwatch of watches.values()) unwatch()
+      watches.clear()
+    }
+  }, [])
 
   // Poll oracle tiers + live block number while connected.
   useEffect(() => {
@@ -165,6 +230,27 @@ const Flight = (): JSX.Element => {
                 sentRef.current.set(id, { action, nonce: Number(tx.nonce), sentGas }),
               )
               .catch(() => undefined)
+
+            // Priority 2: bridge the SHARED tx-tracker into the strip. The
+            // tracker emits neutral observations across blocks; we translate
+            // the two it owns that awaitReceiptWithHooks can't — `replaced-by`
+            // (speed-up / cancel surfaced a same-nonce tx) and the
+            // drop heuristic `unseen-for-N-blocks` — into the wrapped
+            // onReplaced / onDropped hooks so the row transitions.
+            watchRef.current.get(id)?.()
+            const unwatch = stack.tracker.subscribe(hash, (event) => {
+              if (event.kind === 'replaced-by') {
+                hooks.onReplaced?.({
+                  chainId,
+                  request,
+                  original: hash,
+                  replacement: event.replacementHash as Hex,
+                })
+              } else if (event.kind === 'unseen-for-N-blocks') {
+                hooks.onDropped?.({ chainId, request, hash })
+              }
+            })
+            watchRef.current.set(id, unwatch)
           },
           onFailed: ({ error }) => {
             if (isUserRejectionError(error) || error instanceof WalletRejectedError) {
@@ -184,9 +270,16 @@ const Flight = (): JSX.Element => {
       setBusy(true)
       setNotice(null)
       try {
-        await sendTransactionWithHooks({ wallet, request, hooks })
+        const hash = await sendTransactionWithHooks({ wallet, request, hooks })
+        // Broadcast done — clear busy and let the strip show progress.
+        setBusy(false)
+        // Priority 1: drive the row to a terminal state. sendTransactionWithHooks
+        // only fires up to onTransactionHash; awaitReceiptWithHooks fires the
+        // wrapped onConfirmed (success) / revert-onFailed (the viem-errors decode)
+        // so the row reaches confirmed / failed · <ErrorName> in-session.
+        await awaitReceiptWithHooks({ publicClient: stack.client, hash, request, hooks })
       } catch (error) {
-        // sendTransactionWithHooks re-throws after firing onFailed; classify quietly.
+        // send / receipt-await re-throw after firing onFailed; classify quietly.
         if (!(isUserRejectionError(error) || error instanceof WalletRejectedError)) {
           setNotice(getUserFriendlyErrorMessage(error))
         }
@@ -285,7 +378,11 @@ const Flight = (): JSX.Element => {
           explorerUrl={conn?.display.explorerUrl ?? null}
           onSpeedUp={(tx) => void replace(tx, 'speed-up')}
           onCancel={(tx) => void replace(tx, 'cancel')}
-          onDismiss={(tx) => flight.remove(tx.id)}
+          onDismiss={(tx) => {
+            watchRef.current.get(tx.id)?.()
+            watchRef.current.delete(tx.id)
+            flight.remove(tx.id)
+          }}
         />
       </main>
     </>

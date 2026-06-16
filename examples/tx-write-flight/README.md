@@ -24,10 +24,16 @@ createChainSource(publicClient)         # once per chain
   └── createTxTracker({ source })       # per-tx observations
 
 gas-oracle tier → buildTransactionRequest → useTxFlight().addWithWalletAdapter
-                → sendTransactionWithHooks (injected wallet)
-                → tx-tracker observations advance the strip row
+                → sendTransactionWithHooks (injected wallet) → hash, status pending
+                → awaitReceiptWithHooks → confirmed / revert-failed (terminal)
+                → tx-tracker observations → replaced / dropped advance the row
                 → every catch → viem-errors
 ```
+
+The wrapped hooks from `addWithWalletAdapter` are the single update path:
+`sendTransactionWithHooks` fires them through `pending`, `awaitReceiptWithHooks`
+fires `confirmed` / revert-`failed`, and the shared `tx-tracker` watch bridges
+`replaced-by` → `onReplaced` and `unseen-for-N-blocks` → `onDropped`.
 
 ## The three actions
 
