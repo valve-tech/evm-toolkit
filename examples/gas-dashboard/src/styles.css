@@ -1,0 +1,12 @@
+:root { color-scheme: dark; --bg:#07090c; --panel:#0f141b; --line:#1d2630; --ink:#d7e2ec; --muted:#7e8a98; --ok:#3fd1a3; --warn:#e0a44b; --off:#46525f; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
+header { display:flex; gap:1rem; align-items:center; flex-wrap:wrap; padding:1rem; border-bottom:1px solid var(--line); }
+.badge { padding:.15rem .5rem; border:1px solid var(--line); border-radius:.4rem; color:var(--ok); }
+.badge.off { color:var(--off); }
+.grid-2x2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; padding:1rem; }
+.tiers { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; padding:1rem; }
+.tier-card, .panel { background:var(--panel); border:1px solid var(--line); border-radius:.6rem; padding:1rem; }
+.banner.error { background:#2a1416; border:1px solid #6b2630; color:#f3b6bd; padding:.75rem 1rem; margin:1rem; border-radius:.5rem; }
+.muted { color:var(--muted); }
+input, select, button { background:var(--panel); color:var(--ink); border:1px solid var(--line); border-radius:.4rem; padding:.4rem .6rem; font:inherit; }
