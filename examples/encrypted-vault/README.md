@@ -147,4 +147,4 @@ Server security logic is unit-tested (nonce replay prevention, session expiry, a
 yarn vitest run --root examples/encrypted-vault
 ```
 
-> **Note:** `notes-store.json` is a demo-only JSON file. A real app uses a database. The in-memory nonce and session stores reset on server restart.
+> **Note:** `notes-store.json` is a demo-only JSON file. A real app uses a database. The in-memory nonce and session stores reset on server restart. The unlocked read-modify-write on the JSON file means two near-simultaneous note saves can drop one (last-writer-wins) — fine for a single-user demo, not for production.

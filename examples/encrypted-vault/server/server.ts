@@ -13,7 +13,7 @@
  */
 import { createServer } from 'node:http'
 import { readFile } from 'node:fs/promises'
-import { join, normalize } from 'node:path'
+import { join, normalize, sep } from 'node:path'
 import { verifyAuthSignature } from '@valve-tech/auth-lite'
 import type { Address, Hex } from 'viem'
 import { APP, PORT, STORE_PATH, CLIENT_DIST } from './config.js'
@@ -92,7 +92,7 @@ const server = createServer((req, res) => {
       // --- Static client (production) ---
       const rel = url.pathname === '/' ? '/index.html' : url.pathname
       const filePath = normalize(join(CLIENT_DIST, rel))
-      if (!filePath.startsWith(CLIENT_DIST)) {
+      if (filePath !== CLIENT_DIST && !filePath.startsWith(CLIENT_DIST + sep)) {
         res.writeHead(403)
         res.end('forbidden')
         return

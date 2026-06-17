@@ -122,7 +122,7 @@ export function App() {
         <IdentityBar address={session.address} onSignOut={signOut} />
         <Composer busy={busy} onSave={(text) => void addNote(text)} />
         {error && <p className="error">{error}</p>}
-        <NoteList notes={notes} onDecrypt={(i) => void decryptNote(i)} />
+        <NoteList notes={notes} onDecrypt={decryptNote} />
       </div>
     </main>
   )

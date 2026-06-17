@@ -9,7 +9,7 @@ export interface NoteRow {
 
 interface Props {
   notes: NoteRow[]
-  onDecrypt: (index: number) => void
+  onDecrypt: (index: number) => Promise<void>
 }
 
 export function NoteList({ notes, onDecrypt }: Props) {
@@ -25,7 +25,7 @@ export function NoteList({ notes, onDecrypt }: Props) {
               disabled={pending === i}
               onClick={() => {
                 setPending(i)
-                onDecrypt(i)
+                void onDecrypt(i).finally(() => setPending(null))
               }}
             >
               {pending === i ? 'Decrypting…' : '🔒 tap to decrypt'}
