@@ -12,5 +12,6 @@
     "declaration": false,
     "declarationMap": false
   },
-  "include": ["server"]
+  "include": ["server"],
+  "exclude": ["server/**/*.test.ts"]
 }
