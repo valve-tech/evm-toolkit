@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist-server",
+    "rootDir": ".",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2020"],
+    "types": ["node"],
+    "noEmit": false,
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false
+  },
+  "include": ["server"]
+}
