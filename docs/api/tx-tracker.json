@@ -23,8 +23,7 @@
             {
               "fileName": "wait-for-pending.ts",
               "line": 24,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-pending.ts#L24"
+              "character": 2
             }
           ],
           "signatures": [
@@ -38,8 +37,7 @@
                 {
                   "fileName": "wait-for-pending.ts",
                   "line": 24,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-pending.ts#L24"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -101,8 +99,7 @@
             {
               "fileName": "wait-for-pending.ts",
               "line": 22,
-              "character": 11,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-pending.ts#L22"
+              "character": 11
             }
           ],
           "type": {
@@ -122,8 +119,7 @@
             {
               "fileName": "wait-for-pending.ts",
               "line": 23,
-              "character": 11,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-pending.ts#L23"
+              "character": 11
             }
           ],
           "type": {
@@ -151,8 +147,7 @@
         {
           "fileName": "wait-for-pending.ts",
           "line": 21,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-pending.ts#L21"
+          "character": 13
         }
       ],
       "extendedTypes": [
@@ -218,8 +213,7 @@
             {
               "fileName": "events.ts",
               "line": 49,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L49"
+              "character": 2
             }
           ],
           "type": {
@@ -237,8 +231,7 @@
             {
               "fileName": "events.ts",
               "line": 50,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L50"
+              "character": 2
             }
           ],
           "type": {
@@ -260,8 +253,7 @@
         {
           "fileName": "events.ts",
           "line": 48,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L48"
+          "character": 17
         }
       ]
     },
@@ -306,8 +298,7 @@
             {
               "fileName": "reorg.ts",
               "line": 50,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L50"
+              "character": 2
             }
           ],
           "type": {
@@ -333,8 +324,7 @@
             {
               "fileName": "reorg.ts",
               "line": 58,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L58"
+              "character": 2
             }
           ],
           "type": {
@@ -360,8 +350,7 @@
             {
               "fileName": "reorg.ts",
               "line": 52,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L52"
+              "character": 2
             }
           ],
           "type": {
@@ -387,8 +376,7 @@
             {
               "fileName": "reorg.ts",
               "line": 64,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L64"
+              "character": 2
             }
           ],
           "type": {
@@ -425,8 +413,7 @@
         {
           "fileName": "reorg.ts",
           "line": 49,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L49"
+          "character": 17
         }
       ]
     },
@@ -463,8 +450,7 @@
             {
               "fileName": "reorg.ts",
               "line": 36,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L36"
+              "character": 2
             }
           ],
           "type": {
@@ -482,8 +468,7 @@
             {
               "fileName": "reorg.ts",
               "line": 35,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L35"
+              "character": 2
             }
           ],
           "type": {
@@ -501,8 +486,7 @@
             {
               "fileName": "reorg.ts",
               "line": 37,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L37"
+              "character": 2
             }
           ],
           "type": {
@@ -537,8 +521,7 @@
             {
               "fileName": "reorg.ts",
               "line": 39,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L39"
+              "character": 2
             }
           ],
           "type": {
@@ -575,8 +558,7 @@
         {
           "fileName": "reorg.ts",
           "line": 34,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L34"
+          "character": 17
         }
       ]
     },
@@ -629,8 +611,7 @@
             {
               "fileName": "selectors.ts",
               "line": 37,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/selectors.ts#L37"
+              "character": 2
             }
           ],
           "type": {
@@ -648,8 +629,7 @@
             {
               "fileName": "selectors.ts",
               "line": 38,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/selectors.ts#L38"
+              "character": 2
             }
           ],
           "type": {
@@ -680,8 +660,7 @@
             {
               "fileName": "selectors.ts",
               "line": 39,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/selectors.ts#L39"
+              "character": 2
             }
           ],
           "type": {
@@ -701,8 +680,7 @@
             {
               "fileName": "selectors.ts",
               "line": 40,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/selectors.ts#L40"
+              "character": 2
             }
           ],
           "type": {
@@ -732,8 +710,7 @@
         {
           "fileName": "selectors.ts",
           "line": 36,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/selectors.ts#L36"
+          "character": 17
         }
       ]
     },
@@ -796,8 +773,7 @@
             {
               "fileName": "store.ts",
               "line": 90,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L90"
+              "character": 2
             }
           ],
           "type": {
@@ -815,8 +791,7 @@
             {
               "fileName": "store.ts",
               "line": 88,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L88"
+              "character": 2
             }
           ],
           "type": {
@@ -857,8 +832,7 @@
             {
               "fileName": "store.ts",
               "line": 92,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L92"
+              "character": 2
             }
           ],
           "type": {
@@ -919,8 +893,7 @@
         {
           "fileName": "store.ts",
           "line": 87,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L87"
+          "character": 17
         }
       ]
     },
@@ -983,8 +956,7 @@
             {
               "fileName": "tracker.ts",
               "line": 260,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L260"
+              "character": 2
             }
           ],
           "type": {
@@ -1013,8 +985,7 @@
             {
               "fileName": "tracker.ts",
               "line": 191,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L191"
+              "character": 2
             }
           ],
           "type": {
@@ -1056,8 +1027,7 @@
             {
               "fileName": "tracker.ts",
               "line": 184,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L184"
+              "character": 2
             }
           ],
           "type": {
@@ -1099,8 +1069,7 @@
             {
               "fileName": "tracker.ts",
               "line": 194,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L194"
+              "character": 2
             }
           ],
           "type": {
@@ -1156,8 +1125,7 @@
             {
               "fileName": "tracker.ts",
               "line": 219,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L219"
+              "character": 2
             }
           ],
           "type": {
@@ -1219,8 +1187,7 @@
             {
               "fileName": "tracker.ts",
               "line": 229,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L229"
+              "character": 2
             }
           ],
           "type": {
@@ -1304,8 +1271,7 @@
             {
               "fileName": "tracker.ts",
               "line": 248,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L248"
+              "character": 2
             }
           ],
           "type": {
@@ -1347,8 +1313,7 @@
             {
               "fileName": "tracker.ts",
               "line": 201,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L201"
+              "character": 2
             }
           ],
           "type": {
@@ -1398,8 +1363,7 @@
             {
               "fileName": "tracker.ts",
               "line": 211,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L211"
+              "character": 2
             }
           ],
           "type": {
@@ -1433,8 +1397,7 @@
         {
           "fileName": "tracker.ts",
           "line": 252,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L252"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -1495,8 +1458,7 @@
             {
               "fileName": "selectors.ts",
               "line": 52,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/selectors.ts#L52"
+              "character": 2
             }
           ],
           "type": {
@@ -1552,8 +1514,7 @@
             {
               "fileName": "selectors.ts",
               "line": 51,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/selectors.ts#L51"
+              "character": 2
             }
           ],
           "type": {
@@ -1577,8 +1538,7 @@
         {
           "fileName": "selectors.ts",
           "line": 50,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/selectors.ts#L50"
+          "character": 17
         }
       ]
     },
@@ -1607,8 +1567,7 @@
             {
               "fileName": "tracker.ts",
               "line": 297,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L297"
+              "character": 2
             }
           ],
           "type": {
@@ -1700,8 +1659,7 @@
             {
               "fileName": "tracker.ts",
               "line": 348,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L348"
+              "character": 2
             }
           ],
           "type": {
@@ -1730,8 +1688,7 @@
             {
               "fileName": "tracker.ts",
               "line": 327,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L327"
+              "character": 2
             }
           ],
           "type": {
@@ -1792,8 +1749,7 @@
             {
               "fileName": "tracker.ts",
               "line": 326,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L326"
+              "character": 2
             }
           ],
           "type": {
@@ -1819,8 +1775,7 @@
             {
               "fileName": "tracker.ts",
               "line": 299,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L299"
+              "character": 2
             }
           ],
           "type": {
@@ -1850,8 +1805,7 @@
             {
               "fileName": "tracker.ts",
               "line": 304,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L304"
+              "character": 2
             }
           ],
           "type": {
@@ -1871,8 +1825,7 @@
             {
               "fileName": "tracker.ts",
               "line": 316,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L316"
+              "character": 2
             }
           ],
           "type": {
@@ -1935,8 +1888,7 @@
             {
               "fileName": "tracker.ts",
               "line": 300,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L300"
+              "character": 2
             }
           ],
           "type": {
@@ -1996,8 +1948,7 @@
             {
               "fileName": "tracker.ts",
               "line": 315,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L315"
+              "character": 2
             }
           ],
           "type": {
@@ -2015,8 +1966,7 @@
             {
               "fileName": "tracker.ts",
               "line": 296,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L296"
+              "character": 2
             }
           ],
           "type": {
@@ -2140,8 +2090,7 @@
             {
               "fileName": "tracker.ts",
               "line": 367,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L367"
+              "character": 2
             }
           ],
           "type": {
@@ -2161,8 +2110,7 @@
             {
               "fileName": "tracker.ts",
               "line": 298,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L298"
+              "character": 2
             }
           ],
           "type": {
@@ -2200,8 +2148,7 @@
             {
               "fileName": "tracker.ts",
               "line": 302,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L302"
+              "character": 2
             }
           ],
           "type": {
@@ -2234,8 +2181,7 @@
         {
           "fileName": "tracker.ts",
           "line": 295,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L295"
+          "character": 17
         }
       ]
     },
@@ -2264,8 +2210,7 @@
             {
               "fileName": "events.ts",
               "line": 61,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L61"
+              "character": 2
             }
           ],
           "type": {
@@ -2285,8 +2230,7 @@
             {
               "fileName": "events.ts",
               "line": 59,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L59"
+              "character": 2
             }
           ],
           "type": {
@@ -2304,8 +2248,7 @@
             {
               "fileName": "events.ts",
               "line": 58,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L58"
+              "character": 2
             }
           ],
           "type": {
@@ -2323,8 +2266,7 @@
             {
               "fileName": "events.ts",
               "line": 60,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L60"
+              "character": 2
             }
           ],
           "type": {
@@ -2354,8 +2296,7 @@
         {
           "fileName": "events.ts",
           "line": 57,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L57"
+          "character": 17
         }
       ],
       "extendedBy": [
@@ -2467,8 +2408,7 @@
             {
               "fileName": "tracker.ts",
               "line": 376,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L376"
+              "character": 2
             }
           ],
           "type": {
@@ -2496,8 +2436,7 @@
             {
               "fileName": "tracker.ts",
               "line": 378,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L378"
+              "character": 2
             }
           ],
           "type": {
@@ -2521,8 +2460,7 @@
         {
           "fileName": "tracker.ts",
           "line": 374,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L374"
+          "character": 17
         }
       ]
     },
@@ -2551,8 +2489,7 @@
             {
               "fileName": "store.ts",
               "line": 78,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L78"
+              "character": 2
             }
           ],
           "type": {
@@ -2570,8 +2507,7 @@
             {
               "fileName": "store.ts",
               "line": 77,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L77"
+              "character": 2
             }
           ],
           "type": {
@@ -2593,8 +2529,7 @@
         {
           "fileName": "store.ts",
           "line": 76,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L76"
+          "character": 17
         }
       ]
     },
@@ -2641,8 +2576,7 @@
             {
               "fileName": "store.ts",
               "line": 167,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L167"
+              "character": 2
             }
           ],
           "type": {
@@ -2662,8 +2596,7 @@
             {
               "fileName": "store.ts",
               "line": 166,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L166"
+              "character": 2
             }
           ],
           "type": {
@@ -2685,8 +2618,7 @@
         {
           "fileName": "store.ts",
           "line": 165,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L165"
+          "character": 17
         }
       ]
     },
@@ -2741,8 +2673,7 @@
             {
               "fileName": "local-storage-store.ts",
               "line": 48,
-              "character": 11,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L48"
+              "character": 11
             }
           ],
           "type": {
@@ -2760,8 +2691,7 @@
             {
               "fileName": "local-storage-store.ts",
               "line": 45,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L45"
+              "character": 2
             }
           ],
           "signatures": [
@@ -2775,8 +2705,7 @@
                 {
                   "fileName": "local-storage-store.ts",
                   "line": 45,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L45"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -2818,8 +2747,7 @@
             {
               "fileName": "local-storage-store.ts",
               "line": 49,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L49"
+              "character": 2
             }
           ],
           "signatures": [
@@ -2833,8 +2761,7 @@
                 {
                   "fileName": "local-storage-store.ts",
                   "line": 49,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L49"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -2876,8 +2803,7 @@
             {
               "fileName": "local-storage-store.ts",
               "line": 47,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L47"
+              "character": 2
             }
           ],
           "signatures": [
@@ -2891,8 +2817,7 @@
                 {
                   "fileName": "local-storage-store.ts",
                   "line": 47,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L47"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -2925,8 +2850,7 @@
             {
               "fileName": "local-storage-store.ts",
               "line": 46,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L46"
+              "character": 2
             }
           ],
           "signatures": [
@@ -2940,8 +2864,7 @@
                 {
                   "fileName": "local-storage-store.ts",
                   "line": 46,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L46"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -2997,8 +2920,7 @@
         {
           "fileName": "local-storage-store.ts",
           "line": 44,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L44"
+          "character": 17
         }
       ]
     },
@@ -3053,8 +2975,7 @@
             {
               "fileName": "local-storage-store.ts",
               "line": 83,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L83"
+              "character": 2
             }
           ],
           "type": {
@@ -3101,8 +3022,7 @@
             {
               "fileName": "local-storage-store.ts",
               "line": 74,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L74"
+              "character": 2
             }
           ],
           "type": {
@@ -3144,8 +3064,7 @@
             {
               "fileName": "local-storage-store.ts",
               "line": 59,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L59"
+              "character": 2
             }
           ],
           "type": {
@@ -3189,8 +3108,7 @@
             {
               "fileName": "local-storage-store.ts",
               "line": 67,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L67"
+              "character": 2
             }
           ],
           "type": {
@@ -3216,8 +3134,7 @@
         {
           "fileName": "local-storage-store.ts",
           "line": 52,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L52"
+          "character": 17
         }
       ]
     },
@@ -3270,8 +3187,7 @@
             {
               "fileName": "store.ts",
               "line": 69,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L69"
+              "character": 2
             }
           ],
           "type": {
@@ -3297,8 +3213,7 @@
             {
               "fileName": "store.ts",
               "line": 67,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L67"
+              "character": 2
             }
           ],
           "type": {
@@ -3316,8 +3231,7 @@
             {
               "fileName": "store.ts",
               "line": 70,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L70"
+              "character": 2
             }
           ],
           "type": {
@@ -3353,8 +3267,7 @@
         {
           "fileName": "store.ts",
           "line": 65,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L65"
+          "character": 17
         }
       ]
     },
@@ -3375,8 +3288,7 @@
             {
               "fileName": "replace-transaction.ts",
               "line": 26,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/replace-transaction.ts#L26"
+              "character": 2
             }
           ],
           "type": {
@@ -3394,8 +3306,7 @@
             {
               "fileName": "replace-transaction.ts",
               "line": 27,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/replace-transaction.ts#L27"
+              "character": 2
             }
           ],
           "type": {
@@ -3417,8 +3328,7 @@
         {
           "fileName": "replace-transaction.ts",
           "line": 25,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/replace-transaction.ts#L25"
+          "character": 17
         }
       ]
     },
@@ -3439,8 +3349,7 @@
             {
               "fileName": "replace-transaction.ts",
               "line": 33,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/replace-transaction.ts#L33"
+              "character": 2
             }
           ],
           "type": {
@@ -3460,8 +3369,7 @@
             {
               "fileName": "replace-transaction.ts",
               "line": 31,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/replace-transaction.ts#L31"
+              "character": 2
             }
           ],
           "type": {
@@ -3481,8 +3389,7 @@
             {
               "fileName": "replace-transaction.ts",
               "line": 32,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/replace-transaction.ts#L32"
+              "character": 2
             }
           ],
           "type": {
@@ -3511,8 +3418,7 @@
         {
           "fileName": "replace-transaction.ts",
           "line": 30,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/replace-transaction.ts#L30"
+          "character": 17
         }
       ]
     },
@@ -3535,8 +3441,7 @@
             {
               "fileName": "replace-transaction.ts",
               "line": 22,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/replace-transaction.ts#L22"
+              "character": 2
             }
           ],
           "type": {
@@ -3556,8 +3461,7 @@
             {
               "fileName": "replace-transaction.ts",
               "line": 20,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/replace-transaction.ts#L20"
+              "character": 2
             }
           ],
           "type": {
@@ -3584,8 +3488,7 @@
             {
               "fileName": "replace-transaction.ts",
               "line": 19,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/replace-transaction.ts#L19"
+              "character": 2
             }
           ],
           "type": {
@@ -3603,8 +3506,7 @@
             {
               "fileName": "replace-transaction.ts",
               "line": 18,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/replace-transaction.ts#L18"
+              "character": 2
             }
           ],
           "type": {
@@ -3633,8 +3535,7 @@
             {
               "fileName": "replace-transaction.ts",
               "line": 21,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/replace-transaction.ts#L21"
+              "character": 2
             }
           ],
           "type": {
@@ -3659,8 +3560,7 @@
         {
           "fileName": "replace-transaction.ts",
           "line": 17,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/replace-transaction.ts#L17"
+          "character": 17
         }
       ]
     },
@@ -3713,8 +3613,7 @@
             {
               "fileName": "store.ts",
               "line": 39,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L39"
+              "character": 2
             }
           ],
           "type": {
@@ -3740,8 +3639,7 @@
             {
               "fileName": "store.ts",
               "line": 44,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L44"
+              "character": 2
             }
           ],
           "type": {
@@ -3759,8 +3657,7 @@
             {
               "fileName": "store.ts",
               "line": 40,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L40"
+              "character": 2
             }
           ],
           "type": {
@@ -3786,8 +3683,7 @@
             {
               "fileName": "store.ts",
               "line": 46,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L46"
+              "character": 2
             }
           ],
           "type": {
@@ -3845,8 +3741,7 @@
             {
               "fileName": "store.ts",
               "line": 53,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L53"
+              "character": 2
             }
           ],
           "type": {
@@ -3872,8 +3767,7 @@
             {
               "fileName": "store.ts",
               "line": 42,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L42"
+              "character": 2
             }
           ],
           "type": {
@@ -3901,8 +3795,7 @@
             {
               "fileName": "store.ts",
               "line": 55,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L55"
+              "character": 2
             }
           ],
           "type": {
@@ -3934,8 +3827,7 @@
         {
           "fileName": "store.ts",
           "line": 38,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L38"
+          "character": 17
         }
       ]
     },
@@ -3974,8 +3866,7 @@
             {
               "fileName": "tracker.ts",
               "line": 191,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L191"
+              "character": 2
             }
           ],
           "type": {
@@ -4011,8 +3902,7 @@
             {
               "fileName": "tracker.ts",
               "line": 184,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L184"
+              "character": 2
             }
           ],
           "type": {
@@ -4048,8 +3938,7 @@
             {
               "fileName": "tracker.ts",
               "line": 194,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L194"
+              "character": 2
             }
           ],
           "type": {
@@ -4099,8 +3988,7 @@
             {
               "fileName": "tracker.ts",
               "line": 219,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L219"
+              "character": 2
             }
           ],
           "type": {
@@ -4156,8 +4044,7 @@
             {
               "fileName": "tracker.ts",
               "line": 229,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L229"
+              "character": 2
             }
           ],
           "type": {
@@ -4235,8 +4122,7 @@
             {
               "fileName": "tracker.ts",
               "line": 248,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L248"
+              "character": 2
             }
           ],
           "type": {
@@ -4272,8 +4158,7 @@
             {
               "fileName": "tracker.ts",
               "line": 201,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L201"
+              "character": 2
             }
           ],
           "type": {
@@ -4317,8 +4202,7 @@
             {
               "fileName": "tracker.ts",
               "line": 211,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L211"
+              "character": 2
             }
           ],
           "type": {
@@ -4346,8 +4230,7 @@
         {
           "fileName": "tracker.ts",
           "line": 178,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L178"
+          "character": 17
         }
       ],
       "extendedBy": [
@@ -4409,8 +4292,7 @@
             {
               "fileName": "events.ts",
               "line": 61,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L61"
+              "character": 2
             }
           ],
           "type": {
@@ -4437,8 +4319,7 @@
             {
               "fileName": "events.ts",
               "line": 59,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L59"
+              "character": 2
             }
           ],
           "type": {
@@ -4461,8 +4342,7 @@
             {
               "fileName": "events.ts",
               "line": 185,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L185"
+              "character": 2
             }
           ],
           "type": {
@@ -4482,8 +4362,7 @@
             {
               "fileName": "events.ts",
               "line": 58,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L58"
+              "character": 2
             }
           ],
           "type": {
@@ -4506,8 +4385,7 @@
             {
               "fileName": "events.ts",
               "line": 184,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L184"
+              "character": 2
             }
           ],
           "type": {
@@ -4527,8 +4405,7 @@
             {
               "fileName": "events.ts",
               "line": 60,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L60"
+              "character": 2
             }
           ],
           "type": {
@@ -4565,8 +4442,7 @@
         {
           "fileName": "events.ts",
           "line": 183,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L183"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -4629,8 +4505,7 @@
             {
               "fileName": "events.ts",
               "line": 61,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L61"
+              "character": 2
             }
           ],
           "type": {
@@ -4657,8 +4532,7 @@
             {
               "fileName": "events.ts",
               "line": 59,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L59"
+              "character": 2
             }
           ],
           "type": {
@@ -4683,8 +4557,7 @@
             {
               "fileName": "events.ts",
               "line": 58,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L58"
+              "character": 2
             }
           ],
           "type": {
@@ -4707,8 +4580,7 @@
             {
               "fileName": "events.ts",
               "line": 100,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L100"
+              "character": 2
             }
           ],
           "type": {
@@ -4728,8 +4600,7 @@
             {
               "fileName": "events.ts",
               "line": 60,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L60"
+              "character": 2
             }
           ],
           "type": {
@@ -4765,8 +4636,7 @@
         {
           "fileName": "events.ts",
           "line": 99,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L99"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -4829,8 +4699,7 @@
             {
               "fileName": "events.ts",
               "line": 61,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L61"
+              "character": 2
             }
           ],
           "type": {
@@ -4857,8 +4726,7 @@
             {
               "fileName": "events.ts",
               "line": 59,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L59"
+              "character": 2
             }
           ],
           "type": {
@@ -4883,8 +4751,7 @@
             {
               "fileName": "events.ts",
               "line": 58,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L58"
+              "character": 2
             }
           ],
           "type": {
@@ -4907,8 +4774,7 @@
             {
               "fileName": "events.ts",
               "line": 153,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L153"
+              "character": 2
             }
           ],
           "type": {
@@ -4926,8 +4792,7 @@
             {
               "fileName": "events.ts",
               "line": 155,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L155"
+              "character": 2
             }
           ],
           "type": {
@@ -4954,8 +4819,7 @@
             {
               "fileName": "events.ts",
               "line": 154,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L154"
+              "character": 2
             }
           ],
           "type": {
@@ -4975,8 +4839,7 @@
             {
               "fileName": "events.ts",
               "line": 60,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L60"
+              "character": 2
             }
           ],
           "type": {
@@ -5014,8 +4877,7 @@
         {
           "fileName": "events.ts",
           "line": 152,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L152"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -5110,8 +4972,7 @@
             {
               "fileName": "events.ts",
               "line": 61,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L61"
+              "character": 2
             }
           ],
           "type": {
@@ -5136,8 +4997,7 @@
             {
               "fileName": "events.ts",
               "line": 115,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L115"
+              "character": 2
             }
           ],
           "type": {
@@ -5155,8 +5015,7 @@
             {
               "fileName": "events.ts",
               "line": 116,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L116"
+              "character": 2
             }
           ],
           "type": {
@@ -5176,8 +5035,7 @@
             {
               "fileName": "events.ts",
               "line": 59,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L59"
+              "character": 2
             }
           ],
           "type": {
@@ -5200,8 +5058,7 @@
             {
               "fileName": "events.ts",
               "line": 118,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L118"
+              "character": 2
             }
           ],
           "type": {
@@ -5221,8 +5078,7 @@
             {
               "fileName": "events.ts",
               "line": 58,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L58"
+              "character": 2
             }
           ],
           "type": {
@@ -5245,8 +5101,7 @@
             {
               "fileName": "events.ts",
               "line": 114,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L114"
+              "character": 2
             }
           ],
           "type": {
@@ -5282,8 +5137,7 @@
             {
               "fileName": "events.ts",
               "line": 124,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L124"
+              "character": 2
             }
           ],
           "type": {
@@ -5309,8 +5163,7 @@
             {
               "fileName": "events.ts",
               "line": 60,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L60"
+              "character": 2
             }
           ],
           "type": {
@@ -5339,8 +5192,7 @@
             {
               "fileName": "events.ts",
               "line": 117,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L117"
+              "character": 2
             }
           ],
           "type": {
@@ -5370,8 +5222,7 @@
         {
           "fileName": "events.ts",
           "line": 113,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L113"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -5434,8 +5285,7 @@
             {
               "fileName": "events.ts",
               "line": 61,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L61"
+              "character": 2
             }
           ],
           "type": {
@@ -5460,8 +5310,7 @@
             {
               "fileName": "events.ts",
               "line": 89,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L89"
+              "character": 2
             }
           ],
           "type": {
@@ -5490,8 +5339,7 @@
             {
               "fileName": "events.ts",
               "line": 59,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L59"
+              "character": 2
             }
           ],
           "type": {
@@ -5516,8 +5364,7 @@
             {
               "fileName": "events.ts",
               "line": 58,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L58"
+              "character": 2
             }
           ],
           "type": {
@@ -5540,8 +5387,7 @@
             {
               "fileName": "events.ts",
               "line": 88,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L88"
+              "character": 2
             }
           ],
           "type": {
@@ -5561,8 +5407,7 @@
             {
               "fileName": "events.ts",
               "line": 60,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L60"
+              "character": 2
             }
           ],
           "type": {
@@ -5591,8 +5436,7 @@
             {
               "fileName": "events.ts",
               "line": 90,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L90"
+              "character": 2
             }
           ],
           "type": {
@@ -5625,8 +5469,7 @@
         {
           "fileName": "events.ts",
           "line": 87,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L87"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -5681,8 +5524,7 @@
             {
               "fileName": "events.ts",
               "line": 61,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L61"
+              "character": 2
             }
           ],
           "type": {
@@ -5707,8 +5549,7 @@
             {
               "fileName": "events.ts",
               "line": 197,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L197"
+              "character": 2
             }
           ],
           "type": {
@@ -5738,8 +5579,7 @@
             {
               "fileName": "events.ts",
               "line": 59,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L59"
+              "character": 2
             }
           ],
           "type": {
@@ -5762,8 +5602,7 @@
             {
               "fileName": "events.ts",
               "line": 198,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L198"
+              "character": 2
             }
           ],
           "type": {
@@ -5789,8 +5628,7 @@
             {
               "fileName": "events.ts",
               "line": 58,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L58"
+              "character": 2
             }
           ],
           "type": {
@@ -5813,8 +5651,7 @@
             {
               "fileName": "events.ts",
               "line": 196,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L196"
+              "character": 2
             }
           ],
           "type": {
@@ -5834,8 +5671,7 @@
             {
               "fileName": "events.ts",
               "line": 60,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L60"
+              "character": 2
             }
           ],
           "type": {
@@ -5873,8 +5709,7 @@
         {
           "fileName": "events.ts",
           "line": 195,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L195"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -5921,8 +5756,7 @@
             {
               "fileName": "events.ts",
               "line": 61,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L61"
+              "character": 2
             }
           ],
           "type": {
@@ -5947,8 +5781,7 @@
             {
               "fileName": "events.ts",
               "line": 207,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L207"
+              "character": 2
             }
           ],
           "type": {
@@ -5978,8 +5811,7 @@
             {
               "fileName": "events.ts",
               "line": 59,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L59"
+              "character": 2
             }
           ],
           "type": {
@@ -6004,8 +5836,7 @@
             {
               "fileName": "events.ts",
               "line": 58,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L58"
+              "character": 2
             }
           ],
           "type": {
@@ -6028,8 +5859,7 @@
             {
               "fileName": "events.ts",
               "line": 206,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L206"
+              "character": 2
             }
           ],
           "type": {
@@ -6049,8 +5879,7 @@
             {
               "fileName": "events.ts",
               "line": 60,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L60"
+              "character": 2
             }
           ],
           "type": {
@@ -6087,8 +5916,7 @@
         {
           "fileName": "events.ts",
           "line": 205,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L205"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -6135,8 +5963,7 @@
             {
               "fileName": "events.ts",
               "line": 61,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L61"
+              "character": 2
             }
           ],
           "type": {
@@ -6161,8 +5988,7 @@
             {
               "fileName": "events.ts",
               "line": 79,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L79"
+              "character": 2
             }
           ],
           "type": {
@@ -6188,8 +6014,7 @@
             {
               "fileName": "events.ts",
               "line": 59,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L59"
+              "character": 2
             }
           ],
           "type": {
@@ -6214,8 +6039,7 @@
             {
               "fileName": "events.ts",
               "line": 58,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L58"
+              "character": 2
             }
           ],
           "type": {
@@ -6238,8 +6062,7 @@
             {
               "fileName": "events.ts",
               "line": 78,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L78"
+              "character": 2
             }
           ],
           "type": {
@@ -6259,8 +6082,7 @@
             {
               "fileName": "events.ts",
               "line": 60,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L60"
+              "character": 2
             }
           ],
           "type": {
@@ -6297,8 +6119,7 @@
         {
           "fileName": "events.ts",
           "line": 77,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L77"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -6385,8 +6206,7 @@
             {
               "fileName": "events.ts",
               "line": 61,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L61"
+              "character": 2
             }
           ],
           "type": {
@@ -6413,8 +6233,7 @@
             {
               "fileName": "events.ts",
               "line": 59,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L59"
+              "character": 2
             }
           ],
           "type": {
@@ -6439,8 +6258,7 @@
             {
               "fileName": "events.ts",
               "line": 58,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L58"
+              "character": 2
             }
           ],
           "type": {
@@ -6463,8 +6281,7 @@
             {
               "fileName": "events.ts",
               "line": 222,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L222"
+              "character": 2
             }
           ],
           "type": {
@@ -6482,8 +6299,7 @@
             {
               "fileName": "events.ts",
               "line": 223,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L223"
+              "character": 2
             }
           ],
           "type": {
@@ -6516,8 +6332,7 @@
             {
               "fileName": "events.ts",
               "line": 60,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L60"
+              "character": 2
             }
           ],
           "type": {
@@ -6554,8 +6369,7 @@
         {
           "fileName": "events.ts",
           "line": 221,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L221"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -6618,8 +6432,7 @@
             {
               "fileName": "events.ts",
               "line": 61,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L61"
+              "character": 2
             }
           ],
           "type": {
@@ -6644,8 +6457,7 @@
             {
               "fileName": "events.ts",
               "line": 167,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L167"
+              "character": 2
             }
           ],
           "type": {
@@ -6665,8 +6477,7 @@
             {
               "fileName": "events.ts",
               "line": 59,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L59"
+              "character": 2
             }
           ],
           "type": {
@@ -6691,8 +6502,7 @@
             {
               "fileName": "events.ts",
               "line": 58,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L58"
+              "character": 2
             }
           ],
           "type": {
@@ -6715,8 +6525,7 @@
             {
               "fileName": "events.ts",
               "line": 166,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L166"
+              "character": 2
             }
           ],
           "type": {
@@ -6736,8 +6545,7 @@
             {
               "fileName": "events.ts",
               "line": 60,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L60"
+              "character": 2
             }
           ],
           "type": {
@@ -6774,8 +6582,7 @@
         {
           "fileName": "events.ts",
           "line": 165,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L165"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -6854,8 +6661,7 @@
             {
               "fileName": "events.ts",
               "line": 61,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L61"
+              "character": 2
             }
           ],
           "type": {
@@ -6880,8 +6686,7 @@
             {
               "fileName": "events.ts",
               "line": 142,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L142"
+              "character": 2
             }
           ],
           "type": {
@@ -6899,8 +6704,7 @@
             {
               "fileName": "events.ts",
               "line": 141,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L141"
+              "character": 2
             }
           ],
           "type": {
@@ -6920,8 +6724,7 @@
             {
               "fileName": "events.ts",
               "line": 59,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L59"
+              "character": 2
             }
           ],
           "type": {
@@ -6946,8 +6749,7 @@
             {
               "fileName": "events.ts",
               "line": 58,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L58"
+              "character": 2
             }
           ],
           "type": {
@@ -6970,8 +6772,7 @@
             {
               "fileName": "events.ts",
               "line": 139,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L139"
+              "character": 2
             }
           ],
           "type": {
@@ -6989,8 +6790,7 @@
             {
               "fileName": "events.ts",
               "line": 140,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L140"
+              "character": 2
             }
           ],
           "type": {
@@ -7010,8 +6810,7 @@
             {
               "fileName": "events.ts",
               "line": 60,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L60"
+              "character": 2
             }
           ],
           "type": {
@@ -7050,8 +6849,7 @@
         {
           "fileName": "events.ts",
           "line": 138,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L138"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -7090,8 +6888,7 @@
             {
               "fileName": "group-events.ts",
               "line": 21,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L21"
+              "character": 2
             }
           ],
           "type": {
@@ -7118,8 +6915,7 @@
             {
               "fileName": "group-events.ts",
               "line": 20,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L20"
+              "character": 2
             }
           ],
           "type": {
@@ -7142,8 +6938,7 @@
             {
               "fileName": "group-events.ts",
               "line": 43,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L43"
+              "character": 2
             }
           ],
           "type": {
@@ -7161,8 +6956,7 @@
             {
               "fileName": "group-events.ts",
               "line": 44,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L44"
+              "character": 2
             }
           ],
           "type": {
@@ -7186,8 +6980,7 @@
         {
           "fileName": "group-events.ts",
           "line": 42,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L42"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -7224,8 +7017,7 @@
             {
               "fileName": "group-events.ts",
               "line": 21,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L21"
+              "character": 2
             }
           ],
           "type": {
@@ -7245,8 +7037,7 @@
             {
               "fileName": "group-events.ts",
               "line": 20,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L20"
+              "character": 2
             }
           ],
           "type": {
@@ -7268,8 +7059,7 @@
         {
           "fileName": "group-events.ts",
           "line": 19,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L19"
+          "character": 17
         }
       ],
       "extendedBy": [
@@ -7330,8 +7120,7 @@
             {
               "fileName": "group-events.ts",
               "line": 21,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L21"
+              "character": 2
             }
           ],
           "type": {
@@ -7356,8 +7145,7 @@
             {
               "fileName": "group-events.ts",
               "line": 54,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L54"
+              "character": 2
             }
           ],
           "type": {
@@ -7377,8 +7165,7 @@
             {
               "fileName": "group-events.ts",
               "line": 20,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L20"
+              "character": 2
             }
           ],
           "type": {
@@ -7401,8 +7188,7 @@
             {
               "fileName": "group-events.ts",
               "line": 53,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L53"
+              "character": 2
             }
           ],
           "type": {
@@ -7420,8 +7206,7 @@
             {
               "fileName": "group-events.ts",
               "line": 55,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L55"
+              "character": 2
             }
           ],
           "type": {
@@ -7459,8 +7244,7 @@
         {
           "fileName": "group-events.ts",
           "line": 52,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L52"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -7523,8 +7307,7 @@
             {
               "fileName": "group-events.ts",
               "line": 21,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L21"
+              "character": 2
             }
           ],
           "type": {
@@ -7549,8 +7332,7 @@
             {
               "fileName": "group-events.ts",
               "line": 32,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L32"
+              "character": 2
             }
           ],
           "type": {
@@ -7570,8 +7352,7 @@
             {
               "fileName": "group-events.ts",
               "line": 20,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L20"
+              "character": 2
             }
           ],
           "type": {
@@ -7594,8 +7375,7 @@
             {
               "fileName": "group-events.ts",
               "line": 31,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L31"
+              "character": 2
             }
           ],
           "type": {
@@ -7613,8 +7393,7 @@
             {
               "fileName": "group-events.ts",
               "line": 34,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L34"
+              "character": 2
             }
           ],
           "type": {
@@ -7632,8 +7411,7 @@
             {
               "fileName": "group-events.ts",
               "line": 33,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L33"
+              "character": 2
             }
           ],
           "type": {
@@ -7659,8 +7437,7 @@
         {
           "fileName": "group-events.ts",
           "line": 30,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L30"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -7699,8 +7476,7 @@
             {
               "fileName": "group-events.ts",
               "line": 21,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L21"
+              "character": 2
             }
           ],
           "type": {
@@ -7727,8 +7503,7 @@
             {
               "fileName": "group-events.ts",
               "line": 20,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L20"
+              "character": 2
             }
           ],
           "type": {
@@ -7751,8 +7526,7 @@
             {
               "fileName": "group-events.ts",
               "line": 64,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L64"
+              "character": 2
             }
           ],
           "type": {
@@ -7775,8 +7549,7 @@
         {
           "fileName": "group-events.ts",
           "line": 63,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L63"
+          "character": 17
         }
       ],
       "extendedTypes": [
@@ -7829,8 +7602,7 @@
             {
               "fileName": "tracker.ts",
               "line": 389,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L389"
+              "character": 2
             }
           ],
           "signatures": [
@@ -7852,8 +7624,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 389,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L389"
+                  "character": 2
                 }
               ],
               "type": {
@@ -7888,8 +7659,7 @@
             {
               "fileName": "tracker.ts",
               "line": 395,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L395"
+              "character": 2
             }
           ],
           "signatures": [
@@ -7919,8 +7689,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 395,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L395"
+                  "character": 2
                 }
               ],
               "type": {
@@ -7970,8 +7739,7 @@
             {
               "fileName": "tracker.ts",
               "line": 397,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L397"
+              "character": 2
             }
           ],
           "signatures": [
@@ -8001,8 +7769,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 397,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L397"
+                  "character": 2
                 }
               ],
               "type": {
@@ -8022,8 +7789,7 @@
             {
               "fileName": "tracker.ts",
               "line": 393,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L393"
+              "character": 2
             }
           ],
           "signatures": [
@@ -8045,8 +7811,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 393,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L393"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -8138,8 +7903,7 @@
         {
           "fileName": "tracker.ts",
           "line": 387,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L387"
+          "character": 17
         }
       ]
     },
@@ -8168,8 +7932,7 @@
             {
               "fileName": "tracker.ts",
               "line": 271,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L271"
+              "character": 2
             }
           ],
           "type": {
@@ -8189,8 +7952,7 @@
             {
               "fileName": "tracker.ts",
               "line": 266,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L266"
+              "character": 2
             }
           ],
           "type": {
@@ -8208,8 +7970,7 @@
             {
               "fileName": "tracker.ts",
               "line": 265,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L265"
+              "character": 2
             }
           ],
           "type": {
@@ -8227,8 +7988,7 @@
             {
               "fileName": "tracker.ts",
               "line": 267,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L267"
+              "character": 2
             }
           ],
           "type": {
@@ -8259,8 +8019,7 @@
             {
               "fileName": "tracker.ts",
               "line": 268,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L268"
+              "character": 2
             }
           ],
           "type": {
@@ -8280,8 +8039,7 @@
             {
               "fileName": "tracker.ts",
               "line": 270,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L270"
+              "character": 2
             }
           ],
           "type": {
@@ -8308,8 +8066,7 @@
             {
               "fileName": "tracker.ts",
               "line": 269,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L269"
+              "character": 2
             }
           ],
           "type": {
@@ -8342,8 +8099,7 @@
         {
           "fileName": "tracker.ts",
           "line": 264,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L264"
+          "character": 17
         }
       ]
     },
@@ -8392,8 +8148,7 @@
             {
               "fileName": "events.ts",
               "line": 300,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L300"
+              "character": 2
             }
           ],
           "type": {
@@ -8417,8 +8172,7 @@
             {
               "fileName": "events.ts",
               "line": 254,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L254"
+              "character": 2
             }
           ],
           "type": {
@@ -8444,8 +8198,7 @@
             {
               "fileName": "events.ts",
               "line": 285,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L285"
+              "character": 2
             }
           ],
           "type": {
@@ -8472,8 +8225,7 @@
             {
               "fileName": "events.ts",
               "line": 253,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L253"
+              "character": 2
             }
           ],
           "type": {
@@ -8499,8 +8251,7 @@
             {
               "fileName": "events.ts",
               "line": 287,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L287"
+              "character": 2
             }
           ],
           "type": {
@@ -8535,8 +8286,7 @@
             {
               "fileName": "events.ts",
               "line": 256,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L256"
+              "character": 2
             }
           ],
           "type": {
@@ -8561,8 +8311,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 257,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L257"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -8580,8 +8329,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 258,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L258"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -8607,8 +8355,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 261,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L261"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -8626,8 +8373,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 262,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L262"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -8651,8 +8397,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 259,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L259"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -8700,8 +8445,7 @@
             {
               "fileName": "events.ts",
               "line": 265,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L265"
+              "character": 2
             }
           ],
           "type": {
@@ -8726,8 +8470,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 268,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L268"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -8747,8 +8490,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 266,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L266"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -8775,8 +8517,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 269,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L269"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -8800,8 +8541,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 267,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L267"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -8854,8 +8594,7 @@
             {
               "fileName": "events.ts",
               "line": 272,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L272"
+              "character": 2
             }
           ],
           "type": {
@@ -8880,8 +8619,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 274,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L274"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -8908,8 +8646,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 273,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L273"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -8986,8 +8723,7 @@
             {
               "fileName": "events.ts",
               "line": 298,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L298"
+              "character": 2
             }
           ],
           "type": {
@@ -9022,8 +8758,7 @@
             {
               "fileName": "events.ts",
               "line": 283,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L283"
+              "character": 2
             }
           ],
           "type": {
@@ -9049,8 +8784,7 @@
             {
               "fileName": "events.ts",
               "line": 277,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L277"
+              "character": 2
             }
           ],
           "type": {
@@ -9075,8 +8809,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 280,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L280"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -9094,8 +8827,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 279,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L279"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -9113,8 +8845,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 278,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L278"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -9165,8 +8896,7 @@
         {
           "fileName": "events.ts",
           "line": 252,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L252"
+          "character": 17
         }
       ]
     },
@@ -9195,8 +8925,7 @@
             {
               "fileName": "tracker.ts",
               "line": 280,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L280"
+              "character": 2
             }
           ],
           "signatures": [
@@ -9234,8 +8963,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 280,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L280"
+                  "character": 2
                 }
               ],
               "type": {
@@ -9270,8 +8998,7 @@
             {
               "fileName": "tracker.ts",
               "line": 291,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L291"
+              "character": 2
             }
           ],
           "signatures": [
@@ -9293,8 +9020,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 291,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L291"
+                  "character": 2
                 }
               ],
               "type": {
@@ -9314,8 +9040,7 @@
             {
               "fileName": "tracker.ts",
               "line": 285,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L285"
+              "character": 2
             }
           ],
           "signatures": [
@@ -9337,8 +9062,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 285,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L285"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -9429,8 +9153,7 @@
         {
           "fileName": "tracker.ts",
           "line": 275,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L275"
+          "character": 17
         }
       ]
     },
@@ -9467,8 +9190,7 @@
             {
               "fileName": "tracker.ts",
               "line": 440,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L440"
+              "character": 2
             }
           ],
           "signatures": [
@@ -9482,8 +9204,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 440,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L440"
+                  "character": 2
                 }
               ],
               "type": {
@@ -9509,8 +9230,7 @@
             {
               "fileName": "tracker.ts",
               "line": 424,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L424"
+              "character": 2
             }
           ],
           "signatures": [
@@ -9524,8 +9244,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 424,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L424"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -9569,8 +9288,7 @@
             {
               "fileName": "tracker.ts",
               "line": 448,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L448"
+              "character": 2
             }
           ],
           "signatures": [
@@ -9592,8 +9310,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 448,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L448"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -9646,8 +9363,7 @@
             {
               "fileName": "tracker.ts",
               "line": 423,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L423"
+              "character": 2
             }
           ],
           "signatures": [
@@ -9709,8 +9425,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 423,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L423"
+                  "character": 2
                 }
               ],
               "type": {
@@ -9743,8 +9458,7 @@
             {
               "fileName": "tracker.ts",
               "line": 402,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L402"
+              "character": 2
             }
           ],
           "signatures": [
@@ -9758,8 +9472,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 402,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L402"
+                  "character": 2
                 }
               ],
               "type": {
@@ -9779,8 +9492,7 @@
             {
               "fileName": "tracker.ts",
               "line": 403,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L403"
+              "character": 2
             }
           ],
           "signatures": [
@@ -9794,8 +9506,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 403,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L403"
+                  "character": 2
                 }
               ],
               "type": {
@@ -9815,8 +9526,7 @@
             {
               "fileName": "tracker.ts",
               "line": 426,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L426"
+              "character": 2
             }
           ],
           "signatures": [
@@ -9830,8 +9540,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 426,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L426"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -9943,8 +9652,7 @@
             {
               "fileName": "tracker.ts",
               "line": 441,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L441"
+              "character": 2
             }
           ],
           "signatures": [
@@ -9958,8 +9666,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 441,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L441"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -10045,8 +9752,7 @@
             {
               "fileName": "tracker.ts",
               "line": 425,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L425"
+              "character": 2
             }
           ],
           "signatures": [
@@ -10060,8 +9766,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 425,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L425"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -10124,8 +9829,7 @@
             {
               "fileName": "tracker.ts",
               "line": 431,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L431"
+              "character": 2
             }
           ],
           "signatures": [
@@ -10139,8 +9843,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 431,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L431"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -10190,8 +9893,7 @@
             {
               "fileName": "tracker.ts",
               "line": 436,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L436"
+              "character": 2
             }
           ],
           "signatures": [
@@ -10205,8 +9907,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 436,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L436"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -10294,8 +9995,7 @@
             {
               "fileName": "tracker.ts",
               "line": 435,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L435"
+              "character": 2
             }
           ],
           "signatures": [
@@ -10309,8 +10009,7 @@
                 {
                   "fileName": "tracker.ts",
                   "line": 435,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L435"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -10374,8 +10073,7 @@
         {
           "fileName": "tracker.ts",
           "line": 401,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L401"
+          "character": 17
         }
       ]
     },
@@ -10412,8 +10110,7 @@
             {
               "fileName": "store.ts",
               "line": 137,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L137"
+              "character": 2
             }
           ],
           "signatures": [
@@ -10443,8 +10140,7 @@
                 {
                   "fileName": "store.ts",
                   "line": 137,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L137"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -10514,8 +10210,7 @@
             {
               "fileName": "store.ts",
               "line": 122,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L122"
+              "character": 2
             }
           ],
           "signatures": [
@@ -10553,8 +10248,7 @@
                 {
                   "fileName": "store.ts",
                   "line": 122,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L122"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -10611,8 +10305,7 @@
             {
               "fileName": "store.ts",
               "line": 108,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L108"
+              "character": 2
             }
           ],
           "signatures": [
@@ -10634,8 +10327,7 @@
                 {
                   "fileName": "store.ts",
                   "line": 108,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L108"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -10703,8 +10395,7 @@
             {
               "fileName": "store.ts",
               "line": 129,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L129"
+              "character": 2
             }
           ],
           "signatures": [
@@ -10734,8 +10425,7 @@
                 {
                   "fileName": "store.ts",
                   "line": 129,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L129"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -10786,8 +10476,7 @@
             {
               "fileName": "store.ts",
               "line": 105,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L105"
+              "character": 2
             }
           ],
           "signatures": [
@@ -10817,8 +10506,7 @@
                 {
                   "fileName": "store.ts",
                   "line": 105,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L105"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -10868,8 +10556,7 @@
             {
               "fileName": "store.ts",
               "line": 145,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L145"
+              "character": 2
             }
           ],
           "signatures": [
@@ -10907,8 +10594,7 @@
                 {
                   "fileName": "store.ts",
                   "line": 145,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L145"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -10991,8 +10677,7 @@
         {
           "fileName": "store.ts",
           "line": 100,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L100"
+          "character": 17
         }
       ]
     },
@@ -11039,8 +10724,7 @@
             {
               "fileName": "wait-for-pending.ts",
               "line": 47,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-pending.ts#L47"
+              "character": 2
             }
           ],
           "type": {
@@ -11058,8 +10742,7 @@
             {
               "fileName": "wait-for-pending.ts",
               "line": 35,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-pending.ts#L35"
+              "character": 2
             }
           ],
           "type": {
@@ -11083,8 +10766,7 @@
             {
               "fileName": "wait-for-pending.ts",
               "line": 36,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-pending.ts#L36"
+              "character": 2
             }
           ],
           "type": {
@@ -11104,8 +10786,7 @@
             {
               "fileName": "wait-for-pending.ts",
               "line": 49,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-pending.ts#L49"
+              "character": 2
             }
           ],
           "type": {
@@ -11168,8 +10849,7 @@
             {
               "fileName": "wait-for-pending.ts",
               "line": 48,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-pending.ts#L48"
+              "character": 2
             }
           ],
           "type": {
@@ -11197,8 +10877,7 @@
             {
               "fileName": "wait-for-pending.ts",
               "line": 41,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-pending.ts#L41"
+              "character": 2
             }
           ],
           "type": {
@@ -11224,8 +10903,7 @@
         {
           "fileName": "wait-for-pending.ts",
           "line": 34,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-pending.ts#L34"
+          "character": 17
         }
       ]
     },
@@ -11272,8 +10950,7 @@
             {
               "fileName": "wait-for-transaction.ts",
               "line": 51,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L51"
+              "character": 2
             }
           ],
           "type": {
@@ -11291,8 +10968,7 @@
             {
               "fileName": "wait-for-transaction.ts",
               "line": 35,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L35"
+              "character": 2
             }
           ],
           "type": {
@@ -11326,8 +11002,7 @@
             {
               "fileName": "wait-for-transaction.ts",
               "line": 38,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L38"
+              "character": 2
             }
           ],
           "type": {
@@ -11345,8 +11020,7 @@
             {
               "fileName": "wait-for-transaction.ts",
               "line": 36,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L36"
+              "character": 2
             }
           ],
           "type": {
@@ -11366,8 +11040,7 @@
             {
               "fileName": "wait-for-transaction.ts",
               "line": 53,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L53"
+              "character": 2
             }
           ],
           "type": {
@@ -11430,8 +11103,7 @@
             {
               "fileName": "wait-for-transaction.ts",
               "line": 52,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L52"
+              "character": 2
             }
           ],
           "type": {
@@ -11459,8 +11131,7 @@
             {
               "fileName": "wait-for-transaction.ts",
               "line": 40,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L40"
+              "character": 2
             }
           ],
           "type": {
@@ -11488,8 +11159,7 @@
             {
               "fileName": "wait-for-transaction.ts",
               "line": 45,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L45"
+              "character": 2
             }
           ],
           "type": {
@@ -11517,8 +11187,7 @@
         {
           "fileName": "wait-for-transaction.ts",
           "line": 34,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L34"
+          "character": 17
         }
       ]
     },
@@ -11565,8 +11234,7 @@
             {
               "fileName": "watch-transaction.ts",
               "line": 37,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/watch-transaction.ts#L37"
+              "character": 2
             }
           ],
           "type": {
@@ -11584,8 +11252,7 @@
             {
               "fileName": "watch-transaction.ts",
               "line": 26,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/watch-transaction.ts#L26"
+              "character": 2
             }
           ],
           "type": {
@@ -11619,8 +11286,7 @@
             {
               "fileName": "watch-transaction.ts",
               "line": 29,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/watch-transaction.ts#L29"
+              "character": 2
             }
           ],
           "type": {
@@ -11638,8 +11304,7 @@
             {
               "fileName": "watch-transaction.ts",
               "line": 27,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/watch-transaction.ts#L27"
+              "character": 2
             }
           ],
           "type": {
@@ -11659,8 +11324,7 @@
             {
               "fileName": "watch-transaction.ts",
               "line": 41,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/watch-transaction.ts#L41"
+              "character": 2
             }
           ],
           "type": {
@@ -11699,8 +11363,7 @@
             {
               "fileName": "watch-transaction.ts",
               "line": 42,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/watch-transaction.ts#L42"
+              "character": 2
             }
           ],
           "type": {
@@ -11763,8 +11426,7 @@
             {
               "fileName": "watch-transaction.ts",
               "line": 40,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/watch-transaction.ts#L40"
+              "character": 2
             }
           ],
           "type": {
@@ -11826,8 +11488,7 @@
             {
               "fileName": "watch-transaction.ts",
               "line": 39,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/watch-transaction.ts#L39"
+              "character": 2
             }
           ],
           "type": {
@@ -11855,8 +11516,7 @@
             {
               "fileName": "watch-transaction.ts",
               "line": 31,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/watch-transaction.ts#L31"
+              "character": 2
             }
           ],
           "type": {
@@ -11885,8 +11545,7 @@
         {
           "fileName": "watch-transaction.ts",
           "line": 25,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/watch-transaction.ts#L25"
+          "character": 17
         }
       ]
     },
@@ -11924,8 +11583,7 @@
         {
           "fileName": "events.ts",
           "line": 39,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L39"
+          "character": 12
         }
       ],
       "type": {
@@ -11975,8 +11633,7 @@
         {
           "fileName": "events.ts",
           "line": 32,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L32"
+          "character": 12
         }
       ],
       "type": {
@@ -12082,8 +11739,7 @@
         {
           "fileName": "tracker.ts",
           "line": 111,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L111"
+          "character": 12
         }
       ],
       "type": {
@@ -12116,8 +11772,7 @@
                     {
                       "fileName": "tracker.ts",
                       "line": 114,
-                      "character": 41,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L114"
+                      "character": 41
                     }
                   ],
                   "type": {
@@ -12135,8 +11790,7 @@
                     {
                       "fileName": "tracker.ts",
                       "line": 114,
-                      "character": 6,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L114"
+                      "character": 6
                     }
                   ],
                   "type": {
@@ -12227,8 +11881,7 @@
         {
           "fileName": "tracker.ts",
           "line": 172,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L172"
+          "character": 12
         }
       ],
       "type": {
@@ -12343,8 +11996,7 @@
             {
               "fileName": "tracker.ts",
               "line": 122,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L122"
+              "character": 2
             }
           ],
           "type": {
@@ -12362,8 +12014,7 @@
             {
               "fileName": "tracker.ts",
               "line": 123,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L123"
+              "character": 2
             }
           ],
           "type": {
@@ -12385,8 +12036,7 @@
         {
           "fileName": "tracker.ts",
           "line": 121,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L121"
+          "character": 12
         }
       ]
     },
@@ -12514,8 +12164,7 @@
         {
           "fileName": "tracker.ts",
           "line": 151,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L151"
+          "character": 12
         }
       ],
       "type": {
@@ -12611,8 +12260,7 @@
         {
           "fileName": "events.ts",
           "line": 230,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L230"
+          "character": 12
         }
       ],
       "type": {
@@ -12713,8 +12361,7 @@
         {
           "fileName": "group-events.ts",
           "line": 71,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L71"
+          "character": 12
         }
       ],
       "type": {
@@ -12757,8 +12404,7 @@
         {
           "fileName": "wait-for-transaction.ts",
           "line": 28,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L28"
+          "character": 12
         }
       ],
       "type": {
@@ -12783,8 +12429,7 @@
                     {
                       "fileName": "wait-for-transaction.ts",
                       "line": 29,
-                      "character": 27,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L29"
+                      "character": 27
                     }
                   ],
                   "type": {
@@ -12804,8 +12449,7 @@
                     {
                       "fileName": "wait-for-transaction.ts",
                       "line": 29,
-                      "character": 6,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L29"
+                      "character": 6
                     }
                   ],
                   "type": {
@@ -12844,8 +12488,7 @@
                     {
                       "fileName": "wait-for-transaction.ts",
                       "line": 30,
-                      "character": 27,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L30"
+                      "character": 27
                     }
                   ],
                   "type": {
@@ -12863,8 +12506,7 @@
                     {
                       "fileName": "wait-for-transaction.ts",
                       "line": 30,
-                      "character": 6,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L30"
+                      "character": 6
                     }
                   ],
                   "type": {
@@ -12903,8 +12545,7 @@
                     {
                       "fileName": "wait-for-transaction.ts",
                       "line": 31,
-                      "character": 50,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L31"
+                      "character": 50
                     }
                   ],
                   "type": {
@@ -12924,8 +12565,7 @@
                     {
                       "fileName": "wait-for-transaction.ts",
                       "line": 31,
-                      "character": 27,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L31"
+                      "character": 27
                     }
                   ],
                   "type": {
@@ -12945,8 +12585,7 @@
                     {
                       "fileName": "wait-for-transaction.ts",
                       "line": 31,
-                      "character": 6,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L31"
+                      "character": 6
                     }
                   ],
                   "type": {
@@ -12986,8 +12625,7 @@
                     {
                       "fileName": "wait-for-transaction.ts",
                       "line": 32,
-                      "character": 27,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L32"
+                      "character": 27
                     }
                   ],
                   "type": {
@@ -13007,8 +12645,7 @@
                     {
                       "fileName": "wait-for-transaction.ts",
                       "line": 32,
-                      "character": 54,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L32"
+                      "character": 54
                     }
                   ],
                   "type": {
@@ -13032,8 +12669,7 @@
                     {
                       "fileName": "wait-for-transaction.ts",
                       "line": 32,
-                      "character": 6,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L32"
+                      "character": 6
                     }
                   ],
                   "type": {
@@ -13077,8 +12713,7 @@
         {
           "fileName": "selectors.ts",
           "line": 155,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/selectors.ts#L155"
+          "character": 13
         }
       ],
       "type": {
@@ -13115,8 +12750,7 @@
         {
           "fileName": "reorg.ts",
           "line": 171,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L171"
+          "character": 13
         }
       ],
       "type": {
@@ -13145,8 +12779,7 @@
         {
           "fileName": "store.ts",
           "line": 266,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L266"
+          "character": 13
         }
       ],
       "type": {
@@ -13165,8 +12798,7 @@
         {
           "fileName": "reorg.ts",
           "line": 74,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L74"
+          "character": 13
         }
       ],
       "signatures": [
@@ -13196,8 +12828,7 @@
             {
               "fileName": "reorg.ts",
               "line": 74,
-              "character": 27,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L74"
+              "character": 27
             }
           ],
           "parameters": [
@@ -13268,8 +12899,7 @@
         {
           "fileName": "events.ts",
           "line": 411,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L411"
+          "character": 13
         }
       ],
       "signatures": [
@@ -13299,8 +12929,7 @@
             {
               "fileName": "events.ts",
               "line": 411,
-              "character": 38,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L411"
+              "character": 38
             }
           ],
           "parameters": [
@@ -13338,8 +12967,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 412,
-                              "character": 22,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L412"
+                              "character": 22
                             }
                           ],
                           "type": {
@@ -13381,8 +13009,7 @@
         {
           "fileName": "group-events.ts",
           "line": 99,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L99"
+          "character": 13
         }
       ],
       "signatures": [
@@ -13412,8 +13039,7 @@
             {
               "fileName": "group-events.ts",
               "line": 99,
-              "character": 34,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L99"
+              "character": 34
             }
           ],
           "parameters": [
@@ -13451,8 +13077,7 @@
                             {
                               "fileName": "group-events.ts",
                               "line": 100,
-                              "character": 34,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L100"
+                              "character": 34
                             }
                           ],
                           "type": {
@@ -13494,8 +13119,7 @@
         {
           "fileName": "group-events.ts",
           "line": 108,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L108"
+          "character": 13
         }
       ],
       "signatures": [
@@ -13525,8 +13149,7 @@
             {
               "fileName": "group-events.ts",
               "line": 108,
-              "character": 32,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L108"
+              "character": 32
             }
           ],
           "parameters": [
@@ -13564,8 +13187,7 @@
                             {
                               "fileName": "group-events.ts",
                               "line": 110,
-                              "character": 4,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L110"
+                              "character": 4
                             }
                           ],
                           "type": {
@@ -13583,8 +13205,7 @@
                             {
                               "fileName": "group-events.ts",
                               "line": 111,
-                              "character": 4,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L111"
+                              "character": 4
                             }
                           ],
                           "type": {
@@ -13640,8 +13261,7 @@
         {
           "fileName": "group-events.ts",
           "line": 88,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L88"
+          "character": 13
         }
       ],
       "signatures": [
@@ -13671,8 +13291,7 @@
             {
               "fileName": "group-events.ts",
               "line": 88,
-              "character": 34,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L88"
+              "character": 34
             }
           ],
           "parameters": [
@@ -13710,8 +13329,7 @@
                             {
                               "fileName": "group-events.ts",
                               "line": 89,
-                              "character": 34,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L89"
+                              "character": 34
                             }
                           ],
                           "type": {
@@ -13729,8 +13347,7 @@
                             {
                               "fileName": "group-events.ts",
                               "line": 89,
-                              "character": 68,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L89"
+                              "character": 68
                             }
                           ],
                           "type": {
@@ -13748,8 +13365,7 @@
                             {
                               "fileName": "group-events.ts",
                               "line": 89,
-                              "character": 53,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L89"
+                              "character": 53
                             }
                           ],
                           "type": {
@@ -13793,8 +13409,7 @@
         {
           "fileName": "group-events.ts",
           "line": 121,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L121"
+          "character": 13
         }
       ],
       "signatures": [
@@ -13824,8 +13439,7 @@
             {
               "fileName": "group-events.ts",
               "line": 121,
-              "character": 33,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group-events.ts#L121"
+              "character": 33
             }
           ],
           "parameters": [
@@ -13862,8 +13476,7 @@
         {
           "fileName": "events.ts",
           "line": 459,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L459"
+          "character": 13
         }
       ],
       "signatures": [
@@ -13917,8 +13530,7 @@
             {
               "fileName": "events.ts",
               "line": 459,
-              "character": 34,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L459"
+              "character": 34
             }
           ],
           "parameters": [
@@ -13947,8 +13559,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 462,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L462"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -13972,8 +13583,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 461,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L461"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -13991,8 +13601,7 @@
                         {
                           "fileName": "events.ts",
                           "line": 460,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L460"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -14034,8 +13643,7 @@
         {
           "fileName": "events.ts",
           "line": 335,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L335"
+          "character": 13
         }
       ],
       "signatures": [
@@ -14065,8 +13673,7 @@
             {
               "fileName": "events.ts",
               "line": 335,
-              "character": 32,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L335"
+              "character": 32
             }
           ],
           "parameters": [
@@ -14103,8 +13710,7 @@
         {
           "fileName": "events.ts",
           "line": 389,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L389"
+          "character": 13
         }
       ],
       "signatures": [
@@ -14134,8 +13740,7 @@
             {
               "fileName": "events.ts",
               "line": 389,
-              "character": 31,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L389"
+              "character": 31
             }
           ],
           "parameters": [
@@ -14173,8 +13778,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 392,
-                              "character": 4,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L392"
+                              "character": 4
                             }
                           ],
                           "type": {
@@ -14201,8 +13805,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 391,
-                              "character": 4,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L391"
+                              "character": 4
                             }
                           ],
                           "type": {
@@ -14245,8 +13848,7 @@
         {
           "fileName": "events.ts",
           "line": 341,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L341"
+          "character": 13
         }
       ],
       "signatures": [
@@ -14276,8 +13878,7 @@
             {
               "fileName": "events.ts",
               "line": 341,
-              "character": 32,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L341"
+              "character": 32
             }
           ],
           "parameters": [
@@ -14315,8 +13916,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 343,
-                              "character": 4,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L343"
+                              "character": 4
                             }
                           ],
                           "type": {
@@ -14334,8 +13934,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 344,
-                              "character": 4,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L344"
+                              "character": 4
                             }
                           ],
                           "type": {
@@ -14353,8 +13952,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 346,
-                              "character": 4,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L346"
+                              "character": 4
                             }
                           ],
                           "type": {
@@ -14374,8 +13972,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 347,
-                              "character": 4,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L347"
+                              "character": 4
                             }
                           ],
                           "type": {
@@ -14399,8 +13996,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 345,
-                              "character": 4,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L345"
+                              "character": 4
                             }
                           ],
                           "type": {
@@ -14446,8 +14042,7 @@
         {
           "fileName": "events.ts",
           "line": 325,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L325"
+          "character": 13
         }
       ],
       "signatures": [
@@ -14477,8 +14072,7 @@
             {
               "fileName": "events.ts",
               "line": 325,
-              "character": 34,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L325"
+              "character": 34
             }
           ],
           "parameters": [
@@ -14516,8 +14110,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 326,
-                              "character": 22,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L326"
+                              "character": 22
                             }
                           ],
                           "type": {
@@ -14544,8 +14137,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 326,
-                              "character": 52,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L326"
+                              "character": 52
                             }
                           ],
                           "type": {
@@ -14594,8 +14186,7 @@
         {
           "fileName": "events.ts",
           "line": 420,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L420"
+          "character": 13
         }
       ],
       "signatures": [
@@ -14625,8 +14216,7 @@
             {
               "fileName": "events.ts",
               "line": 420,
-              "character": 35,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L420"
+              "character": 35
             }
           ],
           "parameters": [
@@ -14664,8 +14254,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 422,
-                              "character": 4,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L422"
+                              "character": 4
                             }
                           ],
                           "type": {
@@ -14693,8 +14282,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 423,
-                              "character": 4,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L423"
+                              "character": 4
                             }
                           ],
                           "type": {
@@ -14743,8 +14331,7 @@
         {
           "fileName": "events.ts",
           "line": 433,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L433"
+          "character": 13
         }
       ],
       "signatures": [
@@ -14774,8 +14361,7 @@
             {
               "fileName": "events.ts",
               "line": 433,
-              "character": 36,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L433"
+              "character": 36
             }
           ],
           "parameters": [
@@ -14813,8 +14399,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 434,
-                              "character": 22,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L434"
+                              "character": 22
                             }
                           ],
                           "type": {
@@ -14866,8 +14451,7 @@
         {
           "fileName": "events.ts",
           "line": 316,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L316"
+          "character": 13
         }
       ],
       "signatures": [
@@ -14897,8 +14481,7 @@
             {
               "fileName": "events.ts",
               "line": 316,
-              "character": 28,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L316"
+              "character": 28
             }
           ],
           "parameters": [
@@ -14936,8 +14519,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 317,
-                              "character": 22,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L317"
+                              "character": 22
                             }
                           ],
                           "type": {
@@ -14985,8 +14567,7 @@
         {
           "fileName": "events.ts",
           "line": 442,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L442"
+          "character": 13
         }
       ],
       "signatures": [
@@ -15016,8 +14597,7 @@
             {
               "fileName": "events.ts",
               "line": 442,
-              "character": 28,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L442"
+              "character": 28
             }
           ],
           "parameters": [
@@ -15055,8 +14635,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 444,
-                              "character": 4,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L444"
+                              "character": 4
                             }
                           ],
                           "type": {
@@ -15111,8 +14690,7 @@
         {
           "fileName": "events.ts",
           "line": 402,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L402"
+          "character": 13
         }
       ],
       "signatures": [
@@ -15142,8 +14720,7 @@
             {
               "fileName": "events.ts",
               "line": 402,
-              "character": 37,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L402"
+              "character": 37
             }
           ],
           "parameters": [
@@ -15181,8 +14758,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 403,
-                              "character": 22,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L403"
+                              "character": 22
                             }
                           ],
                           "type": {
@@ -15224,8 +14800,7 @@
         {
           "fileName": "events.ts",
           "line": 366,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L366"
+          "character": 13
         }
       ],
       "signatures": [
@@ -15263,8 +14838,7 @@
             {
               "fileName": "events.ts",
               "line": 366,
-              "character": 38,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L366"
+              "character": 38
             }
           ],
           "parameters": [
@@ -15302,8 +14876,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 370,
-                              "character": 4,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L370"
+                              "character": 4
                             }
                           ],
                           "type": {
@@ -15321,8 +14894,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 369,
-                              "character": 4,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L369"
+                              "character": 4
                             }
                           ],
                           "type": {
@@ -15340,8 +14912,7 @@
                             {
                               "fileName": "events.ts",
                               "line": 368,
-                              "character": 4,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/events.ts#L368"
+                              "character": 4
                             }
                           ],
                           "type": {
@@ -15385,8 +14956,7 @@
         {
           "fileName": "selectors.ts",
           "line": 65,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/selectors.ts#L65"
+          "character": 13
         }
       ],
       "signatures": [
@@ -15464,8 +15034,7 @@
             {
               "fileName": "selectors.ts",
               "line": 65,
-              "character": 31,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/selectors.ts#L65"
+              "character": 31
             }
           ],
           "parameters": [
@@ -15502,8 +15071,7 @@
         {
           "fileName": "store.ts",
           "line": 257,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L257"
+          "character": 13
         }
       ],
       "signatures": [
@@ -15541,8 +15109,7 @@
             {
               "fileName": "store.ts",
               "line": 257,
-              "character": 38,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L257"
+              "character": 38
             }
           ],
           "parameters": [
@@ -15587,8 +15154,7 @@
         {
           "fileName": "store.ts",
           "line": 193,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L193"
+          "character": 13
         }
       ],
       "signatures": [
@@ -15629,8 +15195,7 @@
             {
               "fileName": "store.ts",
               "line": 193,
-              "character": 35,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/store.ts#L193"
+              "character": 35
             }
           ],
           "parameters": [
@@ -15668,8 +15233,7 @@
         {
           "fileName": "local-storage-store.ts",
           "line": 156,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L156"
+          "character": 13
         }
       ],
       "signatures": [
@@ -15710,8 +15274,7 @@
             {
               "fileName": "local-storage-store.ts",
               "line": 156,
-              "character": 46,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L156"
+              "character": 46
             }
           ],
           "parameters": [
@@ -15748,8 +15311,7 @@
         {
           "fileName": "group.ts",
           "line": 46,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group.ts#L46"
+          "character": 13
         }
       ],
       "signatures": [
@@ -15779,8 +15341,7 @@
             {
               "fileName": "group.ts",
               "line": 46,
-              "character": 29,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/group.ts#L46"
+              "character": 29
             }
           ],
           "parameters": [
@@ -15877,8 +15438,7 @@
         {
           "fileName": "tracker.ts",
           "line": 670,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L670"
+          "character": 13
         }
       ],
       "signatures": [
@@ -15911,8 +15471,7 @@
             {
               "fileName": "tracker.ts",
               "line": 670,
-              "character": 31,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/tracker.ts#L670"
+              "character": 31
             }
           ],
           "parameters": [
@@ -15949,8 +15508,7 @@
         {
           "fileName": "local-storage-store.ts",
           "line": 272,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L272"
+          "character": 13
         }
       ],
       "signatures": [
@@ -15988,8 +15546,7 @@
             {
               "fileName": "local-storage-store.ts",
               "line": 272,
-              "character": 38,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/local-storage-store.ts#L272"
+              "character": 38
             }
           ],
           "parameters": [
@@ -16035,8 +15592,7 @@
         {
           "fileName": "reorg.ts",
           "line": 116,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L116"
+          "character": 13
         }
       ],
       "signatures": [
@@ -16106,8 +15662,7 @@
             {
               "fileName": "reorg.ts",
               "line": 116,
-              "character": 33,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L116"
+              "character": 33
             }
           ],
           "parameters": [
@@ -16136,8 +15691,7 @@
                         {
                           "fileName": "reorg.ts",
                           "line": 118,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L118"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -16164,8 +15718,7 @@
                         {
                           "fileName": "reorg.ts",
                           "line": 119,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L119"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -16183,8 +15736,7 @@
                         {
                           "fileName": "reorg.ts",
                           "line": 117,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/reorg.ts#L117"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -16238,8 +15790,7 @@
         {
           "fileName": "selectors.ts",
           "line": 130,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/selectors.ts#L130"
+          "character": 13
         }
       ],
       "signatures": [
@@ -16301,8 +15852,7 @@
             {
               "fileName": "selectors.ts",
               "line": 130,
-              "character": 24,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/selectors.ts#L130"
+              "character": 24
             }
           ],
           "parameters": [
@@ -16373,8 +15923,7 @@
         {
           "fileName": "replace-transaction.ts",
           "line": 50,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/replace-transaction.ts#L50"
+          "character": 13
         }
       ],
       "signatures": [
@@ -16407,8 +15956,7 @@
             {
               "fileName": "replace-transaction.ts",
               "line": 50,
-              "character": 34,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/replace-transaction.ts#L50"
+              "character": 34
             }
           ],
           "parameters": [
@@ -16465,8 +16013,7 @@
         {
           "fileName": "wait-for-pending.ts",
           "line": 61,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-pending.ts#L61"
+          "character": 13
         }
       ],
       "signatures": [
@@ -16480,8 +16027,7 @@
             {
               "fileName": "wait-for-pending.ts",
               "line": 61,
-              "character": 30,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-pending.ts#L61"
+              "character": 30
             }
           ],
           "parameters": [
@@ -16531,8 +16077,7 @@
         {
           "fileName": "wait-for-transaction.ts",
           "line": 65,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L65"
+          "character": 13
         }
       ],
       "signatures": [
@@ -16546,8 +16091,7 @@
             {
               "fileName": "wait-for-transaction.ts",
               "line": 65,
-              "character": 34,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/wait-for-transaction.ts#L65"
+              "character": 34
             }
           ],
           "parameters": [
@@ -16597,8 +16141,7 @@
         {
           "fileName": "watch-transaction.ts",
           "line": 75,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/watch-transaction.ts#L75"
+          "character": 13
         }
       ],
       "signatures": [
@@ -16631,8 +16174,7 @@
             {
               "fileName": "watch-transaction.ts",
               "line": 75,
-              "character": 32,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/tx-tracker/src/watch-transaction.ts#L75"
+              "character": 32
             }
           ],
           "parameters": [

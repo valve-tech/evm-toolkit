@@ -31,8 +31,7 @@
             {
               "fileName": "errors.ts",
               "line": 51,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/errors.ts#L51"
+              "character": 2
             }
           ],
           "signatures": [
@@ -46,8 +45,7 @@
                 {
                   "fileName": "errors.ts",
                   "line": 51,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/errors.ts#L51"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -100,8 +98,7 @@
         {
           "fileName": "errors.ts",
           "line": 50,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/errors.ts#L50"
+          "character": 13
         }
       ],
       "extendedTypes": [
@@ -143,8 +140,7 @@
             {
               "fileName": "errors.ts",
               "line": 18,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/errors.ts#L18"
+              "character": 2
             }
           ],
           "signatures": [
@@ -158,8 +154,7 @@
                 {
                   "fileName": "errors.ts",
                   "line": 18,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/errors.ts#L18"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -212,8 +207,7 @@
         {
           "fileName": "errors.ts",
           "line": 17,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/errors.ts#L17"
+          "character": 13
         }
       ],
       "extendedTypes": [
@@ -263,8 +257,7 @@
             {
               "fileName": "errors.ts",
               "line": 30,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/errors.ts#L30"
+              "character": 2
             }
           ],
           "signatures": [
@@ -278,8 +271,7 @@
                 {
                   "fileName": "errors.ts",
                   "line": 30,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/errors.ts#L30"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -332,8 +324,7 @@
         {
           "fileName": "errors.ts",
           "line": 29,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/errors.ts#L29"
+          "character": 13
         }
       ],
       "extendedTypes": [
@@ -360,8 +351,7 @@
         {
           "fileName": "envelope.ts",
           "line": 87,
-          "character": 22,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/envelope.ts#L87"
+          "character": 22
         }
       ],
       "signatures": [
@@ -417,8 +407,7 @@
             {
               "fileName": "envelope.ts",
               "line": 87,
-              "character": 22,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/envelope.ts#L87"
+              "character": 22
             }
           ],
           "parameters": [
@@ -457,8 +446,7 @@
                         {
                           "fileName": "envelope.ts",
                           "line": 93,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/envelope.ts#L93"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -496,8 +484,7 @@
                         {
                           "fileName": "envelope.ts",
                           "line": 89,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/envelope.ts#L89"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -522,8 +509,7 @@
                         {
                           "fileName": "envelope.ts",
                           "line": 88,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/envelope.ts#L88"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -564,8 +550,7 @@
                         {
                           "fileName": "envelope.ts",
                           "line": 91,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/envelope.ts#L91"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -692,8 +677,7 @@
         {
           "fileName": "derive-key.ts",
           "line": 51,
-          "character": 22,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/derive-key.ts#L51"
+          "character": 22
         }
       ],
       "signatures": [
@@ -770,8 +754,7 @@
             {
               "fileName": "derive-key.ts",
               "line": 51,
-              "character": 22,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/derive-key.ts#L51"
+              "character": 22
             }
           ],
           "parameters": [
@@ -816,8 +799,7 @@
                         {
                           "fileName": "derive-key.ts",
                           "line": 59,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/derive-key.ts#L59"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -851,8 +833,7 @@
                         {
                           "fileName": "derive-key.ts",
                           "line": 53,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/derive-key.ts#L53"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -902,8 +883,7 @@
                         {
                           "fileName": "derive-key.ts",
                           "line": 70,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/derive-key.ts#L70"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -939,8 +919,7 @@
                         {
                           "fileName": "derive-key.ts",
                           "line": 64,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/derive-key.ts#L64"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -1001,8 +980,7 @@
         {
           "fileName": "envelope.ts",
           "line": 53,
-          "character": 22,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/envelope.ts#L53"
+          "character": 22
         }
       ],
       "signatures": [
@@ -1040,8 +1018,7 @@
             {
               "fileName": "envelope.ts",
               "line": 53,
-              "character": 22,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/envelope.ts#L53"
+              "character": 22
             }
           ],
           "parameters": [
@@ -1080,8 +1057,7 @@
                         {
                           "fileName": "envelope.ts",
                           "line": 64,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/envelope.ts#L64"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -1137,8 +1113,7 @@
                         {
                           "fileName": "envelope.ts",
                           "line": 55,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/envelope.ts#L55"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -1171,8 +1146,7 @@
                         {
                           "fileName": "envelope.ts",
                           "line": 57,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/envelope.ts#L57"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -1229,8 +1203,7 @@
                         {
                           "fileName": "envelope.ts",
                           "line": 65,
-                          "character": 14,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/envelope.ts#L65"
+                          "character": 14
                         }
                       ],
                       "type": {
@@ -1255,8 +1228,7 @@
                         {
                           "fileName": "envelope.ts",
                           "line": 65,
-                          "character": 38,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/envelope.ts#L65"
+                          "character": 38
                         }
                       ],
                       "type": {
@@ -1301,8 +1273,7 @@
         {
           "fileName": "messages.ts",
           "line": 39,
-          "character": 16,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/messages.ts#L39"
+          "character": 16
         }
       ],
       "signatures": [
@@ -1356,8 +1327,7 @@
             {
               "fileName": "messages.ts",
               "line": 39,
-              "character": 16,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/messages.ts#L39"
+              "character": 16
             }
           ],
           "parameters": [
@@ -1402,8 +1372,7 @@
                         {
                           "fileName": "messages.ts",
                           "line": 40,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/messages.ts#L40"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -1437,8 +1406,7 @@
                         {
                           "fileName": "messages.ts",
                           "line": 41,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/wallet-crypto/src/messages.ts#L41"
+                          "character": 2
                         }
                       ],
                       "type": {

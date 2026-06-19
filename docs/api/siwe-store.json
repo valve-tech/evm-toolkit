@@ -31,8 +31,7 @@
             {
               "fileName": "nonce-store.ts",
               "line": 23,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L23"
+              "character": 2
             }
           ],
           "signatures": [
@@ -54,8 +53,7 @@
                 {
                   "fileName": "nonce-store.ts",
                   "line": 23,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L23"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -88,8 +86,7 @@
             {
               "fileName": "nonce-store.ts",
               "line": 18,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L18"
+              "character": 2
             }
           ],
           "signatures": [
@@ -119,8 +116,7 @@
                 {
                   "fileName": "nonce-store.ts",
                   "line": 18,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L18"
+                  "character": 2
                 }
               ],
               "type": {
@@ -144,8 +140,7 @@
         {
           "fileName": "nonce-store.ts",
           "line": 16,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L16"
+          "character": 17
         }
       ]
     },
@@ -174,8 +169,7 @@
             {
               "fileName": "session-store.ts",
               "line": 16,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L16"
+              "character": 2
             }
           ],
           "type": {
@@ -212,8 +206,7 @@
             {
               "fileName": "session-store.ts",
               "line": 20,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L20"
+              "character": 2
             }
           ],
           "type": {
@@ -256,8 +249,7 @@
             {
               "fileName": "session-store.ts",
               "line": 18,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L18"
+              "character": 2
             }
           ],
           "type": {
@@ -280,8 +272,7 @@
         {
           "fileName": "session-store.ts",
           "line": 15,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L15"
+          "character": 17
         }
       ]
     },
@@ -310,8 +301,7 @@
             {
               "fileName": "session-store.ts",
               "line": 26,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L26"
+              "character": 2
             }
           ],
           "signatures": [
@@ -333,8 +323,7 @@
                 {
                   "fileName": "session-store.ts",
                   "line": 26,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L26"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -406,8 +395,7 @@
             {
               "fileName": "session-store.ts",
               "line": 30,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L30"
+              "character": 2
             }
           ],
           "signatures": [
@@ -429,8 +417,7 @@
                 {
                   "fileName": "session-store.ts",
                   "line": 30,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L30"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -463,8 +450,7 @@
             {
               "fileName": "session-store.ts",
               "line": 28,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L28"
+              "character": 2
             }
           ],
           "signatures": [
@@ -486,8 +472,7 @@
                 {
                   "fileName": "session-store.ts",
                   "line": 28,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L28"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -536,8 +521,7 @@
         {
           "fileName": "session-store.ts",
           "line": 24,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L24"
+          "character": 17
         }
       ]
     },
@@ -589,8 +573,7 @@
         {
           "fileName": "nonce-store.ts",
           "line": 30,
-          "character": 16,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L30"
+          "character": 16
         }
       ],
       "signatures": [
@@ -612,8 +595,7 @@
             {
               "fileName": "nonce-store.ts",
               "line": 30,
-              "character": 16,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L30"
+              "character": 16
             }
           ],
           "parameters": [
@@ -646,8 +628,7 @@
                         {
                           "fileName": "nonce-store.ts",
                           "line": 30,
-                          "character": 48,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L30"
+                          "character": 48
                         }
                       ],
                       "type": {
@@ -687,8 +668,7 @@
         {
           "fileName": "session-store.ts",
           "line": 37,
-          "character": 16,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L37"
+          "character": 16
         }
       ],
       "signatures": [
@@ -710,8 +690,7 @@
             {
               "fileName": "session-store.ts",
               "line": 37,
-              "character": 16,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L37"
+              "character": 16
             }
           ],
           "parameters": [
@@ -744,8 +723,7 @@
                         {
                           "fileName": "session-store.ts",
                           "line": 37,
-                          "character": 50,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L37"
+                          "character": 50
                         }
                       ],
                       "type": {
