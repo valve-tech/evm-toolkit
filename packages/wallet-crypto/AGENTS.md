@@ -77,9 +77,9 @@ Are you producing OR storing encrypted bytes derived from a wallet?
 
 ## Pitfalls
 
-1. **The `nonce` returned by `encryptEnvelope` is NOT the auth nonce
-   from `@valve-tech/auth-lite`.** Different concept, same word.
-   AES-GCM calls its IV a "nonce"; SIWE-lite calls its challenge a
+1. **The `nonce` returned by `encryptEnvelope` is NOT the SIWE nonce
+   from `viem/siwe` / `@valve-tech/siwe-store`.** Different concept, same word.
+   AES-GCM calls its IV a "nonce"; SIWE calls its challenge a
    "nonce". They are unrelated. Don't pass one where the other is
    expected.
 
@@ -106,10 +106,12 @@ Are you producing OR storing encrypted bytes derived from a wallet?
 
 ## Composition
 
-- **With `@valve-tech/auth-lite`**: pair them when a product needs
-  both auth + encrypted storage. They share `WalletDeclined` /
-  `WalletUnavailable` class names (re-exported from both packages) so
-  consumers can `catch (e)` once.
+- **With `@valve-tech/wallet-key-session`**: pair them when a product
+  needs the memory-only lifecycle of the derived key (derive-once, wipe
+  on account-change / tab-close). Wire `deriveWalletEncryptionKey` into
+  `createKeySession`'s `derive` callback. For auth, use `viem/siwe` +
+  `@valve-tech/siwe-store`. Discriminate the rejected `getKey()` on
+  `err.name === 'WalletDeclined'` to catch declines across all packages.
 - **With `@valve-tech/viem-errors`**: this package uses
   `isUserRejectionError` internally — you don't need to import
   viem-errors directly to handle the rejection case, the

@@ -196,12 +196,6 @@ jobs:
           yarn pack --out=/tmp/wallet-crypto.tgz
           npm publish /tmp/wallet-crypto.tgz --access public --provenance
 
-      - name: Publish @valve-tech/auth-lite
-        run: |
-          cd packages/auth-lite
-          yarn pack --out=/tmp/auth-lite.tgz
-          npm publish /tmp/auth-lite.tgz --access public --provenance
-
       # No @valve-tech deps — a leaf dev-tool CLI, so order is free.
       - name: Publish @valve-tech/agent-skills
         run: |

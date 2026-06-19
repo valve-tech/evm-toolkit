@@ -6,6 +6,39 @@ this file. Per-package details live in each `packages/*/CHANGELOG.md`.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Removed
+
+- **`@valve-tech/auth-lite`** is removed. `viem/siwe` (shipped in the
+  viem the toolkit already peer-depends on) owns the entire SIWE
+  crypto + message + validation surface, so the thin wrapper was
+  redundant. Existing published versions remain on npm
+  (forward-deprecated). Use `viem/siwe` for the crypto and the two new
+  packages for the state.
+
+### Added
+
+- **`@valve-tech/wallet-key-session`** (browser) — the memory-only
+  lifecycle of a wallet-derived encryption key: `createKeySession`
+  (derive-once, concurrent-safe, retry-on-reject; auto-wipe on
+  `accountsChanged` / `chainChanged` / `pagehide` / `clear()`). Pairs
+  `@valve-tech/wallet-crypto`.
+- **`@valve-tech/siwe-store`** (server) — the single-use/TTL SIWE nonce
+  store (`createMemoryNonceStore`) and the opaque address-bound session
+  store (`createMemorySessionStore`), plus the `NonceStore` /
+  `SessionStore` interfaces as the contract for Redis/SQL backends.
+  Pairs `viem/siwe`.
+
+### Changed
+
+- `examples/encrypted-vault` reworked to use full EIP-4361 SIWE
+  (`viem/siwe`) and to dogfood `@valve-tech/siwe-store` (server state)
+  and `@valve-tech/wallet-key-session` (client key lifecycle).
+- `@valve-tech/wallet-crypto` docs/comments repointed from the removed
+  `auth-lite` to `wallet-key-session` (key lifecycle) and `viem/siwe` +
+  `siwe-store` (auth).
+
 ## [0.18.0] — 2026-06-01
 
 Two new packages join the synchronized release line, both implementing

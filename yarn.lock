@@ -1741,16 +1741,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/auth-lite@workspace:packages/auth-lite":
-  version: 0.0.0-use.local
-  resolution: "@valve-tech/auth-lite@workspace:packages/auth-lite"
-  dependencies:
-    "@valve-tech/viem-errors": "workspace:^"
-  peerDependencies:
-    viem: ^2.0.0
-  languageName: unknown
-  linkType: soft
-
 "@valve-tech/chain-source@npm:^0.18.0, @valve-tech/chain-source@workspace:^, @valve-tech/chain-source@workspace:packages/chain-source":
   version: 0.0.0-use.local
   resolution: "@valve-tech/chain-source@workspace:packages/chain-source"

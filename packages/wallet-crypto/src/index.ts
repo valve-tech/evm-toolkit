@@ -2,8 +2,9 @@
  * @fileoverview Public API of `@valve-tech/wallet-crypto`.
  *
  * Wallet-derived encryption keys + AES-GCM authenticated envelopes.
- * Pairs with `@valve-tech/auth-lite` (typed errors are intentionally
- * named the same where they overlap so consumers catch one class once).
+ * Pairs with `@valve-tech/wallet-key-session` (the memory-only
+ * lifecycle of the derived key). SIWE auth is `viem/siwe` +
+ * `@valve-tech/siwe-store`.
  */
 
 export { deriveWalletEncryptionKey } from './derive-key.js'

@@ -1,6 +1,6 @@
 ---
 name: building-apps-with-evm-toolkit
-description: Use when composing MULTIPLE @valve-tech/* packages into one EVM app and you need the wiring between them — "build a dapp with the valve packages", "which @valve-tech package do I use for X", "how do wallet-adapter, tx-tracker and tx-flight-react fit together", "share one ChainSource across gas-oracle and tx-tracker", "wire gas pricing into my write path", "add SIWE login plus a transaction strip". Owns the SEAMS (the write path, the shared chain stream, the auth+crypto pairing) and routes you to the right package. Delegates single-package depth to that package's own integration skill (gas-oracle-integration, tx-tracker-integration, wallet-adapter-integration, chain-source-integration, viem-errors-integration, tx-flight-react-integration, auth-lite-integration, wallet-crypto-integration, trueblocks-sdk-integration). Skip when the task lives entirely inside one package — go straight to that package's skill.
+description: Use when composing MULTIPLE @valve-tech/* packages into one EVM app and you need the wiring between them — "build a dapp with the valve packages", "which @valve-tech package do I use for X", "how do wallet-adapter, tx-tracker and tx-flight-react fit together", "share one ChainSource across gas-oracle and tx-tracker", "wire gas pricing into my write path", "add SIWE login plus a transaction strip". Owns the SEAMS (the write path, the shared chain stream, the auth+crypto pairing) and routes you to the right package. Delegates single-package depth to that package's own integration skill (gas-oracle-integration, tx-tracker-integration, wallet-adapter-integration, chain-source-integration, viem-errors-integration, tx-flight-react-integration, wallet-key-session-integration, siwe-store-integration, wallet-crypto-integration, trueblocks-sdk-integration). Skip when the task lives entirely inside one package — go straight to that package's skill.
 ---
 
 # Building apps with the valve-tech EVM toolkit
@@ -52,12 +52,19 @@ docs (the line guarantees a concrete `^0.x.y` will rot).
   `addManual`) and pluggable storage at the `/storage` subpath. Pulls
   `tx-tracker` + `chain-source` only via dynamic import (so
   wallet-adapter-only consumers don't pay for them). → `tx-flight-react-integration`
-- **`@valve-tech/auth-lite`** — SIWE-lite login: server `generateAuthNonce`
-  → client `signAuthChallenge` → server `verifyAuthSignature` (plus
-  `formatAuthMessage`). Narrower than full EIP-4361 by design. → `auth-lite-integration`
+- **`@valve-tech/siwe-store`** — the *server* state for full EIP-4361
+  SIWE that `viem/siwe` leaves to the app: a single-use/TTL nonce store
+  (`createMemoryNonceStore`) and an opaque address-bound session store
+  (`createMemorySessionStore`). The SIWE crypto/message/validation
+  itself is `viem/siwe` (`createSiweMessage`, `parseSiweMessage`,
+  `validateSiweMessage`, `generateSiweNonce`). → `siwe-store-integration`
+- **`@valve-tech/wallet-key-session`** — the *client* memory-only
+  lifecycle of a wallet-derived encryption key: `createKeySession`
+  (derive-once, wipe on account-change / tab-close). Pairs
+  `wallet-crypto`. → `wallet-key-session-integration`
 - **`@valve-tech/wallet-crypto`** — wallet-derived encryption keys +
   AES-GCM envelopes: `deriveWalletEncryptionKey`, `encryptEnvelope` /
-  `decryptEnvelope`. Pairs with `auth-lite` (shared typed errors). → `wallet-crypto-integration`
+  `decryptEnvelope`. Pairs with wallet-key-session (key lifecycle) and viem/siwe + siwe-store (auth). → `wallet-crypto-integration`
 - **`@valve-tech/trueblocks-sdk`** — typed client over a TrueBlocks
   `chifra` daemon for historical reads (you run the daemon). Server-side;
   not a browser/trustless reader. → `trueblocks-sdk-integration`
@@ -103,16 +110,32 @@ consumer. When you add your own derived view of chain state, consume
 
 ## Recipe 3 — login + wallet-encrypted data
 
-`auth-lite` and `wallet-crypto` are independent of the chain-watching
-half and pair with each other:
+Full EIP-4361 SIWE login + wallet-derived encryption. `viem/siwe` owns
+the SIWE crypto; the two valve packages own the state `viem/siwe`
+leaves to you.
 
-- **Login**: `generateAuthNonce` (server) → `signAuthChallenge`
-  (client) → `verifyAuthSignature` (server).
-- **Encrypt user data to their wallet**: `deriveWalletEncryptionKey`
-  then `encryptEnvelope` / `decryptEnvelope`.
+- **Login (server)**: `nonce = nonceStore.issue()` →
+  `createSiweMessage({ domain, uri, address, chainId, nonce, statement,
+  issuedAt, expirationTime })`. Binding fields come from server config,
+  never the request.
+- **Login (client)**: `walletClient.signMessage({ message })` → POST
+  `{ message, signature }`.
+- **Verify (server)**: `const fields = parseSiweMessage(message)` →
+  `nonceStore.consume(fields.nonce)` (single-use/replay) →
+  `validateSiweMessage({ message: fields, domain })` (domain + time;
+  pass the PARSED `fields`, not the raw string — viem requires a parsed
+  message) →
+  `recoverMessageAddress({ message, signature }) === fields.address`
+  (crypto) → `sessionStore.issue(fields.address)`. Any failure → 401.
+- **Encrypt user data to their wallet**: wire
+  `deriveWalletEncryptionKey` (wallet-crypto) into
+  `createKeySession({ address, derive, provider })`
+  (wallet-key-session), then `encryptEnvelope` / `decryptEnvelope`.
 
-They share typed errors (`WalletDeclined`, `WalletUnavailable`) by
-design so a consumer catches one class once.
+The `nonceStore` / `sessionStore` are `@valve-tech/siwe-store`; the key
+lifecycle is `@valve-tech/wallet-key-session`. The two are independent
+of the chain-watching half. A runnable end-to-end wiring is the
+`encrypted-vault` example.
 
 ## Historical reads
 
@@ -130,7 +153,7 @@ before assuming a browser path exists.
   `node_modules/@valve-tech/<pkg>/skills/`.
 - **Runnable references**: several packages ship numbered `examples/`
   in their tarball-adjacent source (`gas-oracle`, `wallet-adapter`,
-  `auth-lite`, `wallet-crypto`) — the closest thing to copy-paste
+  `wallet-crypto`, `wallet-key-session`, `siwe-store`) — the closest thing to copy-paste
   starting points.
 - **AGENTS.md** in each package is the consumer-facing API reference if
   you are not running a skill-aware harness.

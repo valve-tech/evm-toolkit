@@ -1,6 +1,6 @@
 ---
 name: wallet-crypto-integration
-description: Integrate `@valve-tech/wallet-crypto` — wallet-derived encryption keys + AES-GCM authenticated envelopes — into viem-based dapps that cloud-sync encrypted blobs. Use when calling `deriveWalletEncryptionKey` to produce a deterministic AES-GCM `CryptoKey` from a viem `WalletClient`, `encryptEnvelope`/`decryptEnvelope` to wrap/unwrap payloads with AAD binding, `formatKeyDerivationMessage` to preview the signed plaintext, or asks "how do I derive a stable encryption key from a wallet", "why does decryption fail when I change the envelope version" (AAD binding), or "how do I rotate a wallet-derived key". Also fires on package imports and questions about `WalletDeclined`/`WalletUnavailable`/`DecryptionFailed` handling, `extractable: false`, version migration, or "is `sha256(walletAddress + appName)` enough for key derivation" (it is NOT). Skip when the user is going through `@valve-tech/auth-lite` for authentication only (no encryption) — that's a different concern; this skill is the encryption half.
+description: Integrate `@valve-tech/wallet-crypto` — wallet-derived encryption keys + AES-GCM authenticated envelopes — into viem-based dapps that cloud-sync encrypted blobs. Use when calling `deriveWalletEncryptionKey` to produce a deterministic AES-GCM `CryptoKey` from a viem `WalletClient`, `encryptEnvelope`/`decryptEnvelope` to wrap/unwrap payloads with AAD binding, `formatKeyDerivationMessage` to preview the signed plaintext, or asks "how do I derive a stable encryption key from a wallet", "why does decryption fail when I change the envelope version" (AAD binding), or "how do I rotate a wallet-derived key". Also fires on package imports and questions about `WalletDeclined`/`WalletUnavailable`/`DecryptionFailed` handling, `extractable: false`, version migration, or "is `sha256(walletAddress + appName)` enough for key derivation" (it is NOT). Skip when the user only needs SIWE authentication (no encryption) — that's `viem/siwe` + `siwe-store-integration`; this skill is the encryption half.
 ---
 
 # Integrating `@valve-tech/wallet-crypto`
@@ -108,8 +108,8 @@ in a loop — nothing in this package will connect the wallet for you.
 ## Pitfalls (flag these in user code)
 
 1. **The `nonce` in `encryptEnvelope`/`decryptEnvelope` is NOT the
-   auth nonce from `@valve-tech/auth-lite`.** Different concept, same
-   word. AES-GCM calls its IV a "nonce"; SIWE-lite calls its challenge
+   SIWE nonce from `viem/siwe` / `@valve-tech/siwe-store`.** Different concept, same
+   word. AES-GCM calls its IV a "nonce"; SIWE calls its challenge
    a "nonce". If you see a user passing one where the other is
    expected, flag it.
 
@@ -138,24 +138,22 @@ in a loop — nothing in this package will connect the wallet for you.
 
 ## Composition with sibling packages
 
-- **`@valve-tech/auth-lite`** — pair when a product needs both auth
-  + encrypted storage. The two packages intentionally share the
-  `WalletDeclined` / `WalletUnavailable` NAMES, but the classes are
-  DISTINCT — each package defines its own. A single
-  `instanceof WalletDeclined` against one package's import silently
-  misses the sibling's throws. In a catch arm that can see errors
-  from both packages, discriminate on the name:
+- **`@valve-tech/wallet-key-session`** — pair when a product needs the
+  memory-only lifecycle of the derived key (derive-once, wipe on
+  account-change / tab-close). Wire `deriveWalletEncryptionKey` into
+  `createKeySession`'s `derive` callback. When catching a rejected
+  `getKey()` call, discriminate on the name rather than `instanceof`:
   ```ts
   catch (err) {
     if (err instanceof Error && err.name === 'WalletDeclined') {
-      resetToIdle()   // catches BOTH packages' declines
+      resetToIdle()   // catches declines from wallet-key-session's getKey()
       return
     }
     throw err
   }
   ```
-  `instanceof` stays fine inside code that only ever sees one
-  package's throws.
+  For auth, use `viem/siwe` + `siwe-store-integration`. The two
+  concerns (key lifecycle and SIWE login) are independent.
 - **`@valve-tech/viem-errors`** — already used internally; you don't
   need to import it directly for the rejection path.
 
@@ -178,6 +176,8 @@ in a loop — nothing in this package will connect the wallet for you.
 - Full API + types: `node_modules/@valve-tech/wallet-crypto/AGENTS.md`
 - Human-facing docs: `node_modules/@valve-tech/wallet-crypto/README.md`
 - Compiled output: `node_modules/@valve-tech/wallet-crypto/dist/`
-- Sibling skill: `auth-lite-integration` (at
-  `node_modules/@valve-tech/auth-lite/skills/auth-lite-integration/SKILL.md`)
-  for the authentication half
+- Sibling skill: `wallet-key-session-integration` (at
+  `node_modules/@valve-tech/wallet-key-session/skills/wallet-key-session-integration/SKILL.md`)
+  for the key lifecycle half; `siwe-store-integration` (at
+  `node_modules/@valve-tech/siwe-store/skills/siwe-store-integration/SKILL.md`)
+  for the SIWE server-state half
