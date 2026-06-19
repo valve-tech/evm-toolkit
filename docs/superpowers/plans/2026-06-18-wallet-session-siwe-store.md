@@ -1978,9 +1978,11 @@ leaves to you.
   never the request.
 - **Login (client)**: `walletClient.signMessage({ message })` → POST
   `{ message, signature }`.
-- **Verify (server)**: `parseSiweMessage(message)` →
+- **Verify (server)**: `const fields = parseSiweMessage(message)` →
   `nonceStore.consume(fields.nonce)` (single-use/replay) →
-  `validateSiweMessage({ message, domain })` (domain + time) →
+  `validateSiweMessage({ message: fields, domain })` (domain + time;
+  pass the PARSED `fields`, not the raw string — viem requires a parsed
+  message) →
   `recoverMessageAddress({ message, signature }) === fields.address`
   (crypto) → `sessionStore.issue(fields.address)`. Any failure → 401.
 - **Encrypt user data to their wallet**: wire

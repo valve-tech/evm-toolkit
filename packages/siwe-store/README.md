@@ -33,7 +33,7 @@ const message = createSiweMessage({
 // POST /auth/verify  { message, signature }
 const fields = parseSiweMessage(message)
 if (!fields.nonce || !nonces.consume(fields.nonce)) throw new Error('replay')
-if (!validateSiweMessage({ message, domain })) throw new Error('bad domain/time')
+if (!validateSiweMessage({ message: fields, domain })) throw new Error('bad domain/time')
 const recovered = await recoverMessageAddress({ message, signature })
 if (!fields.address || !isAddressEqual(recovered, fields.address)) throw new Error('bad sig')
 const token = sessions.issue(fields.address)

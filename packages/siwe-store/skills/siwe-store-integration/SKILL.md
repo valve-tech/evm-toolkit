@@ -33,7 +33,7 @@ function challenge(address: string) {
 async function verify(message: string, signature: `0x${string}`) {
   const fields = parseSiweMessage(message)
   if (!fields.nonce || !nonces.consume(fields.nonce)) return null   // single-use / replay
-  if (!validateSiweMessage({ message, domain: DOMAIN })) return null // domain + time
+  if (!validateSiweMessage({ message: fields, domain: DOMAIN })) return null // domain + time
   const recovered = await recoverMessageAddress({ message, signature })
   if (!fields.address || !isAddressEqual(recovered, fields.address)) return null
   return sessions.issue(fields.address)                              // opaque token

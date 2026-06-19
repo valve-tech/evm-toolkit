@@ -37,7 +37,7 @@ import type { NonceStore, SessionStore, Session } from '@valve-tech/siwe-store'
 ```
 parseSiweMessage(message) → fields
 nonceStore.consume(fields.nonce)            // single-use / replay
-validateSiweMessage({ message, domain })    // domain binding + time validity
+validateSiweMessage({ message: fields, domain })  // domain binding + time validity
 recoverMessageAddress({ message, signature }) === fields.address  // crypto
 sessionStore.issue(fields.address)          // on success
 // any failure → uniform 401
