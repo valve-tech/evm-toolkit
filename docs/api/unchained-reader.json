@@ -1,0 +1,4607 @@
+{
+  "schemaVersion": "2.0",
+  "id": 0,
+  "name": "@valve-tech/unchained-reader v0.18.0",
+  "variant": "project",
+  "kind": 1,
+  "flags": {},
+  "children": [
+    {
+      "id": 22,
+      "name": "Appearance",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "A single address appearance: the address was seen in this transaction.\n"
+          },
+          {
+            "kind": "code",
+            "text": "`transactionIndex`"
+          },
+          {
+            "kind": "text",
+            "text": " is the position of the tx within its block — feed\n"
+          },
+          {
+            "kind": "code",
+            "text": "`(blockNumber, transactionIndex)`"
+          },
+          {
+            "kind": "text",
+            "text": " to\n"
+          },
+          {
+            "kind": "code",
+            "text": "`eth_getTransactionByBlockNumberAndIndex`"
+          },
+          {
+            "kind": "text",
+            "text": " to hydrate the full tx."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 23,
+          "name": "blockNumber",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 65,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L65"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "bigint"
+          }
+        },
+        {
+          "id": 24,
+          "name": "transactionIndex",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 66,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L66"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "bigint"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            23,
+            24
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 64,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L64"
+        }
+      ]
+    },
+    {
+      "id": 133,
+      "name": "AppearancesResult",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "children": [
+        {
+          "id": 134,
+          "name": "address",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 60,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L60"
+            }
+          ],
+          "type": {
+            "type": "templateLiteral",
+            "head": "0x",
+            "tail": [
+              [
+                {
+                  "type": "intrinsic",
+                  "name": "string"
+                },
+                ""
+              ]
+            ]
+          }
+        },
+        {
+          "id": 135,
+          "name": "appearances",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Ascending by (blockNumber, transactionIndex)."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 62,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L62"
+            }
+          ],
+          "type": {
+            "type": "array",
+            "elementType": {
+              "type": "reference",
+              "target": 22,
+              "name": "Appearance",
+              "package": "@valve-tech/unchained-reader"
+            }
+          }
+        },
+        {
+          "id": 136,
+          "name": "failures",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Chunks that could not be fetched or parsed. Empty = fully complete."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 64,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L64"
+            }
+          ],
+          "type": {
+            "type": "array",
+            "elementType": {
+              "type": "reference",
+              "target": 25,
+              "name": "ChunkFailure",
+              "package": "@valve-tech/unchained-reader"
+            }
+          }
+        },
+        {
+          "id": 137,
+          "name": "progress",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 65,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L65"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 138,
+            "name": "Progress",
+            "package": "@valve-tech/unchained-reader"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            134,
+            135,
+            136,
+            137
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "reader.ts",
+          "line": 59,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L59"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "BlockRange",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "A half-open... no — an INCLUSIVE block range "
+          },
+          {
+            "kind": "code",
+            "text": "`[first, last]`"
+          },
+          {
+            "kind": "text",
+            "text": "."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 20,
+          "name": "first",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 16,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L16"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "bigint"
+          }
+        },
+        {
+          "id": 21,
+          "name": "last",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 17,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L17"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "bigint"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            20,
+            21
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 15,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L15"
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "name": "Bloom",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "A parsed bloom filter: the raw bytes plus the decoded bloom count."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 61,
+          "name": "bytes",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The whole file, retained for lazy bit reads during membership tests."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "bloom.ts",
+              "line": 37,
+              "character": 11,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/bloom.ts#L37"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.es5.d.ts",
+              "qualifiedName": "Uint8Array"
+            },
+            "name": "Uint8Array",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        },
+        {
+          "id": 60,
+          "name": "count",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Number of adaptive sub-filters in this file."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "bloom.ts",
+              "line": 35,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/bloom.ts#L35"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            61,
+            60
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "bloom.ts",
+          "line": 33,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/bloom.ts#L33"
+        }
+      ]
+    },
+    {
+      "id": 98,
+      "name": "ChunkCache",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Content cache keyed by CID. Both methods are async so consumers can\nback it with the browser Cache API, IndexedDB, or disk. CIDs are\nimmutable content addresses, so entries never go stale."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 99,
+          "name": "get",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "fetcher.ts",
+              "line": 37,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L37"
+            }
+          ],
+          "signatures": [
+            {
+              "id": 100,
+              "name": "get",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "fetcher.ts",
+                  "line": 37,
+                  "character": 2,
+                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L37"
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 101,
+                  "name": "cid",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "union",
+                    "types": [
+                      {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.es5.d.ts",
+                          "qualifiedName": "Uint8Array"
+                        },
+                        "typeArguments": [
+                          {
+                            "type": "reference",
+                            "target": {
+                              "packageName": "typescript",
+                              "packagePath": "lib/lib.es5.d.ts",
+                              "qualifiedName": "ArrayBufferLike"
+                            },
+                            "name": "ArrayBufferLike",
+                            "package": "typescript",
+                            "externalUrl": "#"
+                          }
+                        ],
+                        "name": "Uint8Array",
+                        "package": "typescript",
+                        "externalUrl": "#"
+                      },
+                      {
+                        "type": "intrinsic",
+                        "name": "undefined"
+                      }
+                    ]
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        },
+        {
+          "id": 102,
+          "name": "put",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "fetcher.ts",
+              "line": 38,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L38"
+            }
+          ],
+          "signatures": [
+            {
+              "id": 103,
+              "name": "put",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "fetcher.ts",
+                  "line": 38,
+                  "character": 2,
+                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L38"
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 104,
+                  "name": "cid",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 105,
+                  "name": "bytes",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.es5.d.ts",
+                      "qualifiedName": "Uint8Array"
+                    },
+                    "name": "Uint8Array",
+                    "package": "typescript",
+                    "externalUrl": "#"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Methods",
+          "children": [
+            99,
+            102
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "fetcher.ts",
+          "line": 36,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L36"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "name": "ChunkFailure",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "A chunk that failed, with enough context to retry or report it."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 27,
+          "name": "cid",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "CID of the file that failed (bloom or index)."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 86,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L86"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 29,
+          "name": "detail",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Human-readable detail (the underlying error message)."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 89,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L89"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 26,
+          "name": "range",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 84,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L84"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 19,
+            "name": "BlockRange",
+            "package": "@valve-tech/unchained-reader"
+          }
+        },
+        {
+          "id": 28,
+          "name": "reason",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 87,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L87"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 34,
+            "name": "FailureReason",
+            "package": "@valve-tech/unchained-reader"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            27,
+            29,
+            26,
+            28
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 83,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L83"
+        }
+      ]
+    },
+    {
+      "id": 69,
+      "name": "ChunkHeader",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Decoded chunk header: the two table sizes."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 70,
+          "name": "addressCount",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "chunk.ts",
+              "line": 36,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/chunk.ts#L36"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 71,
+          "name": "appearanceCount",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "chunk.ts",
+              "line": 37,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/chunk.ts#L37"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            70,
+            71
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "chunk.ts",
+          "line": 35,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/chunk.ts#L35"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "ChunkRef",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "One chunk's metadata as it appears in the manifest."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 15,
+          "name": "bloomHash",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "IPFS CID of the bloom filter file."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 25,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L25"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 16,
+          "name": "bloomSize",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Byte size of the bloom file (informational; bounds the fetch)."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 27,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L27"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 17,
+          "name": "indexHash",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "IPFS CID of the index chunk file."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 29,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L29"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 18,
+          "name": "indexSize",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Byte size of the index file (informational; bounds the fetch)."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 31,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L31"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 14,
+          "name": "range",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Inclusive block range this chunk covers."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 23,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L23"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 19,
+            "name": "BlockRange",
+            "package": "@valve-tech/unchained-reader"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            15,
+            16,
+            17,
+            18,
+            14
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 21,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L21"
+        }
+      ]
+    },
+    {
+      "id": 75,
+      "name": "Fetcher",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "children": [
+        {
+          "id": 76,
+          "name": "fetchCid",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "fetcher.ts",
+              "line": 81,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L81"
+            }
+          ],
+          "signatures": [
+            {
+              "id": 77,
+              "name": "fetchCid",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Fetch a CID's bytes (cache-first), retrying + queueing as configured."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "fetcher.ts",
+                  "line": 81,
+                  "character": 2,
+                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L81"
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 78,
+                  "name": "cid",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 79,
+                  "name": "opts",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@valve-tech/unchained-reader",
+                      "packagePath": "src/fetcher.ts",
+                      "qualifiedName": "FetchCidOptions"
+                    },
+                    "name": "FetchCidOptions",
+                    "package": "@valve-tech/unchained-reader"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.es5.d.ts",
+                      "qualifiedName": "Uint8Array"
+                    },
+                    "typeArguments": [
+                      {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.es5.d.ts",
+                          "qualifiedName": "ArrayBufferLike"
+                        },
+                        "name": "ArrayBufferLike",
+                        "package": "typescript",
+                        "externalUrl": "#"
+                      }
+                    ],
+                    "name": "Uint8Array",
+                    "package": "typescript",
+                    "externalUrl": "#"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Methods",
+          "children": [
+            76
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "fetcher.ts",
+          "line": 79,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L79"
+        }
+      ]
+    },
+    {
+      "id": 80,
+      "name": "FetcherConfig",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "children": [
+        {
+          "id": 83,
+          "name": "cache",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Optional content cache."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "fetcher.ts",
+              "line": 47,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L47"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 98,
+            "name": "ChunkCache",
+            "package": "@valve-tech/unchained-reader"
+          }
+        },
+        {
+          "id": 84,
+          "name": "concurrency",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Max concurrent NORMAL (bloom) gateway requests. Default 6."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "fetcher.ts",
+              "line": 49,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L49"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 82,
+          "name": "fetch",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Platform fetch. Defaults to "
+              },
+              {
+                "kind": "code",
+                "text": "`globalThis.fetch`"
+              },
+              {
+                "kind": "text",
+                "text": " when present."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "fetcher.ts",
+              "line": 45,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L45"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 88,
+            "name": "FetchLike",
+            "package": "@valve-tech/unchained-reader"
+          }
+        },
+        {
+          "id": 81,
+          "name": "gatewayUrl",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Gateway base, e.g. "
+              },
+              {
+                "kind": "code",
+                "text": "`https://ipfs.valve.city`"
+              },
+              {
+                "kind": "text",
+                "text": ". A trailing "
+              },
+              {
+                "kind": "code",
+                "text": "`/`"
+              },
+              {
+                "kind": "text",
+                "text": " is fine."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "fetcher.ts",
+              "line": 43,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L43"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 86,
+          "name": "maxRetries",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Extra attempts after the first failure. Default 1 (one retry)."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "fetcher.ts",
+              "line": 58,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L58"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 85,
+          "name": "priorityConcurrency",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Max concurrent PRIORITY (index-chunk) requests, in a SEPARATE pool from\n"
+              },
+              {
+                "kind": "code",
+                "text": "`concurrency`"
+              },
+              {
+                "kind": "text",
+                "text": ". Index chunks are large (tens of MB); giving them their\nown lane means a burst of bloom hits downloads chunks promptly without\nstalling the ongoing bloom scan (and vice versa). Default 4."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "fetcher.ts",
+              "line": 56,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L56"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 87,
+          "name": "timeoutMs",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Per-request timeout in ms. A gateway that accepts the request but\nnever responds (e.g. an unpinned CID it tries to resolve over the\nDHT) would otherwise hang the whole query forever. On timeout the\nrequest is aborted and treated as a failure. Default 20000."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "fetcher.ts",
+              "line": 65,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L65"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            83,
+            84,
+            82,
+            81,
+            86,
+            85,
+            87
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "fetcher.ts",
+          "line": 41,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L41"
+        }
+      ]
+    },
+    {
+      "id": 93,
+      "name": "FetchResponse",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Minimal subset of the platform "
+          },
+          {
+            "kind": "code",
+            "text": "`Response`"
+          },
+          {
+            "kind": "text",
+            "text": " this package consumes."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 94,
+          "name": "ok",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "fetcher.ts",
+              "line": 18,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L18"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 95,
+          "name": "status",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "fetcher.ts",
+              "line": 19,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L19"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 96,
+          "name": "arrayBuffer",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "fetcher.ts",
+              "line": 20,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L20"
+            }
+          ],
+          "signatures": [
+            {
+              "id": 97,
+              "name": "arrayBuffer",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "fetcher.ts",
+                  "line": 20,
+                  "character": 2,
+                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L20"
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.es5.d.ts",
+                      "qualifiedName": "ArrayBuffer"
+                    },
+                    "name": "ArrayBuffer",
+                    "package": "typescript",
+                    "externalUrl": "#"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            94,
+            95
+          ]
+        },
+        {
+          "title": "Methods",
+          "children": [
+            96
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "fetcher.ts",
+          "line": 17,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L17"
+        }
+      ]
+    },
+    {
+      "id": 121,
+      "name": "GetAppearancesOptions",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "children": [
+        {
+          "id": 122,
+          "name": "blockRange",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Restrict to appearances within this inclusive block range."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 43,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L43"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 19,
+            "name": "BlockRange",
+            "package": "@valve-tech/unchained-reader"
+          }
+        },
+        {
+          "id": 127,
+          "name": "onAppearances",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Streaming sink: fires the moment a chunk's index is parsed and yields\none or more appearances, BEFORE the whole query finishes. Lets a UI\nrender (and hydrate) results as they arrive instead of waiting for the\nfull scan. Chunks resolve concurrently, so calls arrive out of block\norder — sort on the consumer side. The final "
+              },
+              {
+                "kind": "code",
+                "text": "`AppearancesResult`"
+              },
+              {
+                "kind": "text",
+                "text": "\nstill carries the complete, sorted set."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 54,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L54"
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 128,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 129,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 130,
+                      "name": "found",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "array",
+                        "elementType": {
+                          "type": "reference",
+                          "target": 22,
+                          "name": "Appearance",
+                          "package": "@valve-tech/unchained-reader"
+                        }
+                      }
+                    },
+                    {
+                      "id": 131,
+                      "name": "chunk",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "reference",
+                        "target": 13,
+                        "name": "ChunkRef",
+                        "package": "@valve-tech/unchained-reader"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 123,
+          "name": "onProgress",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Called after each bloom/chunk step with a fresh progress snapshot."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 45,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L45"
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 124,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 125,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 126,
+                      "name": "progress",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "reference",
+                        "target": 138,
+                        "name": "Progress",
+                        "package": "@valve-tech/unchained-reader"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 132,
+          "name": "signal",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Abort an in-flight query."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 56,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L56"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@types/node",
+              "packagePath": "web-globals/abortcontroller.d.ts",
+              "qualifiedName": "__global.AbortSignal"
+            },
+            "name": "AbortSignal",
+            "package": "@types/node",
+            "qualifiedName": "__global.AbortSignal"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            122,
+            127,
+            123,
+            132
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "reader.ts",
+          "line": 41,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L41"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Manifest",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "The Unchained Index manifest — the root document for a chain's index."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 2,
+          "name": "chain",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Chain key (e.g. "
+              },
+              {
+                "kind": "code",
+                "text": "`mainnet`"
+              },
+              {
+                "kind": "text",
+                "text": ", "
+              },
+              {
+                "kind": "code",
+                "text": "`pulsechain`"
+              },
+              {
+                "kind": "text",
+                "text": ", "
+              },
+              {
+                "kind": "code",
+                "text": "`pulsechain-v4`"
+              },
+              {
+                "kind": "text",
+                "text": ")."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 37,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L37"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 6,
+          "name": "chunks",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Every chunk, ascending by block range."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 45,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L45"
+            }
+          ],
+          "type": {
+            "type": "array",
+            "elementType": {
+              "type": "reference",
+              "target": 13,
+              "name": "ChunkRef",
+              "package": "@valve-tech/unchained-reader"
+            }
+          }
+        },
+        {
+          "id": 5,
+          "name": "config",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Index build parameters. Passed through verbatim; not interpreted here."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 43,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L43"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 7,
+            "name": "ManifestConfig",
+            "package": "@valve-tech/unchained-reader"
+          }
+        },
+        {
+          "id": 3,
+          "name": "specification",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "IPFS CID of the binary-format specification this index was built to."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 39,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L39"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 4,
+          "name": "version",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Builder version string, e.g. "
+              },
+              {
+                "kind": "code",
+                "text": "`trueblocks-core@v2.0.0-release`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 41,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L41"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            2,
+            6,
+            5,
+            3,
+            4
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 35,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L35"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "ManifestConfig",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Index build parameters carried in the manifest's "
+          },
+          {
+            "kind": "code",
+            "text": "`config`"
+          },
+          {
+            "kind": "text",
+            "text": " object."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 12,
+          "name": "allowMissing",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Present on newer manifests; whether chunks may be missing from the set."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 55,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L55"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 8,
+          "name": "appsPerChunk",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 50,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L50"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 10,
+          "name": "firstSnap",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 52,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L52"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 9,
+          "name": "snapToGrid",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 51,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L51"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 11,
+          "name": "unripeDist",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 53,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L53"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            12,
+            8,
+            10,
+            9,
+            11
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 49,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L49"
+        }
+      ]
+    },
+    {
+      "id": 138,
+      "name": "Progress",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Progress snapshot passed to "
+          },
+          {
+            "kind": "code",
+            "text": "`onProgress`"
+          },
+          {
+            "kind": "text",
+            "text": " and returned in the result."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 143,
+          "name": "appearancesFound",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Appearances accumulated so far."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 36,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L36"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 140,
+          "name": "bloomsFetched",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Bloom files fetched + parsed so far."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 30,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L30"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 144,
+          "name": "bytesFetched",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Total bytes pulled from the gateway so far (blooms + index chunks)."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 38,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L38"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 142,
+          "name": "chunksFetched",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Index chunks fetched + parsed so far."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 34,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L34"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 139,
+          "name": "chunksTotal",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Chunks in scope after block-range filtering."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 28,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L28"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 141,
+          "name": "hits",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Blooms that reported a possible match (index fetch warranted)."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 32,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L32"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            143,
+            140,
+            144,
+            142,
+            139,
+            141
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "reader.ts",
+          "line": 26,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L26"
+        }
+      ]
+    },
+    {
+      "id": 114,
+      "name": "ReaderConfig",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Manifest resolution — provide exactly one. "
+          },
+          {
+            "kind": "code",
+            "text": "`manifest`"
+          },
+          {
+            "kind": "text",
+            "text": " (pre-parsed) and\n"
+          },
+          {
+            "kind": "code",
+            "text": "`manifestCid`"
+          },
+          {
+            "kind": "text",
+            "text": " (fetched via the gateway fetcher) are native. URL-served\nmanifests and the contract-publication resolver are supplied via\n"
+          },
+          {
+            "kind": "code",
+            "text": "`resolveManifest`"
+          },
+          {
+            "kind": "text",
+            "text": " so the zero-dep core never grows a second fetch path\nor a viem dependency (the example wires the contract "
+          },
+          {
+            "kind": "code",
+            "text": "`eth_call`"
+          },
+          {
+            "kind": "text",
+            "text": " there)."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 115,
+          "name": "fetcher",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 76,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L76"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 75,
+            "name": "Fetcher",
+            "package": "@valve-tech/unchained-reader"
+          }
+        },
+        {
+          "id": 116,
+          "name": "manifest",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 77,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L77"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 1,
+            "name": "Manifest",
+            "package": "@valve-tech/unchained-reader"
+          }
+        },
+        {
+          "id": 117,
+          "name": "manifestCid",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 78,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L78"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 118,
+          "name": "resolveManifest",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 79,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L79"
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 119,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 120,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.es5.d.ts",
+                      "qualifiedName": "Promise"
+                    },
+                    "typeArguments": [
+                      {
+                        "type": "intrinsic",
+                        "name": "unknown"
+                      }
+                    ],
+                    "name": "Promise",
+                    "package": "typescript",
+                    "externalUrl": "#"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            115,
+            116,
+            117,
+            118
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "reader.ts",
+          "line": 75,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L75"
+        }
+      ]
+    },
+    {
+      "id": 109,
+      "name": "UnchainedReader",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "children": [
+        {
+          "id": 110,
+          "name": "getAppearances",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 83,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L83"
+            }
+          ],
+          "signatures": [
+            {
+              "id": 111,
+              "name": "getAppearances",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "reader.ts",
+                  "line": 83,
+                  "character": 2,
+                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L83"
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 112,
+                  "name": "address",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 113,
+                  "name": "opts",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": 121,
+                    "name": "GetAppearancesOptions",
+                    "package": "@valve-tech/unchained-reader"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "reference",
+                    "target": 133,
+                    "name": "AppearancesResult",
+                    "package": "@valve-tech/unchained-reader"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Methods",
+          "children": [
+            110
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "reader.ts",
+          "line": 82,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L82"
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "name": "FailureReason",
+      "variant": "declaration",
+      "kind": 2097152,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Why a chunk could not be turned into appearances. Carried in the\nreader's "
+          },
+          {
+            "kind": "code",
+            "text": "`failures`"
+          },
+          {
+            "kind": "text",
+            "text": " array so a partial answer is never mistaken for a\ncomplete one (the toolkit's no-silent-downgrade invariant)."
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 74,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L74"
+        },
+        {
+          "fileName": "types.ts",
+          "line": 80,
+          "character": 12,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L80"
+        }
+      ],
+      "type": {
+        "type": "indexedAccess",
+        "indexType": {
+          "type": "typeOperator",
+          "operator": "keyof",
+          "target": {
+            "type": "query",
+            "queryType": {
+              "type": "reference",
+              "target": 30,
+              "name": "FailureReason",
+              "package": "@valve-tech/unchained-reader"
+            }
+          }
+        },
+        "objectType": {
+          "type": "query",
+          "queryType": {
+            "type": "reference",
+            "target": 30,
+            "name": "FailureReason",
+            "package": "@valve-tech/unchained-reader"
+          }
+        }
+      }
+    },
+    {
+      "id": 88,
+      "name": "FetchLike",
+      "variant": "declaration",
+      "kind": 2097152,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Minimal subset of the platform "
+          },
+          {
+            "kind": "code",
+            "text": "`fetch`"
+          },
+          {
+            "kind": "text",
+            "text": " — what callers must provide."
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "fetcher.ts",
+          "line": 29,
+          "character": 12,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L29"
+        }
+      ],
+      "type": {
+        "type": "reflection",
+        "declaration": {
+          "id": 89,
+          "name": "__type",
+          "variant": "declaration",
+          "kind": 65536,
+          "flags": {},
+          "signatures": [
+            {
+              "id": 90,
+              "name": "__type",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "parameters": [
+                {
+                  "id": 91,
+                  "name": "url",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 92,
+                  "name": "init",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@valve-tech/unchained-reader",
+                      "packagePath": "src/fetcher.ts",
+                      "qualifiedName": "FetchInit"
+                    },
+                    "name": "FetchInit",
+                    "package": "@valve-tech/unchained-reader"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "reference",
+                    "target": 93,
+                    "name": "FetchResponse",
+                    "package": "@valve-tech/unchained-reader"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 47,
+      "name": "HexAddress",
+      "variant": "declaration",
+      "kind": 2097152,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Lowercase, 0x-prefixed, 40-hex-character form of an address."
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "address.ts",
+          "line": 7,
+          "character": 12,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/address.ts#L7"
+        }
+      ],
+      "type": {
+        "type": "templateLiteral",
+        "head": "0x",
+        "tail": [
+          [
+            {
+              "type": "intrinsic",
+              "name": "string"
+            },
+            ""
+          ]
+        ]
+      }
+    },
+    {
+      "id": 51,
+      "name": "ACCEPTED_VERSION",
+      "variant": "declaration",
+      "kind": 32,
+      "flags": {
+        "isConst": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "The single index format version this reader understands. The chunk and\nbloom binary layouts in "
+          },
+          {
+            "kind": "code",
+            "text": "`chunk.ts`"
+          },
+          {
+            "kind": "text",
+            "text": " / "
+          },
+          {
+            "kind": "code",
+            "text": "`bloom.ts`"
+          },
+          {
+            "kind": "text",
+            "text": " are pinned to it. Valve's\nown pulsechain / pulsechain-v4 manifests and TrueBlocks mainnet all\npublish this exact string today (verified 2026-06-12)."
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "manifest.ts",
+          "line": 19,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/manifest.ts#L19"
+        }
+      ],
+      "type": {
+        "type": "literal",
+        "value": "trueblocks-core@v2.0.0-release"
+      },
+      "defaultValue": "'trueblocks-core@v2.0.0-release'"
+    },
+    {
+      "id": 30,
+      "name": "FailureReason",
+      "variant": "declaration",
+      "kind": 32,
+      "flags": {
+        "isConst": true
+      },
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Why a chunk could not be turned into appearances. Carried in the\nreader's "
+          },
+          {
+            "kind": "code",
+            "text": "`failures`"
+          },
+          {
+            "kind": "text",
+            "text": " array so a partial answer is never mistaken for a\ncomplete one (the toolkit's no-silent-downgrade invariant)."
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 74,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L74"
+        },
+        {
+          "fileName": "types.ts",
+          "line": 80,
+          "character": 12,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L80"
+        }
+      ],
+      "type": {
+        "type": "reflection",
+        "declaration": {
+          "id": 31,
+          "name": "__type",
+          "variant": "declaration",
+          "kind": 65536,
+          "flags": {},
+          "children": [
+            {
+              "id": 32,
+              "name": "fetch",
+              "variant": "declaration",
+              "kind": 1024,
+              "flags": {
+                "isReadonly": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The bloom or index file could not be fetched from the gateway."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "types.ts",
+                  "line": 76,
+                  "character": 2,
+                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L76"
+                }
+              ],
+              "type": {
+                "type": "literal",
+                "value": "fetch"
+              },
+              "defaultValue": "'fetch'"
+            },
+            {
+              "id": 33,
+              "name": "parse",
+              "variant": "declaration",
+              "kind": 1024,
+              "flags": {
+                "isReadonly": true
+              },
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The fetched bytes did not parse (bad magic, truncated, etc.)."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "types.ts",
+                  "line": 78,
+                  "character": 2,
+                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/types.ts#L78"
+                }
+              ],
+              "type": {
+                "type": "literal",
+                "value": "parse"
+              },
+              "defaultValue": "'parse'"
+            }
+          ],
+          "groups": [
+            {
+              "title": "Properties",
+              "children": [
+                32,
+                33
+              ]
+            }
+          ]
+        }
+      },
+      "defaultValue": "..."
+    },
+    {
+      "id": 38,
+      "name": "addressToBytes",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "address.ts",
+          "line": 15,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/address.ts#L15"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 39,
+          "name": "addressToBytes",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Parse an address string (with or without "
+              },
+              {
+                "kind": "code",
+                "text": "`0x`"
+              },
+              {
+                "kind": "text",
+                "text": ", any case) into its 20\nraw bytes. Throws on anything that is not exactly 40 hex characters."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "address.ts",
+              "line": 15,
+              "character": 30,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/address.ts#L15"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 40,
+              "name": "address",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.es5.d.ts",
+              "qualifiedName": "Uint8Array"
+            },
+            "name": "Uint8Array",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        }
+      ]
+    },
+    {
+      "id": 65,
+      "name": "appearancesOf",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "chunk.ts",
+          "line": 76,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/chunk.ts#L76"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 66,
+          "name": "appearancesOf",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Every appearance "
+              },
+              {
+                "kind": "code",
+                "text": "`(blockNumber, transactionIndex)`"
+              },
+              {
+                "kind": "text",
+                "text": " of "
+              },
+              {
+                "kind": "code",
+                "text": "`address`"
+              },
+              {
+                "kind": "text",
+                "text": " in this\nchunk, in stored order. Returns "
+              },
+              {
+                "kind": "code",
+                "text": "`[]`"
+              },
+              {
+                "kind": "text",
+                "text": " when the address is absent. The\naddress table is binary-searched; only the matched address's\nappearance slice is decoded."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "chunk.ts",
+              "line": 76,
+              "character": 29,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/chunk.ts#L76"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 67,
+              "name": "bytes",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Uint8Array"
+                },
+                "name": "Uint8Array",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            },
+            {
+              "id": 68,
+              "name": "address",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          ],
+          "type": {
+            "type": "array",
+            "elementType": {
+              "type": "reference",
+              "target": 22,
+              "name": "Appearance",
+              "package": "@valve-tech/unchained-reader"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "name": "bytesToAddress",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "address.ts",
+          "line": 29,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/address.ts#L29"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 42,
+          "name": "bytesToAddress",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Render 20 bytes as a lowercase 0x-prefixed address."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "address.ts",
+              "line": 29,
+              "character": 30,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/address.ts#L29"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 43,
+              "name": "bytes",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Uint8Array"
+                },
+                "name": "Uint8Array",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ],
+          "type": {
+            "type": "templateLiteral",
+            "head": "0x",
+            "tail": [
+              [
+                {
+                  "type": "intrinsic",
+                  "name": "string"
+                },
+                ""
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 72,
+      "name": "createFetcher",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "fetcher.ts",
+          "line": 113,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L113"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 73,
+          "name": "createFetcher",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "fetcher.ts",
+              "line": 113,
+              "character": 29,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/fetcher.ts#L113"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 74,
+              "name": "config",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "target": 80,
+                "name": "FetcherConfig",
+                "package": "@valve-tech/unchained-reader"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 75,
+            "name": "Fetcher",
+            "package": "@valve-tech/unchained-reader"
+          }
+        }
+      ]
+    },
+    {
+      "id": 106,
+      "name": "createUnchainedReader",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "reader.ts",
+          "line": 101,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L101"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 107,
+          "name": "createUnchainedReader",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "reader.ts",
+              "line": 101,
+              "character": 37,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/reader.ts#L101"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 108,
+              "name": "config",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "target": 114,
+                "name": "ReaderConfig",
+                "package": "@valve-tech/unchained-reader"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 109,
+            "name": "UnchainedReader",
+            "package": "@valve-tech/unchained-reader"
+          }
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "name": "isReservedAddress",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "address.ts",
+          "line": 48,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/address.ts#L48"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 45,
+          "name": "isReservedAddress",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "True if the address is "
+              },
+              {
+                "kind": "code",
+                "text": "`<= 0xffff`"
+              },
+              {
+                "kind": "text",
+                "text": " — i.e. its high 18 bytes are all zero.\nThis is the precompile / reserved range (0x0…0000–0x0…ffff). chifra and\nthe Unchained Index do NOT index these, so querying one is meaningless;\nworse, a near-zero bit pattern triggers bloom false-positives in nearly\nevery chunk. Treat as invalid in both the UI and any server."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "address.ts",
+              "line": 48,
+              "character": 33,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/address.ts#L48"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 46,
+              "name": "address",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "name": "mightContain",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "bloom.ts",
+          "line": 85,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/bloom.ts#L85"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 56,
+          "name": "mightContain",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Probabilistic membership: "
+              },
+              {
+                "kind": "code",
+                "text": "`true`"
+              },
+              {
+                "kind": "text",
+                "text": " means the address MAY appear in the\ncorresponding index chunk (fetch + parse it to be sure); "
+              },
+              {
+                "kind": "code",
+                "text": "`false`"
+              },
+              {
+                "kind": "text",
+                "text": " means\nit definitely does not (skip the chunk entirely)."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "bloom.ts",
+              "line": 85,
+              "character": 28,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/bloom.ts#L85"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 57,
+              "name": "bloom",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "target": 59,
+                "name": "Bloom",
+                "package": "@valve-tech/unchained-reader"
+              }
+            },
+            {
+              "id": 58,
+              "name": "address",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "name": "normalizeAddress",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "address.ts",
+          "line": 38,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/address.ts#L38"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 36,
+          "name": "normalizeAddress",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Normalize any accepted address form to lowercase 0x-prefixed."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "address.ts",
+              "line": 38,
+              "character": 32,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/address.ts#L38"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 37,
+              "name": "address",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          ],
+          "type": {
+            "type": "templateLiteral",
+            "head": "0x",
+            "tail": [
+              [
+                {
+                  "type": "intrinsic",
+                  "name": "string"
+                },
+                ""
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "name": "parseBloom",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "bloom.ts",
+          "line": 41,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/bloom.ts#L41"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 53,
+          "name": "parseBloom",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Validate the header and decode the bloom count. Does not copy the body."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "bloom.ts",
+              "line": 41,
+              "character": 26,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/bloom.ts#L41"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 54,
+              "name": "bytes",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Uint8Array"
+                },
+                "name": "Uint8Array",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 59,
+            "name": "Bloom",
+            "package": "@valve-tech/unchained-reader"
+          }
+        }
+      ]
+    },
+    {
+      "id": 62,
+      "name": "parseChunkHeader",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "chunk.ts",
+          "line": 44,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/chunk.ts#L44"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 63,
+          "name": "parseChunkHeader",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Validate the magic number and read the address / appearance counts."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "chunk.ts",
+              "line": 44,
+              "character": 32,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/chunk.ts#L44"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 64,
+              "name": "bytes",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Uint8Array"
+                },
+                "name": "Uint8Array",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 69,
+            "name": "ChunkHeader",
+            "package": "@valve-tech/unchained-reader"
+          }
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "name": "parseManifest",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "manifest.ts",
+          "line": 60,
+          "character": 13,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/manifest.ts#L60"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 49,
+          "name": "parseManifest",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Validate and decode an Unchained Index manifest."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@throws",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "if "
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`raw`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": " is not a manifest, the version is unsupported, or any\n        chunk range is malformed"
+                  }
+                ]
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "manifest.ts",
+              "line": 60,
+              "character": 29,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/unchained-reader/src/manifest.ts#L60"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 50,
+              "name": "raw",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "a parsed JSON value (object), typically "
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`JSON.parse(text)`"
+                  }
+                ]
+              },
+              "type": {
+                "type": "intrinsic",
+                "name": "unknown"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 1,
+            "name": "Manifest",
+            "package": "@valve-tech/unchained-reader"
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Interfaces",
+      "children": [
+        22,
+        133,
+        19,
+        59,
+        98,
+        25,
+        69,
+        13,
+        75,
+        80,
+        93,
+        121,
+        1,
+        7,
+        138,
+        114,
+        109
+      ]
+    },
+    {
+      "title": "Type Aliases",
+      "children": [
+        34,
+        88,
+        47
+      ]
+    },
+    {
+      "title": "Variables",
+      "children": [
+        51,
+        30
+      ]
+    },
+    {
+      "title": "Functions",
+      "children": [
+        38,
+        65,
+        41,
+        72,
+        106,
+        44,
+        55,
+        35,
+        52,
+        62,
+        48
+      ]
+    }
+  ],
+  "packageName": "@valve-tech/unchained-reader",
+  "packageVersion": "0.18.0",
+  "symbolIdMap": {
+    "0": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/index.ts",
+      "qualifiedName": ""
+    },
+    "1": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "Manifest"
+    },
+    "2": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "Manifest.chain"
+    },
+    "3": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "Manifest.specification"
+    },
+    "4": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "Manifest.version"
+    },
+    "5": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "Manifest.config"
+    },
+    "6": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "Manifest.chunks"
+    },
+    "7": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ManifestConfig"
+    },
+    "8": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ManifestConfig.appsPerChunk"
+    },
+    "9": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ManifestConfig.snapToGrid"
+    },
+    "10": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ManifestConfig.firstSnap"
+    },
+    "11": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ManifestConfig.unripeDist"
+    },
+    "12": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ManifestConfig.allowMissing"
+    },
+    "13": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ChunkRef"
+    },
+    "14": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ChunkRef.range"
+    },
+    "15": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ChunkRef.bloomHash"
+    },
+    "16": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ChunkRef.bloomSize"
+    },
+    "17": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ChunkRef.indexHash"
+    },
+    "18": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ChunkRef.indexSize"
+    },
+    "19": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "BlockRange"
+    },
+    "20": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "BlockRange.first"
+    },
+    "21": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "BlockRange.last"
+    },
+    "22": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "Appearance"
+    },
+    "23": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "Appearance.blockNumber"
+    },
+    "24": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "Appearance.transactionIndex"
+    },
+    "25": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ChunkFailure"
+    },
+    "26": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ChunkFailure.range"
+    },
+    "27": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ChunkFailure.cid"
+    },
+    "28": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ChunkFailure.reason"
+    },
+    "29": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "ChunkFailure.detail"
+    },
+    "30": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "FailureReason"
+    },
+    "31": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "__object"
+    },
+    "32": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "__object.fetch"
+    },
+    "33": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "__object.parse"
+    },
+    "34": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "FailureReason"
+    },
+    "35": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/address.ts",
+      "qualifiedName": "normalizeAddress"
+    },
+    "36": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/address.ts",
+      "qualifiedName": "normalizeAddress"
+    },
+    "37": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/address.ts",
+      "qualifiedName": "address"
+    },
+    "38": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/address.ts",
+      "qualifiedName": "addressToBytes"
+    },
+    "39": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/address.ts",
+      "qualifiedName": "addressToBytes"
+    },
+    "40": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/address.ts",
+      "qualifiedName": "address"
+    },
+    "41": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/address.ts",
+      "qualifiedName": "bytesToAddress"
+    },
+    "42": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/address.ts",
+      "qualifiedName": "bytesToAddress"
+    },
+    "43": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/address.ts",
+      "qualifiedName": "bytes"
+    },
+    "44": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/address.ts",
+      "qualifiedName": "isReservedAddress"
+    },
+    "45": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/address.ts",
+      "qualifiedName": "isReservedAddress"
+    },
+    "46": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/address.ts",
+      "qualifiedName": "address"
+    },
+    "47": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/address.ts",
+      "qualifiedName": "HexAddress"
+    },
+    "48": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/manifest.ts",
+      "qualifiedName": "parseManifest"
+    },
+    "49": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/manifest.ts",
+      "qualifiedName": "parseManifest"
+    },
+    "50": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/manifest.ts",
+      "qualifiedName": "raw"
+    },
+    "51": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/manifest.ts",
+      "qualifiedName": "ACCEPTED_VERSION"
+    },
+    "52": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/bloom.ts",
+      "qualifiedName": "parseBloom"
+    },
+    "53": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/bloom.ts",
+      "qualifiedName": "parseBloom"
+    },
+    "54": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/bloom.ts",
+      "qualifiedName": "bytes"
+    },
+    "55": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/bloom.ts",
+      "qualifiedName": "mightContain"
+    },
+    "56": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/bloom.ts",
+      "qualifiedName": "mightContain"
+    },
+    "57": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/bloom.ts",
+      "qualifiedName": "bloom"
+    },
+    "58": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/bloom.ts",
+      "qualifiedName": "address"
+    },
+    "59": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/bloom.ts",
+      "qualifiedName": "Bloom"
+    },
+    "60": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/bloom.ts",
+      "qualifiedName": "Bloom.count"
+    },
+    "61": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/bloom.ts",
+      "qualifiedName": "Bloom.bytes"
+    },
+    "62": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/chunk.ts",
+      "qualifiedName": "parseChunkHeader"
+    },
+    "63": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/chunk.ts",
+      "qualifiedName": "parseChunkHeader"
+    },
+    "64": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/chunk.ts",
+      "qualifiedName": "bytes"
+    },
+    "65": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/chunk.ts",
+      "qualifiedName": "appearancesOf"
+    },
+    "66": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/chunk.ts",
+      "qualifiedName": "appearancesOf"
+    },
+    "67": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/chunk.ts",
+      "qualifiedName": "bytes"
+    },
+    "68": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/chunk.ts",
+      "qualifiedName": "address"
+    },
+    "69": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/chunk.ts",
+      "qualifiedName": "ChunkHeader"
+    },
+    "70": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/chunk.ts",
+      "qualifiedName": "ChunkHeader.addressCount"
+    },
+    "71": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/chunk.ts",
+      "qualifiedName": "ChunkHeader.appearanceCount"
+    },
+    "72": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "createFetcher"
+    },
+    "73": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "createFetcher"
+    },
+    "74": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "config"
+    },
+    "75": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "Fetcher"
+    },
+    "76": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "Fetcher.fetchCid"
+    },
+    "77": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "Fetcher.fetchCid"
+    },
+    "78": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "cid"
+    },
+    "79": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "opts"
+    },
+    "80": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "FetcherConfig"
+    },
+    "81": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "FetcherConfig.gatewayUrl"
+    },
+    "82": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "FetcherConfig.fetch"
+    },
+    "83": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "FetcherConfig.cache"
+    },
+    "84": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "FetcherConfig.concurrency"
+    },
+    "85": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "FetcherConfig.priorityConcurrency"
+    },
+    "86": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "FetcherConfig.maxRetries"
+    },
+    "87": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "FetcherConfig.timeoutMs"
+    },
+    "88": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "FetchLike"
+    },
+    "89": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "__type"
+    },
+    "90": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "__type"
+    },
+    "91": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "url"
+    },
+    "92": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "init"
+    },
+    "93": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "FetchResponse"
+    },
+    "94": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "FetchResponse.ok"
+    },
+    "95": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "FetchResponse.status"
+    },
+    "96": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "FetchResponse.arrayBuffer"
+    },
+    "97": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "FetchResponse.arrayBuffer"
+    },
+    "98": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "ChunkCache"
+    },
+    "99": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "ChunkCache.get"
+    },
+    "100": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "ChunkCache.get"
+    },
+    "101": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "cid"
+    },
+    "102": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "ChunkCache.put"
+    },
+    "103": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "ChunkCache.put"
+    },
+    "104": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "cid"
+    },
+    "105": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/fetcher.ts",
+      "qualifiedName": "bytes"
+    },
+    "106": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "createUnchainedReader"
+    },
+    "107": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "createUnchainedReader"
+    },
+    "108": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "config"
+    },
+    "109": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "UnchainedReader"
+    },
+    "110": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "UnchainedReader.getAppearances"
+    },
+    "111": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "UnchainedReader.getAppearances"
+    },
+    "112": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "address"
+    },
+    "113": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "opts"
+    },
+    "114": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "ReaderConfig"
+    },
+    "115": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "ReaderConfig.fetcher"
+    },
+    "116": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "ReaderConfig.manifest"
+    },
+    "117": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "ReaderConfig.manifestCid"
+    },
+    "118": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "ReaderConfig.resolveManifest"
+    },
+    "119": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "__type"
+    },
+    "120": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "__type"
+    },
+    "121": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "GetAppearancesOptions"
+    },
+    "122": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "GetAppearancesOptions.blockRange"
+    },
+    "123": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "GetAppearancesOptions.onProgress"
+    },
+    "124": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "__type"
+    },
+    "125": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "__type"
+    },
+    "126": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "progress"
+    },
+    "127": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "GetAppearancesOptions.onAppearances"
+    },
+    "128": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "__type"
+    },
+    "129": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "__type"
+    },
+    "130": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "found"
+    },
+    "131": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "chunk"
+    },
+    "132": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "GetAppearancesOptions.signal"
+    },
+    "133": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "AppearancesResult"
+    },
+    "134": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "AppearancesResult.address"
+    },
+    "135": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "AppearancesResult.appearances"
+    },
+    "136": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "AppearancesResult.failures"
+    },
+    "137": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "AppearancesResult.progress"
+    },
+    "138": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "Progress"
+    },
+    "139": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "Progress.chunksTotal"
+    },
+    "140": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "Progress.bloomsFetched"
+    },
+    "141": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "Progress.hits"
+    },
+    "142": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "Progress.chunksFetched"
+    },
+    "143": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "Progress.appearancesFound"
+    },
+    "144": {
+      "packageName": "@valve-tech/unchained-reader",
+      "packagePath": "src/reader.ts",
+      "qualifiedName": "Progress.bytesFetched"
+    }
+  },
+  "files": {
+    "entries": {
+      "1": "packages/unchained-reader/src/index.ts"
+    },
+    "reflections": {
+      "1": 0
+    }
+  }
+}

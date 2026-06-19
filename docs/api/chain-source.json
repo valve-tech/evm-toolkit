@@ -105,7 +105,7 @@
               "fileName": "subscriptions.ts",
               "line": 33,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/subscriptions.ts#L33"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/subscriptions.ts#L33"
             }
           ],
           "signatures": [
@@ -136,7 +136,7 @@
                   "fileName": "subscriptions.ts",
                   "line": 33,
                   "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/subscriptions.ts#L33"
+                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/subscriptions.ts#L33"
                 }
               ],
               "parameters": [
@@ -174,7 +174,7 @@
               "fileName": "subscriptions.ts",
               "line": 62,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/subscriptions.ts#L62"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/subscriptions.ts#L62"
             }
           ],
           "signatures": [
@@ -197,7 +197,7 @@
                   "fileName": "subscriptions.ts",
                   "line": 62,
                   "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/subscriptions.ts#L62"
+                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/subscriptions.ts#L62"
                 }
               ],
               "type": {
@@ -218,7 +218,7 @@
               "fileName": "subscriptions.ts",
               "line": 54,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/subscriptions.ts#L54"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/subscriptions.ts#L54"
             }
           ],
           "signatures": [
@@ -249,7 +249,7 @@
                   "fileName": "subscriptions.ts",
                   "line": 54,
                   "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/subscriptions.ts#L54"
+                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/subscriptions.ts#L54"
                 }
               ],
               "parameters": [
@@ -349,7 +349,7 @@
           "fileName": "subscriptions.ts",
           "line": 25,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/subscriptions.ts#L25"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/subscriptions.ts#L25"
         }
       ],
       "typeParameters": [
@@ -502,7 +502,7 @@
               "fileName": "source.ts",
               "line": 151,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L151"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L151"
             }
           ],
           "type": {
@@ -531,7 +531,7 @@
               "fileName": "source.ts",
               "line": 132,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L132"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L132"
             }
           ],
           "type": {
@@ -568,7 +568,7 @@
               "fileName": "source.ts",
               "line": 138,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L138"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L138"
             }
           ],
           "type": {
@@ -597,7 +597,7 @@
               "fileName": "source.ts",
               "line": 144,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L144"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L144"
             }
           ],
           "type": {
@@ -622,7 +622,7 @@
           "fileName": "source.ts",
           "line": 125,
           "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L125"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L125"
         }
       ]
     },
@@ -668,7 +668,7 @@
               "fileName": "types.ts",
               "line": 67,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L67"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L67"
             }
           ],
           "type": {
@@ -689,7 +689,7 @@
               "fileName": "types.ts",
               "line": 72,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L72"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L72"
             }
           ],
           "type": {
@@ -710,7 +710,7 @@
               "fileName": "types.ts",
               "line": 71,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L71"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L71"
             }
           ],
           "type": {
@@ -729,7 +729,7 @@
               "fileName": "types.ts",
               "line": 68,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L68"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L68"
             }
           ],
           "type": {
@@ -748,7 +748,7 @@
               "fileName": "types.ts",
               "line": 69,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L69"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L69"
             }
           ],
           "type": {
@@ -769,7 +769,7 @@
               "fileName": "types.ts",
               "line": 64,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L64"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L64"
             }
           ],
           "type": {
@@ -788,7 +788,7 @@
               "fileName": "types.ts",
               "line": 63,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L63"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L63"
             }
           ],
           "type": {
@@ -809,7 +809,7 @@
               "fileName": "types.ts",
               "line": 65,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L65"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L65"
             }
           ],
           "type": {
@@ -828,7 +828,7 @@
               "fileName": "types.ts",
               "line": 66,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L66"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L66"
             }
           ],
           "type": {
@@ -847,7 +847,7 @@
               "fileName": "types.ts",
               "line": 70,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L70"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L70"
             }
           ],
           "type": {
@@ -883,7 +883,7 @@
           "fileName": "types.ts",
           "line": 62,
           "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L62"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L62"
         }
       ]
     },
@@ -897,15 +897,23 @@
         "summary": [
           {
             "kind": "text",
-            "text": "Per-method capability snapshot. Probed once on "
+            "text": "Per-method capability snapshot. Probed eagerly at construction\n(await "
           },
           {
             "kind": "code",
-            "text": "`source.start()`"
+            "text": "`source.ready()`"
           },
           {
             "kind": "text",
-            "text": " and\nre-probed on transport reconnect when the underlying transport\nsupports reconnection signals.\n\nIntentionally per-method, not per-transport — real-world providers\ngate "
+            "text": " or check the "
+          },
+          {
+            "kind": "code",
+            "text": "`ready`"
+          },
+          {
+            "kind": "text",
+            "text": " flag below before\ngating on field values) and re-probed on transport reconnect when\nthe underlying transport supports reconnection signals.\n\nIntentionally per-method, not per-transport — real-world providers\ngate "
           },
           {
             "kind": "code",
@@ -963,9 +971,9 @@
           "sources": [
             {
               "fileName": "types.ts",
-              "line": 173,
+              "line": 174,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L173"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L174"
             }
           ],
           "type": {
@@ -1007,9 +1015,9 @@
           "sources": [
             {
               "fileName": "types.ts",
-              "line": 175,
+              "line": 176,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L175"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L176"
             }
           ],
           "type": {
@@ -1125,9 +1133,9 @@
           "sources": [
             {
               "fileName": "types.ts",
-              "line": 199,
+              "line": 200,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L199"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L200"
             }
           ],
           "type": {
@@ -1156,9 +1164,9 @@
           "sources": [
             {
               "fileName": "types.ts",
-              "line": 179,
+              "line": 180,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L179"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L180"
             }
           ],
           "type": {
@@ -1192,9 +1200,9 @@
           "sources": [
             {
               "fileName": "types.ts",
-              "line": 181,
+              "line": 182,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L181"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L182"
             }
           ],
           "type": {
@@ -1223,9 +1231,9 @@
           "sources": [
             {
               "fileName": "types.ts",
-              "line": 177,
+              "line": 178,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L177"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L178"
             }
           ],
           "type": {
@@ -1259,9 +1267,9 @@
       "sources": [
         {
           "fileName": "types.ts",
-          "line": 171,
+          "line": 172,
           "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L171"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L172"
         }
       ]
     },
@@ -1291,7 +1299,7 @@
               "fileName": "source.ts",
               "line": 251,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L251"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L251"
             }
           ],
           "type": {
@@ -1339,7 +1347,7 @@
               "fileName": "source.ts",
               "line": 224,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L224"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L224"
             }
           ],
           "type": {
@@ -1447,7 +1455,7 @@
               "fileName": "source.ts",
               "line": 233,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L233"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L233"
             }
           ],
           "type": {
@@ -1530,7 +1538,7 @@
               "fileName": "source.ts",
               "line": 235,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L235"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L235"
             }
           ],
           "type": {
@@ -1651,7 +1659,7 @@
               "fileName": "source.ts",
               "line": 245,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L245"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L245"
             }
           ],
           "type": {
@@ -1721,7 +1729,7 @@
               "fileName": "source.ts",
               "line": 247,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L247"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L247"
             }
           ],
           "type": {
@@ -1804,7 +1812,7 @@
               "fileName": "source.ts",
               "line": 249,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L249"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L249"
             }
           ],
           "type": {
@@ -1887,7 +1895,7 @@
               "fileName": "source.ts",
               "line": 211,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L211"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L211"
             }
           ],
           "type": {
@@ -1954,7 +1962,7 @@
               "fileName": "source.ts",
               "line": 218,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L218"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L218"
             }
           ],
           "type": {
@@ -2013,7 +2021,7 @@
               "fileName": "source.ts",
               "line": 197,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L197"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L197"
             }
           ],
           "type": {
@@ -2059,7 +2067,7 @@
               "fileName": "source.ts",
               "line": 199,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L199"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L199"
             }
           ],
           "type": {
@@ -2105,7 +2113,7 @@
               "fileName": "source.ts",
               "line": 220,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L220"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L220"
             }
           ],
           "type": {
@@ -2217,7 +2225,7 @@
               "fileName": "source.ts",
               "line": 222,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L222"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L222"
             }
           ],
           "type": {
@@ -2336,7 +2344,7 @@
           "fileName": "source.ts",
           "line": 195,
           "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L195"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L195"
         }
       ]
     },
@@ -2386,7 +2394,7 @@
               "fileName": "source.ts",
               "line": 168,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L168"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L168"
             }
           ],
           "type": {
@@ -2415,7 +2423,7 @@
               "fileName": "source.ts",
               "line": 156,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L156"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L156"
             }
           ],
           "type": {
@@ -2468,7 +2476,7 @@
               "fileName": "source.ts",
               "line": 192,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L192"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L192"
             }
           ],
           "type": {
@@ -2507,7 +2515,7 @@
               "fileName": "source.ts",
               "line": 183,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L183"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L183"
             }
           ],
           "type": {
@@ -2611,7 +2619,7 @@
               "fileName": "source.ts",
               "line": 177,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L177"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L177"
             }
           ],
           "type": {
@@ -2642,7 +2650,7 @@
               "fileName": "source.ts",
               "line": 162,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L162"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L162"
             }
           ],
           "type": {
@@ -2669,7 +2677,7 @@
           "fileName": "source.ts",
           "line": 154,
           "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L154"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L154"
         }
       ]
     },
@@ -2707,7 +2715,7 @@
               "fileName": "types.ts",
               "line": 51,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L51"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L51"
             }
           ],
           "type": {
@@ -2729,7 +2737,7 @@
               "fileName": "types.ts",
               "line": 53,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L53"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L53"
             }
           ],
           "type": {
@@ -2751,7 +2759,7 @@
               "fileName": "types.ts",
               "line": 54,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L54"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L54"
             }
           ],
           "type": {
@@ -2772,7 +2780,7 @@
               "fileName": "types.ts",
               "line": 52,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L52"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L52"
             }
           ],
           "type": {
@@ -2803,7 +2811,7 @@
           "fileName": "types.ts",
           "line": 50,
           "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L50"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L50"
         }
       ]
     },
@@ -2899,7 +2907,7 @@
               "fileName": "types.ts",
               "line": 130,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L130"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L130"
             }
           ],
           "type": {
@@ -2920,7 +2928,7 @@
               "fileName": "types.ts",
               "line": 131,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L131"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L131"
             }
           ],
           "type": {
@@ -2943,7 +2951,7 @@
           "fileName": "types.ts",
           "line": 129,
           "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L129"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L129"
         }
       ]
     },
@@ -3055,7 +3063,7 @@
               "fileName": "types.ts",
               "line": 42,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L42"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L42"
             }
           ],
           "type": {
@@ -3076,7 +3084,7 @@
               "fileName": "types.ts",
               "line": 39,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L39"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L39"
             }
           ],
           "type": {
@@ -3097,7 +3105,7 @@
               "fileName": "types.ts",
               "line": 38,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L38"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L38"
             }
           ],
           "type": {
@@ -3118,7 +3126,7 @@
               "fileName": "types.ts",
               "line": 41,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L41"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L41"
             }
           ],
           "type": {
@@ -3139,7 +3147,7 @@
               "fileName": "types.ts",
               "line": 37,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L37"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L37"
             }
           ],
           "type": {
@@ -3160,7 +3168,7 @@
               "fileName": "types.ts",
               "line": 36,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L36"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L36"
             }
           ],
           "type": {
@@ -3181,7 +3189,7 @@
               "fileName": "types.ts",
               "line": 43,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L43"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L43"
             }
           ],
           "type": {
@@ -3202,7 +3210,7 @@
               "fileName": "types.ts",
               "line": 40,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L40"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L40"
             }
           ],
           "type": {
@@ -3231,7 +3239,7 @@
           "fileName": "types.ts",
           "line": 35,
           "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L35"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L35"
         }
       ]
     },
@@ -3277,7 +3285,7 @@
               "fileName": "types.ts",
               "line": 108,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L108"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L108"
             }
           ],
           "type": {
@@ -3296,7 +3304,7 @@
               "fileName": "types.ts",
               "line": 109,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L109"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L109"
             }
           ],
           "type": {
@@ -3317,7 +3325,7 @@
               "fileName": "types.ts",
               "line": 110,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L110"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L110"
             }
           ],
           "type": {
@@ -3336,7 +3344,7 @@
               "fileName": "types.ts",
               "line": 107,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L107"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L107"
             }
           ],
           "type": {
@@ -3361,7 +3369,7 @@
           "fileName": "types.ts",
           "line": 106,
           "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L106"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L106"
         }
       ],
       "indexSignatures": [
@@ -3376,7 +3384,7 @@
               "fileName": "types.ts",
               "line": 111,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L111"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L111"
             }
           ],
           "parameters": [
@@ -3465,7 +3473,7 @@
               "fileName": "types.ts",
               "line": 87,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L87"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L87"
             }
           ],
           "type": {
@@ -3520,7 +3528,7 @@
               "fileName": "types.ts",
               "line": 88,
               "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L88"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L88"
             }
           ],
           "type": {
@@ -3579,7 +3587,7 @@
           "fileName": "types.ts",
           "line": 86,
           "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L86"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L86"
         }
       ]
     },
@@ -3706,7 +3714,7 @@
           "fileName": "types.ts",
           "line": 154,
           "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L154"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L154"
         }
       ],
       "type": {
@@ -3766,7 +3774,7 @@
           "fileName": "source.ts",
           "line": 100,
           "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L100"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L100"
         }
       ],
       "type": {
@@ -3895,7 +3903,7 @@
           "fileName": "types.ts",
           "line": 97,
           "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/types.ts#L97"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/types.ts#L97"
         }
       ],
       "type": {
@@ -3926,7 +3934,7 @@
           "fileName": "transport.ts",
           "line": 41,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L41"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L41"
         }
       ],
       "type": {
@@ -3946,7 +3954,7 @@
           "fileName": "source.ts",
           "line": 272,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L272"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L272"
         }
       ],
       "signatures": [
@@ -3988,7 +3996,7 @@
               "fileName": "source.ts",
               "line": 272,
               "character": 33,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/source.ts#L272"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/source.ts#L272"
             }
           ],
           "parameters": [
@@ -4026,7 +4034,7 @@
           "fileName": "transport.ts",
           "line": 225,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L225"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L225"
         }
       ],
       "signatures": [
@@ -4113,7 +4121,7 @@
               "fileName": "transport.ts",
               "line": 225,
               "character": 35,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L225"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L225"
             }
           ],
           "parameters": [
@@ -4243,7 +4251,7 @@
           "fileName": "transport.ts",
           "line": 100,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L100"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L100"
         }
       ],
       "signatures": [
@@ -4306,7 +4314,7 @@
               "fileName": "transport.ts",
               "line": 100,
               "character": 26,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L100"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L100"
             }
           ],
           "parameters": [
@@ -4435,7 +4443,7 @@
           "fileName": "transport.ts",
           "line": 125,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L125"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L125"
         }
       ],
       "signatures": [
@@ -4506,7 +4514,7 @@
               "fileName": "transport.ts",
               "line": 125,
               "character": 32,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L125"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L125"
             }
           ],
           "parameters": [
@@ -4626,7 +4634,7 @@
           "fileName": "transport.ts",
           "line": 142,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L142"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L142"
         }
       ],
       "signatures": [
@@ -4665,7 +4673,7 @@
               "fileName": "transport.ts",
               "line": 142,
               "character": 31,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L142"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L142"
             }
           ],
           "parameters": [
@@ -4799,7 +4807,7 @@
           "fileName": "transport.ts",
           "line": 81,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L81"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L81"
         }
       ],
       "signatures": [
@@ -4846,7 +4854,7 @@
               "fileName": "transport.ts",
               "line": 81,
               "character": 36,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L81"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L81"
             }
           ],
           "parameters": [
@@ -4953,7 +4961,7 @@
           "fileName": "transport.ts",
           "line": 172,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L172"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L172"
         }
       ],
       "signatures": [
@@ -4992,7 +5000,7 @@
               "fileName": "transport.ts",
               "line": 172,
               "character": 28,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L172"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L172"
             }
           ],
           "parameters": [
@@ -5112,7 +5120,7 @@
           "fileName": "transport.ts",
           "line": 189,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L189"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L189"
         }
       ],
       "signatures": [
@@ -5135,7 +5143,7 @@
               "fileName": "transport.ts",
               "line": 189,
               "character": 32,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L189"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L189"
             }
           ],
           "parameters": [
@@ -5255,7 +5263,7 @@
           "fileName": "transport.ts",
           "line": 161,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L161"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L161"
         }
       ],
       "signatures": [
@@ -5302,7 +5310,7 @@
               "fileName": "transport.ts",
               "line": 161,
               "character": 27,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L161"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L161"
             }
           ],
           "parameters": [
@@ -5411,7 +5419,7 @@
           "fileName": "mempool.ts",
           "line": 55,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/mempool.ts#L55"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/mempool.ts#L55"
         }
       ],
       "signatures": [
@@ -5490,7 +5498,7 @@
               "fileName": "mempool.ts",
               "line": 55,
               "character": 32,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/mempool.ts#L55"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/mempool.ts#L55"
             }
           ],
           "parameters": [
@@ -5541,7 +5549,7 @@
           "fileName": "capabilities.ts",
           "line": 83,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/capabilities.ts#L83"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/capabilities.ts#L83"
         }
       ],
       "signatures": [
@@ -5572,7 +5580,7 @@
               "fileName": "capabilities.ts",
               "line": 83,
               "character": 33,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/capabilities.ts#L83"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/capabilities.ts#L83"
             }
           ],
           "parameters": [
@@ -5645,7 +5653,7 @@
           "fileName": "transport.ts",
           "line": 50,
           "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L50"
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L50"
         }
       ],
       "signatures": [
@@ -5684,7 +5692,7 @@
               "fileName": "transport.ts",
               "line": 50,
               "character": 27,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/chain-source/src/transport.ts#L50"
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/chain-source/src/transport.ts#L50"
             }
           ],
           "typeParameters": [

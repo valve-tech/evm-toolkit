@@ -67,6 +67,8 @@ const discoverPackages = async () => {
     if (!existsSync(pkgJsonPath)) continue
     const pkgJson = JSON.parse(await readFile(pkgJsonPath, 'utf8'))
     if (pkgJson.private) continue
+    const entryPath = join(PACKAGES_DIR, entry.name, 'src', 'index.ts')
+    if (!existsSync(entryPath)) continue
     pkgs.push({
       slug: entry.name,                       // directory name
       name: pkgJson.name,                     // @valve-tech/<name>

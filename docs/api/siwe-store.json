@@ -1,0 +1,968 @@
+{
+  "schemaVersion": "2.0",
+  "id": 0,
+  "name": "@valve-tech/siwe-store v0.18.0",
+  "variant": "project",
+  "kind": 1,
+  "flags": {},
+  "children": [
+    {
+      "id": 6,
+      "name": "NonceStore",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Issue + single-use-consume a SIWE nonce."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 9,
+          "name": "consume",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "nonce-store.ts",
+              "line": 23,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L23"
+            }
+          ],
+          "signatures": [
+            {
+              "id": 10,
+              "name": "consume",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "True iff the nonce was issued, unexpired, and unconsumed. Deletes on\nlookup (atomic single-use, delete-before-TTL-check)."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "nonce-store.ts",
+                  "line": 23,
+                  "character": 2,
+                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L23"
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 11,
+                  "name": "nonce",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "boolean"
+              }
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "name": "issue",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "nonce-store.ts",
+              "line": 18,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L18"
+            }
+          ],
+          "signatures": [
+            {
+              "id": 8,
+              "name": "issue",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Issue a fresh SIWE-valid nonce ("
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`generateSiweNonce`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": ") and remember it."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "nonce-store.ts",
+                  "line": 18,
+                  "character": 2,
+                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L18"
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Methods",
+          "children": [
+            9,
+            7
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "nonce-store.ts",
+          "line": 16,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L16"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Session",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "A server-side session bound to an address."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 18,
+          "name": "address",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "session-store.ts",
+              "line": 16,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L16"
+            }
+          ],
+          "type": {
+            "type": "templateLiteral",
+            "head": "0x",
+            "tail": [
+              [
+                {
+                  "type": "intrinsic",
+                  "name": "string"
+                },
+                ""
+              ]
+            ]
+          }
+        },
+        {
+          "id": 20,
+          "name": "claims",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Optional app-defined claims carried with the session."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "session-store.ts",
+              "line": 20,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L20"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.es5.d.ts",
+              "qualifiedName": "Record"
+            },
+            "typeArguments": [
+              {
+                "type": "intrinsic",
+                "name": "string"
+              },
+              {
+                "type": "intrinsic",
+                "name": "unknown"
+              }
+            ],
+            "name": "Record",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        },
+        {
+          "id": 19,
+          "name": "issuedAt",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "ms-epoch issuance time."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "session-store.ts",
+              "line": 18,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L18"
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            18,
+            20,
+            19
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "session-store.ts",
+          "line": 15,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L15"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "name": "SessionStore",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Issue / validate / revoke opaque sessions."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 22,
+          "name": "issue",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "session-store.ts",
+              "line": 26,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L26"
+            }
+          ],
+          "signatures": [
+            {
+              "id": 23,
+              "name": "issue",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Issue an opaque CSPRNG token bound to the address."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "session-store.ts",
+                  "line": 26,
+                  "character": 2,
+                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L26"
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 24,
+                  "name": "address",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "templateLiteral",
+                    "head": "0x",
+                    "tail": [
+                      [
+                        {
+                          "type": "intrinsic",
+                          "name": "string"
+                        },
+                        ""
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "id": 25,
+                  "name": "claims",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.es5.d.ts",
+                      "qualifiedName": "Record"
+                    },
+                    "typeArguments": [
+                      {
+                        "type": "intrinsic",
+                        "name": "string"
+                      },
+                      {
+                        "type": "intrinsic",
+                        "name": "unknown"
+                      }
+                    ],
+                    "name": "Record",
+                    "package": "typescript",
+                    "externalUrl": "#"
+                  }
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "name": "revoke",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "session-store.ts",
+              "line": 30,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L30"
+            }
+          ],
+          "signatures": [
+            {
+              "id": 30,
+              "name": "revoke",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Invalidate a token (sign-out)."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "session-store.ts",
+                  "line": 30,
+                  "character": 2,
+                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L30"
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 31,
+                  "name": "token",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "name": "validate",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "session-store.ts",
+              "line": 28,
+              "character": 2,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L28"
+            }
+          ],
+          "signatures": [
+            {
+              "id": 27,
+              "name": "validate",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The bound session if the token is valid + unexpired, else null."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "session-store.ts",
+                  "line": 28,
+                  "character": 2,
+                  "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L28"
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 28,
+                  "name": "token",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "union",
+                "types": [
+                  {
+                    "type": "reference",
+                    "target": 17,
+                    "name": "Session",
+                    "package": "@valve-tech/siwe-store"
+                  },
+                  {
+                    "type": "literal",
+                    "value": null
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Methods",
+          "children": [
+            22,
+            29,
+            26
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "session-store.ts",
+          "line": 24,
+          "character": 17,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L24"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "createMemoryNonceStore",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "comment": {
+        "summary": [],
+        "blockTags": [
+          {
+            "tag": "@fileoverview",
+            "content": [
+              {
+                "kind": "text",
+                "text": "Public API of "
+              },
+              {
+                "kind": "code",
+                "text": "`@valve-tech/siwe-store`"
+              },
+              {
+                "kind": "text",
+                "text": ".\n\nServer-side SIWE state — the single-use nonce store and the opaque\nsession store — that "
+              },
+              {
+                "kind": "code",
+                "text": "`viem/siwe`"
+              },
+              {
+                "kind": "text",
+                "text": " deliberately leaves to the app.\nPairs "
+              },
+              {
+                "kind": "code",
+                "text": "`viem/siwe`"
+              },
+              {
+                "kind": "text",
+                "text": " (crypto + message + validation)."
+              }
+            ]
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "nonce-store.ts",
+          "line": 30,
+          "character": 16,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L30"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 2,
+          "name": "createMemoryNonceStore",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Create an in-memory single-use nonce store."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "nonce-store.ts",
+              "line": 30,
+              "character": 16,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L30"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 3,
+              "name": "opts",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {
+                "isOptional": true
+              },
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 4,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "children": [
+                    {
+                      "id": 5,
+                      "name": "ttlSeconds",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isOptional": true
+                      },
+                      "sources": [
+                        {
+                          "fileName": "nonce-store.ts",
+                          "line": 30,
+                          "character": 48,
+                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/nonce-store.ts#L30"
+                        }
+                      ],
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "number"
+                      }
+                    }
+                  ],
+                  "groups": [
+                    {
+                      "title": "Properties",
+                      "children": [
+                        5
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 6,
+            "name": "NonceStore",
+            "package": "@valve-tech/siwe-store"
+          }
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "name": "createMemorySessionStore",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "session-store.ts",
+          "line": 37,
+          "character": 16,
+          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L37"
+        }
+      ],
+      "signatures": [
+        {
+          "id": 13,
+          "name": "createMemorySessionStore",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Create an in-memory opaque session store."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "session-store.ts",
+              "line": 37,
+              "character": 16,
+              "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L37"
+            }
+          ],
+          "parameters": [
+            {
+              "id": 14,
+              "name": "opts",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {
+                "isOptional": true
+              },
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 15,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "children": [
+                    {
+                      "id": 16,
+                      "name": "ttlMs",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isOptional": true
+                      },
+                      "sources": [
+                        {
+                          "fileName": "session-store.ts",
+                          "line": 37,
+                          "character": 50,
+                          "url": "https://github.com/valve-tech/evm-toolkit/blob/c330aac28ddcd3e11103ea1372ab8e5e40f3376e/packages/siwe-store/src/session-store.ts#L37"
+                        }
+                      ],
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "number"
+                      }
+                    }
+                  ],
+                  "groups": [
+                    {
+                      "title": "Properties",
+                      "children": [
+                        16
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 21,
+            "name": "SessionStore",
+            "package": "@valve-tech/siwe-store"
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Interfaces",
+      "children": [
+        6,
+        17,
+        21
+      ]
+    },
+    {
+      "title": "Functions",
+      "children": [
+        1,
+        12
+      ]
+    }
+  ],
+  "packageName": "@valve-tech/siwe-store",
+  "packageVersion": "0.18.0",
+  "symbolIdMap": {
+    "0": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/index.ts",
+      "qualifiedName": ""
+    },
+    "1": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "createMemoryNonceStore"
+    },
+    "2": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "createMemoryNonceStore"
+    },
+    "3": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "opts"
+    },
+    "4": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "__type"
+    },
+    "5": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "__type.ttlSeconds"
+    },
+    "6": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "NonceStore"
+    },
+    "7": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "NonceStore.issue"
+    },
+    "8": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "NonceStore.issue"
+    },
+    "9": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "NonceStore.consume"
+    },
+    "10": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "NonceStore.consume"
+    },
+    "11": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "nonce"
+    },
+    "12": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "createMemorySessionStore"
+    },
+    "13": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "createMemorySessionStore"
+    },
+    "14": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "opts"
+    },
+    "15": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "__type"
+    },
+    "16": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "__type.ttlMs"
+    },
+    "17": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "Session"
+    },
+    "18": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "Session.address"
+    },
+    "19": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "Session.issuedAt"
+    },
+    "20": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "Session.claims"
+    },
+    "21": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "SessionStore"
+    },
+    "22": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "SessionStore.issue"
+    },
+    "23": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "SessionStore.issue"
+    },
+    "24": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "address"
+    },
+    "25": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "claims"
+    },
+    "26": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "SessionStore.validate"
+    },
+    "27": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "SessionStore.validate"
+    },
+    "28": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "token"
+    },
+    "29": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "SessionStore.revoke"
+    },
+    "30": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "SessionStore.revoke"
+    },
+    "31": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "token"
+    }
+  },
+  "files": {
+    "entries": {
+      "1": "packages/siwe-store/src/index.ts"
+    },
+    "reflections": {
+      "1": 0
+    }
+  }
+}
