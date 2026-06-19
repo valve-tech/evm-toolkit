@@ -178,6 +178,12 @@ jobs:
           yarn pack --out=/tmp/trueblocks-sdk.tgz
           npm publish /tmp/trueblocks-sdk.tgz --access public --provenance
 
+      - name: Publish @valve-tech/wallet-key-session
+        run: |
+          cd packages/wallet-key-session
+          yarn pack --out=/tmp/wallet-key-session.tgz
+          npm publish /tmp/wallet-key-session.tgz --access public --provenance
+
       - name: Publish @valve-tech/wallet-crypto
         run: |
           cd packages/wallet-crypto
