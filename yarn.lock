@@ -1871,6 +1871,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@valve-tech/siwe-store@workspace:packages/siwe-store":
+  version: 0.0.0-use.local
+  resolution: "@valve-tech/siwe-store@workspace:packages/siwe-store"
+  peerDependencies:
+    viem: ^2.0.0
+  languageName: unknown
+  linkType: soft
+
 "@valve-tech/trueblocks-sdk@npm:^0.18.0, @valve-tech/trueblocks-sdk@workspace:packages/trueblocks-sdk":
   version: 0.0.0-use.local
   resolution: "@valve-tech/trueblocks-sdk@workspace:packages/trueblocks-sdk"
@@ -1950,6 +1958,14 @@ __metadata:
   resolution: "@valve-tech/wallet-crypto@workspace:packages/wallet-crypto"
   dependencies:
     "@valve-tech/viem-errors": "workspace:^"
+  peerDependencies:
+    viem: ^2.0.0
+  languageName: unknown
+  linkType: soft
+
+"@valve-tech/wallet-key-session@workspace:packages/wallet-key-session":
+  version: 0.0.0-use.local
+  resolution: "@valve-tech/wallet-key-session@workspace:packages/wallet-key-session"
   peerDependencies:
     viem: ^2.0.0
   languageName: unknown
