@@ -2,7 +2,7 @@
  * Wire-encoding for AES-GCM envelope blobs. The server stores these
  * base64 strings verbatim and never sees the plaintext or the key.
  * The `nonce` here is the AES-GCM IV from encryptEnvelope — NOT the
- * auth nonce from @valve-tech/auth-lite (same word, different concept).
+ * SIWE nonce from viem/siwe / @valve-tech/siwe-store (same word, different concept).
  */
 
 /** The on-the-wire shape the server persists (base64 strings). */

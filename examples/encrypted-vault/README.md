@@ -2,7 +2,7 @@
 
 Wallet-login encrypted notes vault. Sign in with your wallet, write private notes encrypted to your wallet key, read them back decrypted on the same or a different device. The server persists ciphertext only and is cryptographically blind to note contents.
 
-Pairs [`@valve-tech/auth-lite`](../../packages/auth-lite) (SIWE-lite session login) with [`@valve-tech/wallet-crypto`](../../packages/wallet-crypto) (wallet-derived AES-GCM encryption).
+Pairs full EIP-4361 SIWE ([`viem/siwe`](https://viem.sh/docs/siwe) + [`@valve-tech/siwe-store`](../../packages/siwe-store) for the server-side nonce + session state) with [`@valve-tech/wallet-crypto`](../../packages/wallet-crypto) (wallet-derived AES-GCM encryption) and [`@valve-tech/wallet-key-session`](../../packages/wallet-key-session) (the memory-only key lifecycle).
 
 ---
 
@@ -10,7 +10,7 @@ Pairs [`@valve-tech/auth-lite`](../../packages/auth-lite) (SIWE-lite session log
 
 | Capability | How |
 |---|---|
-| Wallet login (auth-lite SIWE-lite) | `signAuthChallenge` → server `verifyAuthSignature` → opaque session token |
+| Wallet login (full EIP-4361 SIWE) | server `createSiweMessage` (nonce from `siwe-store`) → client `signMessage` → server `parseSiweMessage` + `nonceStore.consume` + `validateSiweMessage` + `recoverMessageAddress` → opaque session token |
 | Wallet-derived encryption (wallet-crypto) | `deriveWalletEncryptionKey` (purpose `notes-vault`, version `1`) → `encryptEnvelope` / `decryptEnvelope` |
 | Server blindness | Store holds `{ ciphertext, nonce }` base64 blobs only; server never sees the key |
 | Cross-device determinism | Key derivation is deterministic per wallet+purpose+version; any device with the same wallet decrypts the same notes |
