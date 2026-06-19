@@ -23,13 +23,13 @@ Pairs full EIP-4361 SIWE ([`viem/siwe`](https://viem.sh/docs/siwe) + [`@valve-te
 ```
 Browser                              Node server (:8790)
 ───────                              ─────────────────
-connectWallet()
-  └─ signMessage(siweMessage)  ──►  GET  /auth/nonce  →  nonceStore.issue()
-  │   (prompt 1: auth)         ◄──  { nonce }
-  └─ { message, signature }   ──►  POST /auth/verify  →  parseSiweMessage +
-                              ◄──  { token, address }     nonceStore.consume +
-                                                          validateSiweMessage +
-                                                          recoverMessageAddress
+connectWallet() + getChainId()
+  └─ GET  /auth/challenge      ──►  nonceStore.issue() + createSiweMessage()
+  │                            ◄──  { message }
+  ├─ signMessage(message)           (prompt 1: auth)
+  └─ POST /auth/verify         ──►  parseSiweMessage + nonceStore.consume +
+       { message, signature }  ◄──  validateSiweMessage + recoverMessageAddress
+                                    { token, address }
 
 getKey()  ← deriveWalletEncryptionKey()
   (prompt 2: key — first encrypt or decrypt only, then cached in-memory)
