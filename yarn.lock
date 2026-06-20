@@ -1741,16 +1741,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/auth-lite@npm:^0.18.0, @valve-tech/auth-lite@workspace:packages/auth-lite":
-  version: 0.0.0-use.local
-  resolution: "@valve-tech/auth-lite@workspace:packages/auth-lite"
-  dependencies:
-    "@valve-tech/viem-errors": "workspace:^"
-  peerDependencies:
-    viem: ^2.0.0
-  languageName: unknown
-  linkType: soft
-
 "@valve-tech/chain-source@npm:^0.18.0, @valve-tech/chain-source@workspace:^, @valve-tech/chain-source@workspace:packages/chain-source":
   version: 0.0.0-use.local
   resolution: "@valve-tech/chain-source@workspace:packages/chain-source"
@@ -1788,9 +1778,10 @@ __metadata:
   dependencies:
     "@types/react": "npm:^18.3.0"
     "@types/react-dom": "npm:^18.3.0"
-    "@valve-tech/auth-lite": "npm:^0.18.0"
+    "@valve-tech/siwe-store": "npm:^0.18.0"
     "@valve-tech/viem-errors": "npm:^0.18.0"
     "@valve-tech/wallet-crypto": "npm:^0.18.0"
+    "@valve-tech/wallet-key-session": "npm:^0.18.0"
     "@vitejs/plugin-react": "npm:^4.3.0"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
@@ -1866,6 +1857,14 @@ __metadata:
   resolution: "@valve-tech/gas-oracle@workspace:packages/gas-oracle"
   dependencies:
     "@valve-tech/chain-source": "workspace:^"
+  peerDependencies:
+    viem: ^2.0.0
+  languageName: unknown
+  linkType: soft
+
+"@valve-tech/siwe-store@npm:^0.18.0, @valve-tech/siwe-store@workspace:packages/siwe-store":
+  version: 0.0.0-use.local
+  resolution: "@valve-tech/siwe-store@workspace:packages/siwe-store"
   peerDependencies:
     viem: ^2.0.0
   languageName: unknown
@@ -1950,6 +1949,14 @@ __metadata:
   resolution: "@valve-tech/wallet-crypto@workspace:packages/wallet-crypto"
   dependencies:
     "@valve-tech/viem-errors": "workspace:^"
+  peerDependencies:
+    viem: ^2.0.0
+  languageName: unknown
+  linkType: soft
+
+"@valve-tech/wallet-key-session@npm:^0.18.0, @valve-tech/wallet-key-session@workspace:packages/wallet-key-session":
+  version: 0.0.0-use.local
+  resolution: "@valve-tech/wallet-key-session@workspace:packages/wallet-key-session"
   peerDependencies:
     viem: ^2.0.0
   languageName: unknown

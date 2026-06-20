@@ -7,16 +7,17 @@ import type { WireBlob } from './blob.js'
 
 export class AuthError extends Error {}
 
-export async function fetchNonce(): Promise<string> {
-  const res = await fetch('/auth/nonce')
-  if (!res.ok) throw new AuthError('could not get a nonce')
-  return ((await res.json()) as { nonce: string }).nonce
+/** GET the server-built EIP-4361 SIWE message to sign. */
+export async function fetchChallenge(address: Address, chainId: number): Promise<string> {
+  const res = await fetch(`/auth/challenge?address=${address}&chainId=${chainId}`)
+  if (!res.ok) throw new AuthError('could not get a sign-in challenge')
+  return ((await res.json()) as { message: string }).message
 }
 
+/** POST the signed message + signature; get back an opaque session token. */
 export async function verifySignature(input: {
-  nonce: string
+  message: string
   signature: Hex
-  address: Address
 }): Promise<{ token: string; address: Address }> {
   const res = await fetch('/auth/verify', {
     method: 'POST',

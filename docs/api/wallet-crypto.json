@@ -647,11 +647,27 @@
               },
               {
                 "kind": "code",
-                "text": "`@valve-tech/auth-lite`"
+                "text": "`@valve-tech/wallet-key-session`"
               },
               {
                 "kind": "text",
-                "text": " (typed errors are intentionally\nnamed the same where they overlap so consumers catch one class once)."
+                "text": " (the memory-only\nlifecycle of the derived key). SIWE auth is "
+              },
+              {
+                "kind": "code",
+                "text": "`viem/siwe`"
+              },
+              {
+                "kind": "text",
+                "text": " +\n"
+              },
+              {
+                "kind": "code",
+                "text": "`@valve-tech/siwe-store`"
+              },
+              {
+                "kind": "text",
+                "text": "."
               }
             ]
           }

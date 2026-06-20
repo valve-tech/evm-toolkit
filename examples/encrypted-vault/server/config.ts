@@ -1,21 +1,47 @@
 /**
- * Server-side configuration. `APP` MUST come from trusted server
- * context (auth-lite invariant #2) — never from a request body.
+ * Server-side configuration. The SIWE binding fields (DOMAIN, URI,
+ * CHAIN_ID, STATEMENT) MUST come from trusted server context — never
+ * from a request body. An attacker who could set `domain` could rebind
+ * a signature to a different origin.
  */
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-/** Shown in the wallet prompt and bound into the signed auth message. */
-export const APP = process.env.APP_NAME ?? 'Encrypted Vault'
+/** EIP-4361 `domain` — the origin the user is signing in to. */
+export const DOMAIN = process.env.SIWE_DOMAIN ?? 'localhost:8790'
+
+/** EIP-4361 `uri` — the full URI the user is signing in to. */
+export const URI = process.env.SIWE_URI ?? 'http://localhost:8790'
+
+/** EIP-4361 `chainId`. The server is authoritative for this value. */
+export const CHAIN_ID = Number(process.env.SIWE_CHAIN_ID ?? 1)
+
+/** EIP-4361 message `version`. MUST be `'1'` per the spec. */
+export const SIWE_VERSION = '1'
+
+/**
+ * RPC endpoint used ONLY to verify EIP-1271 / EIP-6492 smart-account
+ * signatures (an `eth_call` to the account's `isValidSignature`). EOA
+ * logins never touch it — they verify offline via ECDSA recover. For
+ * smart-account sign-in this MUST point at the chain identified by
+ * {@link CHAIN_ID}; if it is unreachable, smart-account logins simply
+ * fail (EOA logins are unaffected).
+ */
+export const RPC_URL = process.env.SIWE_RPC_URL ?? 'http://localhost:8545'
+
+/** EIP-4361 `statement` — the human-readable line shown in the wallet. */
+export const STATEMENT =
+  process.env.SIWE_STATEMENT ??
+  'Sign in to the Encrypted Vault. This signature authenticates your session and does NOT authorize any transaction.'
 
 export const PORT = Number(process.env.PORT ?? 8790)
 
 /** Opaque session token lifetime. */
 export const SESSION_TTL_MS = 30 * 60 * 1000
 
-/** Auth nonce lifetime (seconds) — passed to generateAuthNonce. */
+/** SIWE nonce lifetime (seconds). Doubles as the message expiry window. */
 export const NONCE_TTL_SECONDS = 5 * 60
 
 /** JSON ciphertext store path. README: "a real app uses a database." */

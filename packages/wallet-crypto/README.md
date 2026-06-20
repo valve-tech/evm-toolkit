@@ -156,8 +156,8 @@ console.log(new TextDecoder().decode(decrypted))
 ## Pitfalls
 
 1. **`nonce` in `encryptEnvelope`/`decryptEnvelope` is NOT an auth
-   nonce.** It's the AES-GCM IV. The auth nonce from
-   `@valve-tech/auth-lite` is unrelated. Crossing them is the #1
+   nonce.** It's the AES-GCM IV. The SIWE nonce from
+   `viem/siwe` / `@valve-tech/siwe-store` is unrelated. Crossing them is the #1
    reported caller error.
 
 2. **Don't roll your own key derivation.** A `sha256(walletAddress +
@@ -182,9 +182,10 @@ console.log(new TextDecoder().decode(decrypted))
 
 ## Composition with sibling packages
 
-- **`@valve-tech/auth-lite`** — separate package for SIWE-lite auth.
-  The two share `WalletDeclined`/`WalletUnavailable` error class
-  names so consumers can `catch (e)` once.
+- **`@valve-tech/wallet-key-session`** — the memory-only lifecycle of
+  the key this package derives (derive-once, wipe on account-change /
+  tab-close). Wire `deriveWalletEncryptionKey` into its `derive`
+  callback. For auth, use `viem/siwe` + `@valve-tech/siwe-store`.
 - **`@valve-tech/viem-errors`** — `WalletDeclined` is thrown via
   this package's `isUserRejectionError` detector under the hood, so
   you get the same three-signal coverage (EIP-1193 4001, class name,

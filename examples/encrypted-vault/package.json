@@ -2,7 +2,7 @@
   "name": "@valve-tech/example-encrypted-vault",
   "version": "0.18.0",
   "private": true,
-  "description": "Wallet-login encrypted notes vault: sign in with your wallet, write private notes encrypted to your wallet, read them back decrypted. The server persists ciphertext only and is cryptographically blind to your notes. Pairs @valve-tech/auth-lite (SIWE-lite) with @valve-tech/wallet-crypto (wallet-derived AES-GCM).",
+  "description": "Wallet-login encrypted notes vault: sign in with your wallet (full EIP-4361 SIWE via viem/siwe + @valve-tech/siwe-store), write private notes encrypted to your wallet (@valve-tech/wallet-crypto + @valve-tech/wallet-key-session), read them back decrypted. The server persists ciphertext only and is cryptographically blind to your notes.",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -15,9 +15,10 @@
     "start": "node dist-server/server/server.js"
   },
   "dependencies": {
-    "@valve-tech/auth-lite": "^0.18.0",
+    "@valve-tech/siwe-store": "^0.18.0",
     "@valve-tech/viem-errors": "^0.18.0",
     "@valve-tech/wallet-crypto": "^0.18.0",
+    "@valve-tech/wallet-key-session": "^0.18.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "viem": "^2.21.0"

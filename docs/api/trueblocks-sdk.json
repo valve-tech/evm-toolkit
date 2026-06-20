@@ -71,8 +71,7 @@
             {
               "fileName": "errors.ts",
               "line": 17,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/errors.ts#L17"
+              "character": 2
             }
           ],
           "signatures": [
@@ -86,8 +85,7 @@
                 {
                   "fileName": "errors.ts",
                   "line": 17,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/errors.ts#L17"
+                  "character": 2
                 }
               ],
               "parameters": [
@@ -129,8 +127,7 @@
                             {
                               "fileName": "errors.ts",
                               "line": 19,
-                              "character": 43,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/errors.ts#L19"
+                              "character": 43
                             }
                           ],
                           "type": {
@@ -148,8 +145,7 @@
                             {
                               "fileName": "errors.ts",
                               "line": 19,
-                              "character": 12,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/errors.ts#L19"
+                              "character": 12
                             }
                           ],
                           "type": {
@@ -169,8 +165,7 @@
                             {
                               "fileName": "errors.ts",
                               "line": 19,
-                              "character": 26,
-                              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/errors.ts#L19"
+                              "character": 26
                             }
                           ],
                           "type": {
@@ -228,8 +223,7 @@
             {
               "fileName": "errors.ts",
               "line": 14,
-              "character": 11,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/errors.ts#L14"
+              "character": 11
             }
           ],
           "type": {
@@ -250,8 +244,7 @@
             {
               "fileName": "errors.ts",
               "line": 15,
-              "character": 11,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/errors.ts#L15"
+              "character": 11
             }
           ],
           "type": {
@@ -279,8 +272,7 @@
         {
           "fileName": "errors.ts",
           "line": 13,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/errors.ts#L13"
+          "character": 13
         }
       ],
       "extendedTypes": [
@@ -330,8 +322,7 @@
             {
               "fileName": "client.ts",
               "line": 12,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/client.ts#L12"
+              "character": 2
             }
           ],
           "type": {
@@ -367,8 +358,7 @@
             {
               "fileName": "client.ts",
               "line": 18,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/client.ts#L18"
+              "character": 2
             }
           ],
           "type": {
@@ -489,8 +479,7 @@
         {
           "fileName": "client.ts",
           "line": 7,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/client.ts#L7"
+          "character": 17
         }
       ]
     },
@@ -504,8 +493,7 @@
         {
           "fileName": "client.ts",
           "line": 5,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/client.ts#L5"
+          "character": 12
         }
       ],
       "type": {
@@ -577,8 +565,7 @@
         {
           "fileName": "verbs.ts",
           "line": 30,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L30"
+          "character": 12
         }
       ],
       "typeParameters": [
@@ -652,8 +639,7 @@
                   {
                     "fileName": "verbs.ts",
                     "line": 31,
-                    "character": 2,
-                    "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L31"
+                    "character": 2
                   }
                 ],
                 "type": {
@@ -675,8 +661,7 @@
                           {
                             "fileName": "verbs.ts",
                             "line": 31,
-                            "character": 16,
-                            "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L31"
+                            "character": 16
                           }
                         ],
                         "type": {
@@ -759,8 +744,7 @@
         {
           "fileName": "verbs.ts",
           "line": 17,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L17"
+          "character": 12
         }
       ],
       "typeParameters": [
@@ -834,8 +818,7 @@
                   {
                     "fileName": "verbs.ts",
                     "line": 18,
-                    "character": 2,
-                    "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L18"
+                    "character": 2
                   }
                 ],
                 "type": {
@@ -859,8 +842,7 @@
                           {
                             "fileName": "verbs.ts",
                             "line": 18,
-                            "character": 16,
-                            "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L18"
+                            "character": 16
                           }
                         ],
                         "type": {
@@ -926,8 +908,7 @@
         {
           "fileName": "client.ts",
           "line": 26,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/client.ts#L26"
+          "character": 12
         }
       ],
       "type": {
@@ -1050,8 +1031,7 @@
         {
           "fileName": "verbs.ts",
           "line": 39,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L39"
+          "character": 12
         }
       ],
       "typeParameters": [
@@ -1125,8 +1105,7 @@
                   {
                     "fileName": "verbs.ts",
                     "line": 40,
-                    "character": 2,
-                    "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L40"
+                    "character": 2
                   }
                 ],
                 "type": {
@@ -1148,8 +1127,7 @@
                           {
                             "fileName": "verbs.ts",
                             "line": 40,
-                            "character": 15,
-                            "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L40"
+                            "character": 15
                           }
                         ],
                         "type": {
@@ -1171,8 +1149,7 @@
                                   {
                                     "fileName": "verbs.ts",
                                     "line": 40,
-                                    "character": 22,
-                                    "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L40"
+                                    "character": 22
                                   }
                                 ],
                                 "type": {
@@ -1194,8 +1171,7 @@
                                           {
                                             "fileName": "verbs.ts",
                                             "line": 40,
-                                            "character": 33,
-                                            "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L40"
+                                            "character": 33
                                           }
                                         ],
                                         "type": {
@@ -1277,8 +1253,7 @@
         {
           "fileName": "client.ts",
           "line": 31,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/client.ts#L31"
+          "character": 12
         }
       ],
       "type": {
@@ -1338,8 +1313,7 @@
         {
           "fileName": "verbs.ts",
           "line": 52,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L52"
+          "character": 12
         }
       ],
       "typeParameters": [
@@ -1542,8 +1516,7 @@
         {
           "fileName": "verbs.ts",
           "line": 215,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L215"
+          "character": 12
         }
       ],
       "type": {
@@ -1579,8 +1552,7 @@
         {
           "fileName": "client.ts",
           "line": 33,
-          "character": 16,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/client.ts#L33"
+          "character": 16
         }
       ],
       "signatures": [
@@ -1594,8 +1566,7 @@
             {
               "fileName": "client.ts",
               "line": 33,
-              "character": 16,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/client.ts#L33"
+              "character": 16
             }
           ],
           "parameters": [
@@ -1652,8 +1623,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 117,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L117"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -1805,8 +1775,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 128,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L128"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -1915,8 +1884,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 197,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L197"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -1961,8 +1929,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 182,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L182"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -2156,8 +2123,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 99,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L99"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -2202,8 +2168,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 203,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L203"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -2301,8 +2266,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 88,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L88"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -2398,8 +2362,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 149,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L149"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -2495,8 +2458,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 105,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L105"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -2594,8 +2556,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 111,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L111"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -2691,8 +2652,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 143,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L143"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -2804,8 +2764,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 211,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L211"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -2866,8 +2825,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 170,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L170"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -2912,8 +2870,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 188,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L188"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -3011,8 +2968,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 176,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L176"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -3116,8 +3072,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 156,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L156"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -3186,8 +3141,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 137,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L137"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -3232,8 +3186,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 163,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L163"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -3342,8 +3295,7 @@
         {
           "fileName": "verbs.ts",
           "line": 82,
-          "character": 16,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L82"
+          "character": 16
         }
       ],
       "signatures": [
@@ -3365,8 +3317,7 @@
             {
               "fileName": "verbs.ts",
               "line": 82,
-              "character": 16,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L82"
+              "character": 16
             }
           ],
           "parameters": [
@@ -3423,8 +3374,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 117,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L117"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -3576,8 +3526,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 128,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L128"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -3686,8 +3635,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 197,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L197"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -3732,8 +3680,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 182,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L182"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -3927,8 +3874,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 99,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L99"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -3973,8 +3919,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 203,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L203"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -4072,8 +4017,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 88,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L88"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -4169,8 +4113,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 149,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L149"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -4266,8 +4209,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 105,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L105"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -4365,8 +4307,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 111,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L111"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -4462,8 +4403,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 143,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L143"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -4575,8 +4515,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 211,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L211"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -4637,8 +4576,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 170,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L170"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -4683,8 +4621,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 188,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L188"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -4782,8 +4719,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 176,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L176"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -4887,8 +4823,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 156,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L156"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -4957,8 +4892,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 137,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L137"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -5003,8 +4937,7 @@
                     {
                       "fileName": "verbs.ts",
                       "line": 163,
-                      "character": 4,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L163"
+                      "character": 4
                     }
                   ],
                   "type": {
@@ -5113,8 +5046,7 @@
         {
           "fileName": "verbs.ts",
           "line": 63,
-          "character": 16,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L63"
+          "character": 16
         }
       ],
       "signatures": [
@@ -5152,8 +5084,7 @@
             {
               "fileName": "verbs.ts",
               "line": 63,
-              "character": 16,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/trueblocks-sdk/src/verbs.ts#L63"
+              "character": 16
             }
           ],
           "typeParameters": [

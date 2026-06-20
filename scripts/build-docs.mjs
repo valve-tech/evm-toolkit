@@ -67,6 +67,8 @@ const discoverPackages = async () => {
     if (!existsSync(pkgJsonPath)) continue
     const pkgJson = JSON.parse(await readFile(pkgJsonPath, 'utf8'))
     if (pkgJson.private) continue
+    const entryPath = join(PACKAGES_DIR, entry.name, 'src', 'index.ts')
+    if (!existsSync(entryPath)) continue
     pkgs.push({
       slug: entry.name,                       // directory name
       name: pkgJson.name,                     // @valve-tech/<name>
@@ -104,9 +106,29 @@ const runTypedoc = (pkg, outDir, jsonPath) => {
   }
 }
 
+// Source entries get a `url` (github blob link) ONLY when TypeDoc can
+// resolve a git remote + revision — which bakes the current HEAD SHA
+// into the link. That makes the JSON depend on the checkout's git state:
+// a full local clone emits it, CI's shallow clone omits it, and it
+// changes on every commit (so docs committed with a URL can never match
+// a regeneration on the next commit). Strip it so the committed model is
+// stable across environments and commits, keeping only the volatile-free
+// source position (fileName/line/character).
+const stripSourceUrls = (node) => {
+  if (Array.isArray(node)) {
+    node.forEach(stripSourceUrls)
+    return
+  }
+  if (node && typeof node === 'object') {
+    if ('fileName' in node && 'url' in node) delete node.url
+    for (const value of Object.values(node)) stripSourceUrls(value)
+  }
+}
+
 const stripVolatileFromJson = async (jsonPath) => {
   // TypeDoc embeds its own version + a generation timestamp into the
-  // JSON. Strip those so `docs:check` can do a stable diff in CI.
+  // JSON. Strip those (and the git-revision-dependent source URLs) so
+  // `docs:check` can do a stable diff in CI.
   const data = JSON.parse(await readFile(jsonPath, 'utf8'))
   const stripped = {
     ...data,
@@ -114,6 +136,7 @@ const stripVolatileFromJson = async (jsonPath) => {
     typeDocVersion: undefined,
     generated: undefined,
   }
+  stripSourceUrls(stripped)
   await writeFile(jsonPath, JSON.stringify(stripped, null, 2) + '\n')
 }
 

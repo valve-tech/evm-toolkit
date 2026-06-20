@@ -23,8 +23,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 77,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L77"
+              "character": 2
             }
           ],
           "type": {
@@ -42,8 +41,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 80,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L80"
+              "character": 2
             }
           ],
           "type": {
@@ -63,8 +61,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 79,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L79"
+              "character": 2
             }
           ],
           "type": {
@@ -82,8 +79,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 78,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L78"
+              "character": 2
             }
           ],
           "type": {
@@ -107,8 +103,7 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 76,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L76"
+          "character": 17
         }
       ]
     },
@@ -137,8 +132,7 @@
             {
               "fileName": "gas-oracle/src/block-position.ts",
               "line": 77,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L77"
+              "character": 2
             }
           ],
           "type": {
@@ -180,8 +174,7 @@
             {
               "fileName": "gas-oracle/src/block-position.ts",
               "line": 73,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L73"
+              "character": 2
             }
           ],
           "type": {
@@ -218,8 +211,7 @@
             {
               "fileName": "gas-oracle/src/block-position.ts",
               "line": 75,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L75"
+              "character": 2
             }
           ],
           "type": {
@@ -309,8 +301,7 @@
             {
               "fileName": "gas-oracle/src/block-position.ts",
               "line": 66,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L66"
+              "character": 2
             }
           ],
           "type": {
@@ -334,8 +325,7 @@
         {
           "fileName": "gas-oracle/src/block-position.ts",
           "line": 58,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L58"
+          "character": 17
         }
       ]
     },
@@ -614,8 +604,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 156,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L156"
+              "character": 2
             }
           ],
           "type": {
@@ -633,8 +622,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 157,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L157"
+              "character": 2
             }
           ],
           "type": {
@@ -652,8 +640,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 154,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L154"
+              "character": 2
             }
           ],
           "type": {
@@ -671,8 +658,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 153,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L153"
+              "character": 2
             }
           ],
           "type": {
@@ -690,8 +676,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 155,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L155"
+              "character": 2
             }
           ],
           "type": {
@@ -709,8 +694,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 158,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L158"
+              "character": 2
             }
           ],
           "type": {
@@ -741,8 +725,7 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 152,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L152"
+          "character": 17
         }
       ]
     },
@@ -779,8 +762,7 @@
             {
               "fileName": "gas-oracle/src/classify-tip.ts",
               "line": 37,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/classify-tip.ts#L37"
+              "character": 2
             }
           ],
           "type": {
@@ -830,8 +812,7 @@
             {
               "fileName": "gas-oracle/src/classify-tip.ts",
               "line": 33,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/classify-tip.ts#L33"
+              "character": 2
             }
           ],
           "type": {
@@ -865,8 +846,7 @@
             {
               "fileName": "gas-oracle/src/classify-tip.ts",
               "line": 35,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/classify-tip.ts#L35"
+              "character": 2
             }
           ],
           "type": {
@@ -920,8 +900,7 @@
             {
               "fileName": "gas-oracle/src/classify-tip.ts",
               "line": 27,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/classify-tip.ts#L27"
+              "character": 2
             }
           ],
           "type": {
@@ -980,8 +959,7 @@
             {
               "fileName": "gas-oracle/src/classify-tip.ts",
               "line": 22,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/classify-tip.ts#L22"
+              "character": 2
             }
           ],
           "type": {
@@ -1017,8 +995,7 @@
         {
           "fileName": "gas-oracle/src/classify-tip.ts",
           "line": 17,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/classify-tip.ts#L17"
+          "character": 17
         }
       ]
     },
@@ -1128,9 +1105,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 112,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L112"
+              "line": 113,
+              "character": 2
             }
           ],
           "type": {
@@ -1195,9 +1171,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 169,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L169"
+              "line": 170,
+              "character": 2
             }
           ],
           "type": {
@@ -1231,8 +1206,7 @@
             {
               "fileName": "gas-oracle/src/oracle.ts",
               "line": 68,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L68"
+              "character": 2
             }
           ],
           "type": {
@@ -1300,8 +1274,7 @@
             {
               "fileName": "gas-oracle/src/oracle.ts",
               "line": 66,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L66"
+              "character": 2
             }
           ],
           "type": {
@@ -1382,9 +1355,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 127,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L127"
+              "line": 128,
+              "character": 2
             }
           ],
           "type": {
@@ -1428,8 +1400,7 @@
             {
               "fileName": "gas-oracle/src/oracle.ts",
               "line": 86,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L86"
+              "character": 2
             }
           ],
           "type": {
@@ -1539,9 +1510,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 181,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L181"
+              "line": 182,
+              "character": 2
             }
           ],
           "type": {
@@ -1656,9 +1626,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 147,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L147"
+              "line": 148,
+              "character": 2
             }
           ],
           "type": {
@@ -1709,9 +1678,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 118,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L118"
+              "line": 119,
+              "character": 2
             }
           ],
           "type": {
@@ -1765,8 +1733,7 @@
             {
               "fileName": "gas-oracle/src/oracle.ts",
               "line": 75,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L75"
+              "character": 2
             }
           ],
           "type": {
@@ -1818,8 +1785,7 @@
             {
               "fileName": "gas-oracle/src/oracle.ts",
               "line": 94,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L94"
+              "character": 2
             }
           ],
           "type": {
@@ -1852,28 +1818,43 @@
               },
               {
                 "kind": "code",
-                "text": "`'flat'`"
-              },
-              {
-                "kind": "text",
-                "text": " (default) treats every tx equally — right for extractive\nnetworks. "
-              },
-              {
-                "kind": "code",
                 "text": "`'eip1559'`"
               },
               {
                 "kind": "text",
-                "text": " derives standard/fast/instant from type-2+\nsamples only — right for chains that honor 1559 ordering."
+                "text": " (default since v0.8.0) derives standard/fast/instant from\ntype-2+ samples only — right for chains that honor 1559 ordering.\n"
+              },
+              {
+                "kind": "code",
+                "text": "`'flat'`"
+              },
+              {
+                "kind": "text",
+                "text": " treats every tx equally — right for extractive networks\n(use "
+              },
+              {
+                "kind": "code",
+                "text": "`presetForChainId`"
+              },
+              {
+                "kind": "text",
+                "text": " / "
+              },
+              {
+                "kind": "code",
+                "text": "`chainPresets`"
+              },
+              {
+                "kind": "text",
+                "text": " for known flat chains)."
               }
             ]
           },
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 101,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L101"
+              "line": 102,
+              "character": 2
             }
           ],
           "type": {
@@ -1926,9 +1907,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 194,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L194"
+              "line": 195,
+              "character": 2
             }
           ],
           "type": {
@@ -1996,8 +1976,7 @@
             {
               "fileName": "gas-oracle/src/oracle.ts",
               "line": 56,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L56"
+              "character": 2
             }
           ],
           "type": {
@@ -2062,9 +2041,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 158,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L158"
+              "line": 159,
+              "character": 2
             }
           ],
           "type": {
@@ -2099,8 +2077,7 @@
         {
           "fileName": "gas-oracle/src/oracle.ts",
           "line": 44,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L44"
+          "character": 17
         }
       ]
     },
@@ -2329,9 +2306,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 212,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L212"
+              "line": 213,
+              "character": 2
             }
           ],
           "type": {
@@ -2386,9 +2362,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 203,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L203"
+              "line": 204,
+              "character": 2
             }
           ],
           "type": {
@@ -2443,9 +2418,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 219,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L219"
+              "line": 220,
+              "character": 2
             }
           ],
           "type": {
@@ -2513,9 +2487,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 199,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L199"
+              "line": 200,
+              "character": 2
             }
           ],
           "type": {
@@ -2559,9 +2532,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 201,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L201"
+              "line": 202,
+              "character": 2
             }
           ],
           "type": {
@@ -2605,9 +2577,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 227,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L227"
+              "line": 228,
+              "character": 2
             }
           ],
           "type": {
@@ -2717,9 +2688,8 @@
       "sources": [
         {
           "fileName": "gas-oracle/src/oracle.ts",
-          "line": 197,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L197"
+          "line": 198,
+          "character": 17
         }
       ]
     },
@@ -2788,8 +2758,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 172,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L172"
+              "character": 2
             }
           ],
           "type": {
@@ -2807,8 +2776,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 174,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L174"
+              "character": 2
             }
           ],
           "type": {
@@ -2829,8 +2797,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 173,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L173"
+              "character": 2
             }
           ],
           "type": {
@@ -2850,8 +2817,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 176,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L176"
+              "character": 2
             }
           ],
           "type": {
@@ -2880,8 +2846,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 170,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L170"
+              "character": 2
             }
           ],
           "type": {
@@ -2899,8 +2864,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 169,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L169"
+              "character": 2
             }
           ],
           "type": {
@@ -2920,8 +2884,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 214,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L214"
+              "character": 2
             }
           ],
           "type": {
@@ -2941,8 +2904,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 213,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L213"
+              "character": 2
             }
           ],
           "type": {
@@ -3011,8 +2973,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 203,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L203"
+              "character": 2
             }
           ],
           "type": {
@@ -3041,8 +3002,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 175,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L175"
+              "character": 2
             }
           ],
           "type": {
@@ -3086,8 +3046,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 212,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L212"
+              "character": 2
             }
           ],
           "type": {
@@ -3158,8 +3117,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 194,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L194"
+              "character": 2
             }
           ],
           "type": {
@@ -3182,8 +3140,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 177,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L177"
+              "character": 2
             }
           ],
           "type": {
@@ -3222,8 +3179,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 171,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L171"
+              "character": 2
             }
           ],
           "type": {
@@ -3257,8 +3213,7 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 168,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L168"
+          "character": 17
         }
       ]
     },
@@ -3287,8 +3242,7 @@
             {
               "fileName": "gas-oracle/src/mempool.ts",
               "line": 48,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L48"
+              "character": 2
             }
           ],
           "type": {
@@ -3314,8 +3268,7 @@
             {
               "fileName": "gas-oracle/src/mempool.ts",
               "line": 46,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L46"
+              "character": 2
             }
           ],
           "type": {
@@ -3343,8 +3296,7 @@
             {
               "fileName": "gas-oracle/src/mempool.ts",
               "line": 50,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L50"
+              "character": 2
             }
           ],
           "type": {
@@ -3378,8 +3330,7 @@
             {
               "fileName": "gas-oracle/src/mempool.ts",
               "line": 44,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L44"
+              "character": 2
             }
           ],
           "type": {
@@ -3405,8 +3356,7 @@
         {
           "fileName": "gas-oracle/src/mempool.ts",
           "line": 42,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L42"
+          "character": 17
         }
       ]
     },
@@ -3435,8 +3385,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 73,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L73"
+              "character": 2
             }
           ],
           "type": {
@@ -3454,8 +3403,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 68,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L68"
+              "character": 2
             }
           ],
           "type": {
@@ -3489,8 +3437,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 71,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L71"
+              "character": 2
             }
           ],
           "type": {
@@ -3508,8 +3455,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 69,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L69"
+              "character": 2
             }
           ],
           "type": {
@@ -3533,8 +3479,7 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 67,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L67"
+          "character": 17
         }
       ]
     },
@@ -3619,8 +3564,7 @@
             {
               "fileName": "gas-oracle/src/transport.ts",
               "line": 44,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/transport.ts#L44"
+              "character": 2
             }
           ],
           "type": {
@@ -3649,8 +3593,7 @@
             {
               "fileName": "gas-oracle/src/transport.ts",
               "line": 43,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/transport.ts#L43"
+              "character": 2
             }
           ],
           "type": {
@@ -3679,8 +3622,7 @@
             {
               "fileName": "gas-oracle/src/transport.ts",
               "line": 45,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/transport.ts#L45"
+              "character": 2
             }
           ],
           "type": {
@@ -3714,8 +3656,7 @@
         {
           "fileName": "gas-oracle/src/transport.ts",
           "line": 42,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/transport.ts#L42"
+          "character": 17
         }
       ]
     },
@@ -4170,8 +4111,7 @@
             {
               "fileName": "gas-oracle/src/replacement.ts",
               "line": 93,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L93"
+              "character": 2
             }
           ],
           "type": {
@@ -4194,8 +4134,7 @@
         {
           "fileName": "gas-oracle/src/replacement.ts",
           "line": 91,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L91"
+          "character": 17
         }
       ]
     },
@@ -4248,8 +4187,7 @@
             {
               "fileName": "gas-oracle/src/ring.ts",
               "line": 50,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/ring.ts#L50"
+              "character": 2
             }
           ],
           "type": {
@@ -4275,8 +4213,7 @@
             {
               "fileName": "gas-oracle/src/ring.ts",
               "line": 52,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/ring.ts#L52"
+              "character": 2
             }
           ],
           "type": {
@@ -4310,8 +4247,7 @@
             {
               "fileName": "gas-oracle/src/ring.ts",
               "line": 59,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/ring.ts#L59"
+              "character": 2
             }
           ],
           "type": {
@@ -4344,8 +4280,7 @@
             {
               "fileName": "gas-oracle/src/ring.ts",
               "line": 54,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/ring.ts#L54"
+              "character": 2
             }
           ],
           "type": {
@@ -4369,8 +4304,7 @@
         {
           "fileName": "gas-oracle/src/ring.ts",
           "line": 48,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/ring.ts#L48"
+          "character": 17
         }
       ]
     },
@@ -4391,8 +4325,7 @@
             {
               "fileName": "gas-oracle/src/replacement.ts",
               "line": 49,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L49"
+              "character": 2
             }
           ],
           "type": {
@@ -4410,8 +4343,7 @@
             {
               "fileName": "gas-oracle/src/replacement.ts",
               "line": 50,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L50"
+              "character": 2
             }
           ],
           "type": {
@@ -4433,8 +4365,7 @@
         {
           "fileName": "gas-oracle/src/replacement.ts",
           "line": 48,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L48"
+          "character": 17
         }
       ]
     },
@@ -4503,8 +4434,7 @@
             {
               "fileName": "gas-oracle/src/ring.ts",
               "line": 75,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/ring.ts#L75"
+              "character": 2
             }
           ],
           "type": {
@@ -4522,8 +4452,7 @@
             {
               "fileName": "gas-oracle/src/ring.ts",
               "line": 74,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/ring.ts#L74"
+              "character": 2
             }
           ],
           "type": {
@@ -4552,8 +4481,7 @@
             {
               "fileName": "gas-oracle/src/ring.ts",
               "line": 73,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/ring.ts#L73"
+              "character": 2
             }
           ],
           "type": {
@@ -4581,8 +4509,7 @@
         {
           "fileName": "gas-oracle/src/ring.ts",
           "line": 72,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/ring.ts#L72"
+          "character": 17
         }
       ]
     },
@@ -4635,8 +4562,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 35,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L35"
+              "character": 2
             }
           ],
           "type": {
@@ -4654,8 +4580,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 36,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L36"
+              "character": 2
             }
           ],
           "type": {
@@ -4682,8 +4607,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 34,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L34"
+              "character": 2
             }
           ],
           "type": {
@@ -4701,8 +4625,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 33,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L33"
+              "character": 2
             }
           ],
           "type": {
@@ -4726,8 +4649,7 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 32,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L32"
+          "character": 17
         }
       ]
     },
@@ -4748,8 +4670,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 20,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L20"
+              "character": 2
             }
           ],
           "type": {
@@ -4767,8 +4688,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 21,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L21"
+              "character": 2
             }
           ],
           "type": {
@@ -4786,8 +4706,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 22,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L22"
+              "character": 2
             }
           ],
           "type": {
@@ -4805,8 +4724,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 23,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L23"
+              "character": 2
             }
           ],
           "type": {
@@ -4824,8 +4742,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 24,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L24"
+              "character": 2
             }
           ],
           "type": {
@@ -4850,8 +4767,7 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 19,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L19"
+          "character": 17
         }
       ]
     },
@@ -4954,8 +4870,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 104,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L104"
+              "character": 2
             }
           ],
           "type": {
@@ -4973,8 +4888,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 101,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L101"
+              "character": 2
             }
           ],
           "type": {
@@ -4994,8 +4908,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 103,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L103"
+              "character": 2
             }
           ],
           "type": {
@@ -5015,8 +4928,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 105,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L105"
+              "character": 2
             }
           ],
           "type": {
@@ -5034,8 +4946,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 100,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L100"
+              "character": 2
             }
           ],
           "type": {
@@ -5055,8 +4966,7 @@
             {
               "fileName": "gas-oracle/src/types.ts",
               "line": 102,
-              "character": 2,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L102"
+              "character": 2
             }
           ],
           "type": {
@@ -5082,8 +4992,7 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 99,
-          "character": 17,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L99"
+          "character": 17
         }
       ]
     },
@@ -5406,8 +5315,7 @@
         {
           "fileName": "gas-oracle/src/block-position.ts",
           "line": 51,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L51"
+          "character": 12
         }
       ],
       "type": {
@@ -5432,8 +5340,7 @@
                     {
                       "fileName": "gas-oracle/src/block-position.ts",
                       "line": 52,
-                      "character": 6,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L52"
+                      "character": 6
                     }
                   ],
                   "type": {
@@ -5451,8 +5358,7 @@
                     {
                       "fileName": "gas-oracle/src/block-position.ts",
                       "line": 52,
-                      "character": 20,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L52"
+                      "character": 20
                     }
                   ],
                   "type": {
@@ -5491,8 +5397,7 @@
                     {
                       "fileName": "gas-oracle/src/block-position.ts",
                       "line": 53,
-                      "character": 6,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L53"
+                      "character": 6
                     }
                   ],
                   "type": {
@@ -5510,8 +5415,7 @@
                     {
                       "fileName": "gas-oracle/src/block-position.ts",
                       "line": 53,
-                      "character": 26,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L53"
+                      "character": 26
                     }
                   ],
                   "type": {
@@ -5550,8 +5454,7 @@
                     {
                       "fileName": "gas-oracle/src/block-position.ts",
                       "line": 54,
-                      "character": 26,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L54"
+                      "character": 26
                     }
                   ],
                   "type": {
@@ -5569,8 +5472,7 @@
                     {
                       "fileName": "gas-oracle/src/block-position.ts",
                       "line": 54,
-                      "character": 6,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L54"
+                      "character": 6
                     }
                   ],
                   "type": {
@@ -5609,8 +5511,7 @@
                     {
                       "fileName": "gas-oracle/src/block-position.ts",
                       "line": 55,
-                      "character": 6,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L55"
+                      "character": 6
                     }
                   ],
                   "type": {
@@ -5628,8 +5529,7 @@
                     {
                       "fileName": "gas-oracle/src/block-position.ts",
                       "line": 55,
-                      "character": 23,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L55"
+                      "character": 23
                     }
                   ],
                   "type": {
@@ -5670,8 +5570,7 @@
                     {
                       "fileName": "gas-oracle/src/block-position.ts",
                       "line": 56,
-                      "character": 6,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L56"
+                      "character": 6
                     }
                   ],
                   "type": {
@@ -5689,8 +5588,7 @@
                     {
                       "fileName": "gas-oracle/src/block-position.ts",
                       "line": 56,
-                      "character": 22,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L56"
+                      "character": 22
                     }
                   ],
                   "type": {
@@ -5725,14 +5623,12 @@
         {
           "fileName": "gas-oracle/src/replacement.ts",
           "line": 84,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L84"
+          "character": 13
         },
         {
           "fileName": "gas-oracle/src/replacement.ts",
           "line": 89,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L89"
+          "character": 12
         }
       ],
       "type": {
@@ -5803,8 +5699,7 @@
         {
           "fileName": "gas-oracle/src/presets.ts",
           "line": 24,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/presets.ts#L24"
+          "character": 12
         }
       ],
       "type": {
@@ -5829,8 +5724,7 @@
                     {
                       "fileName": "gas-oracle/src/presets.ts",
                       "line": 25,
-                      "character": 2,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/presets.ts#L25"
+                      "character": 2
                     }
                   ],
                   "type": {
@@ -5906,8 +5800,7 @@
         {
           "fileName": "gas-oracle/src/mempool.ts",
           "line": 40,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L40"
+          "character": 12
         }
       ],
       "type": {
@@ -6014,14 +5907,12 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 126,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L126"
+          "character": 13
         },
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 130,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L130"
+          "character": 12
         }
       ],
       "type": {
@@ -6060,14 +5951,12 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 46,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L46"
+          "character": 13
         },
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 52,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L52"
+          "character": 12
         }
       ],
       "type": {
@@ -6106,14 +5995,12 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 39,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L39"
+          "character": 13
         },
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 44,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L44"
+          "character": 12
         }
       ],
       "type": {
@@ -6176,8 +6063,7 @@
         {
           "fileName": "gas-oracle/src/mempool.ts",
           "line": 35,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L35"
+          "character": 12
         }
       ],
       "type": {
@@ -6202,8 +6088,7 @@
                     {
                       "fileName": "gas-oracle/src/mempool.ts",
                       "line": 36,
-                      "character": 6,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L36"
+                      "character": 6
                     }
                   ],
                   "type": {
@@ -6241,8 +6126,7 @@
                     {
                       "fileName": "gas-oracle/src/mempool.ts",
                       "line": 37,
-                      "character": 6,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L37"
+                      "character": 6
                     }
                   ],
                   "type": {
@@ -6260,8 +6144,7 @@
                     {
                       "fileName": "gas-oracle/src/mempool.ts",
                       "line": 37,
-                      "character": 23,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L37"
+                      "character": 23
                     }
                   ],
                   "type": {
@@ -6323,14 +6206,12 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 137,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L137"
+          "character": 13
         },
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 144,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L144"
+          "character": 12
         }
       ],
       "type": {
@@ -6371,14 +6252,12 @@
         {
           "fileName": "gas-oracle/src/replacement.ts",
           "line": 84,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L84"
+          "character": 13
         },
         {
           "fileName": "gas-oracle/src/replacement.ts",
           "line": 89,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L89"
+          "character": 12
         }
       ],
       "type": {
@@ -6402,8 +6281,7 @@
                 {
                   "fileName": "gas-oracle/src/replacement.ts",
                   "line": 85,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L85"
+                  "character": 2
                 }
               ],
               "type": {
@@ -6424,8 +6302,7 @@
                 {
                   "fileName": "gas-oracle/src/replacement.ts",
                   "line": 87,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L87"
+                  "character": 2
                 }
               ],
               "type": {
@@ -6446,8 +6323,7 @@
                 {
                   "fileName": "gas-oracle/src/replacement.ts",
                   "line": 86,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L86"
+                  "character": 2
                 }
               ],
               "type": {
@@ -6483,8 +6359,7 @@
         {
           "fileName": "gas-oracle/src/presets.ts",
           "line": 31,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/presets.ts#L31"
+          "character": 13
         }
       ],
       "type": {
@@ -6508,8 +6383,7 @@
                 {
                   "fileName": "gas-oracle/src/presets.ts",
                   "line": 32,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/presets.ts#L32"
+                  "character": 2
                 }
               ],
               "type": {
@@ -6533,8 +6407,7 @@
                         {
                           "fileName": "gas-oracle/src/presets.ts",
                           "line": 33,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/presets.ts#L33"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -6555,8 +6428,7 @@
                         {
                           "fileName": "gas-oracle/src/presets.ts",
                           "line": 34,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/presets.ts#L34"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -6612,8 +6484,7 @@
         {
           "fileName": "gas-oracle/src/math.ts",
           "line": 225,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L225"
+          "character": 13
         }
       ],
       "type": {
@@ -6642,8 +6513,7 @@
         {
           "fileName": "gas-oracle/src/math.ts",
           "line": 36,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L36"
+          "character": 13
         }
       ],
       "type": {
@@ -6664,8 +6534,7 @@
         {
           "fileName": "gas-oracle/src/inclusion-labels.ts",
           "line": 12,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/inclusion-labels.ts#L12"
+          "character": 13
         }
       ],
       "type": {
@@ -6745,14 +6614,12 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 126,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L126"
+          "character": 13
         },
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 130,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L130"
+          "character": 12
         }
       ],
       "type": {
@@ -6776,8 +6643,7 @@
                 {
                   "fileName": "gas-oracle/src/types.ts",
                   "line": 128,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L128"
+                  "character": 2
                 }
               ],
               "type": {
@@ -6798,8 +6664,7 @@
                 {
                   "fileName": "gas-oracle/src/types.ts",
                   "line": 127,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L127"
+                  "character": 2
                 }
               ],
               "type": {
@@ -6834,8 +6699,7 @@
         {
           "fileName": "gas-oracle/src/replacement.ts",
           "line": 17,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L17"
+          "character": 13
         }
       ],
       "type": {
@@ -6875,8 +6739,7 @@
                 {
                   "fileName": "gas-oracle/src/replacement.ts",
                   "line": 21,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L21"
+                  "character": 2
                 }
               ],
               "type": {
@@ -6916,8 +6779,7 @@
                 {
                   "fileName": "gas-oracle/src/replacement.ts",
                   "line": 19,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L19"
+                  "character": 2
                 }
               ],
               "type": {
@@ -6979,8 +6841,7 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 60,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L60"
+          "character": 13
         }
       ],
       "type": {
@@ -7010,14 +6871,12 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 46,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L46"
+          "character": 13
         },
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 52,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L52"
+          "character": 12
         }
       ],
       "type": {
@@ -7041,8 +6900,7 @@
                 {
                   "fileName": "gas-oracle/src/types.ts",
                   "line": 49,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L49"
+                  "character": 2
                 }
               ],
               "type": {
@@ -7063,8 +6921,7 @@
                 {
                   "fileName": "gas-oracle/src/types.ts",
                   "line": 50,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L50"
+                  "character": 2
                 }
               ],
               "type": {
@@ -7085,8 +6942,7 @@
                 {
                   "fileName": "gas-oracle/src/types.ts",
                   "line": 47,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L47"
+                  "character": 2
                 }
               ],
               "type": {
@@ -7107,8 +6963,7 @@
                 {
                   "fileName": "gas-oracle/src/types.ts",
                   "line": 48,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L48"
+                  "character": 2
                 }
               ],
               "type": {
@@ -7145,14 +7000,12 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 39,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L39"
+          "character": 13
         },
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 44,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L44"
+          "character": 12
         }
       ],
       "type": {
@@ -7176,8 +7029,7 @@
                 {
                   "fileName": "gas-oracle/src/types.ts",
                   "line": 41,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L41"
+                  "character": 2
                 }
               ],
               "type": {
@@ -7198,8 +7050,7 @@
                 {
                   "fileName": "gas-oracle/src/types.ts",
                   "line": 40,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L40"
+                  "character": 2
                 }
               ],
               "type": {
@@ -7220,8 +7071,7 @@
                 {
                   "fileName": "gas-oracle/src/types.ts",
                   "line": 42,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L42"
+                  "character": 2
                 }
               ],
               "type": {
@@ -7273,14 +7123,12 @@
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 137,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L137"
+          "character": 13
         },
         {
           "fileName": "gas-oracle/src/types.ts",
           "line": 144,
-          "character": 12,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L144"
+          "character": 12
         }
       ],
       "type": {
@@ -7304,8 +7152,7 @@
                 {
                   "fileName": "gas-oracle/src/types.ts",
                   "line": 141,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L141"
+                  "character": 2
                 }
               ],
               "type": {
@@ -7326,8 +7173,7 @@
                 {
                   "fileName": "gas-oracle/src/types.ts",
                   "line": 140,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L140"
+                  "character": 2
                 }
               ],
               "type": {
@@ -7348,8 +7194,7 @@
                 {
                   "fileName": "gas-oracle/src/types.ts",
                   "line": 139,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L139"
+                  "character": 2
                 }
               ],
               "type": {
@@ -7370,8 +7215,7 @@
                 {
                   "fileName": "gas-oracle/src/types.ts",
                   "line": 138,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L138"
+                  "character": 2
                 }
               ],
               "type": {
@@ -7392,8 +7236,7 @@
                 {
                   "fileName": "gas-oracle/src/types.ts",
                   "line": 142,
-                  "character": 2,
-                  "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/types.ts#L142"
+                  "character": 2
                 }
               ],
               "type": {
@@ -7429,8 +7272,7 @@
         {
           "fileName": "gas-oracle/src/samples.ts",
           "line": 57,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/samples.ts#L57"
+          "character": 13
         }
       ],
       "signatures": [
@@ -7476,8 +7318,7 @@
             {
               "fileName": "gas-oracle/src/samples.ts",
               "line": 57,
-              "character": 29,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/samples.ts#L57"
+              "character": 29
             }
           ],
           "parameters": [
@@ -7514,8 +7355,7 @@
         {
           "fileName": "gas-oracle/src/replacement.ts",
           "line": 62,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L62"
+          "character": 13
         }
       ],
       "signatures": [
@@ -7553,8 +7393,7 @@
             {
               "fileName": "gas-oracle/src/replacement.ts",
               "line": 62,
-              "character": 34,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L62"
+              "character": 34
             }
           ],
           "parameters": [
@@ -7604,8 +7443,7 @@
         {
           "fileName": "gas-oracle/src/math.ts",
           "line": 126,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L126"
+          "character": 13
         }
       ],
       "signatures": [
@@ -7683,8 +7521,7 @@
             {
               "fileName": "gas-oracle/src/math.ts",
               "line": 126,
-              "character": 25,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L126"
+              "character": 25
             }
           ],
           "parameters": [
@@ -7789,8 +7626,7 @@
         {
           "fileName": "gas-oracle/src/classify-tip.ts",
           "line": 66,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/classify-tip.ts#L66"
+          "character": 13
         }
       ],
       "signatures": [
@@ -7804,8 +7640,7 @@
             {
               "fileName": "gas-oracle/src/classify-tip.ts",
               "line": 66,
-              "character": 27,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/classify-tip.ts#L66"
+              "character": 27
             }
           ],
           "parameters": [
@@ -7853,8 +7688,7 @@
         {
           "fileName": "gas-oracle/src/math.ts",
           "line": 388,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L388"
+          "character": 13
         }
       ],
       "signatures": [
@@ -7892,8 +7726,7 @@
             {
               "fileName": "gas-oracle/src/math.ts",
               "line": 388,
-              "character": 34,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L388"
+              "character": 34
             }
           ],
           "parameters": [
@@ -7926,8 +7759,7 @@
         {
           "fileName": "gas-oracle/src/math.ts",
           "line": 70,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L70"
+          "character": 13
         }
       ],
       "signatures": [
@@ -7949,8 +7781,7 @@
             {
               "fileName": "gas-oracle/src/math.ts",
               "line": 70,
-              "character": 34,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L70"
+              "character": 34
             }
           ],
           "parameters": [
@@ -7988,8 +7819,7 @@
         {
           "fileName": "gas-oracle/src/math.ts",
           "line": 304,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L304"
+          "character": 13
         }
       ],
       "signatures": [
@@ -8091,8 +7921,7 @@
             {
               "fileName": "gas-oracle/src/math.ts",
               "line": 304,
-              "character": 28,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L304"
+              "character": 28
             }
           ],
           "parameters": [
@@ -8121,8 +7950,7 @@
                         {
                           "fileName": "gas-oracle/src/math.ts",
                           "line": 307,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L307"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -8142,8 +7970,7 @@
                         {
                           "fileName": "gas-oracle/src/math.ts",
                           "line": 315,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L315"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -8161,8 +7988,7 @@
                         {
                           "fileName": "gas-oracle/src/math.ts",
                           "line": 308,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L308"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -8182,8 +8008,7 @@
                         {
                           "fileName": "gas-oracle/src/math.ts",
                           "line": 309,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L309"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -8208,8 +8033,7 @@
                                     {
                                       "fileName": "gas-oracle/src/math.ts",
                                       "line": 309,
-                                      "character": 10,
-                                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L309"
+                                      "character": 10
                                     }
                                   ],
                                   "type": {
@@ -8227,8 +8051,7 @@
                                     {
                                       "fileName": "gas-oracle/src/math.ts",
                                       "line": 309,
-                                      "character": 31,
-                                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L309"
+                                      "character": 31
                                     }
                                   ],
                                   "type": {
@@ -8267,8 +8090,7 @@
                         {
                           "fileName": "gas-oracle/src/math.ts",
                           "line": 310,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L310"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -8286,8 +8108,7 @@
                         {
                           "fileName": "gas-oracle/src/math.ts",
                           "line": 312,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L312"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -8314,8 +8135,7 @@
                         {
                           "fileName": "gas-oracle/src/math.ts",
                           "line": 311,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L311"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -8361,8 +8181,7 @@
                         {
                           "fileName": "gas-oracle/src/math.ts",
                           "line": 306,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L306"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -8387,8 +8206,7 @@
                         {
                           "fileName": "gas-oracle/src/math.ts",
                           "line": 313,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L313"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -8417,8 +8235,7 @@
                         {
                           "fileName": "gas-oracle/src/math.ts",
                           "line": 314,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L314"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -8438,8 +8255,7 @@
                         {
                           "fileName": "gas-oracle/src/math.ts",
                           "line": 305,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L305"
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -8494,8 +8310,7 @@
                     {
                       "fileName": "gas-oracle/src/math.ts",
                       "line": 318,
-                      "character": 2,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L318"
+                      "character": 2
                     }
                   ],
                   "type": {
@@ -8532,8 +8347,7 @@
                     {
                       "fileName": "gas-oracle/src/math.ts",
                       "line": 317,
-                      "character": 2,
-                      "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L317"
+                      "character": 2
                     }
                   ],
                   "type": {
@@ -8586,9 +8400,8 @@
       "sources": [
         {
           "fileName": "gas-oracle/src/oracle.ts",
-          "line": 401,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L401"
+          "line": 402,
+          "character": 13
         }
       ],
       "signatures": [
@@ -8617,9 +8430,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 401,
-              "character": 31,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L401"
+              "line": 402,
+              "character": 31
             }
           ],
           "parameters": [
@@ -8656,8 +8468,7 @@
         {
           "fileName": "gas-oracle/src/math.ts",
           "line": 97,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L97"
+          "character": 13
         }
       ],
       "signatures": [
@@ -8679,8 +8490,7 @@
             {
               "fileName": "gas-oracle/src/math.ts",
               "line": 97,
-              "character": 27,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L97"
+              "character": 27
             }
           ],
           "parameters": [
@@ -8718,8 +8528,7 @@
         {
           "fileName": "gas-oracle/src/math.ts",
           "line": 48,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L48"
+          "character": 13
         }
       ],
       "signatures": [
@@ -8741,8 +8550,7 @@
             {
               "fileName": "gas-oracle/src/math.ts",
               "line": 48,
-              "character": 28,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L48"
+              "character": 28
             }
           ],
           "parameters": [
@@ -8788,8 +8596,7 @@
         {
           "fileName": "gas-oracle/src/transport.ts",
           "line": 80,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/transport.ts#L80"
+          "character": 13
         }
       ],
       "signatures": [
@@ -8843,8 +8650,7 @@
             {
               "fileName": "gas-oracle/src/transport.ts",
               "line": 80,
-              "character": 36,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/transport.ts#L80"
+              "character": 36
             }
           ],
           "parameters": [
@@ -8950,8 +8756,7 @@
         {
           "fileName": "gas-oracle/src/transport.ts",
           "line": 105,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/transport.ts#L105"
+          "character": 13
         }
       ],
       "signatures": [
@@ -9061,8 +8866,7 @@
             {
               "fileName": "gas-oracle/src/transport.ts",
               "line": 105,
-              "character": 33,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/transport.ts#L105"
+              "character": 33
             }
           ],
           "parameters": [
@@ -9110,8 +8914,7 @@
                         {
                           "fileName": "gas-oracle/src/transport.ts",
                           "line": 108,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/transport.ts#L108"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -9174,8 +8977,7 @@
                         {
                           "fileName": "gas-oracle/src/transport.ts",
                           "line": 109,
-                          "character": 4,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/transport.ts#L109"
+                          "character": 4
                         }
                       ],
                       "type": {
@@ -9232,8 +9034,7 @@
         {
           "fileName": "gas-oracle/src/mempool.ts",
           "line": 128,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L128"
+          "character": 13
         }
       ],
       "signatures": [
@@ -9287,8 +9088,7 @@
             {
               "fileName": "gas-oracle/src/mempool.ts",
               "line": 128,
-              "character": 34,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L128"
+              "character": 34
             }
           ],
           "parameters": [
@@ -9382,8 +9182,7 @@
         {
           "fileName": "gas-oracle/src/mempool.ts",
           "line": 110,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L110"
+          "character": 13
         }
       ],
       "signatures": [
@@ -9429,8 +9228,7 @@
             {
               "fileName": "gas-oracle/src/mempool.ts",
               "line": 110,
-              "character": 26,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L110"
+              "character": 26
             }
           ],
           "parameters": [
@@ -9500,8 +9298,7 @@
         {
           "fileName": "gas-oracle/src/mempool.ts",
           "line": 157,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L157"
+          "character": 13
         }
       ],
       "signatures": [
@@ -9531,8 +9328,7 @@
             {
               "fileName": "gas-oracle/src/mempool.ts",
               "line": 157,
-              "character": 29,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L157"
+              "character": 29
             }
           ],
           "parameters": [
@@ -9604,8 +9400,7 @@
         {
           "fileName": "gas-oracle/src/math.ts",
           "line": 408,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L408"
+          "character": 13
         }
       ],
       "signatures": [
@@ -9651,8 +9446,7 @@
             {
               "fileName": "gas-oracle/src/math.ts",
               "line": 408,
-              "character": 29,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L408"
+              "character": 29
             }
           ],
           "parameters": [
@@ -9739,8 +9533,7 @@
         {
           "fileName": "gas-oracle/src/math.ts",
           "line": 185,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L185"
+          "character": 13
         }
       ],
       "signatures": [
@@ -9778,8 +9571,7 @@
             {
               "fileName": "gas-oracle/src/math.ts",
               "line": 185,
-              "character": 38,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L185"
+              "character": 38
             }
           ],
           "parameters": [
@@ -9848,8 +9640,7 @@
         {
           "fileName": "gas-oracle/src/inclusion-labels.ts",
           "line": 37,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/inclusion-labels.ts#L37"
+          "character": 13
         }
       ],
       "signatures": [
@@ -9903,8 +9694,7 @@
             {
               "fileName": "gas-oracle/src/inclusion-labels.ts",
               "line": 37,
-              "character": 30,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/inclusion-labels.ts#L37"
+              "character": 30
             }
           ],
           "parameters": [
@@ -9984,8 +9774,7 @@
         {
           "fileName": "gas-oracle/src/ring.ts",
           "line": 106,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/ring.ts#L106"
+          "character": 13
         }
       ],
       "signatures": [
@@ -10111,8 +9900,7 @@
             {
               "fileName": "gas-oracle/src/ring.ts",
               "line": 106,
-              "character": 32,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/ring.ts#L106"
+              "character": 32
             }
           ],
           "parameters": [
@@ -10180,8 +9968,7 @@
         {
           "fileName": "gas-oracle/src/samples.ts",
           "line": 94,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/samples.ts#L94"
+          "character": 13
         }
       ],
       "signatures": [
@@ -10251,8 +10038,7 @@
             {
               "fileName": "gas-oracle/src/samples.ts",
               "line": 94,
-              "character": 32,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/samples.ts#L94"
+              "character": 32
             }
           ],
           "parameters": [
@@ -10316,8 +10102,7 @@
         {
           "fileName": "gas-oracle/src/replacement.ts",
           "line": 37,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L37"
+          "character": 13
         }
       ],
       "signatures": [
@@ -10427,8 +10212,7 @@
             {
               "fileName": "gas-oracle/src/replacement.ts",
               "line": 37,
-              "character": 37,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L37"
+              "character": 37
             }
           ],
           "parameters": [
@@ -10472,8 +10256,7 @@
         {
           "fileName": "gas-oracle/src/mempool.ts",
           "line": 76,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L76"
+          "character": 13
         }
       ],
       "signatures": [
@@ -10519,8 +10302,7 @@
             {
               "fileName": "gas-oracle/src/mempool.ts",
               "line": 76,
-              "character": 32,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/mempool.ts#L76"
+              "character": 32
             }
           ],
           "parameters": [
@@ -10570,8 +10352,7 @@
         {
           "fileName": "gas-oracle/src/presets.ts",
           "line": 43,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/presets.ts#L43"
+          "character": 13
         }
       ],
       "signatures": [
@@ -10609,8 +10390,7 @@
             {
               "fileName": "gas-oracle/src/presets.ts",
               "line": 43,
-              "character": 32,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/presets.ts#L43"
+              "character": 32
             }
           ],
           "parameters": [
@@ -10654,8 +10434,7 @@
         {
           "fileName": "gas-oracle/src/replacement.ts",
           "line": 114,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L114"
+          "character": 13
         }
       ],
       "signatures": [
@@ -10741,8 +10520,7 @@
             {
               "fileName": "gas-oracle/src/replacement.ts",
               "line": 114,
-              "character": 33,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L114"
+              "character": 33
             }
           ],
           "parameters": [
@@ -10786,8 +10564,7 @@
                         {
                           "fileName": "gas-oracle/src/replacement.ts",
                           "line": 116,
-                          "character": 34,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L116"
+                          "character": 34
                         }
                       ],
                       "type": {
@@ -10807,8 +10584,7 @@
                         {
                           "fileName": "gas-oracle/src/replacement.ts",
                           "line": 116,
-                          "character": 13,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/replacement.ts#L116"
+                          "character": 13
                         }
                       ],
                       "type": {
@@ -10871,9 +10647,8 @@
       "sources": [
         {
           "fileName": "gas-oracle/src/oracle.ts",
-          "line": 247,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L247"
+          "line": 248,
+          "character": 13
         }
       ],
       "signatures": [
@@ -10942,9 +10717,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 247,
-              "character": 32,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L247"
+              "line": 248,
+              "character": 32
             }
           ],
           "parameters": [
@@ -10974,9 +10748,8 @@
                       "sources": [
                         {
                           "fileName": "gas-oracle/src/oracle.ts",
-                          "line": 262,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L262"
+                          "line": 263,
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -10993,9 +10766,8 @@
                       "sources": [
                         {
                           "fileName": "gas-oracle/src/oracle.ts",
-                          "line": 249,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L249"
+                          "line": 250,
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -11062,9 +10834,8 @@
                       "sources": [
                         {
                           "fileName": "gas-oracle/src/oracle.ts",
-                          "line": 259,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L259"
+                          "line": 260,
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -11086,9 +10857,8 @@
                       "sources": [
                         {
                           "fileName": "gas-oracle/src/oracle.ts",
-                          "line": 248,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L248"
+                          "line": 249,
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -11107,9 +10877,8 @@
                       "sources": [
                         {
                           "fileName": "gas-oracle/src/oracle.ts",
-                          "line": 250,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L250"
+                          "line": 251,
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -11139,9 +10908,8 @@
                       "sources": [
                         {
                           "fileName": "gas-oracle/src/oracle.ts",
-                          "line": 260,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L260"
+                          "line": 261,
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -11169,9 +10937,8 @@
                       "sources": [
                         {
                           "fileName": "gas-oracle/src/oracle.ts",
-                          "line": 261,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L261"
+                          "line": 262,
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -11208,9 +10975,8 @@
                       "sources": [
                         {
                           "fileName": "gas-oracle/src/oracle.ts",
-                          "line": 269,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L269"
+                          "line": 270,
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -11265,9 +11031,8 @@
       "sources": [
         {
           "fileName": "gas-oracle/src/oracle.ts",
-          "line": 816,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L816"
+          "line": 817,
+          "character": 13
         }
       ],
       "signatures": [
@@ -11323,9 +11088,8 @@
           "sources": [
             {
               "fileName": "gas-oracle/src/oracle.ts",
-              "line": 816,
-              "character": 29,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L816"
+              "line": 817,
+              "character": 29
             }
           ],
           "parameters": [
@@ -11371,9 +11135,8 @@
                       "sources": [
                         {
                           "fileName": "gas-oracle/src/oracle.ts",
-                          "line": 826,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L826"
+                          "line": 827,
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -11398,9 +11161,8 @@
                       "sources": [
                         {
                           "fileName": "gas-oracle/src/oracle.ts",
-                          "line": 820,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L820"
+                          "line": 821,
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -11425,9 +11187,8 @@
                       "sources": [
                         {
                           "fileName": "gas-oracle/src/oracle.ts",
-                          "line": 818,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L818"
+                          "line": 819,
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -11468,9 +11229,8 @@
                       "sources": [
                         {
                           "fileName": "gas-oracle/src/oracle.ts",
-                          "line": 830,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L830"
+                          "line": 831,
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -11548,9 +11308,8 @@
                       "sources": [
                         {
                           "fileName": "gas-oracle/src/oracle.ts",
-                          "line": 828,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L828"
+                          "line": 829,
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -11587,9 +11346,8 @@
                       "sources": [
                         {
                           "fileName": "gas-oracle/src/oracle.ts",
-                          "line": 822,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L822"
+                          "line": 823,
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -11633,9 +11391,8 @@
                       "sources": [
                         {
                           "fileName": "gas-oracle/src/oracle.ts",
-                          "line": 824,
-                          "character": 2,
-                          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/oracle.ts#L824"
+                          "line": 825,
+                          "character": 2
                         }
                       ],
                       "type": {
@@ -11705,8 +11462,7 @@
         {
           "fileName": "gas-oracle/src/math.ts",
           "line": 85,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L85"
+          "character": 13
         }
       ],
       "signatures": [
@@ -11728,8 +11484,7 @@
             {
               "fileName": "gas-oracle/src/math.ts",
               "line": 85,
-              "character": 26,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/math.ts#L85"
+              "character": 26
             }
           ],
           "parameters": [
@@ -11781,8 +11536,7 @@
         {
           "fileName": "gas-oracle/src/block-position.ts",
           "line": 140,
-          "character": 13,
-          "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L140"
+          "character": 13
         }
       ],
       "signatures": [
@@ -11820,8 +11574,7 @@
             {
               "fileName": "gas-oracle/src/block-position.ts",
               "line": 140,
-              "character": 35,
-              "url": "https://github.com/valve-tech/evm-toolkit/blob/5bb0402050353fb31296fda8ceb97fa4dde19d2b/packages/gas-oracle/src/block-position.ts#L140"
+              "character": 35
             }
           ],
           "parameters": [

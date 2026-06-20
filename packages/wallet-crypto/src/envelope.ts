@@ -14,8 +14,8 @@
  *
  * **WARNING (this is the most common caller error):** the `nonce`
  * field returned and consumed by these functions is the AES-GCM
- * 12-byte IV. It is NOT the auth nonce from
- * `@valve-tech/auth-lite`'s `generateAuthNonce`. Different concept,
+ * 12-byte IV. It is NOT the SIWE nonce from `viem/siwe`'s
+ * `generateSiweNonce` / `@valve-tech/siwe-store`. Different concept,
  * unfortunate name collision in the crypto literature. Don't pass
  * one where the other is expected.
  *

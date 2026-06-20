@@ -1,5 +1,5 @@
 /**
- * Vault state machine. Signed-out → connect + sign in (auth-lite) →
+ * Vault state machine. Signed-out → connect + sign in (viem/siwe) →
  * signed-in vault. Notes are encrypted client-side (wallet-crypto)
  * before upload; the server only ever sees ciphertext. AAD binds each
  * envelope to the signer's address so a blob can't be replayed under a
@@ -9,17 +9,14 @@
 import { useCallback, useEffect, useState } from 'react'
 import { encryptEnvelope, decryptEnvelope, WalletDeclined, WalletUnavailable } from '@valve-tech/wallet-crypto'
 import { isUserRejectionError } from '@valve-tech/viem-errors'
-import { signAuthChallenge } from '@valve-tech/auth-lite'
 import { connectWallet } from './lib/wallet.js'
-import { fetchNonce, verifySignature, fetchNotes, postNote, AuthError } from './lib/api.js'
+import { fetchChallenge, verifySignature, fetchNotes, postNote, AuthError } from './lib/api.js'
 import { makeKeyProvider, type Session } from './lib/session.js'
 import { encodeBlob, decodeBlob } from './lib/blob.js'
 import { SignInCard } from './components/SignInCard.js'
 import { IdentityBar } from './components/IdentityBar.js'
 import { Composer } from './components/Composer.js'
 import { NoteList, type NoteRow } from './components/NoteList.js'
-
-const APP_NAME = 'Encrypted Vault'
 
 export function App() {
   const [session, setSession] = useState<Session | null>(null)
@@ -41,9 +38,10 @@ export function App() {
     setError(null)
     try {
       const { client, address } = await connectWallet()
-      const nonce = await fetchNonce()
-      const { signature } = await signAuthChallenge({ signer: client, app: APP_NAME, nonce })
-      const verified = await verifySignature({ nonce, signature, address })
+      const chainId = await client.getChainId()
+      const message = await fetchChallenge(address, chainId)
+      const signature = await client.signMessage({ account: address, message })
+      const verified = await verifySignature({ message, signature })
       const next: Session = { token: verified.token, address: verified.address, client }
       setSession(next)
       setGetKey(() => makeKeyProvider(next))

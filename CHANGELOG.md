@@ -6,6 +6,50 @@ this file. Per-package details live in each `packages/*/CHANGELOG.md`.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Removed
+
+- **`@valve-tech/auth-lite`** is removed. `viem/siwe` (shipped in the
+  viem the toolkit already peer-depends on) owns the entire SIWE
+  crypto + message + validation surface, so the thin wrapper was
+  redundant. Existing published versions remain on npm
+  (forward-deprecated). Use `viem/siwe` for the crypto and the two new
+  packages for the state.
+
+### Added
+
+- **`@valve-tech/wallet-key-session`** (browser) — the memory-only
+  lifecycle of a wallet-derived encryption key: `createKeySession`
+  (derive-once, concurrent-safe, retry-on-reject; auto-wipe on
+  `accountsChanged` / `chainChanged` / `pagehide` / `clear()`). Pairs
+  `@valve-tech/wallet-crypto`.
+- **`@valve-tech/siwe-store`** (server) — the single-use/TTL SIWE nonce
+  store (`createMemoryNonceStore`) and the opaque address-bound session
+  store (`createMemorySessionStore`), plus the `NonceStore` /
+  `SessionStore` interfaces as the contract for Redis/SQL backends.
+  Pairs `viem/siwe`.
+
+### Changed
+
+- `examples/encrypted-vault` reworked to use full EIP-4361 SIWE
+  (`viem/siwe`) and to dogfood `@valve-tech/siwe-store` (server state)
+  and `@valve-tech/wallet-key-session` (client key lifecycle).
+- `@valve-tech/wallet-crypto` docs/comments repointed from the removed
+  `auth-lite` to `wallet-key-session` (key lifecycle) and `viem/siwe` +
+  `siwe-store` (auth).
+- `@valve-tech/siwe-store` verify recipe (README/AGENTS/SKILL) and the
+  `building-apps-with-evm-toolkit` skill now teach EIP-4361
+  defense-in-depth: re-assert `version`/`uri`/`chainId` against server
+  config on verify (viem's `validateSiweMessage` checks none of those),
+  and document the EOA vs EIP-1271/6492 signature-verification choice.
+- `examples/encrypted-vault` now verifies **EIP-1271 / EIP-6492
+  smart-contract account** signatures (Safe, AA, counterfactual) via a
+  viem `PublicClient.verifyMessage`, with an offline ECDSA fast-path so
+  EOA logins need no RPC. The SIWE verify decision is extracted to
+  `server/siwe-auth.ts` with unit tests covering the field pins, the
+  nonce/expiry/signature failures, and the smart-account path.
+
 ## [0.18.0] — 2026-06-01
 
 Two new packages join the synchronized release line, both implementing

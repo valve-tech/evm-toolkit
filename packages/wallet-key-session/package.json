@@ -1,0 +1,56 @@
+{
+  "name": "@valve-tech/wallet-key-session",
+  "version": "0.18.0",
+  "description": "Memory-only lifecycle for a wallet-derived encryption key in viem-based dapps. Derives the (non-extractable) CryptoKey once per session, never persists it, and wipes it on disconnect / account-change / tab-close. Pairs @valve-tech/wallet-crypto. The derivation itself is injected, so the lifecycle is unit-testable without a wallet. Browser-safe — no node imports, no persistent storage. Part of the valve-tech/evm-toolkit synchronized release line.",
+  "license": "MIT",
+  "homepage": "https://github.com/valve-tech/evm-toolkit/tree/main/packages/wallet-key-session#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valve-tech/evm-toolkit.git",
+    "directory": "packages/wallet-key-session"
+  },
+  "bugs": {
+    "url": "https://github.com/valve-tech/evm-toolkit/issues"
+  },
+  "keywords": [
+    "ethereum",
+    "evm",
+    "viem",
+    "wallet",
+    "encryption",
+    "key-lifecycle",
+    "session",
+    "cryptokey",
+    "memory-only",
+    "browser"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "skills",
+    "README.md",
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p .",
+    "typecheck": "tsc -p . --noEmit",
+    "typecheck:examples": "tsc -p examples",
+    "lint": "eslint src",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "prepare": "yarn build"
+  },
+  "peerDependencies": {
+    "viem": "^2.0.0"
+  }
+}

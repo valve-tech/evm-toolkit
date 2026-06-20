@@ -4,14 +4,6 @@
   "repository": "valve-tech/evm-toolkit",
   "packages": [
     {
-      "name": "@valve-tech/auth-lite",
-      "slug": "auth-lite",
-      "version": "0.18.0",
-      "description": "SIWE-lite authentication for viem-based dapps. Server-issued nonce + client personal_sign + server recover, with the EIP-4361 fields a single-app product doesn't need (domain, URI, chainId, statement, expiry, resources) stripped out. Smaller spec, smaller threat surface, plain-text wallet prompts that users can actually read. Pure functions, no nonce storage, no session token issuance. Pairs with @valve-tech/wallet-crypto for wallet-derived encryption. Part of the valve-tech/evm-toolkit synchronized release line.",
-      "html": "auth-lite/index.html",
-      "json": "auth-lite.json"
-    },
-    {
       "name": "@valve-tech/chain-source",
       "slug": "chain-source",
       "version": "0.18.0",
@@ -26,6 +18,14 @@
       "description": "Multi-tier gas-fee oracle for EVM chains. Computes slow/standard/fast/instant tier recommendations from block-included tips, mempool pending tips, and base-fee trend, with a configurable downside-decay cap and a chain-aware EIP-1559 priority cutoff. viem-native — pass it a PublicClient and it does the rest. Ships viem-actions and viem-transport subpaths for drop-in client extension and transport-wrapping.",
       "html": "gas-oracle/index.html",
       "json": "gas-oracle.json"
+    },
+    {
+      "name": "@valve-tech/siwe-store",
+      "slug": "siwe-store",
+      "version": "0.18.0",
+      "description": "Server-side state for SIWE (Sign-In with Ethereum) that viem/siwe deliberately leaves to the app: a single-use, TTL'd nonce store (atomic consume, delete-before-TTL-check so a race-loser cannot reuse) and an opaque CSPRNG session store bound to an address. Ships interfaces (the contract for Redis/SQL implementations) plus in-memory defaults; pairs viem/siwe for the crypto/message/validation half. Part of the valve-tech/evm-toolkit synchronized release line.",
+      "html": "siwe-store/index.html",
+      "json": "siwe-store.json"
     },
     {
       "name": "@valve-tech/trueblocks-sdk",
@@ -53,6 +53,14 @@
       "json": "tx-tracker.json"
     },
     {
+      "name": "@valve-tech/unchained-reader",
+      "slug": "unchained-reader",
+      "version": "0.18.0",
+      "description": "Browser-safe, zero-dependency reader for the TrueBlocks Unchained Index. Resolves the index manifest, fetches bloom filters and index chunks from any IPFS gateway, and parses the binary bloom/chunk formats client-side into address appearances — no chifra daemon, no backend, no API key. Pairs with @valve-tech/trueblocks-sdk (which talks to a running daemon); this package reads the published index directly. Part of the valve-tech/evm-toolkit synchronized release line.",
+      "html": "unchained-reader/index.html",
+      "json": "unchained-reader.json"
+    },
+    {
       "name": "@valve-tech/viem-errors",
       "slug": "viem-errors",
       "version": "0.18.0",
@@ -75,6 +83,14 @@
       "description": "Wallet-derived encryption keys + AES-GCM authenticated envelopes for viem-based dapps. Deterministic, versioned keys derived from a personal_sign signature (same wallet + same purpose + same version → same CryptoKey, across devices). Non-extractable WebCrypto AES-GCM encrypt/decrypt with AAD binding. Pure functions, no runtime storage. Part of the valve-tech/evm-toolkit synchronized release line.",
       "html": "wallet-crypto/index.html",
       "json": "wallet-crypto.json"
+    },
+    {
+      "name": "@valve-tech/wallet-key-session",
+      "slug": "wallet-key-session",
+      "version": "0.18.0",
+      "description": "Memory-only lifecycle for a wallet-derived encryption key in viem-based dapps. Derives the (non-extractable) CryptoKey once per session, never persists it, and wipes it on disconnect / account-change / tab-close. Pairs @valve-tech/wallet-crypto. The derivation itself is injected, so the lifecycle is unit-testable without a wallet. Browser-safe — no node imports, no persistent storage. Part of the valve-tech/evm-toolkit synchronized release line.",
+      "html": "wallet-key-session/index.html",
+      "json": "wallet-key-session.json"
     }
   ]
 }

@@ -1,0 +1,56 @@
+{
+  "name": "@valve-tech/siwe-store",
+  "version": "0.18.0",
+  "description": "Server-side state for SIWE (Sign-In with Ethereum) that viem/siwe deliberately leaves to the app: a single-use, TTL'd nonce store (atomic consume, delete-before-TTL-check so a race-loser cannot reuse) and an opaque CSPRNG session store bound to an address. Ships interfaces (the contract for Redis/SQL implementations) plus in-memory defaults; pairs viem/siwe for the crypto/message/validation half. Part of the valve-tech/evm-toolkit synchronized release line.",
+  "license": "MIT",
+  "homepage": "https://github.com/valve-tech/evm-toolkit/tree/main/packages/siwe-store#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valve-tech/evm-toolkit.git",
+    "directory": "packages/siwe-store"
+  },
+  "bugs": {
+    "url": "https://github.com/valve-tech/evm-toolkit/issues"
+  },
+  "keywords": [
+    "ethereum",
+    "evm",
+    "viem",
+    "siwe",
+    "eip-4361",
+    "nonce",
+    "session",
+    "replay-protection",
+    "authentication",
+    "server"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "skills",
+    "README.md",
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p .",
+    "typecheck": "tsc -p . --noEmit",
+    "typecheck:examples": "tsc -p examples",
+    "lint": "eslint src",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "prepare": "yarn build"
+  },
+  "peerDependencies": {
+    "viem": "^2.0.0"
+  }
+}

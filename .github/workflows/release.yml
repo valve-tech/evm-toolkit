@@ -178,17 +178,23 @@ jobs:
           yarn pack --out=/tmp/trueblocks-sdk.tgz
           npm publish /tmp/trueblocks-sdk.tgz --access public --provenance
 
+      - name: Publish @valve-tech/wallet-key-session
+        run: |
+          cd packages/wallet-key-session
+          yarn pack --out=/tmp/wallet-key-session.tgz
+          npm publish /tmp/wallet-key-session.tgz --access public --provenance
+
+      - name: Publish @valve-tech/siwe-store
+        run: |
+          cd packages/siwe-store
+          yarn pack --out=/tmp/siwe-store.tgz
+          npm publish /tmp/siwe-store.tgz --access public --provenance
+
       - name: Publish @valve-tech/wallet-crypto
         run: |
           cd packages/wallet-crypto
           yarn pack --out=/tmp/wallet-crypto.tgz
           npm publish /tmp/wallet-crypto.tgz --access public --provenance
-
-      - name: Publish @valve-tech/auth-lite
-        run: |
-          cd packages/auth-lite
-          yarn pack --out=/tmp/auth-lite.tgz
-          npm publish /tmp/auth-lite.tgz --access public --provenance
 
       # No @valve-tech deps — a leaf dev-tool CLI, so order is free.
       - name: Publish @valve-tech/agent-skills

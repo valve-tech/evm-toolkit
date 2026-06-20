@@ -1,0 +1,951 @@
+{
+  "schemaVersion": "2.0",
+  "id": 0,
+  "name": "@valve-tech/wallet-key-session v0.18.0",
+  "variant": "project",
+  "kind": 1,
+  "flags": {},
+  "children": [
+    {
+      "id": 17,
+      "name": "Eip1193Like",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "The slice of an EIP-1193 provider this package listens on."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 18,
+          "name": "on",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "key-session.ts",
+              "line": 34,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 19,
+              "name": "on",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "key-session.ts",
+                  "line": 34,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 20,
+                  "name": "event",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 21,
+                  "name": "handler",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "reflection",
+                    "declaration": {
+                      "id": 22,
+                      "name": "__type",
+                      "variant": "declaration",
+                      "kind": 65536,
+                      "flags": {},
+                      "signatures": [
+                        {
+                          "id": 23,
+                          "name": "__type",
+                          "variant": "signature",
+                          "kind": 4096,
+                          "flags": {},
+                          "parameters": [
+                            {
+                              "id": 24,
+                              "name": "args",
+                              "variant": "param",
+                              "kind": 32768,
+                              "flags": {
+                                "isRest": true
+                              },
+                              "type": {
+                                "type": "array",
+                                "elementType": {
+                                  "type": "intrinsic",
+                                  "name": "unknown"
+                                }
+                              }
+                            }
+                          ],
+                          "type": {
+                            "type": "intrinsic",
+                            "name": "void"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        },
+        {
+          "id": 25,
+          "name": "removeListener",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "key-session.ts",
+              "line": 35,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 26,
+              "name": "removeListener",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "key-session.ts",
+                  "line": 35,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 27,
+                  "name": "event",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 28,
+                  "name": "handler",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "reflection",
+                    "declaration": {
+                      "id": 29,
+                      "name": "__type",
+                      "variant": "declaration",
+                      "kind": 65536,
+                      "flags": {},
+                      "signatures": [
+                        {
+                          "id": 30,
+                          "name": "__type",
+                          "variant": "signature",
+                          "kind": 4096,
+                          "flags": {},
+                          "parameters": [
+                            {
+                              "id": 31,
+                              "name": "args",
+                              "variant": "param",
+                              "kind": 32768,
+                              "flags": {
+                                "isRest": true
+                              },
+                              "type": {
+                                "type": "array",
+                                "elementType": {
+                                  "type": "intrinsic",
+                                  "name": "unknown"
+                                }
+                              }
+                            }
+                          ],
+                          "type": {
+                            "type": "intrinsic",
+                            "name": "void"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Methods",
+          "children": [
+            18,
+            25
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "key-session.ts",
+          "line": 33,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "KeySession",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "A live, memory-only handle to a wallet-derived encryption key."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 12,
+          "name": "address",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The address the key is bound to."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "key-session.ts",
+              "line": 21,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "templateLiteral",
+            "head": "0x",
+            "tail": [
+              [
+                {
+                  "type": "intrinsic",
+                  "name": "string"
+                },
+                ""
+              ]
+            ]
+          }
+        },
+        {
+          "id": 15,
+          "name": "clear",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "key-session.ts",
+              "line": 29,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 16,
+              "name": "clear",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Drop the cached key reference (e.g. on sign-out)."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "key-session.ts",
+                  "line": 29,
+                  "character": 2
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "name": "getKey",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "key-session.ts",
+              "line": 27,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 14,
+              "name": "getKey",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Lazily derive the key once; cache the (non-extractable) CryptoKey\nin memory only. Concurrent calls share one in-flight derivation. A\nrejected derivation is NOT cached — the next call retries."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "key-session.ts",
+                  "line": 27,
+                  "character": 2
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.dom.d.ts",
+                      "qualifiedName": "CryptoKey"
+                    },
+                    "name": "CryptoKey",
+                    "package": "typescript",
+                    "externalUrl": "#"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            12
+          ]
+        },
+        {
+          "title": "Methods",
+          "children": [
+            15,
+            13
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "key-session.ts",
+          "line": 19,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "createKeySession",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "comment": {
+        "summary": [],
+        "blockTags": [
+          {
+            "tag": "@fileoverview",
+            "content": [
+              {
+                "kind": "text",
+                "text": "Public API of "
+              },
+              {
+                "kind": "code",
+                "text": "`@valve-tech/wallet-key-session`"
+              },
+              {
+                "kind": "text",
+                "text": ".\n\nMemory-only lifecycle for a wallet-derived encryption key. Pairs\n"
+              },
+              {
+                "kind": "code",
+                "text": "`@valve-tech/wallet-crypto`"
+              },
+              {
+                "kind": "text",
+                "text": " (wire its "
+              },
+              {
+                "kind": "code",
+                "text": "`deriveWalletEncryptionKey`"
+              },
+              {
+                "kind": "text",
+                "text": "\ninto the "
+              },
+              {
+                "kind": "code",
+                "text": "`derive`"
+              },
+              {
+                "kind": "text",
+                "text": " callback)."
+              }
+            ]
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "key-session.ts",
+          "line": 51,
+          "character": 16
+        }
+      ],
+      "signatures": [
+        {
+          "id": 2,
+          "name": "createKeySession",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Create a memory-only key session."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@example",
+                "content": [
+                  {
+                    "kind": "code",
+                    "text": "```ts\nconst session = createKeySession({\n  address,\n  derive: () => deriveWalletEncryptionKey({ signer, purpose: 'notes-vault', version: 1 }),\n  provider: window.ethereum,\n})\nconst key = await session.getKey() // first call prompts the wallet\n```"
+                  }
+                ]
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "key-session.ts",
+              "line": 51,
+              "character": 16
+            }
+          ],
+          "parameters": [
+            {
+              "id": 3,
+              "name": "opts",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 4,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "children": [
+                    {
+                      "id": 5,
+                      "name": "address",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "The address the key is bound to."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "key-session.ts",
+                          "line": 53,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "templateLiteral",
+                        "head": "0x",
+                        "tail": [
+                          [
+                            {
+                              "type": "intrinsic",
+                              "name": "string"
+                            },
+                            ""
+                          ]
+                        ]
+                      }
+                    },
+                    {
+                      "id": 10,
+                      "name": "clearOnPageHide",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isOptional": true
+                      },
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Default "
+                          },
+                          {
+                            "kind": "code",
+                            "text": "`true`"
+                          },
+                          {
+                            "kind": "text",
+                            "text": ": also "
+                          },
+                          {
+                            "kind": "code",
+                            "text": "`clear()`"
+                          },
+                          {
+                            "kind": "text",
+                            "text": " on "
+                          },
+                          {
+                            "kind": "code",
+                            "text": "`pagehide`"
+                          },
+                          {
+                            "kind": "text",
+                            "text": " (tab close / bfcache evict)."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "key-session.ts",
+                          "line": 63,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "boolean"
+                      }
+                    },
+                    {
+                      "id": 6,
+                      "name": "derive",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Wire the actual derivation here, e.g.\n"
+                          },
+                          {
+                            "kind": "code",
+                            "text": "`() => deriveWalletEncryptionKey({ signer, purpose, version })`"
+                          },
+                          {
+                            "kind": "text",
+                            "text": ".\nInjectable so the session is unit-testable without a wallet."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "key-session.ts",
+                          "line": 59,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "reflection",
+                        "declaration": {
+                          "id": 7,
+                          "name": "__type",
+                          "variant": "declaration",
+                          "kind": 65536,
+                          "flags": {},
+                          "signatures": [
+                            {
+                              "id": 8,
+                              "name": "__type",
+                              "variant": "signature",
+                              "kind": 4096,
+                              "flags": {},
+                              "type": {
+                                "type": "reference",
+                                "target": {
+                                  "packageName": "typescript",
+                                  "packagePath": "lib/lib.es5.d.ts",
+                                  "qualifiedName": "Promise"
+                                },
+                                "typeArguments": [
+                                  {
+                                    "type": "reference",
+                                    "target": {
+                                      "packageName": "typescript",
+                                      "packagePath": "lib/lib.dom.d.ts",
+                                      "qualifiedName": "CryptoKey"
+                                    },
+                                    "name": "CryptoKey",
+                                    "package": "typescript",
+                                    "externalUrl": "#"
+                                  }
+                                ],
+                                "name": "Promise",
+                                "package": "typescript",
+                                "externalUrl": "#"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "id": 9,
+                      "name": "provider",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isOptional": true
+                      },
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "If supplied, auto-"
+                          },
+                          {
+                            "kind": "code",
+                            "text": "`clear()`"
+                          },
+                          {
+                            "kind": "text",
+                            "text": " on "
+                          },
+                          {
+                            "kind": "code",
+                            "text": "`accountsChanged`"
+                          },
+                          {
+                            "kind": "text",
+                            "text": " / "
+                          },
+                          {
+                            "kind": "code",
+                            "text": "`chainChanged`"
+                          },
+                          {
+                            "kind": "text",
+                            "text": "."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "key-session.ts",
+                          "line": 61,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "reference",
+                        "target": 17,
+                        "name": "Eip1193Like",
+                        "package": "@valve-tech/wallet-key-session"
+                      }
+                    }
+                  ],
+                  "groups": [
+                    {
+                      "title": "Properties",
+                      "children": [
+                        5,
+                        10,
+                        6,
+                        9
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 11,
+            "name": "KeySession",
+            "package": "@valve-tech/wallet-key-session"
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Interfaces",
+      "children": [
+        17,
+        11
+      ]
+    },
+    {
+      "title": "Functions",
+      "children": [
+        1
+      ]
+    }
+  ],
+  "packageName": "@valve-tech/wallet-key-session",
+  "packageVersion": "0.18.0",
+  "symbolIdMap": {
+    "0": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/index.ts",
+      "qualifiedName": ""
+    },
+    "1": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "createKeySession"
+    },
+    "2": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "createKeySession"
+    },
+    "3": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "opts"
+    },
+    "4": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "__type"
+    },
+    "5": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "__type.address"
+    },
+    "6": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "__type.derive"
+    },
+    "7": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "__type"
+    },
+    "8": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "__type"
+    },
+    "9": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "__type.provider"
+    },
+    "10": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "__type.clearOnPageHide"
+    },
+    "11": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "KeySession"
+    },
+    "12": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "KeySession.address"
+    },
+    "13": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "KeySession.getKey"
+    },
+    "14": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "KeySession.getKey"
+    },
+    "15": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "KeySession.clear"
+    },
+    "16": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "KeySession.clear"
+    },
+    "17": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "Eip1193Like"
+    },
+    "18": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "Eip1193Like.on"
+    },
+    "19": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "Eip1193Like.on"
+    },
+    "20": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "event"
+    },
+    "21": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "handler"
+    },
+    "22": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "__type"
+    },
+    "23": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "__type"
+    },
+    "24": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "args"
+    },
+    "25": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "Eip1193Like.removeListener"
+    },
+    "26": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "Eip1193Like.removeListener"
+    },
+    "27": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "event"
+    },
+    "28": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "handler"
+    },
+    "29": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "__type"
+    },
+    "30": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "__type"
+    },
+    "31": {
+      "packageName": "@valve-tech/wallet-key-session",
+      "packagePath": "src/key-session.ts",
+      "qualifiedName": "args"
+    }
+  },
+  "files": {
+    "entries": {
+      "1": "packages/wallet-key-session/src/index.ts"
+    },
+    "reflections": {
+      "1": 0
+    }
+  }
+}
