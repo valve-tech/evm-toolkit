@@ -18,6 +18,9 @@ export const URI = process.env.SIWE_URI ?? 'http://localhost:8790'
 /** EIP-4361 `chainId`. The server is authoritative for this value. */
 export const CHAIN_ID = Number(process.env.SIWE_CHAIN_ID ?? 1)
 
+/** EIP-4361 message `version`. MUST be `'1'` per the spec. */
+export const SIWE_VERSION = '1'
+
 /** EIP-4361 `statement` — the human-readable line shown in the wallet. */
 export const STATEMENT =
   process.env.SIWE_STATEMENT ??

@@ -33,6 +33,11 @@ function challenge(address: string) {
 async function verify(message: string, signature: `0x${string}`) {
   const fields = parseSiweMessage(message)
   if (!fields.nonce || !nonces.consume(fields.nonce)) return null   // single-use / replay
+  // Re-assert EVERY binding field the server is authoritative for.
+  // validateSiweMessage checks domain + time + address presence, but
+  // NOT uri or chainId — pin those explicitly (EIP-4361: check parsed
+  // fields "against expected values after parsing").
+  if (fields.version !== '1' || fields.uri !== URI || fields.chainId !== CHAIN_ID) return null
   if (!validateSiweMessage({ message: fields, domain: DOMAIN })) return null // domain + time
   const recovered = await recoverMessageAddress({ message, signature })
   if (!fields.address || !isAddressEqual(recovered, fields.address)) return null
@@ -45,12 +50,19 @@ async function verify(message: string, signature: `0x${string}`) {
 1. **Binding fields come from server config, never the request body.**
    `domain`, `uri`, `chainId`, `statement` are trusted server values.
    Taking `domain` from the request lets an attacker rebind a signature.
-2. **`consume()` is the replay check — call it once.** Don't also pass
+2. **Re-assert every binding field after parsing.** `validateSiweMessage`
+   checks `domain`, time validity, and address presence — but NOT `uri`,
+   `chainId`, or `version`. Pin those with explicit equality against the
+   server's config (EIP-4361 says to check parsed fields "against
+   expected values"). The signature covers them too, but the explicit
+   check rejects a substituted message before any crypto and survives a
+   future refactor that weakens the crypto step.
+3. **`consume()` is the replay check — call it once.** Don't also pass
    `nonce` to `validateSiweMessage`; that's a circular string-equality
    re-check. Issuance + single-use is the store's job.
-3. **Uniform failure.** Every verify failure path returns the same
+4. **Uniform failure.** Every verify failure path returns the same
    `401` — don't leak which check failed.
-4. **In-memory = single instance.** For multi-instance deploys,
+5. **In-memory = single instance.** For multi-instance deploys,
    implement `NonceStore` / `SessionStore` over Redis (or use
    iron-session / NextAuth). Flag any in-memory store behind a load
    balancer.

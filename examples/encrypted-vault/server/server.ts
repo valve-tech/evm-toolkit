@@ -17,7 +17,7 @@ import { join, normalize, sep } from 'node:path'
 import { createMemoryNonceStore, createMemorySessionStore } from '@valve-tech/siwe-store'
 import { createSiweMessage, parseSiweMessage, validateSiweMessage } from 'viem/siwe'
 import { recoverMessageAddress, isAddressEqual, getAddress, type Hex } from 'viem'
-import { DOMAIN, URI, CHAIN_ID, STATEMENT, PORT, NONCE_TTL_SECONDS, SESSION_TTL_MS, STORE_PATH, CLIENT_DIST } from './config.js'
+import { DOMAIN, URI, CHAIN_ID, SIWE_VERSION, STATEMENT, PORT, NONCE_TTL_SECONDS, SESSION_TTL_MS, STORE_PATH, CLIENT_DIST } from './config.js'
 import { createNoteStore, type StoredBlob } from './note-store.js'
 import { readJsonBody, bearerToken, sendJson, send401 } from './http.js'
 
@@ -62,7 +62,7 @@ const server = createServer((req, res) => {
           chainId: CHAIN_ID,
           domain: DOMAIN,
           uri: URI,
-          version: '1',
+          version: SIWE_VERSION,
           nonce: nonces.issue(),
           statement: STATEMENT,
           issuedAt: new Date(),
@@ -82,12 +82,29 @@ const server = createServer((req, res) => {
           send401(res, 'bad, expired, or replayed nonce')
           return
         }
-        // 2) domain binding + time validity (expirationTime/notBefore).
+        // 2) Re-assert every binding field the server is authoritative
+        //    for. The signature already covers the whole message, but
+        //    EIP-4361 says to check parsed fields "against expected
+        //    values after parsing" — so a client that substitutes a
+        //    different version / uri / chainId (while reusing a live
+        //    nonce + the right domain) is rejected here, before any
+        //    crypto. viem's validateSiweMessage checks NEITHER uri nor
+        //    chainId, so they are pinned explicitly.
+        if (
+          fields.version !== SIWE_VERSION ||
+          fields.uri !== URI ||
+          fields.chainId !== CHAIN_ID
+        ) {
+          send401(res, 'invalid SIWE message')
+          return
+        }
+        // 3) domain binding + time validity (expirationTime/notBefore) +
+        //    address presence/format — viem's checks.
         if (!validateSiweMessage({ message: fields, domain: DOMAIN })) {
           send401(res, 'invalid SIWE message')
           return
         }
-        // 3) crypto: recovered signer must equal the message's address.
+        // 4) crypto: recovered signer must equal the message's address.
         let recovered: `0x${string}`
         try {
           recovered = await recoverMessageAddress({ message: body.message, signature: body.signature })

@@ -37,11 +37,17 @@ import type { NonceStore, SessionStore, Session } from '@valve-tech/siwe-store'
 ```
 parseSiweMessage(message) → fields
 nonceStore.consume(fields.nonce)            // single-use / replay
+fields.version/uri/chainId === config       // pin fields viem does NOT check
 validateSiweMessage({ message: fields, domain })  // domain binding + time validity
 recoverMessageAddress({ message, signature }) === fields.address  // crypto
 sessionStore.issue(fields.address)          // on success
 // any failure → uniform 401
 ```
+
+`validateSiweMessage` checks `domain`, time validity, and address
+presence — but NOT `uri`, `chainId`, or `version`. Re-assert those
+against server config explicitly (EIP-4361: check parsed fields
+"against expected values").
 
 Do NOT pass `nonce` to `validateSiweMessage` — issuance/single-use is
 the store's job, not a string-equality re-check.
