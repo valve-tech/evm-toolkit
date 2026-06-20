@@ -17,11 +17,11 @@ const CONFIG: SiweConfig = {
 }
 
 function buildMessage(
-  overrides: Partial<{ uri: string; chainId: number; address: Address; expirationTime: Date }> = {},
+  overrides: Partial<{ domain: string; uri: string; chainId: number; address: Address; expirationTime: Date }> = {},
 ): string {
   return createSiweMessage({
     address: overrides.address ?? account.address,
-    domain: CONFIG.domain,
+    domain: overrides.domain ?? CONFIG.domain,
     uri: overrides.uri ?? CONFIG.uri,
     version: '1',
     chainId: overrides.chainId ?? CONFIG.chainId,
@@ -119,7 +119,11 @@ describe('authenticateSiwe', () => {
     ).toBeNull()
   })
 
-  it('returns null when the verifier throws (e.g. RPC down)', async () => {
+  it('returns null when the verifier throws (defensive — any thrown error rejects)', async () => {
+    // Note: an unreachable RPC does NOT throw here — viem's verifyMessage
+    // returns `false` on a failed eth_call, which the `!valid` branch
+    // rejects. This covers the separate `catch` arm (a programming error
+    // in the verifier), which must also fail closed.
     const message = buildMessage()
     const signature = await sign(message)
     expect(
@@ -133,6 +137,54 @@ describe('authenticateSiwe', () => {
         }),
       }),
     ).toBeNull()
+  })
+
+  it('rejects an unparseable message without burning a nonce', async () => {
+    // parseSiweMessage returns {} for garbage (it does not throw); the
+    // missing nonce short-circuits BEFORE consumeNonce, so a never-issued
+    // nonce is never consumed.
+    const consumeNonce = vi.fn(() => true)
+    const verifySignature = vi.fn(async () => true)
+    const addr = await authenticateSiwe({
+      message: 'not a siwe message',
+      signature: '0x' as Hex,
+      config: CONFIG,
+      consumeNonce,
+      verifySignature,
+    })
+    expect(addr).toBeNull()
+    expect(consumeNonce).not.toHaveBeenCalled()
+    expect(verifySignature).not.toHaveBeenCalled()
+  })
+
+  it('rejects a substituted domain', async () => {
+    const message = buildMessage({ domain: 'evil.example' })
+    const signature = await sign(message)
+    expect(
+      await authenticateSiwe({
+        message,
+        signature,
+        config: CONFIG,
+        consumeNonce: consumeOk,
+        verifySignature: vi.fn(async () => true),
+      }),
+    ).toBeNull()
+  })
+
+  it('rejects a substituted version (field pin)', async () => {
+    // createSiweMessage only emits version '1', so forge the line directly.
+    const verifySignature = vi.fn(async () => true)
+    const message = buildMessage().replace('Version: 1', 'Version: 2')
+    const signature = await sign(message)
+    const addr = await authenticateSiwe({
+      message,
+      signature,
+      config: CONFIG,
+      consumeNonce: consumeOk,
+      verifySignature,
+    })
+    expect(addr).toBeNull()
+    expect(verifySignature).not.toHaveBeenCalled()
   })
 
   it('authenticates a smart-contract account via the injected verifier (EIP-1271/6492)', async () => {
