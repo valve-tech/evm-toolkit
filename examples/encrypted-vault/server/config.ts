@@ -21,6 +21,16 @@ export const CHAIN_ID = Number(process.env.SIWE_CHAIN_ID ?? 1)
 /** EIP-4361 message `version`. MUST be `'1'` per the spec. */
 export const SIWE_VERSION = '1'
 
+/**
+ * RPC endpoint used ONLY to verify EIP-1271 / EIP-6492 smart-account
+ * signatures (an `eth_call` to the account's `isValidSignature`). EOA
+ * logins never touch it — they verify offline via ECDSA recover. For
+ * smart-account sign-in this MUST point at the chain identified by
+ * {@link CHAIN_ID}; if it is unreachable, smart-account logins simply
+ * fail (EOA logins are unaffected).
+ */
+export const RPC_URL = process.env.SIWE_RPC_URL ?? 'http://localhost:8545'
+
 /** EIP-4361 `statement` — the human-readable line shown in the wallet. */
 export const STATEMENT =
   process.env.SIWE_STATEMENT ??

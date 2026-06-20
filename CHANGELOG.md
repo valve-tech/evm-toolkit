@@ -41,8 +41,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - `@valve-tech/siwe-store` verify recipe (README/AGENTS/SKILL) and the
   `building-apps-with-evm-toolkit` skill now teach EIP-4361
   defense-in-depth: re-assert `version`/`uri`/`chainId` against server
-  config on verify (viem's `validateSiweMessage` checks none of those).
-  The `encrypted-vault` example server enforces it.
+  config on verify (viem's `validateSiweMessage` checks none of those),
+  and document the EOA vs EIP-1271/6492 signature-verification choice.
+- `examples/encrypted-vault` now verifies **EIP-1271 / EIP-6492
+  smart-contract account** signatures (Safe, AA, counterfactual) via a
+  viem `PublicClient.verifyMessage`, with an offline ECDSA fast-path so
+  EOA logins need no RPC. The SIWE verify decision is extracted to
+  `server/siwe-auth.ts` with unit tests covering the field pins, the
+  nonce/expiry/signature failures, and the smart-account path.
 
 ## [0.18.0] — 2026-06-01
 

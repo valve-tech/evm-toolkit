@@ -127,8 +127,10 @@ leaves to you.
   `validateSiweMessage({ message: fields, domain })` (domain + time;
   pass the PARSED `fields`, not the raw string — viem requires a parsed
   message) →
-  `recoverMessageAddress({ message, signature }) === fields.address`
-  (crypto) → `sessionStore.issue(fields.address)`. Any failure → 401.
+  verify the signature against `fields.address` (crypto:
+  `recoverMessageAddress` for EOAs, or a `PublicClient.verifyMessage`
+  for EIP-1271/6492 smart accounts) → `sessionStore.issue(fields.address)`.
+  Any failure → 401.
 - **Encrypt user data to their wallet**: wire
   `deriveWalletEncryptionKey` (wallet-crypto) into
   `createKeySession({ address, derive, provider })`

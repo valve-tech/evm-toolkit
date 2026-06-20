@@ -15,15 +15,47 @@ import { createServer } from 'node:http'
 import { readFile } from 'node:fs/promises'
 import { join, normalize, sep } from 'node:path'
 import { createMemoryNonceStore, createMemorySessionStore } from '@valve-tech/siwe-store'
-import { createSiweMessage, parseSiweMessage, validateSiweMessage } from 'viem/siwe'
-import { recoverMessageAddress, isAddressEqual, getAddress, type Hex } from 'viem'
-import { DOMAIN, URI, CHAIN_ID, SIWE_VERSION, STATEMENT, PORT, NONCE_TTL_SECONDS, SESSION_TTL_MS, STORE_PATH, CLIENT_DIST } from './config.js'
+import { createSiweMessage } from 'viem/siwe'
+import {
+  createPublicClient,
+  http,
+  recoverMessageAddress,
+  isAddressEqual,
+  getAddress,
+  type Address,
+  type Hex,
+} from 'viem'
+import { DOMAIN, URI, CHAIN_ID, SIWE_VERSION, STATEMENT, PORT, NONCE_TTL_SECONDS, SESSION_TTL_MS, STORE_PATH, CLIENT_DIST, RPC_URL } from './config.js'
+import { authenticateSiwe } from './siwe-auth.js'
 import { createNoteStore, type StoredBlob } from './note-store.js'
 import { readJsonBody, bearerToken, sendJson, send401 } from './http.js'
 
 const nonces = createMemoryNonceStore({ ttlSeconds: NONCE_TTL_SECONDS })
 const sessions = createMemorySessionStore({ ttlMs: SESSION_TTL_MS })
 const notes = createNoteStore(STORE_PATH)
+
+// Used only for the EIP-1271 / EIP-6492 signature path (smart accounts).
+const publicClient = createPublicClient({ transport: http(RPC_URL) })
+
+/**
+ * Verify a SIWE signature for EOAs and smart accounts. The EOA case is
+ * an offline ECDSA recover (no RPC); only a non-matching recover — i.e.
+ * a contract account — falls through to viem's `verifyMessage`, which
+ * performs the EIP-1271 / EIP-6492 on-chain check via {@link RPC_URL}.
+ */
+async function verifySignature(args: {
+  address: Address
+  message: string
+  signature: Hex
+}): Promise<boolean> {
+  try {
+    const recovered = await recoverMessageAddress({ message: args.message, signature: args.signature })
+    if (isAddressEqual(recovered, args.address)) return true
+  } catch {
+    // Not a plain EOA signature — fall through to contract verification.
+  }
+  return publicClient.verifyMessage(args)
+}
 
 interface VerifyBody { message: string; signature: Hex }
 interface NoteBody { blob: StoredBlob }
@@ -75,49 +107,23 @@ const server = createServer((req, res) => {
       // --- Auth: verify the signed message, issue an opaque session ---
       if (method === 'POST' && url.pathname === '/auth/verify') {
         const body = await readJsonBody<VerifyBody>(req)
-        const fields = parseSiweMessage(body.message)
-
-        // 1) single-use / replay defense — the nonce store IS the check.
-        if (!fields.nonce || !nonces.consume(fields.nonce)) {
-          send401(res, 'bad, expired, or replayed nonce')
+        // authenticateSiwe owns the full verify: nonce single-use →
+        // pin version/uri/chainId → validateSiweMessage (domain + time)
+        // → signature (EOA + EIP-1271/6492). Any failure → null →
+        // uniform 401.
+        const address = await authenticateSiwe({
+          message: body.message,
+          signature: body.signature,
+          config: { domain: DOMAIN, uri: URI, chainId: CHAIN_ID, version: SIWE_VERSION },
+          consumeNonce: (nonce) => nonces.consume(nonce),
+          verifySignature,
+        })
+        if (!address) {
+          send401(res, 'authentication failed')
           return
         }
-        // 2) Re-assert every binding field the server is authoritative
-        //    for. The signature already covers the whole message, but
-        //    EIP-4361 says to check parsed fields "against expected
-        //    values after parsing" — so a client that substitutes a
-        //    different version / uri / chainId (while reusing a live
-        //    nonce + the right domain) is rejected here, before any
-        //    crypto. viem's validateSiweMessage checks NEITHER uri nor
-        //    chainId, so they are pinned explicitly.
-        if (
-          fields.version !== SIWE_VERSION ||
-          fields.uri !== URI ||
-          fields.chainId !== CHAIN_ID
-        ) {
-          send401(res, 'invalid SIWE message')
-          return
-        }
-        // 3) domain binding + time validity (expirationTime/notBefore) +
-        //    address presence/format — viem's checks.
-        if (!validateSiweMessage({ message: fields, domain: DOMAIN })) {
-          send401(res, 'invalid SIWE message')
-          return
-        }
-        // 4) crypto: recovered signer must equal the message's address.
-        let recovered: `0x${string}`
-        try {
-          recovered = await recoverMessageAddress({ message: body.message, signature: body.signature })
-        } catch {
-          send401(res, 'invalid signature')
-          return
-        }
-        if (!fields.address || !isAddressEqual(recovered, fields.address)) {
-          send401(res, 'invalid signature')
-          return
-        }
-        const token = sessions.issue(fields.address)
-        sendJson(res, 200, { token, address: fields.address })
+        const token = sessions.issue(address)
+        sendJson(res, 200, { token, address })
         return
       }
 

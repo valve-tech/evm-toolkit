@@ -36,10 +36,16 @@ if (!fields.nonce || !nonces.consume(fields.nonce)) throw new Error('replay')
 // Re-assert binding fields validateSiweMessage does NOT check (uri, chainId, version):
 if (fields.version !== '1' || fields.uri !== uri || fields.chainId !== chainId) throw new Error('bad message')
 if (!validateSiweMessage({ message: fields, domain })) throw new Error('bad domain/time')
-const recovered = await recoverMessageAddress({ message, signature })
+const recovered = await recoverMessageAddress({ message, signature }) // EOA-only
 if (!fields.address || !isAddressEqual(recovered, fields.address)) throw new Error('bad sig')
 const token = sessions.issue(fields.address)
 ```
+
+> To also accept **EIP-1271 / EIP-6492 smart-contract accounts**, replace
+> the `recoverMessageAddress` step with a viem `PublicClient`:
+> `await publicClient.verifyMessage({ address: fields.address, message, signature })`
+> (boolean; handles EOA + 1271 + 6492). `siwe-store` is
+> signature-scheme-agnostic, so the choice is yours.
 
 ## Interfaces vs. adapters
 

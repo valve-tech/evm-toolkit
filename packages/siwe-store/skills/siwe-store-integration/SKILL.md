@@ -45,6 +45,16 @@ async function verify(message: string, signature: `0x${string}`) {
 }
 ```
 
+**Signature scheme.** `recoverMessageAddress` above is EOA-only (ECDSA).
+To also accept **EIP-1271 / EIP-6492 smart-contract accounts** (Safe, AA
+wallets, counterfactual deployments), verify with a viem `PublicClient`:
+`await publicClient.verifyMessage({ address: fields.address, message, signature })`
+(returns a boolean; handles EOA + 1271 + 6492). A practical hybrid does
+the offline ECDSA recover first and only falls back to `verifyMessage`
+for non-EOA signers, so EOA logins need no RPC. `@valve-tech/siwe-store`
+itself is signature-scheme-agnostic — it owns only the nonce/session
+state — so this choice is entirely the caller's.
+
 ## Invariants to enforce in review
 
 1. **Binding fields come from server config, never the request body.**
