@@ -121,7 +121,9 @@ leaves to you.
 - **Login (client)**: `walletClient.signMessage({ message })` → POST
   `{ message, signature }`.
 - **Verify (server)**: `const fields = parseSiweMessage(message)` →
-  `nonceStore.consume(fields.nonce)` (single-use/replay) →
+  `nonceStore.consume(fields.nonce)` (single-use/replay) → re-assert the
+  binding fields `validateSiweMessage` does NOT check
+  (`fields.version`/`fields.uri`/`fields.chainId` === server config) →
   `validateSiweMessage({ message: fields, domain })` (domain + time;
   pass the PARSED `fields`, not the raw string — viem requires a parsed
   message) →

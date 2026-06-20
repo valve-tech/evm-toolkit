@@ -38,6 +38,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 - `@valve-tech/wallet-crypto` docs/comments repointed from the removed
   `auth-lite` to `wallet-key-session` (key lifecycle) and `viem/siwe` +
   `siwe-store` (auth).
+- `@valve-tech/siwe-store` verify recipe (README/AGENTS/SKILL) and the
+  `building-apps-with-evm-toolkit` skill now teach EIP-4361
+  defense-in-depth: re-assert `version`/`uri`/`chainId` against server
+  config on verify (viem's `validateSiweMessage` checks none of those).
+  The `encrypted-vault` example server enforces it.
 
 ## [0.18.0] — 2026-06-01
 
