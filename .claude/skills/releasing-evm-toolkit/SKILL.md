@@ -162,21 +162,36 @@ publish step in `release.yml` would reject the push before it lands.
 ### 5. Verify the publish
 
 ```bash
-gh run watch $(gh run list --workflow=release.yml --limit 1 \
-  --json databaseId --jq '.[0].databaseId') --exit-status
+# Resolve THIS tag's run — NOT merely the newest. For a few seconds after
+# the tag push, a stale prior release run can still be the latest entry,
+# so `gh run list --limit 1` (no filter) may return the wrong run and
+# report a false "success" while the real run is still queued (this is the
+# v0.19.0 gotcha — the version check looked like nothing published). gh's
+# `--branch` matches the tag ref name for tag-triggered runs; retry until
+# the new run registers.
+run_id=""
+for _ in $(seq 1 10); do
+  run_id="$(gh run list --workflow=release.yml --branch vX.Y.Z --limit 1 \
+    --json databaseId --jq '.[0].databaseId')"
+  [ -n "$run_id" ] && break
+  sleep 3
+done
+gh run watch "$run_id" --exit-status
 ```
 
 Blocks until the workflow finishes; non-zero exit = at least one
 publish failed. After success:
 
 ```bash
-for pkg in chain-source gas-oracle tx-tracker viem-errors wallet-adapter tx-flight-react; do
-  printf '%-30s ' "@valve-tech/$pkg"
+for pkg in chain-source viem-errors wallet-adapter gas-oracle tx-tracker \
+           tx-flight-react trueblocks-sdk wallet-crypto agent-skills \
+           unchained-reader wallet-key-session siwe-store; do
+  printf '%-34s ' "@valve-tech/$pkg"
   npm view "@valve-tech/$pkg@latest" version
 done
 ```
 
-All six should show the new version.
+All twelve should show the new version.
 
 ## Adding a NEW package to the monorepo (first publish)
 
