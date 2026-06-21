@@ -1,6 +1,6 @@
 {
   "name": "@valve-tech/unchained-reader",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "description": "Browser-safe, zero-dependency reader for the TrueBlocks Unchained Index. Resolves the index manifest, fetches bloom filters and index chunks from any IPFS gateway, and parses the binary bloom/chunk formats client-side into address appearances — no chifra daemon, no backend, no API key. Pairs with @valve-tech/trueblocks-sdk (which talks to a running daemon); this package reads the published index directly. Part of the valve-tech/evm-toolkit synchronized release line.",
   "license": "MIT",
   "homepage": "https://github.com/valve-tech/evm-toolkit/tree/main/packages/unchained-reader#readme",

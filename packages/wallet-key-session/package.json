@@ -1,6 +1,6 @@
 {
   "name": "@valve-tech/wallet-key-session",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "description": "Memory-only lifecycle for a wallet-derived encryption key in viem-based dapps. Derives the (non-extractable) CryptoKey once per session, never persists it, and wipes it on disconnect / account-change / tab-close. Pairs @valve-tech/wallet-crypto. The derivation itself is injected, so the lifecycle is unit-testable without a wallet. Browser-safe — no node imports, no persistent storage. Part of the valve-tech/evm-toolkit synchronized release line.",
   "license": "MIT",
   "homepage": "https://github.com/valve-tech/evm-toolkit/tree/main/packages/wallet-key-session#readme",

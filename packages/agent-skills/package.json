@@ -1,6 +1,6 @@
 {
   "name": "@valve-tech/agent-skills",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "description": "Node-only dev tool (NOT library code — the toolkit's browser-safety invariant does not apply here). An `npx`-able CLI that copies the integration skills shipped inside installed `@valve-tech/*` packages into a consumer project's `.claude/skills/`, so AI agents (Claude Code et al) can discover them — Claude Code does not auto-discover skills inside node_modules. Copy-not-symlink, provenance-manifested, idempotent, with a `check` drift command. Ships the cross-package `building-apps-with-evm-toolkit` skill. Part of the valve-tech/evm-toolkit synchronized release line.",
   "license": "MIT",
   "homepage": "https://github.com/valve-tech/evm-toolkit/tree/main/packages/agent-skills#readme",

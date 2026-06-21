@@ -15,10 +15,10 @@
     "start": "node dist-server/server/server.js"
   },
   "dependencies": {
-    "@valve-tech/siwe-store": "^0.18.0",
-    "@valve-tech/viem-errors": "^0.18.0",
-    "@valve-tech/wallet-crypto": "^0.18.0",
-    "@valve-tech/wallet-key-session": "^0.18.0",
+    "@valve-tech/siwe-store": "workspace:^",
+    "@valve-tech/viem-errors": "workspace:^",
+    "@valve-tech/wallet-crypto": "workspace:^",
+    "@valve-tech/wallet-key-session": "workspace:^",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "viem": "^2.21.0"

@@ -13,8 +13,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@valve-tech/chain-source": "^0.18.0",
-    "@valve-tech/gas-oracle": "^0.18.0",
+    "@valve-tech/chain-source": "workspace:^",
+    "@valve-tech/gas-oracle": "workspace:^",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "viem": "^2.21.0"

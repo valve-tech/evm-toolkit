@@ -1741,7 +1741,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/chain-source@npm:^0.18.0, @valve-tech/chain-source@workspace:^, @valve-tech/chain-source@workspace:packages/chain-source":
+"@valve-tech/chain-source@workspace:^, @valve-tech/chain-source@workspace:packages/chain-source":
   version: 0.0.0-use.local
   resolution: "@valve-tech/chain-source@workspace:packages/chain-source"
   peerDependencies:
@@ -1778,10 +1778,10 @@ __metadata:
   dependencies:
     "@types/react": "npm:^18.3.0"
     "@types/react-dom": "npm:^18.3.0"
-    "@valve-tech/siwe-store": "npm:^0.18.0"
-    "@valve-tech/viem-errors": "npm:^0.18.0"
-    "@valve-tech/wallet-crypto": "npm:^0.18.0"
-    "@valve-tech/wallet-key-session": "npm:^0.18.0"
+    "@valve-tech/siwe-store": "workspace:^"
+    "@valve-tech/viem-errors": "workspace:^"
+    "@valve-tech/wallet-crypto": "workspace:^"
+    "@valve-tech/wallet-key-session": "workspace:^"
     "@vitejs/plugin-react": "npm:^4.3.0"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
@@ -1797,8 +1797,8 @@ __metadata:
   dependencies:
     "@types/react": "npm:^18.3.0"
     "@types/react-dom": "npm:^18.3.0"
-    "@valve-tech/chain-source": "npm:^0.18.0"
-    "@valve-tech/gas-oracle": "npm:^0.18.0"
+    "@valve-tech/chain-source": "workspace:^"
+    "@valve-tech/gas-oracle": "workspace:^"
     "@vitejs/plugin-react": "npm:^4.3.0"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
@@ -1813,12 +1813,12 @@ __metadata:
   dependencies:
     "@types/react": "npm:^18.3.0"
     "@types/react-dom": "npm:^18.3.0"
-    "@valve-tech/chain-source": "npm:^0.18.0"
-    "@valve-tech/gas-oracle": "npm:^0.18.0"
-    "@valve-tech/tx-flight-react": "npm:^0.18.0"
-    "@valve-tech/tx-tracker": "npm:^0.18.0"
-    "@valve-tech/viem-errors": "npm:^0.18.0"
-    "@valve-tech/wallet-adapter": "npm:^0.18.0"
+    "@valve-tech/chain-source": "workspace:^"
+    "@valve-tech/gas-oracle": "workspace:^"
+    "@valve-tech/tx-flight-react": "workspace:^"
+    "@valve-tech/tx-tracker": "workspace:^"
+    "@valve-tech/viem-errors": "workspace:^"
+    "@valve-tech/wallet-adapter": "workspace:^"
     "@vitejs/plugin-react": "npm:^4.3.0"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
@@ -1842,8 +1842,8 @@ __metadata:
   dependencies:
     "@types/react": "npm:^18.3.0"
     "@types/react-dom": "npm:^18.3.0"
-    "@valve-tech/trueblocks-sdk": "npm:^0.18.0"
-    "@valve-tech/unchained-reader": "npm:^0.18.0"
+    "@valve-tech/trueblocks-sdk": "workspace:^"
+    "@valve-tech/unchained-reader": "workspace:^"
     "@vitejs/plugin-react": "npm:^4.3.0"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
@@ -1852,7 +1852,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/gas-oracle@npm:^0.18.0, @valve-tech/gas-oracle@workspace:packages/gas-oracle":
+"@valve-tech/gas-oracle@workspace:^, @valve-tech/gas-oracle@workspace:packages/gas-oracle":
   version: 0.0.0-use.local
   resolution: "@valve-tech/gas-oracle@workspace:packages/gas-oracle"
   dependencies:
@@ -1862,7 +1862,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/siwe-store@npm:^0.18.0, @valve-tech/siwe-store@workspace:packages/siwe-store":
+"@valve-tech/siwe-store@workspace:^, @valve-tech/siwe-store@workspace:packages/siwe-store":
   version: 0.0.0-use.local
   resolution: "@valve-tech/siwe-store@workspace:packages/siwe-store"
   peerDependencies:
@@ -1870,7 +1870,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/trueblocks-sdk@npm:^0.18.0, @valve-tech/trueblocks-sdk@workspace:packages/trueblocks-sdk":
+"@valve-tech/trueblocks-sdk@workspace:^, @valve-tech/trueblocks-sdk@workspace:packages/trueblocks-sdk":
   version: 0.0.0-use.local
   resolution: "@valve-tech/trueblocks-sdk@workspace:packages/trueblocks-sdk"
   dependencies:
@@ -1878,7 +1878,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/tx-flight-react@npm:^0.18.0, @valve-tech/tx-flight-react@workspace:packages/tx-flight-react":
+"@valve-tech/tx-flight-react@workspace:^, @valve-tech/tx-flight-react@workspace:packages/tx-flight-react":
   version: 0.0.0-use.local
   resolution: "@valve-tech/tx-flight-react@workspace:packages/tx-flight-react"
   dependencies:
@@ -1910,7 +1910,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/tx-tracker@npm:^0.18.0, @valve-tech/tx-tracker@workspace:^, @valve-tech/tx-tracker@workspace:packages/tx-tracker":
+"@valve-tech/tx-tracker@workspace:^, @valve-tech/tx-tracker@workspace:packages/tx-tracker":
   version: 0.0.0-use.local
   resolution: "@valve-tech/tx-tracker@workspace:packages/tx-tracker"
   dependencies:
@@ -1920,13 +1920,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/unchained-reader@npm:^0.18.0, @valve-tech/unchained-reader@workspace:^, @valve-tech/unchained-reader@workspace:packages/unchained-reader":
+"@valve-tech/unchained-reader@workspace:^, @valve-tech/unchained-reader@workspace:packages/unchained-reader":
   version: 0.0.0-use.local
   resolution: "@valve-tech/unchained-reader@workspace:packages/unchained-reader"
   languageName: unknown
   linkType: soft
 
-"@valve-tech/viem-errors@npm:^0.18.0, @valve-tech/viem-errors@workspace:^, @valve-tech/viem-errors@workspace:packages/viem-errors":
+"@valve-tech/viem-errors@workspace:^, @valve-tech/viem-errors@workspace:packages/viem-errors":
   version: 0.0.0-use.local
   resolution: "@valve-tech/viem-errors@workspace:packages/viem-errors"
   peerDependencies:
@@ -1934,7 +1934,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/wallet-adapter@npm:^0.18.0, @valve-tech/wallet-adapter@workspace:^, @valve-tech/wallet-adapter@workspace:packages/wallet-adapter":
+"@valve-tech/wallet-adapter@workspace:^, @valve-tech/wallet-adapter@workspace:packages/wallet-adapter":
   version: 0.0.0-use.local
   resolution: "@valve-tech/wallet-adapter@workspace:packages/wallet-adapter"
   dependencies:
@@ -1944,7 +1944,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/wallet-crypto@npm:^0.18.0, @valve-tech/wallet-crypto@workspace:packages/wallet-crypto":
+"@valve-tech/wallet-crypto@workspace:^, @valve-tech/wallet-crypto@workspace:packages/wallet-crypto":
   version: 0.0.0-use.local
   resolution: "@valve-tech/wallet-crypto@workspace:packages/wallet-crypto"
   dependencies:
@@ -1954,7 +1954,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@valve-tech/wallet-key-session@npm:^0.18.0, @valve-tech/wallet-key-session@workspace:packages/wallet-key-session":
+"@valve-tech/wallet-key-session@workspace:^, @valve-tech/wallet-key-session@workspace:packages/wallet-key-session":
   version: 0.0.0-use.local
   resolution: "@valve-tech/wallet-key-session@workspace:packages/wallet-key-session"
   peerDependencies:

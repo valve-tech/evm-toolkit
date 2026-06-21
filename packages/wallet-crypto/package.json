@@ -1,6 +1,6 @@
 {
   "name": "@valve-tech/wallet-crypto",
-  "version": "0.18.0",
+  "version": "0.19.0",
   "description": "Wallet-derived encryption keys + AES-GCM authenticated envelopes for viem-based dapps. Deterministic, versioned keys derived from a personal_sign signature (same wallet + same purpose + same version → same CryptoKey, across devices). Non-extractable WebCrypto AES-GCM encrypt/decrypt with AAD binding. Pure functions, no runtime storage. Part of the valve-tech/evm-toolkit synchronized release line.",
   "license": "MIT",
   "homepage": "https://github.com/valve-tech/evm-toolkit/tree/main/packages/wallet-crypto#readme",
