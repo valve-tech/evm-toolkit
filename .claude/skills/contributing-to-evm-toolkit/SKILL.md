@@ -1,18 +1,30 @@
 ---
 name: contributing-to-evm-toolkit
-description: Use when modifying any file under `packages/`, `examples/`, `scripts/`, top-level config, or the `.github/` workflows in the `valve-tech/evm-toolkit` monorepo, when adding a feature or fixing a bug in any of its six packages (`@valve-tech/chain-source`, `@valve-tech/gas-oracle`, `@valve-tech/tx-tracker`, `@valve-tech/viem-errors`, `@valve-tech/wallet-adapter`, `@valve-tech/tx-flight-react`), when reviewing a change, or when an AI agent first opens any file in this codebase to understand it before changing anything. Covers the monorepo layout, the architectural invariants shared across packages (primitive layer, ChainSource as shared foundation, no silent downgrade, browser/mobile safety, bigint wire format, workspace devDeps + topological-dev build), per-package responsibilities and what does NOT belong in each, the verification checks every change must pass (including verify:clean and verify:release-coverage), and the per-package release coupling. Read this BEFORE writing code in the repo, not after.
+description: Use when modifying any file under `packages/`, `examples/`, `scripts/`, top-level config, or the `.github/` workflows in the `valve-tech/evm-toolkit` monorepo, when adding a feature or fixing a bug in any of its twelve published packages — chain-observation (`@valve-tech/chain-source`, `@valve-tech/gas-oracle`, `@valve-tech/tx-tracker`), dapp (`@valve-tech/viem-errors`, `@valve-tech/wallet-adapter`, `@valve-tech/tx-flight-react`), auth/crypto (`@valve-tech/wallet-crypto`, `@valve-tech/wallet-key-session`, `@valve-tech/siwe-store`), historical reads (`@valve-tech/trueblocks-sdk`, `@valve-tech/unchained-reader`), and tooling (`@valve-tech/agent-skills`) — when reviewing a change, or when an AI agent first opens any file in this codebase to understand it before changing anything. Covers the monorepo layout, the architectural invariants shared across packages (primitive layer, ChainSource as shared foundation, no silent downgrade, browser/mobile safety, bigint wire format, workspace devDeps + topological-dev build), per-package responsibilities and what does NOT belong in each, the verification checks every change must pass (including verify:clean and verify:release-coverage), and the per-package release coupling. Read this BEFORE writing code in the repo, not after.
 ---
 
 # Contributing to `valve-tech/evm-toolkit`
 
 This skill grounds AI agents working **inside** this monorepo —
 making changes, adding features, fixing bugs, reviewing changes across
-the six published packages: `@valve-tech/chain-source`,
-`@valve-tech/gas-oracle`, `@valve-tech/tx-tracker`,
-`@valve-tech/viem-errors`, `@valve-tech/wallet-adapter`, and
-`@valve-tech/tx-flight-react`. For agents working in a **downstream
-project** that imports any of those packages, see the per-package
-skill that ships in the npm tarball
+the **twelve published packages**, which fall into five families:
+
+- **Chain-observation** — `@valve-tech/chain-source` (foundation),
+  `@valve-tech/gas-oracle`, `@valve-tech/tx-tracker`.
+- **Dapp** — `@valve-tech/viem-errors`, `@valve-tech/wallet-adapter`,
+  `@valve-tech/tx-flight-react`.
+- **Auth / crypto** — `@valve-tech/wallet-crypto`,
+  `@valve-tech/wallet-key-session` (browser), `@valve-tech/siwe-store`
+  (server).
+- **Historical reads** — `@valve-tech/trueblocks-sdk` (chifra-daemon
+  client), `@valve-tech/unchained-reader` (browser/IPFS index reader).
+- **Tooling** — `@valve-tech/agent-skills` (CLI that installs the
+  bundled integration skills into a consumer's `.claude/skills/`).
+
+(`@valve-tech/auth-lite` was removed in v0.19.0 — `viem/siwe` owns the
+SIWE crypto; the auth/crypto family above replaced it.) For agents
+working in a **downstream project** that imports any of these packages,
+see the per-package skill that ships in the npm tarball
 (e.g. `node_modules/@valve-tech/gas-oracle/skills/gas-oracle-integration/SKILL.md`).
 
 ## Architectural invariants — do not break these
@@ -34,7 +46,10 @@ the same `ChainSource` interface. Multiple subscribers per
 `ChainSource` stream are first-class — one upstream RPC poll cycle
 feeds every consumer attached.
 
-The other three packages are independent of `ChainSource`:
+Only `gas-oracle` and `tx-tracker` consume `ChainSource`. **Every
+other package is independent of it** — the dapp packages use viem
+directly, and the auth/crypto, historical-read, and tooling families
+don't watch chain state at all:
 
 - `@valve-tech/viem-errors` — pure cause-chain utilities. No I/O, no
   upstream signal at all.
@@ -45,6 +60,11 @@ The other three packages are independent of `ChainSource`:
   `tx-tracker` + `wallet-adapter` via dynamic import (so consumers
   paying for tree-shaking don't pull either in unless they use the
   matching add path).
+- The auth/crypto (`wallet-crypto`, `wallet-key-session`,
+  `siwe-store`), historical-read (`trueblocks-sdk`,
+  `unchained-reader`), and tooling (`agent-skills`) families are
+  wholly independent of the chain-watching half — see their
+  per-package responsibilities below.
 
 When adding a new derived view of chain state, follow the same
 shape: consume `ChainSource`, don't piggyback on either of the
@@ -140,21 +160,35 @@ evm-toolkit/                    repo root, package name @valve-tech/evm-toolkit 
 │   │   └── (same shape as chain-source — pure, no chain interaction)
 │   ├── wallet-adapter/         @valve-tech/wallet-adapter — wallet vocabulary
 │   │   └── (same shape as chain-source)
-│   └── tx-flight-react/        @valve-tech/tx-flight-react — React UI primitives
-│       └── (same shape, plus storage/ subpath at @valve-tech/tx-flight-react/storage)
-├── docs/                       cross-cutting design docs (tx-tracker-spec.md, etc.)
+│   ├── tx-flight-react/        @valve-tech/tx-flight-react — React UI primitives
+│   │   └── (same shape, plus storage/ subpath at @valve-tech/tx-flight-react/storage)
+│   ├── wallet-crypto/          @valve-tech/wallet-crypto — wallet-derived keys + AES-GCM envelopes
+│   ├── wallet-key-session/     @valve-tech/wallet-key-session — memory-only key lifecycle (browser)
+│   ├── siwe-store/             @valve-tech/siwe-store — SIWE nonce + session stores (server)
+│   ├── trueblocks-sdk/         @valve-tech/trueblocks-sdk — chifra-daemon client (+ vendored OpenAPI)
+│   ├── unchained-reader/       @valve-tech/unchained-reader — browser/IPFS Unchained Index reader
+│   └── agent-skills/           @valve-tech/agent-skills — CLI: install bundled skills (zero runtime deps)
+├── docs/                       cross-cutting design docs + docs/api/ (TypeDoc JSON per pkg)
 ├── .claude/skills/             project-local AI skills — does NOT ship to npm
 │   ├── contributing-to-evm-toolkit/    this file
 │   ├── extending-tx-tracker/           tx-tracker internals (project-local)
-│   └── releasing-evm-toolkit/          synced release flow (single vX.Y.Z tag)
+│   ├── releasing-evm-toolkit/          synced release flow (single vX.Y.Z tag)
+│   └── writing-package-skills/         authoring the per-package integration skills
 ├── .githooks/                  versioned git hooks (NOT shipped)
 │   └── pre-push                runs verify:release-coverage before push
 ├── scripts/                    project tooling (NOT shipped)
-│   └── verify-release-coverage.mjs   asserts release.yml has Publish step per pkg
-├── examples/                   future cross-package examples (currently empty)
+│   ├── verify-release-coverage.mjs   asserts release.yml has Publish step per pkg
+│   ├── verify-persisted-types.mjs    asserts persisted-type/manifest parity
+│   └── build-docs.mjs                TypeDoc JSON per pkg → docs/api/ (docs:build / docs:check)
+├── examples/                   per-package & cross-package demos (NOT published; deps use workspace:^)
+│   ├── encrypted-vault/        full EIP-4361 SIWE + wallet-crypto + wallet-key-session + siwe-store
+│   ├── gas-dashboard/          chain-source + gas-oracle
+│   ├── tx-write-flight/        the write path: gas-oracle + wallet-adapter + tx-tracker + tx-flight-react
+│   ├── unchained-index-server/ unchained-reader (server)
+│   └── unchained-tx-history/   trueblocks-sdk + unchained-reader
 ├── .github/workflows/
-│   ├── ci.yml                  runs lint/typecheck/test/build + verify:release-coverage
-│   └── release.yml             tag-driven; six Publish steps, OIDC trusted-publisher
+│   ├── ci.yml                  runs lint/typecheck/test/build + verify:release-coverage + docs:check
+│   └── release.yml             tag-driven; one Publish step per published pkg (12), OIDC trusted-publisher
 ├── package.json                root: "private": true, workspaces, prepare = hooks-path wiring
 ├── tsconfig.base.json          shared compiler options; per-package extends (composite: true)
 ├── eslint.config.js            workspace-wide
@@ -376,6 +410,97 @@ Does NOT belong here:
 - new lifecycle vocabulary (extend `wallet-adapter`'s vocabulary
   rather than inventing a parallel one here)
 
+### `@valve-tech/wallet-crypto`
+
+Owns: wallet-derived encryption keys + AES-GCM authenticated envelopes
+— `deriveWalletEncryptionKey` (a deterministic, non-extractable
+`CryptoKey` from a `personal_sign`), `encryptEnvelope` /
+`decryptEnvelope` (with AAD binding), `formatKeyDerivationMessage`, and
+typed `WalletDeclined` / `WalletUnavailable` / `DecryptionFailed`.
+
+Consumes: `viem-errors` (rejection detection) + viem. Pure functions,
+no storage, no state.
+
+Does NOT belong here:
+- the key's in-memory lifecycle / caching (that's `wallet-key-session`)
+- SIWE authentication (that's `viem/siwe` + `siwe-store`)
+- any persistent storage of keys or ciphertext
+
+### `@valve-tech/wallet-key-session`
+
+Owns: the **memory-only** lifecycle of a wallet-derived `CryptoKey` —
+`createKeySession` (derive-once, concurrent-safe, retry-on-reject;
+auto-wipe on `accountsChanged` / `chainChanged` / `pagehide` /
+`clear()`). Browser-safe; the derivation is **injected** so the
+package is testable without a wallet.
+
+Consumes: viem (types) at peer level only. No `@valve-tech` runtime
+deps — the consumer wires `wallet-crypto`'s `deriveWalletEncryptionKey`
+into the `derive` callback.
+
+Does NOT belong here:
+- the key derivation itself (that's `wallet-crypto`)
+- any persistent storage of the key — memory-only is the security
+  boundary, not a gap
+- `node:*` imports (browser-safe; guard `window` access)
+
+### `@valve-tech/siwe-store`
+
+Owns: the **server-side** state for SIWE that `viem/siwe` leaves to the
+app — `createMemoryNonceStore` (single-use / TTL, delete-before-TTL so
+a race-loser can't reuse) and `createMemorySessionStore` (opaque CSPRNG
+token bound to an address), plus the `NonceStore` / `SessionStore`
+interfaces as the contract for Redis/SQL backends.
+
+Consumes: `viem/siwe` (`generateSiweNonce`) + `node:crypto`.
+Signature-scheme-agnostic.
+
+Does NOT belong here:
+- SIWE crypto / message / validation (that's `viem/siwe`)
+- signature verification — the caller chooses `recoverMessageAddress`
+  (EOA) or a `PublicClient.verifyMessage` (EIP-1271/6492)
+- the client-side key lifecycle (that's `wallet-key-session`)
+
+### `@valve-tech/trueblocks-sdk`
+
+Owns: a typed client over a running TrueBlocks `chifra` daemon for
+historical / index reads — verb wrappers that return parsed JSON, plus
+a vendored upstream OpenAPI spec (under `docs/api/`). **You run the
+daemon.**
+
+Consumes: the chifra HTTP API. Server-side.
+
+Does NOT belong here:
+- browser / IPFS trustless reads (that's `unchained-reader`)
+- chain-watching subscriptions (that's `chain-source`)
+
+### `@valve-tech/unchained-reader`
+
+Owns: a browser-safe, zero-runtime-dependency reader for the TrueBlocks
+**Unchained Index** — resolves the manifest, fetches bloom filters and
+index chunks from any IPFS gateway, and parses the binary bloom/chunk
+formats client-side into address appearances `(blockNumber,
+transactionIndex)`. No daemon, no backend, no API key.
+
+Consumes: nothing at runtime (pure parsing over `Uint8Array` + fetch).
+
+Does NOT belong here:
+- a chifra-daemon dependency (that's `trueblocks-sdk`)
+- `node:*` imports (browser-safe)
+
+### `@valve-tech/agent-skills`
+
+Owns: a Node-only dev-tool CLI (`valve-agent-skills`, zero runtime
+deps) that makes the integration skills bundled in `@valve-tech/*`
+tarballs discoverable to AI agents — it scans
+`node_modules/@valve-tech/*/skills/*/SKILL.md` and copies (never
+symlinks) them into a consumer project's `.claude/skills/`.
+
+Consumes: nothing at runtime.
+
+Does NOT belong here:
+- library / runtime code (it's a CLI tool, not imported by consumers)
+
 ## Anti-patterns specific to this codebase
 
 These have all been considered and rejected. Don't reintroduce them:
@@ -449,7 +574,9 @@ the no-op case.
 The repo's release pattern (sole-maintainer, no PR): commit subject
 is `chore(release): vX.Y.Z — short summary` directly on `main`, then
 a signed tag `vX.Y.Z` push fires the publish workflow which publishes
-all six packages in dependency order.
+all twelve packages in dependency order. (A brand-new package's first
+publish needs a manual name-claim + trusted-publisher record before the
+OIDC workflow can publish it — see `releasing-evm-toolkit`.)
 
 A change that only touches `.claude/`, `.githooks/`, `scripts/`,
 `docs/`, `.github/`, root configs, or other non-published files does
