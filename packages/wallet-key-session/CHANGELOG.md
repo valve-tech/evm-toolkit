@@ -17,6 +17,8 @@ release line.
   accumulate listeners. Purely additive — existing
   `getKey()` / `clear()` callers are unaffected.
 
+## [0.19.0] — 2026-06-21
+
 ### Added
 
 - Initial release. `createKeySession` owns the memory-only lifecycle
