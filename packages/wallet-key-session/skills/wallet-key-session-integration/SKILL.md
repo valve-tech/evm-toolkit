@@ -46,6 +46,13 @@ const key = await session.getKey() // prompts once; cached after
 3. **The derivation is injected.** Don't add a hard dependency on
    `@valve-tech/wallet-crypto` inside this package's consumers'
    `derive` — pass the callback.
+4. **Dispose sessions with a sub-page lifecycle.** `clear()` drops the
+   key but leaves the provider/`pagehide` listeners registered.
+   `dispose()` does both — `clear()` + remove every listener. If a
+   session is created per component/effect rather than once per app
+   (e.g. inside a React `useEffect`), return `dispose` as the cleanup
+   so repeated mounts don't accumulate listeners on `window.ethereum`.
+   A single app-lifetime session can rely on `pagehide`/GC and skip it.
 
 ## Composition
 

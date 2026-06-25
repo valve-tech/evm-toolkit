@@ -7,6 +7,8 @@
  * under concurrent callers; `clear()` and any
  * `accountsChanged` / `chainChanged` / `pagehide` event drop the
  * reference so the next `getKey()` re-derives (re-prompting the wallet).
+ * `dispose()` clears the key AND removes those listeners, for owners
+ * with a lifecycle shorter than the page (e.g. a React effect cleanup).
  *
  * The derivation is injected (the `derive` callback), so this lifecycle
  * is unit-testable without a wallet and stays decoupled from
@@ -27,6 +29,15 @@ export interface KeySession {
   getKey(): Promise<CryptoKey>
   /** Drop the cached key reference (e.g. on sign-out). */
   clear(): void
+  /**
+   * Tear the session down: `clear()` the key AND remove every listener
+   * this session registered (`accountsChanged` / `chainChanged` on the
+   * provider, `pagehide` on `window`). Call when the session's owner
+   * unmounts — e.g. a React `useEffect` cleanup — so repeated
+   * create/destroy cycles don't accumulate listeners. Idempotent; after
+   * `dispose()` the session no longer responds to provider events.
+   */
+  dispose(): void
 }
 
 /** The slice of an EIP-1193 provider this package listens on. */
@@ -68,9 +79,21 @@ export function createKeySession(opts: {
     cached = null
   }
 
+  // Teardown closures collected as listeners are registered, so
+  // dispose() unregisters exactly what was added (and nothing if the
+  // provider/window were absent). Each is idempotent on its own.
+  const teardowns: Array<() => void> = []
+
   // Wallet identity changed under us — the prior key is no longer valid.
-  opts.provider?.on?.('accountsChanged', clear)
-  opts.provider?.on?.('chainChanged', clear)
+  const { provider } = opts
+  if (provider?.on) {
+    provider.on('accountsChanged', clear)
+    provider.on('chainChanged', clear)
+    teardowns.push(() => {
+      provider.removeListener?.('accountsChanged', clear)
+      provider.removeListener?.('chainChanged', clear)
+    })
+  }
 
   // Drop the key when the page is going away. Guarded so the package
   // stays import-safe in non-DOM runtimes (SSR, tests).
@@ -81,6 +104,7 @@ export function createKeySession(opts: {
     typeof window.addEventListener === 'function'
   ) {
     window.addEventListener('pagehide', clear)
+    teardowns.push(() => window.removeEventListener('pagehide', clear))
   }
 
   return {
@@ -96,5 +120,11 @@ export function createKeySession(opts: {
       return cached
     },
     clear,
+    dispose(): void {
+      clear()
+      // Splice each teardown out as it runs so a second dispose() is a
+      // no-op (idempotent).
+      while (teardowns.length > 0) teardowns.pop()!()
+    },
   }
 }

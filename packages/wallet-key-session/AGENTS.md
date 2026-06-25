@@ -25,6 +25,7 @@ const session: KeySession = createKeySession({
 // session.address      readonly Address
 // session.getKey()     Promise<CryptoKey>  (derive-once, concurrent-safe, retry-on-reject)
 // session.clear()      void                (drop the key; next getKey re-derives)
+// session.dispose()    void                (clear() + remove every listener; idempotent)
 ```
 
 ## Invariants (load-bearing)
@@ -35,6 +36,10 @@ const session: KeySession = createKeySession({
    share one derivation. A rejected derivation is NOT cached.
 3. **Wipe on identity/visibility change.** `accountsChanged`,
    `chainChanged`, `pagehide`, and `clear()` all drop the key.
+   `clear()` keeps the session live (listeners stay registered);
+   `dispose()` additionally removes those listeners — use it when the
+   session's owner unmounts (e.g. a React effect cleanup) so repeated
+   create/destroy cycles don't accumulate listeners.
 4. **Injectable derivation.** `derive` is a callback, so the package
    has no `@valve-tech/wallet-crypto` dependency and is testable
    without a wallet.
