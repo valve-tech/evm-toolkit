@@ -1,6 +1,6 @@
 ---
 name: releasing-evm-toolkit
-description: Use when cutting a release of the `valve-tech/evm-toolkit` monorepo to npm — bumping every workspace package's version in lockstep, updating per-package CHANGELOGs and the root CHANGELOG, committing on main, tagging with `vX.Y.Z`, and verifying the OIDC publish landed for all six packages (`@valve-tech/chain-source`, `@valve-tech/gas-oracle`, `@valve-tech/tx-tracker`, `@valve-tech/viem-errors`, `@valve-tech/wallet-adapter`, `@valve-tech/tx-flight-react`). Trigger on phrases like "release v0.X.Y", "publish to npm", "ship a release", "cut a release", "bump the toolkit version", "tag this", or when the user has just merged consumer-visible changes and is asking how to get them onto npm. Covers synchronized versioning (all packages move together), the commit message format, the signed-tag requirement, the OIDC publish workflow trigger, the pre-flight `verify:clean` + `verify:release-coverage` gates, the manual-first-publish dance for any new package being added (including adding a Publish step to release.yml), and the common failure modes.
+description: Use when cutting a release of the `valve-tech/evm-toolkit` monorepo to npm — bumping every workspace package's version in lockstep, updating per-package CHANGELOGs and the root CHANGELOG, regenerating docs/api, committing on main, tagging with `vX.Y.Z`, and verifying the OIDC publish landed for all twelve published packages (chain-source, gas-oracle, tx-tracker, viem-errors, wallet-adapter, tx-flight-react, wallet-crypto, wallet-key-session, siwe-store, trueblocks-sdk, unchained-reader, agent-skills). Trigger on phrases like "release v0.X.Y", "publish to npm", "ship a release", "cut a release", "bump the toolkit version", "tag this", or when the user has just merged consumer-visible changes and is asking how to get them onto npm. Covers synchronized versioning (all packages move together), the commit message format, the signed-tag requirement, the OIDC publish workflow trigger, the pre-flight `verify:clean` + `verify:release-coverage` gates, the docs:build regen step, the manual-first-publish dance for any new package being added (including adding a Publish step to release.yml), and the common failure modes.
 ---
 
 # Releasing `valve-tech/evm-toolkit`
@@ -15,8 +15,9 @@ that npm validates against per-package trusted-publisher records. The
 publish flow is entirely **tag-driven**.
 
 Every release is one commit on main (no PR — sole maintainer
-practice), one signed tag, one workflow run, six `npm publish` calls
-(one per package, all from the same workflow execution).
+practice), one signed tag, one workflow run, and one `npm publish` per
+published package (twelve as of v0.19.0), all from the same workflow
+execution.
 
 ## The end-to-end flow
 
@@ -24,14 +25,18 @@ practice), one signed tag, one workflow run, six `npm publish` calls
 1. Run pre-flight checks: yarn verify:clean && yarn verify:release-coverage
 2. Bump every packages/*/package.json to the new version
 3. Update every packages/*/CHANGELOG.md and root CHANGELOG.md
-4. Commit directly on main:
+4. Regenerate docs: yarn docs:build (the version bump in step 2 changes
+       packageVersion in EVERY docs/api/*.json; skipping this ships
+       stale docs and turns main CI's docs:check step red). Confirm with
+       yarn docs:check before committing.
+5. Commit directly on main (include docs/api/):
        git commit -m "chore(release): vX.Y.Z — <short summary>"
-5. Sign-tag the release commit:
+6. Sign-tag the release commit:
        git tag -s vX.Y.Z -m "vX.Y.Z — <short summary>"
-6. Push commit + tag:
+7. Push commit + tag:
        git push origin main && git push origin vX.Y.Z
        (pre-push hook re-runs verify:release-coverage as belt-and-suspenders)
-7. Watch the Release workflow; verify npm shows the new version on
+8. Watch the Release workflow; verify npm shows the new version on
    every package
 ```
 
@@ -70,21 +75,24 @@ the same version**. The release workflow refuses to publish if any
 package's version doesn't match the tag.
 
 ```bash
-# Bump all six in lockstep:
-sed -i.bak 's/"version": "0\.X\.Y"/"version": "0.X.Z"/' \
-  packages/chain-source/package.json \
-  packages/gas-oracle/package.json \
-  packages/tx-tracker/package.json \
-  packages/viem-errors/package.json \
-  packages/wallet-adapter/package.json \
-  packages/tx-flight-react/package.json
+# Bump EVERY publishable package in lockstep. Glob over packages/* so a
+# newly-added package can't be silently left behind (listing names by
+# hand is how this rots — and a missed package fails the workflow's
+# "Verify all packages are at tag version" gate mid-release).
+sed -i.bak 's/"version": "0\.X\.Y"/"version": "0.X.Z"/' packages/*/package.json
 rm packages/*/package.json.bak
 
-# Verify:
+# Verify every package now reads the new version (eyeball the list):
 for pkg in packages/*/; do
   echo "$pkg → $(node -p "require('./$pkg/package.json').version")"
 done
 ```
+
+If any example pins a toolkit dep with a caret range (`"^0.X.Y"`), the
+bump breaks `yarn install` (the caret no longer satisfies the bumped
+workspace version, so Yarn hits the registry). Examples should use
+`"workspace:^"` for `@valve-tech/*` deps; fix any stragglers before
+continuing (the v0.19.0 lesson).
 
 ### 2. Update per-package CHANGELOGs
 
@@ -117,6 +125,22 @@ noting the synchronized release:
 
 This keeps consumers' `npm view @valve-tech/<name> versions` honest.
 
+### 2b. Regenerate the API docs
+
+The version bump in step 1 changes the embedded `packageVersion`
+string in **every** `docs/api/*.json` (each carries its package's
+version). Regenerate them so the committed artifacts match — otherwise
+`yarn docs:check` (run by `ci.yml` on every push to `main`) goes red
+the moment the release lands, even though the publish itself succeeds.
+
+```bash
+yarn docs:build      # rewrites docs/api/*.json + manifest.json
+yarn docs:check      # must print: ✓ docs/api/*.json all match source
+```
+
+This was missed in v0.19.0 — the bump shipped but the docs still said
+the prior version, so main CI's docs:check failed post-release.
+
 ### 3. Commit message — exact format
 
 ```
@@ -130,7 +154,7 @@ practice — no PR). Body explains the why; subject stays under 70
 chars.
 
 ```bash
-git add CHANGELOG.md packages/*/CHANGELOG.md packages/*/package.json yarn.lock
+git add CHANGELOG.md packages/*/CHANGELOG.md packages/*/package.json yarn.lock docs/api
 git commit -m "$(cat <<'EOF'
 chore(release): vX.Y.Z — short summary
 
@@ -310,7 +334,7 @@ Publish step in `release.yml`. TP records all point at the same repo
 
 ## Version-bump rules (SemVer, applied uniformly across all packages)
 
-Because versioning is synced, **all six packages bump together** —
+Because versioning is synced, **all packages bump together** —
 even if a release only meaningfully changes one of them. The bump
 size is determined by the largest change across the toolkit:
 
