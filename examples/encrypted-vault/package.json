@@ -12,6 +12,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.server.json --noEmit",
     "lint": "eslint src server",
     "test": "vitest run",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
     "start": "node dist-server/server/server.js"
   },
   "dependencies": {

@@ -25,7 +25,7 @@
     "lint": "yarn workspaces foreach --all --exclude @valve-tech/evm-toolkit run lint",
     "test": "yarn workspaces foreach --all --exclude @valve-tech/evm-toolkit run test",
     "test:browser": "yarn workspace @valve-tech/wallet-adapter run test:browser",
-    "test:integration": "yarn workspace @valve-tech/wallet-adapter run test:integration",
+    "test:integration": "yarn workspace @valve-tech/wallet-adapter run test:integration && yarn workspace @valve-tech/example-encrypted-vault run test:integration",
     "test:coverage": "yarn workspaces foreach --all --exclude @valve-tech/evm-toolkit run test:coverage",
     "verify:clean": "rm -rf packages/*/dist packages/*/tsconfig.tsbuildinfo && yarn build && yarn lint && yarn typecheck && yarn typecheck:examples && yarn test && yarn verify:persisted-types",
     "verify:release-coverage": "node scripts/verify-release-coverage.mjs",

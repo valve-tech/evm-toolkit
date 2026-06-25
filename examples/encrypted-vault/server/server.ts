@@ -16,17 +16,10 @@ import { readFile } from 'node:fs/promises'
 import { join, normalize, sep } from 'node:path'
 import { createMemoryNonceStore, createMemorySessionStore } from '@valve-tech/siwe-store'
 import { createSiweMessage } from 'viem/siwe'
-import {
-  createPublicClient,
-  http,
-  recoverMessageAddress,
-  isAddressEqual,
-  getAddress,
-  type Address,
-  type Hex,
-} from 'viem'
+import { createPublicClient, http, getAddress, type Hex } from 'viem'
 import { DOMAIN, URI, CHAIN_ID, SIWE_VERSION, STATEMENT, PORT, NONCE_TTL_SECONDS, SESSION_TTL_MS, STORE_PATH, CLIENT_DIST, RPC_URL } from './config.js'
 import { authenticateSiwe } from './siwe-auth.js'
+import { createHybridSignatureVerifier } from './verify-signature.js'
 import { createNoteStore, type StoredBlob } from './note-store.js'
 import { readJsonBody, bearerToken, sendJson, send401 } from './http.js'
 
@@ -34,28 +27,13 @@ const nonces = createMemoryNonceStore({ ttlSeconds: NONCE_TTL_SECONDS })
 const sessions = createMemorySessionStore({ ttlMs: SESSION_TTL_MS })
 const notes = createNoteStore(STORE_PATH)
 
-// Used only for the EIP-1271 / EIP-6492 signature path (smart accounts).
+// EOA signatures verify offline; only smart-account (EIP-1271/6492)
+// signatures fall through to viem's verifyMessage, which makes the
+// on-chain `isValidSignature` call via RPC_URL.
 const publicClient = createPublicClient({ transport: http(RPC_URL) })
-
-/**
- * Verify a SIWE signature for EOAs and smart accounts. The EOA case is
- * an offline ECDSA recover (no RPC); only a non-matching recover — i.e.
- * a contract account — falls through to viem's `verifyMessage`, which
- * performs the EIP-1271 / EIP-6492 on-chain check via {@link RPC_URL}.
- */
-async function verifySignature(args: {
-  address: Address
-  message: string
-  signature: Hex
-}): Promise<boolean> {
-  try {
-    const recovered = await recoverMessageAddress({ message: args.message, signature: args.signature })
-    if (isAddressEqual(recovered, args.address)) return true
-  } catch {
-    // Not a plain EOA signature — fall through to contract verification.
-  }
-  return publicClient.verifyMessage(args)
-}
+const verifySignature = createHybridSignatureVerifier((args) =>
+  publicClient.verifyMessage(args),
+)
 
 interface VerifyBody { message: string; signature: Hex }
 interface NoteBody { blob: StoredBlob }
