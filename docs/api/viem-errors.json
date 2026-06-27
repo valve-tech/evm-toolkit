@@ -1,7 +1,7 @@
 {
   "schemaVersion": "2.0",
   "id": 0,
-  "name": "@valve-tech/viem-errors v0.19.0",
+  "name": "@valve-tech/viem-errors v0.20.0",
   "variant": "project",
   "kind": 1,
   "flags": {},
@@ -1465,7 +1465,7 @@
     }
   ],
   "packageName": "@valve-tech/viem-errors",
-  "packageVersion": "0.19.0",
+  "packageVersion": "0.20.0",
   "symbolIdMap": {
     "0": {
       "packageName": "@valve-tech/viem-errors",

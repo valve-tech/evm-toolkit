@@ -6,6 +6,29 @@ this file. Per-package details live in each `packages/*/CHANGELOG.md`.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.20.0] — 2026-06-26
+
+### Added
+
+- **`@valve-tech/wallet-key-session`** — `KeySession.dispose()`, which
+  tears a session down completely: `clear()`s the in-memory key AND
+  removes the `accountsChanged` / `chainChanged` provider listeners and
+  the `pagehide` window listener the session registered. Idempotent and
+  purely additive — existing `getKey()` / `clear()` callers are
+  unaffected. Call it from an owner whose lifecycle is shorter than the
+  page (e.g. a React `useEffect` cleanup) so repeated create/destroy
+  cycles don't accumulate listeners.
+
+### Notes
+
+- Synchronized release. All other packages bump in lockstep with no
+  functional changes — see each package's CHANGELOG for the per-package
+  note.
+- Example-only work landed since v0.19.0 (encrypted-vault's anvil-backed
+  EIP-1271 integration test; unchained-index-server's extraction into
+  testable units + 26 tests) is not published and does not affect any
+  package tarball.
+
 ## [0.19.0] — 2026-06-21
 
 ### Removed

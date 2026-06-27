@@ -1,7 +1,7 @@
 {
   "schemaVersion": "2.0",
   "id": 0,
-  "name": "@valve-tech/tx-tracker v0.19.0",
+  "name": "@valve-tech/tx-tracker v0.20.0",
   "variant": "project",
   "kind": 1,
   "flags": {},
@@ -16350,7 +16350,7 @@
     }
   ],
   "packageName": "@valve-tech/tx-tracker",
-  "packageVersion": "0.19.0",
+  "packageVersion": "0.20.0",
   "symbolIdMap": {
     "0": {
       "packageName": "@valve-tech/tx-tracker",
