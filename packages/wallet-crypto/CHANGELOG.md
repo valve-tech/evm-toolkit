@@ -6,6 +6,20 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `rotateEnvelope({ oldKey, newKey, ciphertext, nonce, oldAad?, newAad? })`
+  — re-wraps one envelope from a retired key to a new one, the per-blob
+  step of a `version` rotation. Composes `decryptEnvelope` +
+  `encryptEnvelope` in one call so the plaintext is never handed back
+  and the AAD tag is swapped explicitly (`oldAad` → `newAad`). Throws
+  `DecryptionFailed` and returns nothing to write on a key/nonce/AAD
+  mismatch, so a failed rotation is non-destructive. Pure, stateless —
+  the caller still owns its storage read/write loop and the "current
+  version" flag.
+
 ## [0.20.0] — 2026-06-26
 
 ### Notes

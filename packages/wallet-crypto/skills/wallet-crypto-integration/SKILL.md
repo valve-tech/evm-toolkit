@@ -82,8 +82,16 @@ on decrypt causes `DecryptionFailed`. Confirm they want the binding
 
 Not possible with `version`-only bumping — a new version produces a
 different key, period. Options:
-- Migration: decrypt all blobs with v1, re-encrypt with v2, write
-  back. Library doesn't own this loop.
+- Migration: derive the v1 and v2 keys (two signatures total), then
+  re-wrap each blob with
+  `rotateEnvelope({ oldKey, newKey, ciphertext, nonce, oldAad?, newAad? })`
+  and write the result back. `rotateEnvelope` is `decryptEnvelope(oldKey)`
+  then `encryptEnvelope(newKey)` in one call — it never hands the
+  plaintext back and swaps the AAD tag (`oldAad` → `newAad`) explicitly.
+  It throws `DecryptionFailed` and returns nothing to write if the old
+  key/nonce/AAD don't match, so a failed rotation is non-destructive.
+  The library owns re-wrapping one envelope; the app still owns the
+  read/write loop and the "current version" flag.
 - Side-by-side: tag every blob with the version it was encrypted
   under; read with the matching version's derived key.
 

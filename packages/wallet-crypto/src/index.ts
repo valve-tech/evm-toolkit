@@ -8,6 +8,6 @@
  */
 
 export { deriveWalletEncryptionKey } from './derive-key.js'
-export { encryptEnvelope, decryptEnvelope } from './envelope.js'
+export { encryptEnvelope, decryptEnvelope, rotateEnvelope } from './envelope.js'
 export { formatKeyDerivationMessage } from './messages.js'
 export { WalletDeclined, WalletUnavailable, DecryptionFailed } from './errors.js'

@@ -104,3 +104,67 @@ export async function decryptEnvelope(opts: {
     throw new DecryptionFailed()
   }
 }
+
+/**
+ * Re-wrap one envelope from an old key to a new key — the per-blob
+ * step of a key rotation.
+ *
+ * Rotation in this package means bumping the `version` passed to
+ * {@link deriveWalletEncryptionKey}: a new version produces a different
+ * key, which invalidates every blob encrypted under the prior one. The
+ * caller derives both keys once (two wallet signatures total, whatever
+ * the blob count), then maps every stored envelope through this
+ * function. Nothing here is persisted — the caller owns reading the old
+ * ciphertext and writing the returned one back.
+ *
+ * This is exactly `decryptEnvelope(oldKey)` followed by
+ * `encryptEnvelope(newKey)`, offered as one call so the two easy
+ * mistakes are structural rather than yours to avoid: the plaintext is
+ * never handed back to the caller, and the AAD is swapped explicitly
+ * (`oldAad` — what was bound under the old key — versus `newAad` — what
+ * to bind under the new one; commonly the old and new version tags).
+ *
+ * A fresh random IV is generated for the new ciphertext, so the result
+ * is unrelated to the input even when the plaintext is unchanged.
+ *
+ * Throws {@link DecryptionFailed} if the old key, `nonce`, or `oldAad`
+ * don't match what produced the input envelope — a failed rotation
+ * leaves the caller's stored ciphertext untouched (this function
+ * returns nothing to write).
+ *
+ * @example
+ * ```ts
+ * const oldKey = await deriveWalletEncryptionKey({ signer, purpose, version: 1 })
+ * const newKey = await deriveWalletEncryptionKey({ signer, purpose, version: 2 })
+ * for (const blob of storedBlobs) {
+ *   const rotated = await rotateEnvelope({
+ *     oldKey, newKey,
+ *     ciphertext: blob.ciphertext, nonce: blob.nonce,
+ *     oldAad: v1Aad, newAad: v2Aad,
+ *   })
+ *   await store.put(blob.id, rotated) // { ciphertext, nonce }
+ * }
+ * ```
+ */
+export async function rotateEnvelope(opts: {
+  /** Key the envelope was encrypted under (the version being retired). */
+  oldKey: CryptoKey
+  /** Key to re-encrypt under (the version being rotated to). */
+  newKey: CryptoKey
+  /** Existing ciphertext to re-wrap. */
+  ciphertext: Uint8Array
+  /** The 12-byte IV that matches `ciphertext`. */
+  nonce: Uint8Array
+  /** AAD bound under `oldKey`, if any. Must match or decryption fails. */
+  oldAad?: Uint8Array
+  /** AAD to bind under `newKey`, if any. Commonly the new version tag. */
+  newAad?: Uint8Array
+}): Promise<{ ciphertext: Uint8Array; nonce: Uint8Array }> {
+  const plaintext = await decryptEnvelope({
+    key: opts.oldKey,
+    ciphertext: opts.ciphertext,
+    nonce: opts.nonce,
+    aad: opts.oldAad,
+  })
+  return encryptEnvelope({ key: opts.newKey, plaintext, aad: opts.newAad })
+}
