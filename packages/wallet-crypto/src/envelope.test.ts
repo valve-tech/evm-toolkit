@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { encryptEnvelope, decryptEnvelope } from './envelope.js'
+import { encryptEnvelope, decryptEnvelope, rotateEnvelope } from './envelope.js'
 import { DecryptionFailed } from './errors.js'
 import { deriveWalletEncryptionKey } from './derive-key.js'
 import { makeMockSigner, randomBytes, TEST_PRIVATE_KEY_A, TEST_PRIVATE_KEY_B } from './test-helpers.js'
@@ -126,5 +126,127 @@ describe('encryptEnvelope / decryptEnvelope', () => {
     await expect(decryptEnvelope({ key, ciphertext, nonce: wrongNonce })).rejects.toBeInstanceOf(
       DecryptionFailed,
     )
+  })
+})
+
+describe('rotateEnvelope', () => {
+  // Old and new keys are the same wallet + purpose at successive versions —
+  // the canonical rotation: bump the version, re-wrap every blob.
+  const oldKeyFor = () => makeKey(TEST_PRIVATE_KEY_A, 'vault', 1)
+  const newKeyFor = () => makeKey(TEST_PRIVATE_KEY_A, 'vault', 2)
+
+  it('re-wraps so the new key decrypts and the old key no longer can', async () => {
+    const oldKey = await oldKeyFor()
+    const newKey = await newKeyFor()
+    const plaintext = new TextEncoder().encode('secret note')
+    const original = await encryptEnvelope({ key: oldKey, plaintext })
+
+    const rotated = await rotateEnvelope({
+      oldKey,
+      newKey,
+      ciphertext: original.ciphertext,
+      nonce: original.nonce,
+    })
+
+    // Content survives the rotation, readable under the new key.
+    const decrypted = await decryptEnvelope({
+      key: newKey,
+      ciphertext: rotated.ciphertext,
+      nonce: rotated.nonce,
+    })
+    expect(decrypted).toEqual(plaintext)
+
+    // The retired key cannot read the rotated ciphertext.
+    await expect(
+      decryptEnvelope({ key: oldKey, ciphertext: rotated.ciphertext, nonce: rotated.nonce }),
+    ).rejects.toBeInstanceOf(DecryptionFailed)
+  })
+
+  it('produces a fresh IV and unrelated ciphertext', async () => {
+    const oldKey = await oldKeyFor()
+    const newKey = await newKeyFor()
+    const plaintext = new TextEncoder().encode('payload')
+    const original = await encryptEnvelope({ key: oldKey, plaintext })
+
+    const rotated = await rotateEnvelope({
+      oldKey,
+      newKey,
+      ciphertext: original.ciphertext,
+      nonce: original.nonce,
+    })
+    expect(rotated.nonce.length).toBe(12)
+    expect(rotated.nonce).not.toEqual(original.nonce)
+    expect(rotated.ciphertext).not.toEqual(original.ciphertext)
+  })
+
+  it('swaps AAD: rebinds from the old tag to the new tag', async () => {
+    const oldKey = await oldKeyFor()
+    const newKey = await newKeyFor()
+    const plaintext = new TextEncoder().encode('payload')
+    const oldAad = new TextEncoder().encode('envelope-v1')
+    const newAad = new TextEncoder().encode('envelope-v2')
+    const original = await encryptEnvelope({ key: oldKey, plaintext, aad: oldAad })
+
+    const rotated = await rotateEnvelope({
+      oldKey,
+      newKey,
+      ciphertext: original.ciphertext,
+      nonce: original.nonce,
+      oldAad,
+      newAad,
+    })
+
+    // Bound under the new AAD.
+    const decrypted = await decryptEnvelope({
+      key: newKey,
+      ciphertext: rotated.ciphertext,
+      nonce: rotated.nonce,
+      aad: newAad,
+    })
+    expect(decrypted).toEqual(plaintext)
+
+    // The old AAD no longer opens it.
+    await expect(
+      decryptEnvelope({ key: newKey, ciphertext: rotated.ciphertext, nonce: rotated.nonce, aad: oldAad }),
+    ).rejects.toBeInstanceOf(DecryptionFailed)
+  })
+
+  it('fails (leaving nothing to write) when the old key is wrong', async () => {
+    const wrongOldKey = await makeKey(TEST_PRIVATE_KEY_B, 'vault', 1)
+    const newKey = await newKeyFor()
+    const plaintext = new TextEncoder().encode('payload')
+    // Encrypted under the real old key, but rotation is attempted with the wrong one.
+    const realOldKey = await oldKeyFor()
+    const original = await encryptEnvelope({ key: realOldKey, plaintext })
+
+    await expect(
+      rotateEnvelope({
+        oldKey: wrongOldKey,
+        newKey,
+        ciphertext: original.ciphertext,
+        nonce: original.nonce,
+      }),
+    ).rejects.toBeInstanceOf(DecryptionFailed)
+  })
+
+  it('fails when the bound oldAad is not supplied', async () => {
+    const oldKey = await oldKeyFor()
+    const newKey = await newKeyFor()
+    const plaintext = new TextEncoder().encode('payload')
+    const original = await encryptEnvelope({
+      key: oldKey,
+      plaintext,
+      aad: new TextEncoder().encode('envelope-v1'),
+    })
+
+    await expect(
+      rotateEnvelope({
+        oldKey,
+        newKey,
+        ciphertext: original.ciphertext,
+        nonce: original.nonce,
+        // oldAad omitted — decrypt half must fail.
+      }),
+    ).rejects.toBeInstanceOf(DecryptionFailed)
   })
 })

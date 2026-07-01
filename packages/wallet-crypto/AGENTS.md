@@ -28,6 +28,7 @@ import {
   // Envelope encryption
   encryptEnvelope,
   decryptEnvelope,
+  rotateEnvelope,
   // Typed errors
   WalletDeclined,
   WalletUnavailable,
@@ -102,7 +103,13 @@ Are you producing OR storing encrypted bytes derived from a wallet?
 5. **Don't use `version` as a "rotate weekly" counter.** Bumping
    `version` invalidates every blob encrypted under the prior
    version. It's for deliberate rotation events (compromise response,
-   schema upgrade), not regular hygiene.
+   schema upgrade), not regular hygiene. When you do rotate, derive the
+   old and new keys (two signatures) and re-wrap each blob with
+   `rotateEnvelope({ oldKey, newKey, ciphertext, nonce, oldAad?, newAad? })`
+   — it decrypts under the old key and re-encrypts under the new one in
+   one call, never handing the plaintext back and swapping the AAD tag
+   explicitly. Throws `DecryptionFailed` (nothing to write back) if the
+   old key/nonce/AAD don't match, so a failed rotation is non-destructive.
 
 ## Composition
 

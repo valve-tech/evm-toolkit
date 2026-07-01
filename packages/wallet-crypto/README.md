@@ -32,6 +32,7 @@ import {
   deriveWalletEncryptionKey,
   encryptEnvelope,
   decryptEnvelope,
+  rotateEnvelope,
   formatKeyDerivationMessage,
   WalletDeclined,
   WalletUnavailable,
@@ -59,13 +60,15 @@ never leave the function.
 **Versioning + key rotation.** Bumping `version` invalidates every
 blob encrypted under the old key. Migration is per-product:
 
-1. App reads its old blob, decrypts with v1 key.
-2. App derives v2 key.
-3. App re-encrypts with v2, writes back.
-4. App updates its persisted "current version" flag.
+1. App derives the v1 (old) and v2 (new) keys — two signatures total,
+   whatever the blob count.
+2. For each stored blob, `rotateEnvelope({ oldKey, newKey, ... })`
+   re-wraps it (see below), and the app writes the result back.
+3. App updates its persisted "current version" flag.
 
-The library doesn't own this loop — it owns deriving distinct keys
-per version.
+The library owns deriving distinct keys per version and re-wrapping a
+single envelope; the app owns reading/writing its own storage and the
+"current version" flag.
 
 ### `encryptEnvelope({ key, plaintext, aad? })`
 
@@ -90,6 +93,33 @@ decrypt or decryption fails.
 Returns plaintext bytes. Throws `DecryptionFailed` for any cause —
 wrong key, tampered ciphertext, wrong AAD, wrong IV. The failure is
 deliberately not differentiated.
+
+### `rotateEnvelope({ oldKey, newKey, ciphertext, nonce, oldAad?, newAad? })`
+
+Returns a fresh `{ ciphertext, nonce }` re-encrypted under `newKey` —
+the per-blob step of a key rotation. Exactly `decryptEnvelope(oldKey)`
+then `encryptEnvelope(newKey)`, in one call so the plaintext is never
+handed back and the AAD swap (`oldAad` → `newAad`, commonly the old and
+new version tags) is explicit. A fresh IV is generated, so the result
+is unrelated to the input.
+
+```ts
+const oldKey = await deriveWalletEncryptionKey({ signer, purpose, version: 1 })
+const newKey = await deriveWalletEncryptionKey({ signer, purpose, version: 2 })
+for (const blob of storedBlobs) {
+  const rotated = await rotateEnvelope({
+    oldKey,
+    newKey,
+    ciphertext: blob.ciphertext,
+    nonce: blob.nonce,
+  })
+  await store.put(blob.id, rotated)
+}
+```
+
+Throws `DecryptionFailed` if `oldKey`, `nonce`, or `oldAad` don't match
+the input envelope. Because it returns nothing to write on failure, a
+failed rotation leaves the caller's stored ciphertext untouched.
 
 ### `formatKeyDerivationMessage({ purpose, version })`
 
