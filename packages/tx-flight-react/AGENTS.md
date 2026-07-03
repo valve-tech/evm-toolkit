@@ -32,6 +32,7 @@ React 18 or 19, viem ^2.
 import {
   TxFlightProvider,
   useTxFlight,
+  useReplaceTransaction,
   TxFlightList,
   TxFlightItem,
   TxFlightStatusIcon,
@@ -59,6 +60,7 @@ import {
 |---|---|
 | `<TxFlightProvider id?, storage?, maxItems?, terminalRetentionMs?, onError?, clientFactory?>` | Wraps your React tree. Module-level registry keyed by `id` so multiple Providers with the same id share one store. Default: `id="default"`, `localStorageAdapter` (with `tx-flight:${id}` key prefix), `maxItems: 50`, `terminalRetentionMs: 60_000`. |
 | `useTxFlight(id?)` | Hook returning `{ txs, addWithWalletAdapter, addByHash, addManual, remove, clear, get }`. Throws if no Provider for the resolved id is in the tree. |
+| `useReplaceTransaction(id?)` | Hook returning `{ speedUp, cancel, isReplacing, error }`. Wraps `tx-tracker`'s `replaceTransaction` (dynamic-imported) for same-nonce speed-up / cancel; on success flips the original entry to `replaced` + `replacedBy`. Caller supplies the `original` request (the strip doesn't store nonce/calldata) and the bumped `newGas`. Wire into `<TxFlightActions>`' `onSpeedUp` / `onCancel`. |
 | Three add shapes | `addWithWalletAdapter` (sync, returns `{ id, hooks }`), `addByHash` (async, returns `Promise<string>`), `addManual` (sync, returns `string`). One return type each — no overloaded discriminated union. |
 | Storage adapters | Two-method `TxFlightStorage` interface (`load(id) → Promise<TrackedTx[] \| null>`, `save(id, txs) → Promise<void>`). Three built-ins; consumers can implement their own. |
 | Rehydrate | On mount, persisted entries seed back into state. `pending` with `hash` + `clientFactory` → fresh tx-tracker watcher async-attaches. `pending` without `clientFactory` → stays pending. `preparing`/`awaiting-signature` → translated to `failed` with `notes: 'lost during reload'`. |
