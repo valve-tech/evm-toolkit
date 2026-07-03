@@ -13,6 +13,7 @@ import type { Hex } from 'viem'
 import {
   TxFlightProvider,
   useTxFlight,
+  useReplaceTransaction,
   type TrackedTx,
 } from '@valve-tech/tx-flight-react'
 import { localStorageAdapter } from '@valve-tech/tx-flight-react/storage'
@@ -27,7 +28,6 @@ import {
   type TierName,
   type TierRecommendation,
 } from '@valve-tech/gas-oracle'
-import { replaceTransaction } from '@valve-tech/tx-tracker'
 import {
   isUserRejectionError,
   extractContractErrorName,
@@ -38,7 +38,6 @@ import { Header } from './components/Header'
 import { ComposePane } from './components/ComposePane'
 import { FlightPane } from './components/FlightPane'
 import {
-  buildCancelRequest,
   buildTransactionRequest,
   type Action,
   type ResolvedGas,
@@ -78,6 +77,7 @@ interface Connection {
 /** Inner component — has access to useTxFlight (must be inside the Provider). */
 const Flight = (): JSX.Element => {
   const flight = useTxFlight()
+  const { speedUp, cancel } = useReplaceTransaction()
   const [conn, setConn] = useState<Connection | null>(null)
   const [tiers, setTiers] = useState<Record<TierName, TierRecommendation> | null>(null)
   const [blockNumber, setBlockNumber] = useState<bigint | null>(null)
@@ -309,31 +309,37 @@ const Flight = (): JSX.Element => {
       const target = state.tiers[bumpTier]
       const newGas = bumpForReplacement(current, target)
 
-      // Rebuild the original call from the remembered action (the strip's
-      // TrackedTx doesn't carry the raw request); a cancel is a 0-value
-      // self-send on the same nonce.
-      const original =
-        mode === 'cancel'
-          ? buildCancelRequest({ from: account, chainId: display.chain.id, nonce: sent.nonce })
-          : (() => {
-              const req = buildTransactionRequest(sent.action, {
-                chainId: display.chain.id,
-                from: account,
-                weth: wethAddressFor(display.chain.id),
-                gas: current,
-              })
-              return {
-                to: req.to,
-                data: req.data,
-                value: req.value,
-                nonce: sent.nonce,
-                chainId: display.chain.id,
-              }
-            })()
-
+      // The replacement runs through tx-flight-react's useReplaceTransaction
+      // hook: it calls tx-tracker's replaceTransaction under the hood AND
+      // flips this strip entry to `replaced` on success (addWithWalletAdapter
+      // alone never fires onReplaced). `cancel` builds the 0-value self-send;
+      // `speedUp` rebuilds the original call — the strip's TrackedTx doesn't
+      // carry the raw request.
       try {
-        await replaceTransaction({ original, walletClient, newGas })
-        setNotice(mode === 'cancel' ? 'Cancel submitted (same nonce).' : 'Speed-up submitted.')
+        if (mode === 'cancel') {
+          await cancel({ tx, walletClient, nonce: sent.nonce, newGas })
+          setNotice('Cancel submitted (same nonce).')
+        } else {
+          const req = buildTransactionRequest(sent.action, {
+            chainId: display.chain.id,
+            from: account,
+            weth: wethAddressFor(display.chain.id),
+            gas: current,
+          })
+          await speedUp({
+            tx,
+            walletClient,
+            original: {
+              to: req.to,
+              data: req.data,
+              value: req.value,
+              nonce: sent.nonce,
+              chainId: display.chain.id,
+            },
+            newGas,
+          })
+          setNotice('Speed-up submitted.')
+        }
       } catch (error) {
         if (isUserRejectionError(error) || error instanceof WalletRejectedError) {
           setNotice(null)
@@ -342,7 +348,7 @@ const Flight = (): JSX.Element => {
         setNotice(getUserFriendlyErrorMessage(error))
       }
     },
-    [conn],
+    [conn, speedUp, cancel],
   )
 
   const tierProps = useMemo(() => tiers, [tiers])
