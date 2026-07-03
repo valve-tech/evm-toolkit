@@ -27,6 +27,14 @@ export {
 
 export { useTxFlight, type UseTxFlightReturn } from './use-tx-flight.js'
 
+export {
+  useReplaceTransaction,
+  type UseReplaceTransactionReturn,
+  type SpeedUpInput,
+  type CancelInput,
+  type ReplacementGas,
+} from './use-replace-transaction.js'
+
 // ─── Components ────────────────────────────────────────────────────────────
 
 export {

@@ -116,6 +116,46 @@ flight.get(id)                                 // TrackedTx | null
 
 Throws if no `<TxFlightProvider>` for the resolved id is in the tree.
 
+### Replacement hook
+
+`useReplaceTransaction(id?)` wires the speed-up / cancel affordances of
+`<TxFlightActions>` to a real same-nonce replacement. It wraps
+`@valve-tech/tx-tracker`'s `replaceTransaction` primitive (dynamic-
+imported, so non-replacing consumers pay no bundle cost) and, on
+success, flips the original entry to `replaced` with `replacedBy` set to
+the new hash.
+
+```tsx
+const { speedUp, cancel, isReplacing, error } = useReplaceTransaction()
+
+// Speed up: re-send the same call at a higher fee.
+await speedUp({
+  tx,                                   // the strip entry being replaced
+  walletClient,                         // viem WalletClient (signs the replacement)
+  original: { to, nonce, data, value }, // the original request — the strip
+                                        // doesn't store calldata/nonce
+  newGas: { maxFeePerGas, maxPriorityFeePerGas },
+})
+
+// Cancel: replace with a 0-value self-send at the same nonce.
+await cancel({ tx, walletClient, nonce, newGas })
+```
+
+The bumped `newGas` is **yours to compute** — fee strategy is a separate
+concern (see `@valve-tech/gas-oracle`'s replacement bump helper). The
+replacement fees must strictly exceed the original's (most nodes require
+a ~10% bump) or the mempool rejects the swap; the hook forwards whatever
+you pass rather than enforcing a node policy it can't know. Wire it
+straight into the action slots:
+
+```tsx
+<TxFlightActions
+  tx={tx}
+  onSpeedUp={(tx) => speedUp({ tx, walletClient, original, newGas })}
+  onCancel={(tx) => cancel({ tx, walletClient, nonce: original.nonce, newGas })}
+/>
+```
+
 ### Components
 
 | Component | RSC-safe | Purpose |

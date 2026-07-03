@@ -6,6 +6,20 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `useReplaceTransaction(id?)` — React ergonomics for speed-up / cancel.
+  Wraps `@valve-tech/tx-tracker`'s `replaceTransaction` primitive
+  (dynamic-imported, no bundle cost for non-replacing consumers) and, on
+  success, flips the original strip entry to `replaced` with
+  `replacedBy` set to the new hash. Exposes `speedUp` / `cancel` (the
+  latter builds a 0-value self-send), plus `isReplacing` / `error` render
+  state. Bumped fees (`newGas`) are supplied by the caller — fee strategy
+  stays decoupled (see `@valve-tech/gas-oracle`). Maps directly onto
+  `<TxFlightActions>`' `onSpeedUp` / `onCancel` slots.
+
 ## [0.20.0] — 2026-06-26
 
 ### Notes
