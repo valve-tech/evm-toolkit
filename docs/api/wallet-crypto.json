@@ -7,7 +7,7 @@
   "flags": {},
   "children": [
     {
-      "id": 42,
+      "id": 55,
       "name": "DecryptionFailed",
       "variant": "declaration",
       "kind": 128,
@@ -22,7 +22,7 @@
       },
       "children": [
         {
-          "id": 43,
+          "id": 56,
           "name": "constructor",
           "variant": "declaration",
           "kind": 512,
@@ -36,7 +36,7 @@
           ],
           "signatures": [
             {
-              "id": 44,
+              "id": 57,
               "name": "DecryptionFailed",
               "variant": "signature",
               "kind": 16384,
@@ -50,7 +50,7 @@
               ],
               "parameters": [
                 {
-                  "id": 45,
+                  "id": 58,
                   "name": "message",
                   "variant": "param",
                   "kind": 32768,
@@ -64,7 +64,7 @@
               ],
               "type": {
                 "type": "reference",
-                "target": 42,
+                "target": 55,
                 "name": "DecryptionFailed",
                 "package": "@valve-tech/wallet-crypto"
               },
@@ -90,7 +90,7 @@
         {
           "title": "Constructors",
           "children": [
-            43
+            56
           ]
         }
       ],
@@ -116,7 +116,7 @@
       ]
     },
     {
-      "id": 34,
+      "id": 47,
       "name": "WalletDeclined",
       "variant": "declaration",
       "kind": 128,
@@ -131,7 +131,7 @@
       },
       "children": [
         {
-          "id": 35,
+          "id": 48,
           "name": "constructor",
           "variant": "declaration",
           "kind": 512,
@@ -145,7 +145,7 @@
           ],
           "signatures": [
             {
-              "id": 36,
+              "id": 49,
               "name": "WalletDeclined",
               "variant": "signature",
               "kind": 16384,
@@ -159,7 +159,7 @@
               ],
               "parameters": [
                 {
-                  "id": 37,
+                  "id": 50,
                   "name": "message",
                   "variant": "param",
                   "kind": 32768,
@@ -173,7 +173,7 @@
               ],
               "type": {
                 "type": "reference",
-                "target": 34,
+                "target": 47,
                 "name": "WalletDeclined",
                 "package": "@valve-tech/wallet-crypto"
               },
@@ -199,7 +199,7 @@
         {
           "title": "Constructors",
           "children": [
-            35
+            48
           ]
         }
       ],
@@ -225,7 +225,7 @@
       ]
     },
     {
-      "id": 38,
+      "id": 51,
       "name": "WalletUnavailable",
       "variant": "declaration",
       "kind": 128,
@@ -248,7 +248,7 @@
       },
       "children": [
         {
-          "id": 39,
+          "id": 52,
           "name": "constructor",
           "variant": "declaration",
           "kind": 512,
@@ -262,7 +262,7 @@
           ],
           "signatures": [
             {
-              "id": 40,
+              "id": 53,
               "name": "WalletUnavailable",
               "variant": "signature",
               "kind": 16384,
@@ -276,7 +276,7 @@
               ],
               "parameters": [
                 {
-                  "id": 41,
+                  "id": 54,
                   "name": "message",
                   "variant": "param",
                   "kind": 32768,
@@ -290,7 +290,7 @@
               ],
               "type": {
                 "type": "reference",
-                "target": 38,
+                "target": 51,
                 "name": "WalletUnavailable",
                 "package": "@valve-tech/wallet-crypto"
               },
@@ -316,7 +316,7 @@
         {
           "title": "Constructors",
           "children": [
-            39
+            52
           ]
         }
       ],
@@ -387,7 +387,7 @@
                 "kind": "inline-tag",
                 "tag": "@link",
                 "text": "DecryptionFailed",
-                "target": 42
+                "target": 55
               },
               {
                 "kind": "text",
@@ -697,7 +697,7 @@
                 "kind": "inline-tag",
                 "tag": "@link",
                 "text": "WalletDeclined",
-                "target": 34
+                "target": 47
               },
               {
                 "kind": "text",
@@ -715,7 +715,7 @@
                 "kind": "inline-tag",
                 "tag": "@link",
                 "text": "WalletUnavailable",
-                "target": 38
+                "target": 51
               },
               {
                 "kind": "text",
@@ -1264,7 +1264,7 @@
       ]
     },
     {
-      "id": 28,
+      "id": 41,
       "name": "formatKeyDerivationMessage",
       "variant": "declaration",
       "kind": 64,
@@ -1278,7 +1278,7 @@
       ],
       "signatures": [
         {
-          "id": 29,
+          "id": 42,
           "name": "formatKeyDerivationMessage",
           "variant": "signature",
           "kind": 4096,
@@ -1332,7 +1332,7 @@
           ],
           "parameters": [
             {
-              "id": 30,
+              "id": 43,
               "name": "opts",
               "variant": "param",
               "kind": 32768,
@@ -1340,14 +1340,14 @@
               "type": {
                 "type": "reflection",
                 "declaration": {
-                  "id": 31,
+                  "id": 44,
                   "name": "__type",
                   "variant": "declaration",
                   "kind": 65536,
                   "flags": {},
                   "children": [
                     {
-                      "id": 32,
+                      "id": 45,
                       "name": "purpose",
                       "variant": "declaration",
                       "kind": 1024,
@@ -1381,7 +1381,7 @@
                       }
                     },
                     {
-                      "id": 33,
+                      "id": 46,
                       "name": "version",
                       "variant": "declaration",
                       "kind": 1024,
@@ -1419,8 +1419,8 @@
                     {
                       "title": "Properties",
                       "children": [
-                        32,
-                        33
+                        45,
+                        46
                       ]
                     }
                   ]
@@ -1434,15 +1434,510 @@
           }
         }
       ]
+    },
+    {
+      "id": 28,
+      "name": "rotateEnvelope",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "envelope.ts",
+          "line": 149,
+          "character": 22
+        }
+      ],
+      "signatures": [
+        {
+          "id": 29,
+          "name": "rotateEnvelope",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Re-wrap one envelope from an old key to a new key — the per-blob\nstep of a key rotation.\n\nRotation in this package means bumping the "
+              },
+              {
+                "kind": "code",
+                "text": "`version`"
+              },
+              {
+                "kind": "text",
+                "text": " passed to\n"
+              },
+              {
+                "kind": "inline-tag",
+                "tag": "@link",
+                "text": "deriveWalletEncryptionKey",
+                "target": 1
+              },
+              {
+                "kind": "text",
+                "text": ": a new version produces a different\nkey, which invalidates every blob encrypted under the prior one. The\ncaller derives both keys once (two wallet signatures total, whatever\nthe blob count), then maps every stored envelope through this\nfunction. Nothing here is persisted — the caller owns reading the old\nciphertext and writing the returned one back.\n\nThis is exactly "
+              },
+              {
+                "kind": "code",
+                "text": "`decryptEnvelope(oldKey)`"
+              },
+              {
+                "kind": "text",
+                "text": " followed by\n"
+              },
+              {
+                "kind": "code",
+                "text": "`encryptEnvelope(newKey)`"
+              },
+              {
+                "kind": "text",
+                "text": ", offered as one call so the two easy\nmistakes are structural rather than yours to avoid: the plaintext is\nnever handed back to the caller, and the AAD is swapped explicitly\n("
+              },
+              {
+                "kind": "code",
+                "text": "`oldAad`"
+              },
+              {
+                "kind": "text",
+                "text": " — what was bound under the old key — versus "
+              },
+              {
+                "kind": "code",
+                "text": "`newAad`"
+              },
+              {
+                "kind": "text",
+                "text": " — what\nto bind under the new one; commonly the old and new version tags).\n\nA fresh random IV is generated for the new ciphertext, so the result\nis unrelated to the input even when the plaintext is unchanged.\n\nThrows "
+              },
+              {
+                "kind": "inline-tag",
+                "tag": "@link",
+                "text": "DecryptionFailed",
+                "target": 55
+              },
+              {
+                "kind": "text",
+                "text": " if the old key, "
+              },
+              {
+                "kind": "code",
+                "text": "`nonce`"
+              },
+              {
+                "kind": "text",
+                "text": ", or "
+              },
+              {
+                "kind": "code",
+                "text": "`oldAad`"
+              },
+              {
+                "kind": "text",
+                "text": "\ndon't match what produced the input envelope — a failed rotation\nleaves the caller's stored ciphertext untouched (this function\nreturns nothing to write)."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@example",
+                "content": [
+                  {
+                    "kind": "code",
+                    "text": "```ts\nconst oldKey = await deriveWalletEncryptionKey({ signer, purpose, version: 1 })\nconst newKey = await deriveWalletEncryptionKey({ signer, purpose, version: 2 })\nfor (const blob of storedBlobs) {\n  const rotated = await rotateEnvelope({\n    oldKey, newKey,\n    ciphertext: blob.ciphertext, nonce: blob.nonce,\n    oldAad: v1Aad, newAad: v2Aad,\n  })\n  await store.put(blob.id, rotated) // { ciphertext, nonce }\n}\n```"
+                  }
+                ]
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "envelope.ts",
+              "line": 149,
+              "character": 22
+            }
+          ],
+          "parameters": [
+            {
+              "id": 30,
+              "name": "opts",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 31,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "children": [
+                    {
+                      "id": 34,
+                      "name": "ciphertext",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Existing ciphertext to re-wrap."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "envelope.ts",
+                          "line": 155,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.es5.d.ts",
+                          "qualifiedName": "Uint8Array"
+                        },
+                        "name": "Uint8Array",
+                        "package": "typescript",
+                        "externalUrl": "#"
+                      }
+                    },
+                    {
+                      "id": 37,
+                      "name": "newAad",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isOptional": true
+                      },
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "AAD to bind under "
+                          },
+                          {
+                            "kind": "code",
+                            "text": "`newKey`"
+                          },
+                          {
+                            "kind": "text",
+                            "text": ", if any. Commonly the new version tag."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "envelope.ts",
+                          "line": 161,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.es5.d.ts",
+                          "qualifiedName": "Uint8Array"
+                        },
+                        "typeArguments": [
+                          {
+                            "type": "reference",
+                            "target": {
+                              "packageName": "typescript",
+                              "packagePath": "lib/lib.es5.d.ts",
+                              "qualifiedName": "ArrayBufferLike"
+                            },
+                            "name": "ArrayBufferLike",
+                            "package": "typescript",
+                            "externalUrl": "#"
+                          }
+                        ],
+                        "name": "Uint8Array",
+                        "package": "typescript",
+                        "externalUrl": "#"
+                      }
+                    },
+                    {
+                      "id": 33,
+                      "name": "newKey",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Key to re-encrypt under (the version being rotated to)."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "envelope.ts",
+                          "line": 153,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.dom.d.ts",
+                          "qualifiedName": "CryptoKey"
+                        },
+                        "name": "CryptoKey",
+                        "package": "typescript",
+                        "externalUrl": "#"
+                      }
+                    },
+                    {
+                      "id": 35,
+                      "name": "nonce",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "The 12-byte IV that matches "
+                          },
+                          {
+                            "kind": "code",
+                            "text": "`ciphertext`"
+                          },
+                          {
+                            "kind": "text",
+                            "text": "."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "envelope.ts",
+                          "line": 157,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.es5.d.ts",
+                          "qualifiedName": "Uint8Array"
+                        },
+                        "name": "Uint8Array",
+                        "package": "typescript",
+                        "externalUrl": "#"
+                      }
+                    },
+                    {
+                      "id": 36,
+                      "name": "oldAad",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {
+                        "isOptional": true
+                      },
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "AAD bound under "
+                          },
+                          {
+                            "kind": "code",
+                            "text": "`oldKey`"
+                          },
+                          {
+                            "kind": "text",
+                            "text": ", if any. Must match or decryption fails."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "envelope.ts",
+                          "line": 159,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.es5.d.ts",
+                          "qualifiedName": "Uint8Array"
+                        },
+                        "typeArguments": [
+                          {
+                            "type": "reference",
+                            "target": {
+                              "packageName": "typescript",
+                              "packagePath": "lib/lib.es5.d.ts",
+                              "qualifiedName": "ArrayBufferLike"
+                            },
+                            "name": "ArrayBufferLike",
+                            "package": "typescript",
+                            "externalUrl": "#"
+                          }
+                        ],
+                        "name": "Uint8Array",
+                        "package": "typescript",
+                        "externalUrl": "#"
+                      }
+                    },
+                    {
+                      "id": 32,
+                      "name": "oldKey",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "comment": {
+                        "summary": [
+                          {
+                            "kind": "text",
+                            "text": "Key the envelope was encrypted under (the version being retired)."
+                          }
+                        ]
+                      },
+                      "sources": [
+                        {
+                          "fileName": "envelope.ts",
+                          "line": 151,
+                          "character": 2
+                        }
+                      ],
+                      "type": {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.dom.d.ts",
+                          "qualifiedName": "CryptoKey"
+                        },
+                        "name": "CryptoKey",
+                        "package": "typescript",
+                        "externalUrl": "#"
+                      }
+                    }
+                  ],
+                  "groups": [
+                    {
+                      "title": "Properties",
+                      "children": [
+                        34,
+                        37,
+                        33,
+                        35,
+                        36,
+                        32
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.es5.d.ts",
+              "qualifiedName": "Promise"
+            },
+            "typeArguments": [
+              {
+                "type": "reflection",
+                "declaration": {
+                  "id": 38,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "children": [
+                    {
+                      "id": 39,
+                      "name": "ciphertext",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "sources": [
+                        {
+                          "fileName": "envelope.ts",
+                          "line": 162,
+                          "character": 14
+                        }
+                      ],
+                      "type": {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.es5.d.ts",
+                          "qualifiedName": "Uint8Array"
+                        },
+                        "name": "Uint8Array",
+                        "package": "typescript",
+                        "externalUrl": "#"
+                      }
+                    },
+                    {
+                      "id": 40,
+                      "name": "nonce",
+                      "variant": "declaration",
+                      "kind": 1024,
+                      "flags": {},
+                      "sources": [
+                        {
+                          "fileName": "envelope.ts",
+                          "line": 162,
+                          "character": 38
+                        }
+                      ],
+                      "type": {
+                        "type": "reference",
+                        "target": {
+                          "packageName": "typescript",
+                          "packagePath": "lib/lib.es5.d.ts",
+                          "qualifiedName": "Uint8Array"
+                        },
+                        "name": "Uint8Array",
+                        "package": "typescript",
+                        "externalUrl": "#"
+                      }
+                    }
+                  ],
+                  "groups": [
+                    {
+                      "title": "Properties",
+                      "children": [
+                        39,
+                        40
+                      ]
+                    }
+                  ]
+                }
+              }
+            ],
+            "name": "Promise",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        }
+      ]
     }
   ],
   "groups": [
     {
       "title": "Classes",
       "children": [
-        42,
-        34,
-        38
+        55,
+        47,
+        51
       ]
     },
     {
@@ -1451,6 +1946,7 @@
         20,
         1,
         10,
+        41,
         28
       ]
     }
@@ -1600,90 +2096,155 @@
     },
     "28": {
       "packageName": "@valve-tech/wallet-crypto",
-      "packagePath": "src/messages.ts",
-      "qualifiedName": "formatKeyDerivationMessage"
+      "packagePath": "src/envelope.ts",
+      "qualifiedName": "rotateEnvelope"
     },
     "29": {
       "packageName": "@valve-tech/wallet-crypto",
-      "packagePath": "src/messages.ts",
-      "qualifiedName": "formatKeyDerivationMessage"
+      "packagePath": "src/envelope.ts",
+      "qualifiedName": "rotateEnvelope"
     },
     "30": {
       "packageName": "@valve-tech/wallet-crypto",
-      "packagePath": "src/messages.ts",
+      "packagePath": "src/envelope.ts",
       "qualifiedName": "opts"
     },
     "31": {
       "packageName": "@valve-tech/wallet-crypto",
-      "packagePath": "src/messages.ts",
+      "packagePath": "src/envelope.ts",
       "qualifiedName": "__type"
     },
     "32": {
       "packageName": "@valve-tech/wallet-crypto",
+      "packagePath": "src/envelope.ts",
+      "qualifiedName": "__type.oldKey"
+    },
+    "33": {
+      "packageName": "@valve-tech/wallet-crypto",
+      "packagePath": "src/envelope.ts",
+      "qualifiedName": "__type.newKey"
+    },
+    "34": {
+      "packageName": "@valve-tech/wallet-crypto",
+      "packagePath": "src/envelope.ts",
+      "qualifiedName": "__type.ciphertext"
+    },
+    "35": {
+      "packageName": "@valve-tech/wallet-crypto",
+      "packagePath": "src/envelope.ts",
+      "qualifiedName": "__type.nonce"
+    },
+    "36": {
+      "packageName": "@valve-tech/wallet-crypto",
+      "packagePath": "src/envelope.ts",
+      "qualifiedName": "__type.oldAad"
+    },
+    "37": {
+      "packageName": "@valve-tech/wallet-crypto",
+      "packagePath": "src/envelope.ts",
+      "qualifiedName": "__type.newAad"
+    },
+    "38": {
+      "packageName": "@valve-tech/wallet-crypto",
+      "packagePath": "src/envelope.ts",
+      "qualifiedName": "__type"
+    },
+    "39": {
+      "packageName": "@valve-tech/wallet-crypto",
+      "packagePath": "src/envelope.ts",
+      "qualifiedName": "__type.ciphertext"
+    },
+    "40": {
+      "packageName": "@valve-tech/wallet-crypto",
+      "packagePath": "src/envelope.ts",
+      "qualifiedName": "__type.nonce"
+    },
+    "41": {
+      "packageName": "@valve-tech/wallet-crypto",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "formatKeyDerivationMessage"
+    },
+    "42": {
+      "packageName": "@valve-tech/wallet-crypto",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "formatKeyDerivationMessage"
+    },
+    "43": {
+      "packageName": "@valve-tech/wallet-crypto",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "opts"
+    },
+    "44": {
+      "packageName": "@valve-tech/wallet-crypto",
+      "packagePath": "src/messages.ts",
+      "qualifiedName": "__type"
+    },
+    "45": {
+      "packageName": "@valve-tech/wallet-crypto",
       "packagePath": "src/messages.ts",
       "qualifiedName": "__type.purpose"
     },
-    "33": {
+    "46": {
       "packageName": "@valve-tech/wallet-crypto",
       "packagePath": "src/messages.ts",
       "qualifiedName": "__type.version"
     },
-    "34": {
+    "47": {
       "packageName": "@valve-tech/wallet-crypto",
       "packagePath": "src/errors.ts",
       "qualifiedName": "WalletDeclined"
     },
-    "35": {
+    "48": {
       "packageName": "@valve-tech/wallet-crypto",
       "packagePath": "src/errors.ts",
       "qualifiedName": "WalletDeclined.__constructor"
     },
-    "36": {
+    "49": {
       "packageName": "@valve-tech/wallet-crypto",
       "packagePath": "src/errors.ts",
       "qualifiedName": "WalletDeclined"
     },
-    "37": {
+    "50": {
       "packageName": "@valve-tech/wallet-crypto",
       "packagePath": "src/errors.ts",
       "qualifiedName": "message"
     },
-    "38": {
+    "51": {
       "packageName": "@valve-tech/wallet-crypto",
       "packagePath": "src/errors.ts",
       "qualifiedName": "WalletUnavailable"
     },
-    "39": {
+    "52": {
       "packageName": "@valve-tech/wallet-crypto",
       "packagePath": "src/errors.ts",
       "qualifiedName": "WalletUnavailable.__constructor"
     },
-    "40": {
+    "53": {
       "packageName": "@valve-tech/wallet-crypto",
       "packagePath": "src/errors.ts",
       "qualifiedName": "WalletUnavailable"
     },
-    "41": {
+    "54": {
       "packageName": "@valve-tech/wallet-crypto",
       "packagePath": "src/errors.ts",
       "qualifiedName": "message"
     },
-    "42": {
+    "55": {
       "packageName": "@valve-tech/wallet-crypto",
       "packagePath": "src/errors.ts",
       "qualifiedName": "DecryptionFailed"
     },
-    "43": {
+    "56": {
       "packageName": "@valve-tech/wallet-crypto",
       "packagePath": "src/errors.ts",
       "qualifiedName": "DecryptionFailed.__constructor"
     },
-    "44": {
+    "57": {
       "packageName": "@valve-tech/wallet-crypto",
       "packagePath": "src/errors.ts",
       "qualifiedName": "DecryptionFailed"
     },
-    "45": {
+    "58": {
       "packageName": "@valve-tech/wallet-crypto",
       "packagePath": "src/errors.ts",
       "qualifiedName": "message"

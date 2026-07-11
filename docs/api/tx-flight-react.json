@@ -671,6 +671,609 @@
       ]
     },
     {
+      "id": 111,
+      "name": "CancelInput",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Input to "
+          },
+          {
+            "kind": "code",
+            "text": "`cancel`"
+          },
+          {
+            "kind": "text",
+            "text": " — replace the stuck tx with a 0-value self-send."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 116,
+          "name": "newGas",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Bumped fees."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 73,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 118,
+            "name": "ReplacementGas",
+            "package": "@valve-tech/tx-flight-react"
+          }
+        },
+        {
+          "id": 115,
+          "name": "nonce",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The stuck transaction's nonce (the strip doesn't store it)."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 71,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 117,
+          "name": "to",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Recipient of the self-send. Defaults to "
+              },
+              {
+                "kind": "code",
+                "text": "`walletClient.account.address`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 75,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "templateLiteral",
+            "head": "0x",
+            "tail": [
+              [
+                {
+                  "type": "intrinsic",
+                  "name": "string"
+                },
+                ""
+              ]
+            ]
+          }
+        },
+        {
+          "id": 112,
+          "name": "tx",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The strip entry being replaced; its "
+              },
+              {
+                "kind": "code",
+                "text": "`id`"
+              },
+              {
+                "kind": "text",
+                "text": " is flipped to "
+              },
+              {
+                "kind": "code",
+                "text": "`replaced`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 67,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 27,
+            "name": "TrackedTx",
+            "package": "@valve-tech/wallet-adapter"
+          }
+        },
+        {
+          "id": 113,
+          "name": "walletClient",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "viem WalletClient that will sign the same-nonce replacement."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 69,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 114,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {}
+            }
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            116,
+            115,
+            117,
+            112,
+            113
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+          "line": 65,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 118,
+      "name": "ReplacementGas",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Bumped EIP-1559 fees for the replacement. Must exceed the original's."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 119,
+          "name": "maxFeePerGas",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 39,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "bigint"
+          }
+        },
+        {
+          "id": 120,
+          "name": "maxPriorityFeePerGas",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 40,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "bigint"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            119,
+            120
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+          "line": 38,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 99,
+      "name": "SpeedUpInput",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Input to "
+          },
+          {
+            "kind": "code",
+            "text": "`speedUp`"
+          },
+          {
+            "kind": "text",
+            "text": " — re-send the same call at a higher fee."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 110,
+          "name": "newGas",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Bumped fees."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 61,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 118,
+            "name": "ReplacementGas",
+            "package": "@valve-tech/tx-flight-react"
+          }
+        },
+        {
+          "id": 103,
+          "name": "original",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The original request, including its "
+              },
+              {
+                "kind": "code",
+                "text": "`nonce`"
+              },
+              {
+                "kind": "text",
+                "text": " — the strip doesn't\nstore calldata/nonce, so the caller supplies them."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 53,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 104,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "children": [
+                {
+                  "id": 109,
+                  "name": "chainId",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "sources": [
+                    {
+                      "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+                      "line": 58,
+                      "character": 4
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                },
+                {
+                  "id": 107,
+                  "name": "data",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "sources": [
+                    {
+                      "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+                      "line": 56,
+                      "character": 4
+                    }
+                  ],
+                  "type": {
+                    "type": "templateLiteral",
+                    "head": "0x",
+                    "tail": [
+                      [
+                        {
+                          "type": "intrinsic",
+                          "name": "string"
+                        },
+                        ""
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "id": 106,
+                  "name": "nonce",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {},
+                  "sources": [
+                    {
+                      "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+                      "line": 55,
+                      "character": 4
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                },
+                {
+                  "id": 105,
+                  "name": "to",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {},
+                  "sources": [
+                    {
+                      "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+                      "line": 54,
+                      "character": 4
+                    }
+                  ],
+                  "type": {
+                    "type": "templateLiteral",
+                    "head": "0x",
+                    "tail": [
+                      [
+                        {
+                          "type": "intrinsic",
+                          "name": "string"
+                        },
+                        ""
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "id": 108,
+                  "name": "value",
+                  "variant": "declaration",
+                  "kind": 1024,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "sources": [
+                    {
+                      "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+                      "line": 57,
+                      "character": 4
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "bigint"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "children": [
+                    109,
+                    107,
+                    106,
+                    105,
+                    108
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 100,
+          "name": "tx",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The strip entry being replaced; its "
+              },
+              {
+                "kind": "code",
+                "text": "`id`"
+              },
+              {
+                "kind": "text",
+                "text": " is flipped to "
+              },
+              {
+                "kind": "code",
+                "text": "`replaced`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 46,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 27,
+            "name": "TrackedTx",
+            "package": "@valve-tech/wallet-adapter"
+          }
+        },
+        {
+          "id": 101,
+          "name": "walletClient",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "viem WalletClient that will sign the same-nonce replacement."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 48,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 102,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {}
+            }
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            110,
+            103,
+            100,
+            101
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+          "line": 44,
+          "character": 17
+        }
+      ]
+    },
+    {
       "id": 27,
       "name": "TrackedTx",
       "variant": "declaration",
@@ -1170,14 +1773,14 @@
       ]
     },
     {
-      "id": 121,
+      "id": 157,
       "name": "TxFlightActionsProps",
       "variant": "declaration",
       "kind": 256,
       "flags": {},
       "children": [
         {
-          "id": 136,
+          "id": 172,
           "name": "className",
           "variant": "declaration",
           "kind": 1024,
@@ -1197,7 +1800,7 @@
           }
         },
         {
-          "id": 127,
+          "id": 163,
           "name": "onCancel",
           "variant": "declaration",
           "kind": 1024,
@@ -1208,1098 +1811,6 @@
             {
               "fileName": "tx-flight-react/src/components/actions.tsx",
               "line": 25,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reflection",
-            "declaration": {
-              "id": 128,
-              "name": "__type",
-              "variant": "declaration",
-              "kind": 65536,
-              "flags": {},
-              "signatures": [
-                {
-                  "id": 129,
-                  "name": "__type",
-                  "variant": "signature",
-                  "kind": 4096,
-                  "flags": {},
-                  "parameters": [
-                    {
-                      "id": 130,
-                      "name": "tx",
-                      "variant": "param",
-                      "kind": 32768,
-                      "flags": {},
-                      "type": {
-                        "type": "reference",
-                        "target": 27,
-                        "name": "TrackedTx",
-                        "package": "@valve-tech/wallet-adapter"
-                      }
-                    }
-                  ],
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "void"
-                  }
-                }
-              ]
-            }
-          }
-        },
-        {
-          "id": 131,
-          "name": "onDismiss",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/actions.tsx",
-              "line": 26,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reflection",
-            "declaration": {
-              "id": 132,
-              "name": "__type",
-              "variant": "declaration",
-              "kind": 65536,
-              "flags": {},
-              "signatures": [
-                {
-                  "id": 133,
-                  "name": "__type",
-                  "variant": "signature",
-                  "kind": 4096,
-                  "flags": {},
-                  "parameters": [
-                    {
-                      "id": 134,
-                      "name": "tx",
-                      "variant": "param",
-                      "kind": 32768,
-                      "flags": {},
-                      "type": {
-                        "type": "reference",
-                        "target": 27,
-                        "name": "TrackedTx",
-                        "package": "@valve-tech/wallet-adapter"
-                      }
-                    }
-                  ],
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "void"
-                  }
-                }
-              ]
-            }
-          }
-        },
-        {
-          "id": 123,
-          "name": "onSpeedUp",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/actions.tsx",
-              "line": 24,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reflection",
-            "declaration": {
-              "id": 124,
-              "name": "__type",
-              "variant": "declaration",
-              "kind": 65536,
-              "flags": {},
-              "signatures": [
-                {
-                  "id": 125,
-                  "name": "__type",
-                  "variant": "signature",
-                  "kind": 4096,
-                  "flags": {},
-                  "parameters": [
-                    {
-                      "id": 126,
-                      "name": "tx",
-                      "variant": "param",
-                      "kind": 32768,
-                      "flags": {},
-                      "type": {
-                        "type": "reference",
-                        "target": 27,
-                        "name": "TrackedTx",
-                        "package": "@valve-tech/wallet-adapter"
-                      }
-                    }
-                  ],
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "void"
-                  }
-                }
-              ]
-            }
-          }
-        },
-        {
-          "id": 135,
-          "name": "show",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "comment": {
-            "summary": [
-              {
-                "kind": "text",
-                "text": "Per-button visibility override. Default: each button is shown iff\nthe matching callback is supplied."
-              }
-            ]
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/actions.tsx",
-              "line": 31,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reference",
-            "target": 138,
-            "name": "TxFlightActionsShow",
-            "package": "@valve-tech/tx-flight-react"
-          }
-        },
-        {
-          "id": 137,
-          "name": "style",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/actions.tsx",
-              "line": 33,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reference",
-            "target": {
-              "packageName": "@types/react",
-              "packagePath": "index.d.ts",
-              "qualifiedName": "React.CSSProperties"
-            },
-            "name": "CSSProperties",
-            "package": "@types/react",
-            "qualifiedName": "React.CSSProperties"
-          }
-        },
-        {
-          "id": 122,
-          "name": "tx",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {},
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/actions.tsx",
-              "line": 23,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reference",
-            "target": 27,
-            "name": "TrackedTx",
-            "package": "@valve-tech/wallet-adapter"
-          }
-        }
-      ],
-      "groups": [
-        {
-          "title": "Properties",
-          "children": [
-            136,
-            127,
-            131,
-            123,
-            135,
-            137,
-            122
-          ]
-        }
-      ],
-      "sources": [
-        {
-          "fileName": "tx-flight-react/src/components/actions.tsx",
-          "line": 22,
-          "character": 17
-        }
-      ]
-    },
-    {
-      "id": 138,
-      "name": "TxFlightActionsShow",
-      "variant": "declaration",
-      "kind": 256,
-      "flags": {},
-      "children": [
-        {
-          "id": 140,
-          "name": "cancel",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/actions.tsx",
-              "line": 18,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "intrinsic",
-            "name": "boolean"
-          }
-        },
-        {
-          "id": 141,
-          "name": "dismiss",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/actions.tsx",
-              "line": 19,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "intrinsic",
-            "name": "boolean"
-          }
-        },
-        {
-          "id": 139,
-          "name": "speedUp",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/actions.tsx",
-              "line": 17,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "intrinsic",
-            "name": "boolean"
-          }
-        }
-      ],
-      "groups": [
-        {
-          "title": "Properties",
-          "children": [
-            140,
-            141,
-            139
-          ]
-        }
-      ],
-      "sources": [
-        {
-          "fileName": "tx-flight-react/src/components/actions.tsx",
-          "line": 16,
-          "character": 17
-        }
-      ]
-    },
-    {
-      "id": 109,
-      "name": "TxFlightAgeProps",
-      "variant": "declaration",
-      "kind": 256,
-      "flags": {},
-      "children": [
-        {
-          "id": 116,
-          "name": "className",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/age.tsx",
-              "line": 28,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "intrinsic",
-            "name": "string"
-          }
-        },
-        {
-          "id": 112,
-          "name": "format",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "comment": {
-            "summary": [
-              {
-                "kind": "text",
-                "text": "Custom relative-time formatter. Default: English."
-              }
-            ]
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/age.tsx",
-              "line": 27,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reflection",
-            "declaration": {
-              "id": 113,
-              "name": "__type",
-              "variant": "declaration",
-              "kind": 65536,
-              "flags": {},
-              "signatures": [
-                {
-                  "id": 114,
-                  "name": "__type",
-                  "variant": "signature",
-                  "kind": 4096,
-                  "flags": {},
-                  "parameters": [
-                    {
-                      "id": 115,
-                      "name": "deltaMs",
-                      "variant": "param",
-                      "kind": 32768,
-                      "flags": {},
-                      "type": {
-                        "type": "intrinsic",
-                        "name": "number"
-                      }
-                    }
-                  ],
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  }
-                }
-              ]
-            }
-          }
-        },
-        {
-          "id": 111,
-          "name": "refreshIntervalMs",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "comment": {
-            "summary": [
-              {
-                "kind": "text",
-                "text": "How often to re-render. Default: 1000ms."
-              }
-            ]
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/age.tsx",
-              "line": 25,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "intrinsic",
-            "name": "number"
-          }
-        },
-        {
-          "id": 117,
-          "name": "style",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/age.tsx",
-              "line": 29,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reference",
-            "target": {
-              "packageName": "@types/react",
-              "packagePath": "index.d.ts",
-              "qualifiedName": "React.CSSProperties"
-            },
-            "name": "CSSProperties",
-            "package": "@types/react",
-            "qualifiedName": "React.CSSProperties"
-          }
-        },
-        {
-          "id": 110,
-          "name": "submittedAt",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {},
-          "comment": {
-            "summary": [
-              {
-                "kind": "text",
-                "text": "Submission time (ms since epoch)."
-              }
-            ]
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/age.tsx",
-              "line": 23,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "intrinsic",
-            "name": "number"
-          }
-        }
-      ],
-      "groups": [
-        {
-          "title": "Properties",
-          "children": [
-            116,
-            112,
-            111,
-            117,
-            110
-          ]
-        }
-      ],
-      "sources": [
-        {
-          "fileName": "tx-flight-react/src/components/age.tsx",
-          "line": 21,
-          "character": 17
-        }
-      ]
-    },
-    {
-      "id": 96,
-      "name": "TxFlightHashLinkProps",
-      "variant": "declaration",
-      "kind": 256,
-      "flags": {},
-      "children": [
-        {
-          "id": 103,
-          "name": "className",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/hash-link.tsx",
-              "line": 26,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "intrinsic",
-            "name": "string"
-          }
-        },
-        {
-          "id": 98,
-          "name": "explorer",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "comment": {
-            "summary": [
-              {
-                "kind": "text",
-                "text": "URL builder. When omitted, the hash renders as plain text (no\nanchor) — silent graceful degradation. Provider-level default\nlives at a separate "
-              },
-              {
-                "kind": "code",
-                "text": "`defaultExplorer`"
-              },
-              {
-                "kind": "text",
-                "text": " prop (see spec §4.2)."
-              }
-            ]
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/hash-link.tsx",
-              "line": 23,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reflection",
-            "declaration": {
-              "id": 99,
-              "name": "__type",
-              "variant": "declaration",
-              "kind": 65536,
-              "flags": {},
-              "signatures": [
-                {
-                  "id": 100,
-                  "name": "__type",
-                  "variant": "signature",
-                  "kind": 4096,
-                  "flags": {},
-                  "parameters": [
-                    {
-                      "id": 101,
-                      "name": "tx",
-                      "variant": "param",
-                      "kind": 32768,
-                      "flags": {},
-                      "type": {
-                        "type": "reference",
-                        "target": 27,
-                        "name": "TrackedTx",
-                        "package": "@valve-tech/wallet-adapter"
-                      }
-                    }
-                  ],
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  }
-                }
-              ]
-            }
-          }
-        },
-        {
-          "id": 104,
-          "name": "style",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/hash-link.tsx",
-              "line": 27,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reference",
-            "target": {
-              "packageName": "@types/react",
-              "packagePath": "index.d.ts",
-              "qualifiedName": "React.CSSProperties"
-            },
-            "name": "CSSProperties",
-            "package": "@types/react",
-            "qualifiedName": "React.CSSProperties"
-          }
-        },
-        {
-          "id": 102,
-          "name": "truncate",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "comment": {
-            "summary": [
-              {
-                "kind": "text",
-                "text": "Truncation style for the displayed hash. Default: 'middle'."
-              }
-            ]
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/hash-link.tsx",
-              "line": 25,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reference",
-            "target": 105,
-            "name": "HashTruncate",
-            "package": "@valve-tech/tx-flight-react"
-          }
-        },
-        {
-          "id": 97,
-          "name": "tx",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {},
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/hash-link.tsx",
-              "line": 17,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reference",
-            "target": 27,
-            "name": "TrackedTx",
-            "package": "@valve-tech/wallet-adapter"
-          }
-        }
-      ],
-      "groups": [
-        {
-          "title": "Properties",
-          "children": [
-            103,
-            98,
-            104,
-            102,
-            97
-          ]
-        }
-      ],
-      "sources": [
-        {
-          "fileName": "tx-flight-react/src/components/hash-link.tsx",
-          "line": 16,
-          "character": 17
-        }
-      ]
-    },
-    {
-      "id": 145,
-      "name": "TxFlightItemProps",
-      "variant": "declaration",
-      "kind": 256,
-      "flags": {},
-      "children": [
-        {
-          "id": 151,
-          "name": "className",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/item.tsx",
-              "line": 32,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "intrinsic",
-            "name": "string"
-          }
-        },
-        {
-          "id": 147,
-          "name": "render",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "comment": {
-            "summary": [
-              {
-                "kind": "text",
-                "text": "Replace the default layout. Receives the four atomic primitives\npre-built — the consumer rearranges them or wraps them in their\nown markup."
-              }
-            ]
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/item.tsx",
-              "line": 31,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reflection",
-            "declaration": {
-              "id": 148,
-              "name": "__type",
-              "variant": "declaration",
-              "kind": 65536,
-              "flags": {},
-              "signatures": [
-                {
-                  "id": 149,
-                  "name": "__type",
-                  "variant": "signature",
-                  "kind": 4096,
-                  "flags": {},
-                  "parameters": [
-                    {
-                      "id": 150,
-                      "name": "parts",
-                      "variant": "param",
-                      "kind": 32768,
-                      "flags": {},
-                      "type": {
-                        "type": "reference",
-                        "target": 153,
-                        "name": "TxFlightItemRenderParts",
-                        "package": "@valve-tech/tx-flight-react"
-                      }
-                    }
-                  ],
-                  "type": {
-                    "type": "reference",
-                    "target": {
-                      "packageName": "@types/react",
-                      "packagePath": "index.d.ts",
-                      "qualifiedName": "React.ReactNode"
-                    },
-                    "name": "ReactNode",
-                    "package": "@types/react",
-                    "qualifiedName": "React.ReactNode"
-                  }
-                }
-              ]
-            }
-          }
-        },
-        {
-          "id": 152,
-          "name": "style",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/item.tsx",
-              "line": 33,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reference",
-            "target": {
-              "packageName": "@types/react",
-              "packagePath": "index.d.ts",
-              "qualifiedName": "React.CSSProperties"
-            },
-            "name": "CSSProperties",
-            "package": "@types/react",
-            "qualifiedName": "React.CSSProperties"
-          }
-        },
-        {
-          "id": 146,
-          "name": "tx",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {},
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/item.tsx",
-              "line": 25,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reference",
-            "target": 27,
-            "name": "TrackedTx",
-            "package": "@valve-tech/wallet-adapter"
-          }
-        }
-      ],
-      "groups": [
-        {
-          "title": "Properties",
-          "children": [
-            151,
-            147,
-            152,
-            146
-          ]
-        }
-      ],
-      "sources": [
-        {
-          "fileName": "tx-flight-react/src/components/item.tsx",
-          "line": 24,
-          "character": 17
-        }
-      ]
-    },
-    {
-      "id": 153,
-      "name": "TxFlightItemRenderParts",
-      "variant": "declaration",
-      "kind": 256,
-      "flags": {},
-      "children": [
-        {
-          "id": 157,
-          "name": "actions",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {},
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/item.tsx",
-              "line": 21,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reference",
-            "target": {
-              "packageName": "@types/react",
-              "packagePath": "index.d.ts",
-              "qualifiedName": "React.ReactNode"
-            },
-            "name": "ReactNode",
-            "package": "@types/react",
-            "qualifiedName": "React.ReactNode"
-          }
-        },
-        {
-          "id": 156,
-          "name": "age",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {},
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/item.tsx",
-              "line": 20,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reference",
-            "target": {
-              "packageName": "@types/react",
-              "packagePath": "index.d.ts",
-              "qualifiedName": "React.ReactNode"
-            },
-            "name": "ReactNode",
-            "package": "@types/react",
-            "qualifiedName": "React.ReactNode"
-          }
-        },
-        {
-          "id": 155,
-          "name": "hash",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {},
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/item.tsx",
-              "line": 19,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reference",
-            "target": {
-              "packageName": "@types/react",
-              "packagePath": "index.d.ts",
-              "qualifiedName": "React.ReactNode"
-            },
-            "name": "ReactNode",
-            "package": "@types/react",
-            "qualifiedName": "React.ReactNode"
-          }
-        },
-        {
-          "id": 154,
-          "name": "icon",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {},
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/item.tsx",
-              "line": 18,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reference",
-            "target": {
-              "packageName": "@types/react",
-              "packagePath": "index.d.ts",
-              "qualifiedName": "React.ReactNode"
-            },
-            "name": "ReactNode",
-            "package": "@types/react",
-            "qualifiedName": "React.ReactNode"
-          }
-        }
-      ],
-      "groups": [
-        {
-          "title": "Properties",
-          "children": [
-            157,
-            156,
-            155,
-            154
-          ]
-        }
-      ],
-      "sources": [
-        {
-          "fileName": "tx-flight-react/src/components/item.tsx",
-          "line": 17,
-          "character": 17
-        }
-      ]
-    },
-    {
-      "id": 161,
-      "name": "TxFlightListProps",
-      "variant": "declaration",
-      "kind": 256,
-      "flags": {},
-      "children": [
-        {
-          "id": 177,
-          "name": "className",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/list.tsx",
-              "line": 31,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "intrinsic",
-            "name": "string"
-          }
-        },
-        {
-          "id": 176,
-          "name": "empty",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "comment": {
-            "summary": [
-              {
-                "kind": "text",
-                "text": "Shown when the visible set is empty."
-              }
-            ]
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/list.tsx",
-              "line": 30,
-              "character": 2
-            }
-          ],
-          "type": {
-            "type": "reference",
-            "target": {
-              "packageName": "@types/react",
-              "packagePath": "index.d.ts",
-              "qualifiedName": "React.ReactNode"
-            },
-            "name": "ReactNode",
-            "package": "@types/react",
-            "qualifiedName": "React.ReactNode"
-          }
-        },
-        {
-          "id": 163,
-          "name": "filter",
-          "variant": "declaration",
-          "kind": 1024,
-          "flags": {
-            "isOptional": true
-          },
-          "comment": {
-            "summary": [
-              {
-                "kind": "text",
-                "text": "Filter predicate. Default: include all."
-              }
-            ]
-          },
-          "sources": [
-            {
-              "fileName": "tx-flight-react/src/components/list.tsx",
-              "line": 24,
               "character": 2
             }
           ],
@@ -2335,6 +1846,1098 @@
                   ],
                   "type": {
                     "type": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 167,
+          "name": "onDismiss",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/actions.tsx",
+              "line": 26,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 168,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 169,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 170,
+                      "name": "tx",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "reference",
+                        "target": 27,
+                        "name": "TrackedTx",
+                        "package": "@valve-tech/wallet-adapter"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 159,
+          "name": "onSpeedUp",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/actions.tsx",
+              "line": 24,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 160,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 161,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 162,
+                      "name": "tx",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "reference",
+                        "target": 27,
+                        "name": "TrackedTx",
+                        "package": "@valve-tech/wallet-adapter"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 171,
+          "name": "show",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Per-button visibility override. Default: each button is shown iff\nthe matching callback is supplied."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/actions.tsx",
+              "line": 31,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 174,
+            "name": "TxFlightActionsShow",
+            "package": "@valve-tech/tx-flight-react"
+          }
+        },
+        {
+          "id": 173,
+          "name": "style",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/actions.tsx",
+              "line": 33,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@types/react",
+              "packagePath": "index.d.ts",
+              "qualifiedName": "React.CSSProperties"
+            },
+            "name": "CSSProperties",
+            "package": "@types/react",
+            "qualifiedName": "React.CSSProperties"
+          }
+        },
+        {
+          "id": 158,
+          "name": "tx",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/actions.tsx",
+              "line": 23,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 27,
+            "name": "TrackedTx",
+            "package": "@valve-tech/wallet-adapter"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            172,
+            163,
+            167,
+            159,
+            171,
+            173,
+            158
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "tx-flight-react/src/components/actions.tsx",
+          "line": 22,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 174,
+      "name": "TxFlightActionsShow",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "children": [
+        {
+          "id": 176,
+          "name": "cancel",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/actions.tsx",
+              "line": 18,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 177,
+          "name": "dismiss",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/actions.tsx",
+              "line": 19,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 175,
+          "name": "speedUp",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/actions.tsx",
+              "line": 17,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            176,
+            177,
+            175
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "tx-flight-react/src/components/actions.tsx",
+          "line": 16,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 145,
+      "name": "TxFlightAgeProps",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "children": [
+        {
+          "id": 152,
+          "name": "className",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/age.tsx",
+              "line": 28,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 148,
+          "name": "format",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Custom relative-time formatter. Default: English."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/age.tsx",
+              "line": 27,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 149,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 150,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 151,
+                      "name": "deltaMs",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "number"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 147,
+          "name": "refreshIntervalMs",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "How often to re-render. Default: 1000ms."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/age.tsx",
+              "line": 25,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 153,
+          "name": "style",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/age.tsx",
+              "line": 29,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@types/react",
+              "packagePath": "index.d.ts",
+              "qualifiedName": "React.CSSProperties"
+            },
+            "name": "CSSProperties",
+            "package": "@types/react",
+            "qualifiedName": "React.CSSProperties"
+          }
+        },
+        {
+          "id": 146,
+          "name": "submittedAt",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Submission time (ms since epoch)."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/age.tsx",
+              "line": 23,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            152,
+            148,
+            147,
+            153,
+            146
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "tx-flight-react/src/components/age.tsx",
+          "line": 21,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 132,
+      "name": "TxFlightHashLinkProps",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "children": [
+        {
+          "id": 139,
+          "name": "className",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/hash-link.tsx",
+              "line": 26,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 134,
+          "name": "explorer",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "URL builder. When omitted, the hash renders as plain text (no\nanchor) — silent graceful degradation. Provider-level default\nlives at a separate "
+              },
+              {
+                "kind": "code",
+                "text": "`defaultExplorer`"
+              },
+              {
+                "kind": "text",
+                "text": " prop (see spec §4.2)."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/hash-link.tsx",
+              "line": 23,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 135,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 136,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 137,
+                      "name": "tx",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "reference",
+                        "target": 27,
+                        "name": "TrackedTx",
+                        "package": "@valve-tech/wallet-adapter"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 140,
+          "name": "style",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/hash-link.tsx",
+              "line": 27,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@types/react",
+              "packagePath": "index.d.ts",
+              "qualifiedName": "React.CSSProperties"
+            },
+            "name": "CSSProperties",
+            "package": "@types/react",
+            "qualifiedName": "React.CSSProperties"
+          }
+        },
+        {
+          "id": 138,
+          "name": "truncate",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Truncation style for the displayed hash. Default: 'middle'."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/hash-link.tsx",
+              "line": 25,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 141,
+            "name": "HashTruncate",
+            "package": "@valve-tech/tx-flight-react"
+          }
+        },
+        {
+          "id": 133,
+          "name": "tx",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/hash-link.tsx",
+              "line": 17,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 27,
+            "name": "TrackedTx",
+            "package": "@valve-tech/wallet-adapter"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            139,
+            134,
+            140,
+            138,
+            133
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "tx-flight-react/src/components/hash-link.tsx",
+          "line": 16,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 181,
+      "name": "TxFlightItemProps",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "children": [
+        {
+          "id": 187,
+          "name": "className",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/item.tsx",
+              "line": 32,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 183,
+          "name": "render",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Replace the default layout. Receives the four atomic primitives\npre-built — the consumer rearranges them or wraps them in their\nown markup."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/item.tsx",
+              "line": 31,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 184,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 185,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 186,
+                      "name": "parts",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "reference",
+                        "target": 189,
+                        "name": "TxFlightItemRenderParts",
+                        "package": "@valve-tech/tx-flight-react"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "@types/react",
+                      "packagePath": "index.d.ts",
+                      "qualifiedName": "React.ReactNode"
+                    },
+                    "name": "ReactNode",
+                    "package": "@types/react",
+                    "qualifiedName": "React.ReactNode"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 188,
+          "name": "style",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/item.tsx",
+              "line": 33,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@types/react",
+              "packagePath": "index.d.ts",
+              "qualifiedName": "React.CSSProperties"
+            },
+            "name": "CSSProperties",
+            "package": "@types/react",
+            "qualifiedName": "React.CSSProperties"
+          }
+        },
+        {
+          "id": 182,
+          "name": "tx",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/item.tsx",
+              "line": 25,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 27,
+            "name": "TrackedTx",
+            "package": "@valve-tech/wallet-adapter"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            187,
+            183,
+            188,
+            182
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "tx-flight-react/src/components/item.tsx",
+          "line": 24,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 189,
+      "name": "TxFlightItemRenderParts",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "children": [
+        {
+          "id": 193,
+          "name": "actions",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/item.tsx",
+              "line": 21,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@types/react",
+              "packagePath": "index.d.ts",
+              "qualifiedName": "React.ReactNode"
+            },
+            "name": "ReactNode",
+            "package": "@types/react",
+            "qualifiedName": "React.ReactNode"
+          }
+        },
+        {
+          "id": 192,
+          "name": "age",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/item.tsx",
+              "line": 20,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@types/react",
+              "packagePath": "index.d.ts",
+              "qualifiedName": "React.ReactNode"
+            },
+            "name": "ReactNode",
+            "package": "@types/react",
+            "qualifiedName": "React.ReactNode"
+          }
+        },
+        {
+          "id": 191,
+          "name": "hash",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/item.tsx",
+              "line": 19,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@types/react",
+              "packagePath": "index.d.ts",
+              "qualifiedName": "React.ReactNode"
+            },
+            "name": "ReactNode",
+            "package": "@types/react",
+            "qualifiedName": "React.ReactNode"
+          }
+        },
+        {
+          "id": 190,
+          "name": "icon",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/item.tsx",
+              "line": 18,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@types/react",
+              "packagePath": "index.d.ts",
+              "qualifiedName": "React.ReactNode"
+            },
+            "name": "ReactNode",
+            "package": "@types/react",
+            "qualifiedName": "React.ReactNode"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            193,
+            192,
+            191,
+            190
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "tx-flight-react/src/components/item.tsx",
+          "line": 17,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 197,
+      "name": "TxFlightListProps",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "children": [
+        {
+          "id": 213,
+          "name": "className",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/list.tsx",
+              "line": 31,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 212,
+          "name": "empty",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Shown when the visible set is empty."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/list.tsx",
+              "line": 30,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@types/react",
+              "packagePath": "index.d.ts",
+              "qualifiedName": "React.ReactNode"
+            },
+            "name": "ReactNode",
+            "package": "@types/react",
+            "qualifiedName": "React.ReactNode"
+          }
+        },
+        {
+          "id": 199,
+          "name": "filter",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Filter predicate. Default: include all."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/components/list.tsx",
+              "line": 24,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 200,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 201,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 202,
+                      "name": "tx",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "reference",
+                        "target": 27,
+                        "name": "TrackedTx",
+                        "package": "@valve-tech/wallet-adapter"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
                     "name": "boolean"
                   }
                 }
@@ -2343,7 +2946,7 @@
           }
         },
         {
-          "id": 162,
+          "id": 198,
           "name": "id",
           "variant": "declaration",
           "kind": 1024,
@@ -2371,7 +2974,7 @@
           }
         },
         {
-          "id": 172,
+          "id": 208,
           "name": "render",
           "variant": "declaration",
           "kind": 1024,
@@ -2404,21 +3007,21 @@
           "type": {
             "type": "reflection",
             "declaration": {
-              "id": 173,
+              "id": 209,
               "name": "__type",
               "variant": "declaration",
               "kind": 65536,
               "flags": {},
               "signatures": [
                 {
-                  "id": 174,
+                  "id": 210,
                   "name": "__type",
                   "variant": "signature",
                   "kind": 4096,
                   "flags": {},
                   "parameters": [
                     {
-                      "id": 175,
+                      "id": 211,
                       "name": "tx",
                       "variant": "param",
                       "kind": 32768,
@@ -2448,7 +3051,7 @@
           }
         },
         {
-          "id": 167,
+          "id": 203,
           "name": "sort",
           "variant": "declaration",
           "kind": 1024,
@@ -2481,21 +3084,21 @@
           "type": {
             "type": "reflection",
             "declaration": {
-              "id": 168,
+              "id": 204,
               "name": "__type",
               "variant": "declaration",
               "kind": 65536,
               "flags": {},
               "signatures": [
                 {
-                  "id": 169,
+                  "id": 205,
                   "name": "__type",
                   "variant": "signature",
                   "kind": 4096,
                   "flags": {},
                   "parameters": [
                     {
-                      "id": 170,
+                      "id": 206,
                       "name": "a",
                       "variant": "param",
                       "kind": 32768,
@@ -2508,7 +3111,7 @@
                       }
                     },
                     {
-                      "id": 171,
+                      "id": 207,
                       "name": "b",
                       "variant": "param",
                       "kind": 32768,
@@ -2531,7 +3134,7 @@
           }
         },
         {
-          "id": 178,
+          "id": 214,
           "name": "style",
           "variant": "declaration",
           "kind": 1024,
@@ -2562,13 +3165,13 @@
         {
           "title": "Properties",
           "children": [
-            177,
-            176,
-            163,
-            162,
-            172,
-            167,
-            178
+            213,
+            212,
+            199,
+            198,
+            208,
+            203,
+            214
           ]
         }
       ],
@@ -2928,14 +3531,14 @@
       ]
     },
     {
-      "id": 88,
+      "id": 124,
       "name": "TxFlightStatusIconProps",
       "variant": "declaration",
       "kind": 256,
       "flags": {},
       "children": [
         {
-          "id": 91,
+          "id": 127,
           "name": "className",
           "variant": "declaration",
           "kind": 1024,
@@ -2955,7 +3558,7 @@
           }
         },
         {
-          "id": 90,
+          "id": 126,
           "name": "size",
           "variant": "declaration",
           "kind": 1024,
@@ -2983,7 +3586,7 @@
           }
         },
         {
-          "id": 89,
+          "id": 125,
           "name": "status",
           "variant": "declaration",
           "kind": 1024,
@@ -3007,7 +3610,7 @@
           }
         },
         {
-          "id": 92,
+          "id": 128,
           "name": "style",
           "variant": "declaration",
           "kind": 1024,
@@ -3038,10 +3641,10 @@
         {
           "title": "Properties",
           "children": [
-            91,
-            90,
-            89,
-            92
+            127,
+            126,
+            125,
+            128
           ]
         }
       ],
@@ -3280,6 +3883,273 @@
         {
           "fileName": "tx-flight-react/src/types.ts",
           "line": 121,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 88,
+      "name": "UseReplaceTransactionReturn",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "children": [
+        {
+          "id": 93,
+          "name": "cancel",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Replace the stuck tx with a 0-value self-send at a higher fee."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 82,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 94,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 95,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 96,
+                      "name": "input",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "reference",
+                        "target": 111,
+                        "name": "CancelInput",
+                        "package": "@valve-tech/tx-flight-react"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.es5.d.ts",
+                      "qualifiedName": "Promise"
+                    },
+                    "typeArguments": [
+                      {
+                        "type": "templateLiteral",
+                        "head": "0x",
+                        "tail": [
+                          [
+                            {
+                              "type": "intrinsic",
+                              "name": "string"
+                            },
+                            ""
+                          ]
+                        ]
+                      }
+                    ],
+                    "name": "Promise",
+                    "package": "typescript",
+                    "externalUrl": "#"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 98,
+          "name": "error",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The last replacement error, or "
+              },
+              {
+                "kind": "code",
+                "text": "`null`"
+              },
+              {
+                "kind": "text",
+                "text": ". Cleared when a new one starts."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 86,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "union",
+            "types": [
+              {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Error"
+                },
+                "name": "Error",
+                "package": "typescript",
+                "externalUrl": "#"
+              },
+              {
+                "type": "literal",
+                "value": null
+              }
+            ]
+          }
+        },
+        {
+          "id": 97,
+          "name": "isReplacing",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "True while a replacement is in flight."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 84,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 89,
+          "name": "speedUp",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Re-send the original call at a higher fee. Resolves to the new hash."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 80,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 90,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 91,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 92,
+                      "name": "input",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "reference",
+                        "target": 99,
+                        "name": "SpeedUpInput",
+                        "package": "@valve-tech/tx-flight-react"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.es5.d.ts",
+                      "qualifiedName": "Promise"
+                    },
+                    "typeArguments": [
+                      {
+                        "type": "templateLiteral",
+                        "head": "0x",
+                        "tail": [
+                          [
+                            {
+                              "type": "intrinsic",
+                              "name": "string"
+                            },
+                            ""
+                          ]
+                        ]
+                      }
+                    ],
+                    "name": "Promise",
+                    "package": "typescript",
+                    "externalUrl": "#"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            93,
+            98,
+            97,
+            89
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+          "line": 78,
           "character": 17
         }
       ]
@@ -3745,7 +4615,7 @@
       ]
     },
     {
-      "id": 105,
+      "id": 141,
       "name": "HashTruncate",
       "variant": "declaration",
       "kind": 2097152,
@@ -3832,7 +4702,7 @@
       }
     },
     {
-      "id": 118,
+      "id": 154,
       "name": "TxFlightActions",
       "variant": "declaration",
       "kind": 64,
@@ -3846,7 +4716,7 @@
       ],
       "signatures": [
         {
-          "id": 119,
+          "id": 155,
           "name": "TxFlightActions",
           "variant": "signature",
           "kind": 4096,
@@ -3860,14 +4730,14 @@
           ],
           "parameters": [
             {
-              "id": 120,
+              "id": 156,
               "name": "__namedParameters",
               "variant": "param",
               "kind": 32768,
               "flags": {},
               "type": {
                 "type": "reference",
-                "target": 121,
+                "target": 157,
                 "name": "TxFlightActionsProps",
                 "package": "@valve-tech/tx-flight-react"
               }
@@ -3888,7 +4758,7 @@
       ]
     },
     {
-      "id": 106,
+      "id": 142,
       "name": "TxFlightAge",
       "variant": "declaration",
       "kind": 64,
@@ -3902,7 +4772,7 @@
       ],
       "signatures": [
         {
-          "id": 107,
+          "id": 143,
           "name": "TxFlightAge",
           "variant": "signature",
           "kind": 4096,
@@ -3916,14 +4786,14 @@
           ],
           "parameters": [
             {
-              "id": 108,
+              "id": 144,
               "name": "__namedParameters",
               "variant": "param",
               "kind": 32768,
               "flags": {},
               "type": {
                 "type": "reference",
-                "target": 109,
+                "target": 145,
                 "name": "TxFlightAgeProps",
                 "package": "@valve-tech/tx-flight-react"
               }
@@ -3944,7 +4814,7 @@
       ]
     },
     {
-      "id": 93,
+      "id": 129,
       "name": "TxFlightHashLink",
       "variant": "declaration",
       "kind": 64,
@@ -3958,7 +4828,7 @@
       ],
       "signatures": [
         {
-          "id": 94,
+          "id": 130,
           "name": "TxFlightHashLink",
           "variant": "signature",
           "kind": 4096,
@@ -3972,14 +4842,14 @@
           ],
           "parameters": [
             {
-              "id": 95,
+              "id": 131,
               "name": "__namedParameters",
               "variant": "param",
               "kind": 32768,
               "flags": {},
               "type": {
                 "type": "reference",
-                "target": 96,
+                "target": 132,
                 "name": "TxFlightHashLinkProps",
                 "package": "@valve-tech/tx-flight-react"
               }
@@ -4000,7 +4870,7 @@
       ]
     },
     {
-      "id": 142,
+      "id": 178,
       "name": "TxFlightItem",
       "variant": "declaration",
       "kind": 64,
@@ -4014,7 +4884,7 @@
       ],
       "signatures": [
         {
-          "id": 143,
+          "id": 179,
           "name": "TxFlightItem",
           "variant": "signature",
           "kind": 4096,
@@ -4028,14 +4898,14 @@
           ],
           "parameters": [
             {
-              "id": 144,
+              "id": 180,
               "name": "__namedParameters",
               "variant": "param",
               "kind": 32768,
               "flags": {},
               "type": {
                 "type": "reference",
-                "target": 145,
+                "target": 181,
                 "name": "TxFlightItemProps",
                 "package": "@valve-tech/tx-flight-react"
               }
@@ -4056,7 +4926,7 @@
       ]
     },
     {
-      "id": 158,
+      "id": 194,
       "name": "TxFlightList",
       "variant": "declaration",
       "kind": 64,
@@ -4070,7 +4940,7 @@
       ],
       "signatures": [
         {
-          "id": 159,
+          "id": 195,
           "name": "TxFlightList",
           "variant": "signature",
           "kind": 4096,
@@ -4084,14 +4954,14 @@
           ],
           "parameters": [
             {
-              "id": 160,
+              "id": 196,
               "name": "__namedParameters",
               "variant": "param",
               "kind": 32768,
               "flags": {},
               "type": {
                 "type": "reference",
-                "target": 161,
+                "target": 197,
                 "name": "TxFlightListProps",
                 "package": "@valve-tech/tx-flight-react"
               }
@@ -4168,7 +5038,7 @@
       ]
     },
     {
-      "id": 85,
+      "id": 121,
       "name": "TxFlightStatusIcon",
       "variant": "declaration",
       "kind": 64,
@@ -4182,7 +5052,7 @@
       ],
       "signatures": [
         {
-          "id": 86,
+          "id": 122,
           "name": "TxFlightStatusIcon",
           "variant": "signature",
           "kind": 4096,
@@ -4196,14 +5066,14 @@
           ],
           "parameters": [
             {
-              "id": 87,
+              "id": 123,
               "name": "__namedParameters",
               "variant": "param",
               "kind": 32768,
               "flags": {},
               "type": {
                 "type": "reference",
-                "target": 88,
+                "target": 124,
                 "name": "TxFlightStatusIconProps",
                 "package": "@valve-tech/tx-flight-react"
               }
@@ -4219,6 +5089,94 @@
             "name": "ReactNode",
             "package": "@types/react",
             "qualifiedName": "React.ReactNode"
+          }
+        }
+      ]
+    },
+    {
+      "id": 85,
+      "name": "useReplaceTransaction",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+          "line": 106,
+          "character": 13
+        }
+      ],
+      "signatures": [
+        {
+          "id": 86,
+          "name": "useReplaceTransaction",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Speed-up / cancel affordances for a Provider's strip.\n\nResolves the store id the same way "
+              },
+              {
+                "kind": "inline-tag",
+                "tag": "@link",
+                "text": "useTxFlight",
+                "target": 57
+              },
+              {
+                "kind": "text",
+                "text": " does (explicit\narg → ambient Provider → "
+              },
+              {
+                "kind": "code",
+                "text": "`'default'`"
+              },
+              {
+                "kind": "text",
+                "text": ") and throws if no Provider is\nregistered for it."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@example",
+                "content": [
+                  {
+                    "kind": "code",
+                    "text": "```tsx\nconst { speedUp, cancel, isReplacing } = useReplaceTransaction()\n<TxFlightActions\n  tx={tx}\n  onSpeedUp={(tx) => speedUp({ tx, walletClient, original, newGas })}\n  onCancel={(tx) => cancel({ tx, walletClient, nonce: original.nonce, newGas })}\n/>\n```"
+                  }
+                ]
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "tx-flight-react/src/use-replace-transaction.ts",
+              "line": 106,
+              "character": 37
+            }
+          ],
+          "parameters": [
+            {
+              "id": 87,
+              "name": "id",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {
+                "isOptional": true
+              },
+              "type": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 88,
+            "name": "UseReplaceTransactionReturn",
+            "package": "@valve-tech/tx-flight-react"
           }
         }
       ]
@@ -4282,36 +5240,41 @@
         6,
         17,
         1,
+        111,
+        118,
+        99,
         27,
-        121,
-        138,
-        109,
-        96,
+        157,
+        174,
         145,
-        153,
-        161,
+        132,
+        181,
+        189,
+        197,
         45,
-        88,
+        124,
         19,
+        88,
         60
       ]
     },
     {
       "title": "Type Aliases",
       "children": [
-        105,
+        141,
         41
       ]
     },
     {
       "title": "Functions",
       "children": [
-        118,
-        106,
-        93,
+        154,
         142,
-        158,
+        129,
+        178,
+        194,
         42,
+        121,
         85,
         57
       ]
@@ -4747,470 +5710,650 @@
     },
     "85": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/status-icon.tsx",
-      "qualifiedName": "TxFlightStatusIcon"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "useReplaceTransaction"
     },
     "86": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/status-icon.tsx",
-      "qualifiedName": "TxFlightStatusIcon"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "useReplaceTransaction"
     },
     "87": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/status-icon.tsx",
-      "qualifiedName": "__0"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "id"
     },
     "88": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/status-icon.tsx",
-      "qualifiedName": "TxFlightStatusIconProps"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "UseReplaceTransactionReturn"
     },
     "89": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/status-icon.tsx",
-      "qualifiedName": "TxFlightStatusIconProps.status"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "UseReplaceTransactionReturn.speedUp"
     },
     "90": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/status-icon.tsx",
-      "qualifiedName": "TxFlightStatusIconProps.size"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "__type"
     },
     "91": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/status-icon.tsx",
-      "qualifiedName": "TxFlightStatusIconProps.className"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "__type"
     },
     "92": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/status-icon.tsx",
-      "qualifiedName": "TxFlightStatusIconProps.style"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "input"
     },
     "93": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/hash-link.tsx",
-      "qualifiedName": "TxFlightHashLink"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "UseReplaceTransactionReturn.cancel"
     },
     "94": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/hash-link.tsx",
-      "qualifiedName": "TxFlightHashLink"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "__type"
     },
     "95": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/hash-link.tsx",
-      "qualifiedName": "__0"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "__type"
     },
     "96": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/hash-link.tsx",
-      "qualifiedName": "TxFlightHashLinkProps"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "input"
     },
     "97": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/hash-link.tsx",
-      "qualifiedName": "TxFlightHashLinkProps.tx"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "UseReplaceTransactionReturn.isReplacing"
     },
     "98": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/hash-link.tsx",
-      "qualifiedName": "TxFlightHashLinkProps.explorer"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "UseReplaceTransactionReturn.error"
     },
     "99": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/hash-link.tsx",
-      "qualifiedName": "__type"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "SpeedUpInput"
     },
     "100": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/hash-link.tsx",
-      "qualifiedName": "__type"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "SpeedUpInput.tx"
     },
     "101": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/hash-link.tsx",
-      "qualifiedName": "tx"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "SpeedUpInput.walletClient"
     },
     "102": {
-      "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/hash-link.tsx",
-      "qualifiedName": "TxFlightHashLinkProps.truncate"
+      "packageName": "viem",
+      "packagePath": "types/utils.ts",
+      "qualifiedName": "__type"
     },
     "103": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/hash-link.tsx",
-      "qualifiedName": "TxFlightHashLinkProps.className"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "SpeedUpInput.original"
     },
     "104": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/hash-link.tsx",
-      "qualifiedName": "TxFlightHashLinkProps.style"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "__type"
     },
     "105": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/hash-link.tsx",
-      "qualifiedName": "HashTruncate"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "__type.to"
     },
     "106": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/age.tsx",
-      "qualifiedName": "TxFlightAge"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "__type.nonce"
     },
     "107": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/age.tsx",
-      "qualifiedName": "TxFlightAge"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "__type.data"
     },
     "108": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/age.tsx",
-      "qualifiedName": "__0"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "__type.value"
     },
     "109": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/age.tsx",
-      "qualifiedName": "TxFlightAgeProps"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "__type.chainId"
     },
     "110": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/age.tsx",
-      "qualifiedName": "TxFlightAgeProps.submittedAt"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "SpeedUpInput.newGas"
     },
     "111": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/age.tsx",
-      "qualifiedName": "TxFlightAgeProps.refreshIntervalMs"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "CancelInput"
     },
     "112": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/age.tsx",
-      "qualifiedName": "TxFlightAgeProps.format"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "CancelInput.tx"
     },
     "113": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/age.tsx",
-      "qualifiedName": "__type"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "CancelInput.walletClient"
     },
     "114": {
-      "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/age.tsx",
+      "packageName": "viem",
+      "packagePath": "types/utils.ts",
       "qualifiedName": "__type"
     },
     "115": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/age.tsx",
-      "qualifiedName": "deltaMs"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "CancelInput.nonce"
     },
     "116": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/age.tsx",
-      "qualifiedName": "TxFlightAgeProps.className"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "CancelInput.newGas"
     },
     "117": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/age.tsx",
-      "qualifiedName": "TxFlightAgeProps.style"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "CancelInput.to"
     },
     "118": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "TxFlightActions"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "ReplacementGas"
     },
     "119": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "TxFlightActions"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "ReplacementGas.maxFeePerGas"
     },
     "120": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "__0"
+      "packagePath": "src/use-replace-transaction.ts",
+      "qualifiedName": "ReplacementGas.maxPriorityFeePerGas"
     },
     "121": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "TxFlightActionsProps"
+      "packagePath": "src/components/status-icon.tsx",
+      "qualifiedName": "TxFlightStatusIcon"
     },
     "122": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "TxFlightActionsProps.tx"
+      "packagePath": "src/components/status-icon.tsx",
+      "qualifiedName": "TxFlightStatusIcon"
     },
     "123": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "TxFlightActionsProps.onSpeedUp"
+      "packagePath": "src/components/status-icon.tsx",
+      "qualifiedName": "__0"
     },
     "124": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "__type"
+      "packagePath": "src/components/status-icon.tsx",
+      "qualifiedName": "TxFlightStatusIconProps"
     },
     "125": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "__type"
+      "packagePath": "src/components/status-icon.tsx",
+      "qualifiedName": "TxFlightStatusIconProps.status"
     },
     "126": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "tx"
+      "packagePath": "src/components/status-icon.tsx",
+      "qualifiedName": "TxFlightStatusIconProps.size"
     },
     "127": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "TxFlightActionsProps.onCancel"
+      "packagePath": "src/components/status-icon.tsx",
+      "qualifiedName": "TxFlightStatusIconProps.className"
     },
     "128": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "__type"
+      "packagePath": "src/components/status-icon.tsx",
+      "qualifiedName": "TxFlightStatusIconProps.style"
     },
     "129": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "__type"
+      "packagePath": "src/components/hash-link.tsx",
+      "qualifiedName": "TxFlightHashLink"
     },
     "130": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "tx"
+      "packagePath": "src/components/hash-link.tsx",
+      "qualifiedName": "TxFlightHashLink"
     },
     "131": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "TxFlightActionsProps.onDismiss"
+      "packagePath": "src/components/hash-link.tsx",
+      "qualifiedName": "__0"
     },
     "132": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "__type"
+      "packagePath": "src/components/hash-link.tsx",
+      "qualifiedName": "TxFlightHashLinkProps"
     },
     "133": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "__type"
+      "packagePath": "src/components/hash-link.tsx",
+      "qualifiedName": "TxFlightHashLinkProps.tx"
     },
     "134": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "tx"
+      "packagePath": "src/components/hash-link.tsx",
+      "qualifiedName": "TxFlightHashLinkProps.explorer"
     },
     "135": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "TxFlightActionsProps.show"
+      "packagePath": "src/components/hash-link.tsx",
+      "qualifiedName": "__type"
     },
     "136": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "TxFlightActionsProps.className"
+      "packagePath": "src/components/hash-link.tsx",
+      "qualifiedName": "__type"
     },
     "137": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "TxFlightActionsProps.style"
+      "packagePath": "src/components/hash-link.tsx",
+      "qualifiedName": "tx"
     },
     "138": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "TxFlightActionsShow"
+      "packagePath": "src/components/hash-link.tsx",
+      "qualifiedName": "TxFlightHashLinkProps.truncate"
     },
     "139": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "TxFlightActionsShow.speedUp"
+      "packagePath": "src/components/hash-link.tsx",
+      "qualifiedName": "TxFlightHashLinkProps.className"
     },
     "140": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "TxFlightActionsShow.cancel"
+      "packagePath": "src/components/hash-link.tsx",
+      "qualifiedName": "TxFlightHashLinkProps.style"
     },
     "141": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/actions.tsx",
-      "qualifiedName": "TxFlightActionsShow.dismiss"
+      "packagePath": "src/components/hash-link.tsx",
+      "qualifiedName": "HashTruncate"
     },
     "142": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
-      "qualifiedName": "TxFlightItem"
+      "packagePath": "src/components/age.tsx",
+      "qualifiedName": "TxFlightAge"
     },
     "143": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
-      "qualifiedName": "TxFlightItem"
+      "packagePath": "src/components/age.tsx",
+      "qualifiedName": "TxFlightAge"
     },
     "144": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
+      "packagePath": "src/components/age.tsx",
       "qualifiedName": "__0"
     },
     "145": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
-      "qualifiedName": "TxFlightItemProps"
+      "packagePath": "src/components/age.tsx",
+      "qualifiedName": "TxFlightAgeProps"
     },
     "146": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
-      "qualifiedName": "TxFlightItemProps.tx"
+      "packagePath": "src/components/age.tsx",
+      "qualifiedName": "TxFlightAgeProps.submittedAt"
     },
     "147": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
-      "qualifiedName": "TxFlightItemProps.render"
+      "packagePath": "src/components/age.tsx",
+      "qualifiedName": "TxFlightAgeProps.refreshIntervalMs"
     },
     "148": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
-      "qualifiedName": "__type"
+      "packagePath": "src/components/age.tsx",
+      "qualifiedName": "TxFlightAgeProps.format"
     },
     "149": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
+      "packagePath": "src/components/age.tsx",
       "qualifiedName": "__type"
     },
     "150": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
-      "qualifiedName": "parts"
+      "packagePath": "src/components/age.tsx",
+      "qualifiedName": "__type"
     },
     "151": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
-      "qualifiedName": "TxFlightItemProps.className"
+      "packagePath": "src/components/age.tsx",
+      "qualifiedName": "deltaMs"
     },
     "152": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
-      "qualifiedName": "TxFlightItemProps.style"
+      "packagePath": "src/components/age.tsx",
+      "qualifiedName": "TxFlightAgeProps.className"
     },
     "153": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
-      "qualifiedName": "TxFlightItemRenderParts"
+      "packagePath": "src/components/age.tsx",
+      "qualifiedName": "TxFlightAgeProps.style"
     },
     "154": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
-      "qualifiedName": "TxFlightItemRenderParts.icon"
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "TxFlightActions"
     },
     "155": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
-      "qualifiedName": "TxFlightItemRenderParts.hash"
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "TxFlightActions"
     },
     "156": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
-      "qualifiedName": "TxFlightItemRenderParts.age"
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "__0"
     },
     "157": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/item.tsx",
-      "qualifiedName": "TxFlightItemRenderParts.actions"
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "TxFlightActionsProps"
     },
     "158": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
-      "qualifiedName": "TxFlightList"
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "TxFlightActionsProps.tx"
     },
     "159": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
-      "qualifiedName": "TxFlightList"
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "TxFlightActionsProps.onSpeedUp"
     },
     "160": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
-      "qualifiedName": "__0"
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "__type"
     },
     "161": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
-      "qualifiedName": "TxFlightListProps"
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "__type"
     },
     "162": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
-      "qualifiedName": "TxFlightListProps.id"
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "tx"
     },
     "163": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
-      "qualifiedName": "TxFlightListProps.filter"
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "TxFlightActionsProps.onCancel"
     },
     "164": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
+      "packagePath": "src/components/actions.tsx",
       "qualifiedName": "__type"
     },
     "165": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
+      "packagePath": "src/components/actions.tsx",
       "qualifiedName": "__type"
     },
     "166": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
+      "packagePath": "src/components/actions.tsx",
       "qualifiedName": "tx"
     },
     "167": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
-      "qualifiedName": "TxFlightListProps.sort"
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "TxFlightActionsProps.onDismiss"
     },
     "168": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
+      "packagePath": "src/components/actions.tsx",
       "qualifiedName": "__type"
     },
     "169": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
+      "packagePath": "src/components/actions.tsx",
       "qualifiedName": "__type"
     },
     "170": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
-      "qualifiedName": "a"
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "tx"
     },
     "171": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
-      "qualifiedName": "b"
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "TxFlightActionsProps.show"
     },
     "172": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
-      "qualifiedName": "TxFlightListProps.render"
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "TxFlightActionsProps.className"
     },
     "173": {
       "packageName": "@valve-tech/tx-flight-react",
-      "packagePath": "src/components/list.tsx",
-      "qualifiedName": "__type"
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "TxFlightActionsProps.style"
     },
     "174": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "TxFlightActionsShow"
+    },
+    "175": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "TxFlightActionsShow.speedUp"
+    },
+    "176": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "TxFlightActionsShow.cancel"
+    },
+    "177": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/actions.tsx",
+      "qualifiedName": "TxFlightActionsShow.dismiss"
+    },
+    "178": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "TxFlightItem"
+    },
+    "179": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "TxFlightItem"
+    },
+    "180": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "__0"
+    },
+    "181": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "TxFlightItemProps"
+    },
+    "182": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "TxFlightItemProps.tx"
+    },
+    "183": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "TxFlightItemProps.render"
+    },
+    "184": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "__type"
+    },
+    "185": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "__type"
+    },
+    "186": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "parts"
+    },
+    "187": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "TxFlightItemProps.className"
+    },
+    "188": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "TxFlightItemProps.style"
+    },
+    "189": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "TxFlightItemRenderParts"
+    },
+    "190": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "TxFlightItemRenderParts.icon"
+    },
+    "191": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "TxFlightItemRenderParts.hash"
+    },
+    "192": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "TxFlightItemRenderParts.age"
+    },
+    "193": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/item.tsx",
+      "qualifiedName": "TxFlightItemRenderParts.actions"
+    },
+    "194": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "TxFlightList"
+    },
+    "195": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "TxFlightList"
+    },
+    "196": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "__0"
+    },
+    "197": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "TxFlightListProps"
+    },
+    "198": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "TxFlightListProps.id"
+    },
+    "199": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "TxFlightListProps.filter"
+    },
+    "200": {
       "packageName": "@valve-tech/tx-flight-react",
       "packagePath": "src/components/list.tsx",
       "qualifiedName": "__type"
     },
-    "175": {
+    "201": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "__type"
+    },
+    "202": {
       "packageName": "@valve-tech/tx-flight-react",
       "packagePath": "src/components/list.tsx",
       "qualifiedName": "tx"
     },
-    "176": {
+    "203": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "TxFlightListProps.sort"
+    },
+    "204": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "__type"
+    },
+    "205": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "__type"
+    },
+    "206": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "a"
+    },
+    "207": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "b"
+    },
+    "208": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "TxFlightListProps.render"
+    },
+    "209": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "__type"
+    },
+    "210": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "__type"
+    },
+    "211": {
+      "packageName": "@valve-tech/tx-flight-react",
+      "packagePath": "src/components/list.tsx",
+      "qualifiedName": "tx"
+    },
+    "212": {
       "packageName": "@valve-tech/tx-flight-react",
       "packagePath": "src/components/list.tsx",
       "qualifiedName": "TxFlightListProps.empty"
     },
-    "177": {
+    "213": {
       "packageName": "@valve-tech/tx-flight-react",
       "packagePath": "src/components/list.tsx",
       "qualifiedName": "TxFlightListProps.className"
     },
-    "178": {
+    "214": {
       "packageName": "@valve-tech/tx-flight-react",
       "packagePath": "src/components/list.tsx",
       "qualifiedName": "TxFlightListProps.style"
