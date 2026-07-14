@@ -6,19 +6,38 @@ name: Release
 # `packages/*` to the same version, and this workflow publishes them
 # all from the same tag.
 #
+# Job shape:
+#   prepare  — parse the tag → version + dist-tag, emit the package list.
+#   verify   — install/build/lint/typecheck/test + assert every package
+#              is at the tag version. Gate: no publish runs unless green.
+#   publish  — matrix over the package list; each job packs + publishes
+#              ONE package with --provenance. OIDC claim (repo + this
+#              workflow file, no environment) is identical across matrix
+#              jobs, so the per-package trusted-publisher records match.
+#   smoke    — matrix over the package list; installs each package fresh
+#              from npm and asserts its advertised entry files resolve.
+#
+# Dist-tag / prereleases: a hyphenated tag (`v0.21.0-rc.1`) is treated as
+# a prerelease and published to the `next` dist-tag, so an rc can never
+# become what `npm install @valve-tech/*` picks up by default. A plain
+# `vX.Y.Z` publishes to `latest`. This makes rc tags a safe dry-run of
+# the whole release path (publish + smoke) without touching `latest`.
+#
 # No NPM_TOKEN secret required — npm verifies the GitHub OIDC claim
 # (repo + workflow path + environment) against per-package
 # trusted-publisher records maintained at
 # https://npmjs.com/settings/valve-tech/publishing.
 #
-# Trigger: push a tag matching `v*` (e.g. `v0.3.0`). Manual dispatch
-# is also enabled for one-off republishes — provide the same `vX.Y.Z`
-# value as the input.
+# Trigger: push a tag matching `v*` (e.g. `v0.3.0`). Manual dispatch is
+# also enabled for one-off republishes — provide the same `vX.Y.Z` value
+# as the input.
 #
 # First-publish note: each new package's first publish must be done
 # manually from a maintainer's machine (`npm publish --access public`)
 # to claim the npm name and configure the trusted-publisher record.
-# After that, this workflow handles every subsequent release. See
+# After that, this workflow handles every subsequent release, but the
+# package must also be added to the `PACKAGES` list in the `prepare` job
+# below (the `verify:release-coverage` gate enforces this). See
 # `.claude/skills/releasing-evm-toolkit/SKILL.md`.
 #
 # Security note: the tag name from `github.ref_name` is consumed only
@@ -38,53 +57,75 @@ on:
         type: string
 
 jobs:
-  publish:
+  prepare:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: read
+    outputs:
+      version: ${{ steps.parse.outputs.version }}
+      dist_tag: ${{ steps.parse.outputs.dist_tag }}
+      packages: ${{ steps.list.outputs.packages }}
+    steps:
+      - name: Parse tag version + dist-tag
+        id: parse
+        env:
+          TAG_NAME: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
+        run: |
+          # Tag format: v<semver>, optionally with a `-prerelease` suffix.
+          # Reject anything else so malformed tags fail fast.
+          if [[ ! "$TAG_NAME" =~ ^v([0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?)$ ]]; then
+            echo "Tag '$TAG_NAME' does not match expected 'v<semver>' format" >&2
+            exit 1
+          fi
+          version="${BASH_REMATCH[1]}"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          # A hyphenated semver (v1.2.3-rc.1) is a prerelease → publish to
+          # the `next` dist-tag so it never becomes the default install.
+          # Plain vX.Y.Z → `latest`.
+          if [[ "$version" == *-* ]]; then
+            echo "dist_tag=next" >> "$GITHUB_OUTPUT"
+            echo "→ prerelease $version: dist-tag 'next'"
+          else
+            echo "dist_tag=latest" >> "$GITHUB_OUTPUT"
+            echo "→ release $version: dist-tag 'latest'"
+          fi
 
+      - name: Emit package list
+        id: list
+        run: |
+          # Single source of truth for which packages publish. Consumed by
+          # the publish + smoke matrices via fromJSON, and asserted
+          # complete against packages/* by `verify:release-coverage`.
+          echo 'packages=["chain-source","viem-errors","wallet-adapter","gas-oracle","tx-tracker","tx-flight-react","trueblocks-sdk","wallet-key-session","siwe-store","wallet-crypto","agent-skills","unchained-reader"]' >> "$GITHUB_OUTPUT"
+
+  verify:
+    needs: prepare
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v5
         with:
           ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
 
-      - name: Parse tag version
-        id: parse
-        env:
-          TAG_NAME: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref_name }}
-        run: |
-          # Tag format: v<semver>. Reject anything else so malformed
-          # tags fail fast.
-          if [[ ! "$TAG_NAME" =~ ^v([0-9]+\.[0-9]+\.[0-9]+([.-][a-zA-Z0-9.-]+)?)$ ]]; then
-            echo "Tag '$TAG_NAME' does not match expected 'v<version>' format" >&2
-            exit 1
-          fi
-          version="${BASH_REMATCH[1]}"
-          echo "version=$version" >> "$GITHUB_OUTPUT"
-
-      # Enable corepack BEFORE setup-node@v5 so the yarn 4 shim from
-      # the project's `packageManager` field is on PATH by the time
-      # setup-node inspects package.json. See ci.yml for the full
-      # rationale.
+      # Enable corepack BEFORE setup-node@v5 so the yarn 4 shim from the
+      # project's `packageManager` field is on PATH by the time setup-node
+      # inspects package.json. See ci.yml for the full rationale.
       - name: Enable corepack
         run: corepack enable
 
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Upgrade npm to 11.5.1+
-        run: npm install -g --force npm@11.5.1
+          cache: 'yarn'
 
       - name: Install dependencies
         run: yarn install --immutable
 
       # Build first so cross-package type declarations exist on disk
       # (e.g. wallet-adapter's tsc lookup of @valve-tech/viem-errors
-      # resolves to its dist/*.d.ts via the workspace symlink). Build
-      # is workspace-topological so deps build before dependents.
+      # resolves to its dist/*.d.ts via the workspace symlink). Build is
+      # workspace-topological so deps build before dependents.
       - name: Build
         run: yarn build
 
@@ -102,11 +143,11 @@ jobs:
 
       - name: Verify all packages are at tag version
         env:
-          VERSION: ${{ steps.parse.outputs.version }}
+          VERSION: ${{ needs.prepare.outputs.version }}
         run: |
-          # Synced versioning — every publishable workspace package
-          # must match the tag's version exactly. Catches "I forgot
-          # to bump one" before any partial publish.
+          # Synced versioning — every publishable workspace package must
+          # match the tag's version exactly. Catches "I forgot to bump
+          # one" before any partial publish.
           for pkg in packages/*/; do
             name="$(basename "$pkg")"
             pkg_version="$(node -p "require('./$pkg/package.json').version")"
@@ -117,95 +158,100 @@ jobs:
             echo "✓ $name@$pkg_version"
           done
 
-      # Publish in topological order (deps before dependents — so
-      # wallet-adapter publishes after viem-errors, etc.). Each publish
-      # is gated on workspace-wide lint/typecheck/test/build above, so
-      # a broken package in any workspace blocks the entire release.
-      #
+  publish:
+    needs: [prepare, verify]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    strategy:
+      # Independent publishes — one package failing must not cancel the
+      # others. Published packages stay published; an unpublished one is
+      # retried by bumping the version (npm rejects re-publishing the same
+      # version). Mark the failed intermediate version `*unpublished*` in
+      # that package's CHANGELOG.
+      fail-fast: false
+      matrix:
+        package: ${{ fromJSON(needs.prepare.outputs.packages) }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || github.ref }}
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'yarn'
+
+      - name: Upgrade npm to 11.5.1+
+        run: npm install -g --force npm@11.5.1
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      # dist/ must exist for `yarn pack` (the `files` allowlist ships it);
+      # the packages build via `prepare: yarn build` on install only, not
+      # on pack, so build explicitly. Publish order is irrelevant: each
+      # tarball carries resolved semver ranges, and consumers install only
+      # after the whole lockstep release completes.
+      - name: Build
+        run: yarn build
+
       # `yarn pack` rewrites `workspace:^` cross-package deps to real
-      # semver ranges (`^0.4.0`) inside the tarball's package.json
-      # before `npm publish` uploads it. `npm publish` directly leaves
+      # semver ranges (`^0.4.0`) inside the tarball's package.json before
+      # `npm publish` uploads it. `npm publish` directly leaves
       # `workspace:` literally in the manifest, which npm can't resolve
-      # downstream — that breaks consumer installs. The pack-then-
-      # publish dance preserves `--provenance` on the npm side.
-      #
-      # Partial-failure recovery: if any individual publish fails, the
-      # workflow stops with a non-zero exit. Published packages stay
-      # published; unpublished ones can be retried by bumping the
-      # version (`vX.Y.Z+1`) — npm rejects re-publishing the same
-      # version. Mark the failed intermediate version as
-      # `*unpublished*` in the per-package CHANGELOG.
-
-      - name: Publish @valve-tech/chain-source
+      # downstream — that breaks consumer installs. The pack-then-publish
+      # dance preserves `--provenance` on the npm side.
+      - name: Publish ${{ matrix.package }}
+        env:
+          DIST_TAG: ${{ needs.prepare.outputs.dist_tag }}
         run: |
-          cd packages/chain-source
-          yarn pack --out=/tmp/chain-source.tgz
-          npm publish /tmp/chain-source.tgz --access public --provenance
+          cd "packages/${{ matrix.package }}"
+          yarn pack --out=/tmp/pkg.tgz
+          npm publish /tmp/pkg.tgz --access public --provenance --tag "$DIST_TAG"
 
-      - name: Publish @valve-tech/viem-errors
-        run: |
-          cd packages/viem-errors
-          yarn pack --out=/tmp/viem-errors.tgz
-          npm publish /tmp/viem-errors.tgz --access public --provenance
+  smoke:
+    needs: [prepare, publish]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJSON(needs.prepare.outputs.packages) }}
+    steps:
+      - uses: actions/checkout@v5
 
-      - name: Publish @valve-tech/wallet-adapter
-        run: |
-          cd packages/wallet-adapter
-          yarn pack --out=/tmp/wallet-adapter.tgz
-          npm publish /tmp/wallet-adapter.tgz --access public --provenance
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
 
-      - name: Publish @valve-tech/gas-oracle
+      # Install the just-published package from npm into a throwaway tree
+      # and assert every entry file its package.json advertises actually
+      # resolves — catches an `exports`/`files` mismatch that ships a
+      # tarball missing a referenced file (local build can't see it).
+      - name: Smoke-check ${{ matrix.package }}
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+          PKG: '@valve-tech/${{ matrix.package }}'
         run: |
-          cd packages/gas-oracle
-          yarn pack --out=/tmp/gas-oracle.tgz
-          npm publish /tmp/gas-oracle.tgz --access public --provenance
-
-      - name: Publish @valve-tech/tx-tracker
-        run: |
-          cd packages/tx-tracker
-          yarn pack --out=/tmp/tx-tracker.tgz
-          npm publish /tmp/tx-tracker.tgz --access public --provenance
-
-      - name: Publish @valve-tech/tx-flight-react
-        run: |
-          cd packages/tx-flight-react
-          yarn pack --out=/tmp/tx-flight-react.tgz
-          npm publish /tmp/tx-flight-react.tgz --access public --provenance
-
-      - name: Publish @valve-tech/trueblocks-sdk
-        run: |
-          cd packages/trueblocks-sdk
-          yarn pack --out=/tmp/trueblocks-sdk.tgz
-          npm publish /tmp/trueblocks-sdk.tgz --access public --provenance
-
-      - name: Publish @valve-tech/wallet-key-session
-        run: |
-          cd packages/wallet-key-session
-          yarn pack --out=/tmp/wallet-key-session.tgz
-          npm publish /tmp/wallet-key-session.tgz --access public --provenance
-
-      - name: Publish @valve-tech/siwe-store
-        run: |
-          cd packages/siwe-store
-          yarn pack --out=/tmp/siwe-store.tgz
-          npm publish /tmp/siwe-store.tgz --access public --provenance
-
-      - name: Publish @valve-tech/wallet-crypto
-        run: |
-          cd packages/wallet-crypto
-          yarn pack --out=/tmp/wallet-crypto.tgz
-          npm publish /tmp/wallet-crypto.tgz --access public --provenance
-
-      # No @valve-tech deps — a leaf dev-tool CLI, so order is free.
-      - name: Publish @valve-tech/agent-skills
-        run: |
-          cd packages/agent-skills
-          yarn pack --out=/tmp/agent-skills.tgz
-          npm publish /tmp/agent-skills.tgz --access public --provenance
-
-      # Zero runtime deps — order is free.
-      - name: Publish @valve-tech/unchained-reader
-        run: |
-          cd packages/unchained-reader
-          yarn pack --out=/tmp/unchained-reader.tgz
-          npm publish /tmp/unchained-reader.tgz --access public --provenance
+          workdir="$(mktemp -d)"
+          cd "$workdir"
+          npm init -y >/dev/null
+          # npm's registry can lag a few seconds behind a publish; retry.
+          installed=""
+          for attempt in 1 2 3 4 5 6; do
+            if npm install "$PKG@$VERSION" --no-audit --no-fund; then installed=1; break; fi
+            echo "install attempt $attempt failed (propagation lag?); retrying in 15s…"
+            sleep 15
+          done
+          if [[ -z "$installed" ]]; then
+            echo "could not install $PKG@$VERSION after retries" >&2
+            exit 1
+          fi
+          node "$GITHUB_WORKSPACE/scripts/smoke-installed-package.mjs" "node_modules/$PKG"
