@@ -18,9 +18,18 @@ on:
 
 jobs:
   test:
+    name: test (Node ${{ matrix.node }})
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    strategy:
+      # A published library is consumed across Node majors, so exercise
+      # the runtime on each supported one. The version-INDEPENDENT gates
+      # (lint, typecheck, verify:*, docs:check) run once — on the 22 leg —
+      # rather than redundantly on all three.
+      fail-fast: false
+      matrix:
+        node: ['20', '22', '24']
 
     steps:
       - uses: actions/checkout@v5
@@ -36,7 +45,8 @@ jobs:
 
       - uses: actions/setup-node@v5
         with:
-          node-version: '22'
+          node-version: ${{ matrix.node }}
+          cache: 'yarn'
 
       - name: Install dependencies
         run: yarn install --immutable
@@ -48,22 +58,29 @@ jobs:
       - name: Build
         run: yarn build
 
+      # The runtime check that actually varies by Node major runs on
+      # every leg.
+      - name: Test
+        run: yarn test
+
+      # Version-independent gates below run once, on the 22 leg only.
       - name: Lint
+        if: matrix.node == '22'
         run: yarn lint
 
       - name: Typecheck
+        if: matrix.node == '22'
         run: yarn typecheck
 
       - name: Typecheck examples
+        if: matrix.node == '22'
         run: yarn typecheck:examples
-
-      - name: Test
-        run: yarn test
 
       # Catches the v0.9.2 class of bug: a new package was added under
       # packages/ but release.yml never got a Publish step for it, so
       # the OIDC release workflow ran green and silently skipped it.
       - name: Verify release coverage
+        if: matrix.node == '22'
         run: yarn verify:release-coverage
 
       # Catches the v0.11.0 -> v0.11.1 class of bug: a new field added
@@ -73,6 +90,7 @@ jobs:
       # scripts/persisted-types.manifest.json forces the maintainer
       # to acknowledge each field addition and consider safety.
       - name: Verify persisted-type manifest
+        if: matrix.node == '22'
         run: yarn verify:persisted-types
 
       # Ensures docs/api/*.json (TypeDoc model artifacts ingested by
@@ -82,6 +100,7 @@ jobs:
       # pattern as the persisted-type manifest above. Recover with
       # `yarn docs:build` locally + commit.
       - name: Verify docs are up to date
+        if: matrix.node == '22'
         run: yarn docs:check
 
   # Browser + anvil-backed integration tests for @valve-tech/wallet-adapter
@@ -109,6 +128,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
+          cache: 'yarn'
 
       - name: Install dependencies
         run: yarn install --immutable
