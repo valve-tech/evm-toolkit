@@ -5,6 +5,13 @@ here. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.
 and this package adheres to the valve-tech/evm-toolkit synchronized
 release line.
 
+## [Unreleased]
+
+### Changed
+
+- Declared `engines.node` as `>=20`. The packages are CI-tested on Node
+  20, 22, and 24; this makes the supported range explicit for consumers.
+
 ## [0.20.0] — 2026-06-26
 
 ### Added
