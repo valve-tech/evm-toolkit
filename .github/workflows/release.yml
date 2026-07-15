@@ -227,6 +227,14 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      # Enable corepack BEFORE setup-node@v5. This job only uses npm, but
+      # setup-node inspects the checked-out package.json, sees
+      # `packageManager: yarn@4.14.1`, and invokes yarn during setup —
+      # falling back to the runner's global yarn 1 and erroring out unless
+      # corepack is already enabled. Same rationale as every other job.
+      - name: Enable corepack
+        run: corepack enable
+
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
