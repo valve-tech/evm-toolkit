@@ -1,6 +1,6 @@
 {
   "name": "@valve-tech/viem-errors",
-  "version": "0.21.0-rc.2",
+  "version": "0.21.0",
   "engines": {
     "node": ">=20"
   },

@@ -6,6 +6,50 @@ this file. Per-package details live in each `packages/*/CHANGELOG.md`.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.21.0] — 2026-07-15
+
+### Added
+
+- **`@valve-tech/wallet-crypto`** — `rotateEnvelope({ oldKey, newKey,
+  ciphertext, nonce, oldAad?, newAad? })`, the per-blob step of a key
+  rotation. Decrypts under the retired key and re-encrypts under the new
+  one in a single call, so the plaintext is never handed back and the AAD
+  tag swap is explicit. Non-destructive on mismatch (throws
+  `DecryptionFailed`, returns nothing to write). Pure and stateless — the
+  caller still owns its storage loop and "current version" flag. Closes
+  the rotation gap the package's own docs described as the caller's
+  problem.
+- **`@valve-tech/tx-flight-react`** — `useReplaceTransaction(id?)`,
+  returning `{ speedUp, cancel, isReplacing, error }`. Wraps
+  `@valve-tech/tx-tracker`'s `replaceTransaction` primitive
+  (dynamic-imported, so non-replacing consumers pay no bundle cost) and
+  flips the original strip entry to `replaced` on success — the state
+  `addWithWalletAdapter` alone never reaches. Bumped fees stay the
+  caller's concern (see `@valve-tech/gas-oracle`'s replacement helpers),
+  keeping fee strategy decoupled. Maps onto `<TxFlightActions>`'
+  `onSpeedUp` / `onCancel` slots.
+
+### Changed
+
+- **All packages** — declared `engines.node` as `>=20`. CI now exercises
+  the runtime on Node 20, 22, and 24, so the supported range is tested
+  rather than assumed, and explicit for consumers.
+
+### Notes
+
+- Release-infrastructure work landed alongside this release (not shipped
+  in any tarball): an rc / `next` prerelease lane (hyphenated tags
+  publish to the `next` dist-tag and can never clobber `latest`), the 12
+  hand-duplicated publish steps collapsed into a matrix over one
+  source-of-truth package list, `cache: 'yarn'` across CI, and a
+  post-publish smoke job that installs every package fresh from npm and
+  asserts its advertised entry points resolve.
+- That path was rehearsed end-to-end on `@next` before this release:
+  `v0.21.0-rc.1` validated the publish matrix + OIDC and surfaced a bug
+  in the new smoke job (missing `corepack enable`); `v0.21.0-rc.2`
+  confirmed the fix with all 24 publish + smoke jobs green. `latest`
+  stayed at 0.20.0 throughout both rehearsals.
+
 ## [0.20.0] — 2026-06-26
 
 ### Added
