@@ -1,6 +1,6 @@
 {
   "name": "@valve-tech/siwe-store",
-  "version": "0.20.0",
+  "version": "0.21.0-rc.1",
   "engines": {
     "node": ">=20"
   },
