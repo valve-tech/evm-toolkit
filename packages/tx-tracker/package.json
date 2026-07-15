@@ -1,6 +1,6 @@
 {
   "name": "@valve-tech/tx-tracker",
-  "version": "0.21.0-rc.1",
+  "version": "0.21.0-rc.2",
   "engines": {
     "node": ">=20"
   },

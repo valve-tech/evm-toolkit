@@ -1,7 +1,7 @@
 {
   "schemaVersion": "2.0",
   "id": 0,
-  "name": "@valve-tech/wallet-crypto v0.21.0-rc.1",
+  "name": "@valve-tech/wallet-crypto v0.21.0-rc.2",
   "variant": "project",
   "kind": 1,
   "flags": {},
@@ -1952,7 +1952,7 @@
     }
   ],
   "packageName": "@valve-tech/wallet-crypto",
-  "packageVersion": "0.21.0-rc.1",
+  "packageVersion": "0.21.0-rc.2",
   "symbolIdMap": {
     "0": {
       "packageName": "@valve-tech/wallet-crypto",
