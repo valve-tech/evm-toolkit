@@ -57,8 +57,13 @@ export const createChifraCursor = (
     counted = true
     try {
       const res = await client.list({ addrs: [address], chain: chain.chifraChain, count: true })
-      const n = (res.data?.[0] as { nRecords?: number } | undefined)?.nRecords
-      if (typeof n === 'number') total = n
+      const row = res.data?.[0] as { fileSize?: number; nRecords?: number } | undefined
+      // The TrueBlocks appearance file is a fixed 8-byte HEADER followed by 8-byte
+      // records (blockNumber uint32 + transactionIndex uint32), so the true count is
+      // floor(fileSize / 8) - 1. Prefer fileSize: `nRecords` is capped at the daemon's
+      // maxRecords (250), which silently truncates the total for large addresses.
+      if (typeof row?.fileSize === 'number') total = Math.max(0, Math.floor(row.fileSize / 8) - 1)
+      else if (typeof row?.nRecords === 'number') total = row.nRecords
     } catch {
       /* count is best-effort — we still detect the end via a short page */
     }
