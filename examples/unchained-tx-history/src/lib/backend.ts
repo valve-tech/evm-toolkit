@@ -11,22 +11,36 @@
 import { BACKEND_URL } from '../config'
 import type { QueryFailure, QueryOutcome, Scanned, StreamQuery } from './history'
 
-interface SseEvent {
+export interface SseEvent {
   event: string
   data: unknown
 }
 
-/** Parse one raw SSE block ("event: x\ndata: y") into {event, data}. */
-const parseSseBlock = (raw: string): SseEvent | null => {
+/**
+ * Parse one raw SSE block ("event: x\ndata: y") into {event, data}.
+ *
+ * Per the SSE spec, a single event may carry MULTIPLE `data:` lines that
+ * reconstruct one payload joined by newlines — this happens whenever a large
+ * JSON body (e.g. an `appearances` array) is split across frames. Bare
+ * concatenation (`data += ...`) fuses the halves with no separator, producing
+ * malformed JSON that silently fails to parse and drops the whole event — i.e.
+ * missing appearances / undercounts. We collect each `data:` value verbatim
+ * (stripping only the single optional leading space the spec allows) and join
+ * with '\n' so the payload round-trips intact.
+ */
+export const parseSseBlock = (raw: string): SseEvent | null => {
   let event = 'message'
-  let data = ''
+  const dataLines: string[] = []
   for (const line of raw.split('\n')) {
     if (line.startsWith('event:')) event = line.slice(6).trim()
-    else if (line.startsWith('data:')) data += line.slice(5).trim()
+    else if (line.startsWith('data:')) {
+      const value = line.slice(5)
+      dataLines.push(value.startsWith(' ') ? value.slice(1) : value)
+    }
   }
-  if (!data) return null
+  if (dataLines.length === 0) return null
   try {
-    return { event, data: JSON.parse(data) }
+    return { event, data: JSON.parse(dataLines.join('\n')) }
   } catch {
     return null
   }
