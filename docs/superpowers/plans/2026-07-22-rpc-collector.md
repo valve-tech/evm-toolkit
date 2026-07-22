@@ -499,12 +499,12 @@ Expected: PASS, 6 tests. (The data was generated in Step 8, so this suite valida
 
 - [ ] **Step 11: Verify the package builds**
 
-Run:
+The new workspace must be linked before it can build. Run from the repo root:
 ```bash
-yarn workspaces focus @valve-tech/rpc-collector --production=false 2>/dev/null || true
+yarn install
 yarn build
 ```
-Expected: build succeeds across all workspaces including `@valve-tech/rpc-collector`. If yarn has not yet linked the new workspace, run `yarn install` first.
+Expected: `yarn install` links `@valve-tech/rpc-collector` (no lockfile churn — the package has no dependencies), then the topological build succeeds across all workspaces including the new one.
 
 - [ ] **Step 12: Commit**
 
@@ -671,7 +671,7 @@ describe('collectRpcs', () => {
   });
 
   it('strips endpoints with unresolved template placeholders', () => {
-    for (const chainId of Object.keys({ 1: 0, 56: 0, 8453: 0 })) {
+    for (const chainId of [1, 56, 8453]) {
       const endpoints = collectRpcs({ chainId, protocol: 'any' });
       expect(endpoints.every((e) => !e.url.includes('${'))).toBe(true);
     }
@@ -1211,8 +1211,25 @@ unmeasured rather than being declared dead on no evidence."
 
 Create `packages/rpc-collector/src/viem.test.ts`:
 
+**Note on testing `rank`:** viem does not expose the `rank` option on the
+transport it returns — internally it only triggers `rankTransports`, which
+starts a polling interval. So the mode tests spy on viem's `fallback` and
+assert the config this adapter passes to it. That is precisely this adapter's
+contract: translate `mode` into viem's config. Do **not** invoke the returned
+transport in the `loadBalance` test — invoking it is what starts the ranking
+interval, which would leak a timer into the suite.
+
 ```ts
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+// Keep viem's real implementation but make `fallback` a spy, so the mode
+// tests can assert the exact config this adapter hands to viem.
+vi.mock('viem', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('viem')>();
+  return { ...actual, fallback: vi.fn(actual.fallback) };
+});
+
+import { fallback } from 'viem';
 
 import { EmptyEndpointSetError, type RpcEndpoint } from './types.js';
 import { toViemTransport } from './viem.js';
@@ -1220,6 +1237,10 @@ import { toViemTransport } from './viem.js';
 function endpoint(url: string, protocol: 'http' | 'ws' = 'http'): RpcEndpoint {
   return { url, protocol, tracking: 'none', chainId: 1 };
 }
+
+beforeEach(() => {
+  vi.mocked(fallback).mockClear();
+});
 
 describe('toViemTransport', () => {
   it('builds a fallback transport over every endpoint', () => {
@@ -1239,25 +1260,23 @@ describe('toViemTransport', () => {
       endpoint('https://second.example'),
     ]);
 
-    const { value } = transport({});
-    const urls = value?.transports.map(
-      (t: ReturnType<typeof transport>) => t.value?.url,
-    );
+    const urls = transport({}).value?.transports.map((t) => t.value?.url);
     expect(urls).toEqual(['https://first.example', 'https://second.example']);
   });
 
-  it('does not rank in fallback mode', () => {
-    const transport = toViemTransport([endpoint('https://a.example')], {
-      mode: 'fallback',
-    });
-    expect(transport({}).config.type).toBe('fallback');
+  it('does not enable ranking in fallback mode', () => {
+    toViemTransport([endpoint('https://a.example')], { mode: 'fallback' });
+    expect(vi.mocked(fallback).mock.calls[0]?.[1]).toBeUndefined();
+  });
+
+  it('defaults to fallback mode', () => {
+    toViemTransport([endpoint('https://a.example')]);
+    expect(vi.mocked(fallback).mock.calls[0]?.[1]).toBeUndefined();
   });
 
   it('enables ranking in loadBalance mode', () => {
-    const transport = toViemTransport([endpoint('https://a.example')], {
-      mode: 'loadBalance',
-    });
-    expect(transport({}).config.type).toBe('fallback');
+    toViemTransport([endpoint('https://a.example')], { mode: 'loadBalance' });
+    expect(vi.mocked(fallback).mock.calls[0]?.[1]).toEqual({ rank: true });
   });
 
   it('uses a websocket transport for ws endpoints', () => {
