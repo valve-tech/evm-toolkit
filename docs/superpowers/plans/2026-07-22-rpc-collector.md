@@ -81,7 +81,7 @@
   export const CHAIN_ID_BY_NAME: Readonly<Record<string, string>>
   ```
 
-- [ ] **Step 1: Create the package manifest**
+- [x] **Step 1: Create the package manifest**
 
 Create `packages/rpc-collector/package.json`:
 
@@ -165,7 +165,7 @@ Create `packages/rpc-collector/package.json`:
 }
 ```
 
-- [ ] **Step 2: Create the tsconfig and copy the license**
+- [x] **Step 2: Create the tsconfig and copy the license**
 
 Create `packages/rpc-collector/tsconfig.json`:
 
@@ -186,7 +186,7 @@ Run:
 cp packages/gas-oracle/LICENSE packages/rpc-collector/LICENSE
 ```
 
-- [ ] **Step 3: Write the local mergeDeep the vendored constants require**
+- [x] **Step 3: Write the local mergeDeep the vendored constants require**
 
 DefiLlama's `constants/extraRpcs.js` imports `mergeDeep` from `../utils/fetch.js`. We supply our own minimal implementation rather than vendoring DefiLlama's real `utils/fetch.js`, which carries browser/network code irrelevant to codegen. **Array-concat semantics are required** — DefiLlama merges `llamaNodesRpcs` into `extraRpcs` and expects both sets of RPCs to survive.
 
@@ -228,7 +228,7 @@ export function mergeDeep(target, source) {
 }
 ```
 
-- [ ] **Step 4: Write the vendor refresh script**
+- [x] **Step 4: Write the vendor refresh script**
 
 Create `packages/rpc-collector/scripts/refresh-vendor.mjs`:
 
@@ -275,7 +275,7 @@ for (const file of FILES) {
 console.log('\nVendor refreshed. Now run: yarn generate:data');
 ```
 
-- [ ] **Step 5: Fetch the vendored constants**
+- [x] **Step 5: Fetch the vendored constants**
 
 Run from the repo root:
 ```bash
@@ -283,7 +283,7 @@ node packages/rpc-collector/scripts/refresh-vendor.mjs
 ```
 Expected: three `✓` lines (`extraRpcs.js`, `chainIds.js`, `llamaNodesRpcs.js`) then `Vendor refreshed.`
 
-- [ ] **Step 6: Write the vendor provenance README**
+- [x] **Step 6: Write the vendor provenance README**
 
 Create `packages/rpc-collector/vendor/README.md`:
 
@@ -316,7 +316,7 @@ Commit the updated `constants/` files together with the regenerated
 `src/data.generated.ts`.
 ```
 
-- [ ] **Step 7: Write the codegen script**
+- [x] **Step 7: Write the codegen script**
 
 Create `packages/rpc-collector/scripts/generate-data.mjs`:
 
@@ -424,7 +424,7 @@ console.log(
 );
 ```
 
-- [ ] **Step 8: Generate the data module**
+- [x] **Step 8: Generate the data module**
 
 Run from the repo root:
 ```bash
@@ -432,7 +432,7 @@ node packages/rpc-collector/scripts/generate-data.mjs
 ```
 Expected: `✓ src/data.generated.ts — 6xx chains, ~4xxx endpoints, 3xx named chains` (exact counts drift with the upstream dataset).
 
-- [ ] **Step 9: Write the failing data-integrity test**
+- [x] **Step 9: Write the failing data-integrity test**
 
 Create `packages/rpc-collector/src/data.generated.test.ts`:
 
@@ -489,7 +489,7 @@ describe('generated chainlist data', () => {
 });
 ```
 
-- [ ] **Step 10: Run the test**
+- [x] **Step 10: Run the test**
 
 Run:
 ```bash
@@ -497,7 +497,7 @@ yarn vitest run packages/rpc-collector/src/data.generated.test.ts
 ```
 Expected: PASS, 6 tests. (The data was generated in Step 8, so this suite validates the codegen rather than driving it.)
 
-- [ ] **Step 11: Verify the package builds**
+- [x] **Step 11: Verify the package builds**
 
 The new workspace must be linked before it can build. Run from the repo root:
 ```bash
@@ -506,7 +506,7 @@ yarn build
 ```
 Expected: `yarn install` links `@valve-tech/rpc-collector` (no lockfile churn — the package has no dependencies), then the topological build succeeds across all workspaces including the new one.
 
-- [ ] **Step 12: Commit**
+- [x] **Step 12: Commit**
 
 ```bash
 git add packages/rpc-collector
@@ -539,7 +539,7 @@ src/data.generated.ts. Keeps the published package at zero runtime deps."
   ```
   Tasks 3–5 import these from `./types.js`.
 
-- [ ] **Step 1: Write the types module**
+- [x] **Step 1: Write the types module**
 
 Create `packages/rpc-collector/src/types.ts`:
 
@@ -613,7 +613,7 @@ export class EmptyEndpointSetError extends Error {
 }
 ```
 
-- [ ] **Step 2: Write the failing collect tests**
+- [x] **Step 2: Write the failing collect tests**
 
 Create `packages/rpc-collector/src/collect.test.ts`:
 
@@ -726,7 +726,7 @@ describe('collectRpcs', () => {
 });
 ```
 
-- [ ] **Step 3: Run the tests to verify they fail**
+- [x] **Step 3: Run the tests to verify they fail**
 
 Run:
 ```bash
@@ -734,7 +734,7 @@ yarn vitest run packages/rpc-collector/src/collect.test.ts
 ```
 Expected: FAIL — `Failed to load .../collect.js` (the module does not exist yet).
 
-- [ ] **Step 4: Implement `collectRpcs`**
+- [x] **Step 4: Implement `collectRpcs`**
 
 Create `packages/rpc-collector/src/collect.ts`:
 
@@ -874,7 +874,7 @@ export function collectRpcs(options: CollectRpcsOptions): RpcEndpoint[] {
 }
 ```
 
-- [ ] **Step 5: Write the root barrel**
+- [x] **Step 5: Write the root barrel**
 
 Create `packages/rpc-collector/src/index.ts`:
 
@@ -890,7 +890,7 @@ export {
 } from './types.js';
 ```
 
-- [ ] **Step 6: Run the tests to verify they pass**
+- [x] **Step 6: Run the tests to verify they pass**
 
 Run:
 ```bash
@@ -898,7 +898,7 @@ yarn vitest run packages/rpc-collector/src/collect.test.ts
 ```
 Expected: PASS, 15 tests.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add packages/rpc-collector/src
@@ -928,7 +928,7 @@ Strips templated urls, dedupes, throws UnknownChainError on a miss."
   function probeEndpoints(endpoints: readonly RpcEndpoint[], options?: ProbeOptions): Promise<ProbedRpcEndpoint[]>
   ```
 
-- [ ] **Step 1: Write the failing probe tests**
+- [x] **Step 1: Write the failing probe tests**
 
 Create `packages/rpc-collector/src/probe.test.ts`:
 
@@ -1046,7 +1046,7 @@ describe('probeEndpoints', () => {
 });
 ```
 
-- [ ] **Step 2: Run the tests to verify they fail**
+- [x] **Step 2: Run the tests to verify they fail**
 
 Run:
 ```bash
@@ -1054,7 +1054,7 @@ yarn vitest run packages/rpc-collector/src/probe.test.ts
 ```
 Expected: FAIL — cannot resolve `./probe.js`.
 
-- [ ] **Step 3: Implement the probe**
+- [x] **Step 3: Implement the probe**
 
 Create `packages/rpc-collector/src/probe.ts`:
 
@@ -1150,7 +1150,7 @@ export async function probeEndpoints(
 }
 ```
 
-- [ ] **Step 4: Run the tests to verify they pass**
+- [x] **Step 4: Run the tests to verify they pass**
 
 Run:
 ```bash
@@ -1158,7 +1158,7 @@ yarn vitest run packages/rpc-collector/src/probe.test.ts
 ```
 Expected: PASS, 6 tests.
 
-- [ ] **Step 5: Export the probe from the barrel**
+- [x] **Step 5: Export the probe from the barrel**
 
 Replace the contents of `packages/rpc-collector/src/index.ts`:
 
@@ -1179,7 +1179,7 @@ export {
 } from './types.js';
 ```
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add packages/rpc-collector/src
@@ -1207,7 +1207,7 @@ unmeasured rather than being declared dead on no evidence."
   function toViemTransport(endpoints: readonly RpcEndpoint[], options?: ToViemTransportOptions): FallbackTransport
   ```
 
-- [ ] **Step 1: Write the failing viem adapter tests**
+- [x] **Step 1: Write the failing viem adapter tests**
 
 Create `packages/rpc-collector/src/viem.test.ts`:
 
@@ -1291,7 +1291,7 @@ describe('toViemTransport', () => {
 });
 ```
 
-- [ ] **Step 2: Run the tests to verify they fail**
+- [x] **Step 2: Run the tests to verify they fail**
 
 Run:
 ```bash
@@ -1299,7 +1299,7 @@ yarn vitest run packages/rpc-collector/src/viem.test.ts
 ```
 Expected: FAIL — cannot resolve `./viem.js`.
 
-- [ ] **Step 3: Implement the viem adapter**
+- [x] **Step 3: Implement the viem adapter**
 
 Create `packages/rpc-collector/src/viem.ts`:
 
@@ -1344,7 +1344,7 @@ export function toViemTransport(
 }
 ```
 
-- [ ] **Step 4: Run the tests to verify they pass**
+- [x] **Step 4: Run the tests to verify they pass**
 
 Run:
 ```bash
@@ -1352,7 +1352,7 @@ yarn vitest run packages/rpc-collector/src/viem.test.ts
 ```
 Expected: PASS, 6 tests.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add packages/rpc-collector/src
@@ -1380,7 +1380,7 @@ list rather than returning a transport that fails every call."
   function toEthersProvider(endpoints: readonly RpcEndpoint[], options?: ToEthersProviderOptions): FallbackProvider
   ```
 
-- [ ] **Step 1: Write the failing ethers adapter tests**
+- [x] **Step 1: Write the failing ethers adapter tests**
 
 Create `packages/rpc-collector/src/ethers.test.ts`:
 
@@ -1440,7 +1440,7 @@ describe('toEthersProvider', () => {
 });
 ```
 
-- [ ] **Step 2: Run the tests to verify they fail**
+- [x] **Step 2: Run the tests to verify they fail**
 
 Run:
 ```bash
@@ -1448,7 +1448,7 @@ yarn vitest run packages/rpc-collector/src/ethers.test.ts
 ```
 Expected: FAIL — cannot resolve `./ethers.js`.
 
-- [ ] **Step 3: Implement the ethers adapter**
+- [x] **Step 3: Implement the ethers adapter**
 
 Create `packages/rpc-collector/src/ethers.ts`:
 
@@ -1506,7 +1506,7 @@ export function toEthersProvider(
 }
 ```
 
-- [ ] **Step 4: Run the tests to verify they pass**
+- [x] **Step 4: Run the tests to verify they pass**
 
 Run:
 ```bash
@@ -1514,7 +1514,7 @@ yarn vitest run packages/rpc-collector/src/ethers.test.ts
 ```
 Expected: PASS, 5 tests.
 
-- [ ] **Step 5: Verify the root export pulls in neither peer**
+- [x] **Step 5: Verify the root export pulls in neither peer**
 
 Run:
 ```bash
@@ -1526,7 +1526,7 @@ console.log('OK: root barrel imports no peer dependency');
 ```
 Expected: `OK: root barrel imports no peer dependency`
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add packages/rpc-collector/src
@@ -1551,7 +1551,7 @@ entry point so the root export resolves neither optional peer."
 - Consumes: the full public API from Tasks 2–5.
 - Produces: a release-ready package that `yarn verify:clean` and `yarn verify:release-coverage` both accept.
 
-- [ ] **Step 1: Add the package to the release publish matrix**
+- [x] **Step 1: Add the package to the release publish matrix**
 
 In `.github/workflows/release.yml`, line 99, append `"rpc-collector"` to the list so it reads:
 
@@ -1559,7 +1559,7 @@ In `.github/workflows/release.yml`, line 99, append `"rpc-collector"` to the lis
           echo 'packages=["chain-source","viem-errors","wallet-adapter","gas-oracle","tx-tracker","tx-flight-react","trueblocks-sdk","wallet-key-session","siwe-store","wallet-crypto","agent-skills","unchained-reader","rpc-collector"]' >> "$GITHUB_OUTPUT"
 ```
 
-- [ ] **Step 2: Verify the release-coverage gate passes**
+- [x] **Step 2: Verify the release-coverage gate passes**
 
 Run:
 ```bash
@@ -1567,7 +1567,7 @@ yarn verify:release-coverage
 ```
 Expected: `✓ release.yml publish matrix covers all 13 publishable workspace packages.`
 
-- [ ] **Step 3: Write the package README**
+- [x] **Step 3: Write the package README**
 
 Create `packages/rpc-collector/README.md`:
 
@@ -1702,7 +1702,7 @@ See [`vendor/README.md`](./vendor/README.md).
 MIT
 ````
 
-- [ ] **Step 4: Write AGENTS.md**
+- [x] **Step 4: Write AGENTS.md**
 
 Create `packages/rpc-collector/AGENTS.md`:
 
@@ -1742,7 +1742,7 @@ browser/network code we do not want. Its array-**concat** semantics matter —
 `mergeDeep(llamaNodesRpcs, extraRpcs)` must keep both sets of RPCs.
 ```
 
-- [ ] **Step 5: Write the package CHANGELOG**
+- [x] **Step 5: Write the package CHANGELOG**
 
 Create `packages/rpc-collector/CHANGELOG.md`:
 
@@ -1771,7 +1771,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   build time; viem and ethers are optional peers.
 ```
 
-- [ ] **Step 6: Add the root CHANGELOG entry**
+- [x] **Step 6: Add the root CHANGELOG entry**
 
 In the root `CHANGELOG.md`, under the `[Unreleased]` heading's `### Added`
 section (create the section if the heading has none), add:
@@ -1783,7 +1783,7 @@ section (create the section if the heading has none), add:
   ethers provider. Zero runtime dependencies.
 ```
 
-- [ ] **Step 7: Write the agent skill**
+- [x] **Step 7: Write the agent skill**
 
 Create `packages/rpc-collector/skills/rpc-collector/SKILL.md`:
 
@@ -1868,7 +1868,7 @@ With viem you usually do not need it — `mode: 'loadBalance'` already ranks.
   refresh and codegen scripts instead.
 ```
 
-- [ ] **Step 8: Run the full verification gate**
+- [x] **Step 8: Run the full verification gate**
 
 Run:
 ```bash
@@ -1878,7 +1878,7 @@ Expected: build, lint, typecheck, example typecheck, all tests, persisted-types
 check, and the release-coverage gate all pass. The rpc-collector suites
 (data.generated, collect, probe, viem, ethers) appear in the test output.
 
-- [ ] **Step 9: Regenerate the API docs**
+- [x] **Step 9: Regenerate the API docs**
 
 Run:
 ```bash
@@ -1886,7 +1886,7 @@ yarn docs:build
 ```
 Expected: docs regenerate, including a `rpc-collector` entry.
 
-- [ ] **Step 10: Commit**
+- [x] **Step 10: Commit**
 
 ```bash
 git add packages/rpc-collector .github/workflows/release.yml CHANGELOG.md docs
@@ -1948,3 +1948,28 @@ separate declarations so neither entry point imports the other's peer.
 
 **Placeholder scan** — no TBD/TODO; every code step carries complete code and
 every test step an exact command with expected output.
+
+---
+
+## Execution deviations (2026-07-22)
+
+All six tasks executed and committed. Two upstream-drift deviations, both
+recorded in the package's `AGENTS.md`:
+
+1. **`llamaNodesRpcs.js` no longer exists upstream** (removed in
+   DefiLlama/chainlist#2749) and `extraRpcs.js` is now import-free — no
+   `mergeDeep`, no llamaNodes merge. The refresh script fetches two files,
+   the `vendor/utils/fetch.js` shim was dropped, and the
+   "keeps llamaNodes rpcs" data test was removed.
+2. **`isOpenSource` disappeared from the dataset** (0 occurrences), so the
+   `openSourceOnly` collect option was NOT shipped — it could only return an
+   empty set for every chain, a silent-downgrade trap. The optional
+   `isOpenSource` passthrough on `RawRpcRecord`/`RpcEndpoint` and the
+   ordering tiebreak remain for forward-compat.
+
+Also: ethers 6.16 does not re-export `FallbackProviderConfig` from its root
+entry, so `src/ethers.ts` types the config array structurally instead of
+importing the type.
+
+Dataset at execution time: 609 chains, 2230 endpoints, 311 named chains.
+Test counts: data 4, collect 14, probe 6, viem 7, ethers 5 (36 total).
