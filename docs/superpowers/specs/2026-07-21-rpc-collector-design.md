@@ -183,16 +183,17 @@ Consistent with the toolkit's no-silent-downgrade invariant:
 - **Release is not cut in this work.** Per CLAUDE.md, the package is made
   release-ready and the maintainer triggers the actual release.
 
-## Open decisions (to settle in the implementation plan)
+## Resolved decisions
 
-1. **Default `allowedTracking`** — privacy-respecting default (exclude `yes`)
-   vs. include-all default. Leaning: default to *all endpoints* returned but
-   *ordered* privacy-first, so nothing is silently hidden; callers opt into a
-   stricter filter via `allowedTracking`. (No-silent-downgrade favors "show
-   everything, rank sensibly" over "silently drop tracked endpoints".)
-2. **Default `protocol`** — `'http'` is the safe default for a transport; `'any'`
-   would mix in WS. Leaning `'http'`.
-3. Whether `skills/` (an agent-skills contribution) ships in v1 or is deferred.
+1. **Default `allowedTracking` — privacy-first ordering, no silent drop.**
+   `collectRpcs` returns *all* endpoints for the chain, *ordered* privacy-first
+   (`none` → `limited` → `unspecified`/`unknown` → `yes`). Nothing is silently
+   hidden; callers opt into a stricter filter via `allowedTracking`. Honors
+   no-silent-downgrade.
+2. **Default `protocol` — `'http'`.** The safe default for building a transport;
+   `'any'` (mix in WS) and `'ws'` are opt-in.
+3. **`skills/` ships in v1** — an agent-skill for `@valve-tech/rpc-collector`
+   is part of this work, not deferred.
 
 ## Non-goals (v1)
 
