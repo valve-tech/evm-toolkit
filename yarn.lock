@@ -1862,6 +1862,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@valve-tech/rpc-collector@workspace:packages/rpc-collector":
+  version: 0.0.0-use.local
+  resolution: "@valve-tech/rpc-collector@workspace:packages/rpc-collector"
+  peerDependencies:
+    ethers: ^6.0.0
+    viem: ^2.0.0
+  peerDependenciesMeta:
+    ethers:
+      optional: true
+    viem:
+      optional: true
+  languageName: unknown
+  linkType: soft
+
 "@valve-tech/siwe-store@workspace:^, @valve-tech/siwe-store@workspace:packages/siwe-store":
   version: 0.0.0-use.local
   resolution: "@valve-tech/siwe-store@workspace:packages/siwe-store"

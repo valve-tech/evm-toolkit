@@ -20,6 +20,14 @@
       "json": "gas-oracle.json"
     },
     {
+      "name": "@valve-tech/rpc-collector",
+      "slug": "rpc-collector",
+      "version": "0.21.0",
+      "description": "Zero-dependency EVM RPC endpoint collector. Resolves a chainId to a privacy-ranked list of public RPC endpoints sourced from the DefiLlama/chainlist dataset (vendored and code-generated, so nothing is fetched or resolved at runtime), and converts that list into a ready-to-use viem transport or ethers provider. Every endpoint carries its privacy tracking rating. Part of the valve-tech/evm-toolkit synchronized release line.",
+      "html": "rpc-collector/index.html",
+      "json": "rpc-collector.json"
+    },
+    {
       "name": "@valve-tech/siwe-store",
       "slug": "siwe-store",
       "version": "0.21.0",
