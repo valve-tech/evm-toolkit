@@ -28,10 +28,31 @@ Folding RPC discovery into `@valve-tech/chain-source` would make
 `tx-tracker`, and any direct consumer) — bloat those packages should not carry.
 A standalone package keeps the data dependency isolated to callers who opt in.
 
-## Why `chainlist-rpcs` as the data source
+## Data source — vendored DefiLlama, not an npm dependency
 
-`chainlist-rpcs` is a wrapper around the DefiLlama/chainlist dataset (the same
-data chainlist.org is built on). It is the pick because:
+> **Amended 2026-07-22.** This section originally specified `chainlist-rpcs`
+> as a pinned runtime dependency. Implementation research proved that package
+> unusable at runtime: it is `type: module` but uses **extensionless relative
+> imports** (`from './modules/rpcs'`), which Node's native ESM loader rejects
+> (`ERR_MODULE_NOT_FOUND`, reproduced on both `import` and `require`). It
+> resolves only inside a bundler. Depending on it would pass CI — vitest
+> bundles through Vite — and then crash real Node consumers: precisely the
+> CI-green trap the repo's release gates exist to prevent.
+>
+> **Resolution:** vendor DefiLlama's `constants/` (which *do* use proper `.js`
+> extensions) into the package as build-time-only inputs, evaluate them with
+> plain Node ESM in a codegen step, and commit the resulting
+> `src/data.generated.ts`. The published package therefore has **zero runtime
+> dependencies** — strictly better than the one pinned dep originally planned,
+> and it retires the single-maintainer supply-chain concern entirely.
+>
+> Everything below about *why this dataset* still holds; only the delivery
+> mechanism changed. See the implementation plan
+> (`docs/superpowers/plans/2026-07-22-rpc-collector.md`) for the vendor layout
+> and codegen.
+
+The DefiLlama/chainlist dataset (the same data chainlist.org is built on) is
+the pick because:
 
 - **RPC-centric API** — indexed by chainId, with a filter helper.
 - **Ships TS types** (`types.d.ts`).
@@ -45,14 +66,14 @@ data chainlist.org is built on). It is the pick because:
 
 ### Known tradeoffs (accepted)
 
-- **Single-maintainer, low weekly downloads (~21).** Blast radius is muted: at
-  runtime the package only exposes static JSON + filter functions — no network,
-  process, or filesystem access. Mitigation: **pin the exact version** and
-  review it; the data is trivially replaceable (public chainlist data) if the
-  maintainer ever disappears, so there is no real lock-in.
-- **Snapshot staleness** (re-published when the maintainer runs it, not
-  continuously). Acceptable for endpoint discovery; a future opt-in live source
-  is possible behind the same interface without a breaking change.
+- **Snapshot staleness.** The dataset is frozen at codegen time. Refreshing is
+  a maintainer step we control (`refresh-vendor.mjs` → `generate-data.mjs`),
+  not something that happens automatically. Acceptable for endpoint discovery;
+  a future opt-in live source can sit behind the same interface without a
+  breaking change.
+- **We own a small codegen step** and a vendored copy of third-party data
+  (MIT, attributed in `vendor/README.md`). In exchange the published package
+  carries no third-party runtime code at all.
 
 ## Architecture
 
@@ -60,12 +81,19 @@ Four layers, from pure data outward to peer-gated adapters.
 
 ### 1. Data layer (zero-runtime)
 
-A thin wrap over pinned `chainlist-rpcs`. It reuses the package's bundled data
-and filter functions under the hood but re-exposes results behind our own
-small `RpcEndpoint` type, so consumers never import `chainlist-rpcs` directly.
-This insulates the single-maintainer dependency and lets the data source be
-swapped later without a breaking change to our public API. No network; the only
-cost is a module import.
+DefiLlama's `constants/` are vendored under `vendor/` as **build-time-only**
+inputs. A codegen script evaluates them with plain Node ESM and emits a
+committed `src/data.generated.ts` holding the normalized endpoint records and
+chain-name maps. Runtime code imports only that generated module, behind our
+own small `RpcEndpoint` type — so the published package carries zero runtime
+dependencies, and the data source can be swapped later without a breaking
+change to the public API. No network; the only cost is a module import.
+
+Normalization mirrors what the upstream `chainlist-rpcs` wrapper does: flatten
+`{ [chainId]: { rpcs: [...] } }`, promote bare-string entries to
+`{ url, tracking: 'unknown' }`, and default a missing `tracking` to
+`'unspecified'`. `trackingDetails` (multi-paragraph privacy prose) is dropped —
+it would dominate the shipped bundle and is not part of our API.
 
 ### 2. Collect + filter (pure)
 
@@ -165,11 +193,13 @@ Consistent with the toolkit's no-silent-downgrade invariant:
 - New workspace `packages/rpc-collector`:
   - `engines.node >= 20`, `type: module`.
   - `exports`: `.` (core), `./viem`, `./ethers`.
-  - `dependencies`: `chainlist-rpcs` pinned to an exact version.
+  - `dependencies`: **none** — the dataset is vendored and code-generated.
   - `peerDependencies`: `viem ^2`, `ethers ^6`, both marked
     `optional: true` in `peerDependenciesMeta`.
   - Standard package files: `README.md`, `AGENTS.md`, `CHANGELOG.md`,
-    `LICENSE`, `src/`, `tsconfig.json`, `skills/` if applicable.
+    `LICENSE`, `src/`, `tsconfig.json`, `skills/`.
+  - Build-time only, not published: `vendor/`, `scripts/refresh-vendor.mjs`,
+    `scripts/generate-data.mjs`.
 - **Synchronized release line (13th package)** — per the `releasing-evm-toolkit`
   skill:
   - version bumped in lockstep with the other twelve,
@@ -199,6 +229,6 @@ Consistent with the toolkit's no-silent-downgrade invariant:
 
 - No live health-checking by default (probe is opt-in).
 - No runtime peer detection / auto-sniffing of viem vs ethers.
-- No bundled offline fallback beyond what `chainlist-rpcs` already ships.
+- No live/remote dataset fetching — the compiled snapshot is the only source.
 - No custom round-robin transport beyond viem `fallback` + `rank` / ethers
   `FallbackProvider`.
