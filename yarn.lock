@@ -1791,6 +1791,24 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@valve-tech/example-erc4337-write-flight@workspace:examples/erc4337-write-flight":
+  version: 0.0.0-use.local
+  resolution: "@valve-tech/example-erc4337-write-flight@workspace:examples/erc4337-write-flight"
+  dependencies:
+    "@types/react": "npm:^18.3.0"
+    "@types/react-dom": "npm:^18.3.0"
+    "@valve-tech/chain-source": "workspace:^"
+    "@valve-tech/gas-oracle": "workspace:^"
+    "@valve-tech/tx-flight-react": "workspace:^"
+    "@valve-tech/tx-tracker": "workspace:^"
+    "@vitejs/plugin-react": "npm:^4.3.0"
+    react: "npm:^18.3.1"
+    react-dom: "npm:^18.3.1"
+    viem: "npm:^2.21.0"
+    vite: "npm:^5.4.0"
+  languageName: unknown
+  linkType: soft
+
 "@valve-tech/example-gas-dashboard@workspace:examples/gas-dashboard":
   version: 0.0.0-use.local
   resolution: "@valve-tech/example-gas-dashboard@workspace:examples/gas-dashboard"
