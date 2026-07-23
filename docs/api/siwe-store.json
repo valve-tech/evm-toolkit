@@ -1,13 +1,509 @@
 {
   "schemaVersion": "2.0",
   "id": 0,
-  "name": "@valve-tech/siwe-store v0.21.0",
+  "name": "@valve-tech/siwe-store v0.22.0",
   "variant": "project",
   "kind": 1,
   "flags": {},
   "children": [
     {
-      "id": 6,
+      "id": 7,
+      "name": "AsyncNonceStore",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Async variant of "
+          },
+          {
+            "kind": "inline-tag",
+            "tag": "@link",
+            "text": "NonceStore",
+            "target": 13
+          },
+          {
+            "kind": "text",
+            "text": " — the contract for backends\nwhose I/O is inherently asynchronous (Redis, SQL). Same semantics:\n"
+          },
+          {
+            "kind": "code",
+            "text": "`consume`"
+          },
+          {
+            "kind": "text",
+            "text": " is atomic single-use, and the delete happens before (or\natomically with) the TTL check so a race-loser cannot reuse a nonce.\n\n"
+          },
+          {
+            "kind": "code",
+            "text": "`@valve-tech/siwe-store-redis`"
+          },
+          {
+            "kind": "text",
+            "text": " implements this shape."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 10,
+          "name": "consume",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "nonce-store.ts",
+              "line": 38,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 11,
+              "name": "consume",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "True iff the nonce was issued, unexpired, and unconsumed."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "nonce-store.ts",
+                  "line": 38,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 12,
+                  "name": "nonce",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "boolean"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "name": "issue",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "nonce-store.ts",
+              "line": 36,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 9,
+              "name": "issue",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Issue a fresh SIWE-valid nonce ("
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`generateSiweNonce`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": ") and remember it."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "nonce-store.ts",
+                  "line": 36,
+                  "character": 2
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Methods",
+          "children": [
+            10,
+            8
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "nonce-store.ts",
+          "line": 34,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "name": "AsyncSessionStore",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Async variant of "
+          },
+          {
+            "kind": "inline-tag",
+            "tag": "@link",
+            "text": "SessionStore",
+            "target": 40
+          },
+          {
+            "kind": "text",
+            "text": " — the contract for backends\nwhose I/O is inherently asynchronous (Redis, SQL). Same semantics\nand the same opaque-token model.\n\n"
+          },
+          {
+            "kind": "code",
+            "text": "`@valve-tech/siwe-store-redis`"
+          },
+          {
+            "kind": "text",
+            "text": " implements this shape."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 26,
+          "name": "issue",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "session-store.ts",
+              "line": 42,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 27,
+              "name": "issue",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Issue an opaque CSPRNG token bound to the address."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "session-store.ts",
+                  "line": 42,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 28,
+                  "name": "address",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "templateLiteral",
+                    "head": "0x",
+                    "tail": [
+                      [
+                        {
+                          "type": "intrinsic",
+                          "name": "string"
+                        },
+                        ""
+                      ]
+                    ]
+                  }
+                },
+                {
+                  "id": 29,
+                  "name": "claims",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": {
+                      "packageName": "typescript",
+                      "packagePath": "lib/lib.es5.d.ts",
+                      "qualifiedName": "Record"
+                    },
+                    "typeArguments": [
+                      {
+                        "type": "intrinsic",
+                        "name": "string"
+                      },
+                      {
+                        "type": "intrinsic",
+                        "name": "unknown"
+                      }
+                    ],
+                    "name": "Record",
+                    "package": "typescript",
+                    "externalUrl": "#"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "name": "revoke",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "session-store.ts",
+              "line": 46,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 34,
+              "name": "revoke",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Invalidate a token (sign-out)."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "session-store.ts",
+                  "line": 46,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 35,
+                  "name": "token",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "name": "validate",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "session-store.ts",
+              "line": 44,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 31,
+              "name": "validate",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The bound session if the token is valid + unexpired, else null."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "session-store.ts",
+                  "line": 44,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 32,
+                  "name": "token",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "union",
+                    "types": [
+                      {
+                        "type": "reference",
+                        "target": 36,
+                        "name": "Session",
+                        "package": "@valve-tech/siwe-store"
+                      },
+                      {
+                        "type": "literal",
+                        "value": null
+                      }
+                    ]
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Methods",
+          "children": [
+            26,
+            33,
+            30
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "session-store.ts",
+          "line": 40,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 13,
       "name": "NonceStore",
       "variant": "declaration",
       "kind": 256,
@@ -22,7 +518,7 @@
       },
       "children": [
         {
-          "id": 9,
+          "id": 16,
           "name": "consume",
           "variant": "declaration",
           "kind": 2048,
@@ -36,7 +532,7 @@
           ],
           "signatures": [
             {
-              "id": 10,
+              "id": 17,
               "name": "consume",
               "variant": "signature",
               "kind": 4096,
@@ -58,7 +554,7 @@
               ],
               "parameters": [
                 {
-                  "id": 11,
+                  "id": 18,
                   "name": "nonce",
                   "variant": "param",
                   "kind": 32768,
@@ -77,7 +573,7 @@
           ]
         },
         {
-          "id": 7,
+          "id": 14,
           "name": "issue",
           "variant": "declaration",
           "kind": 2048,
@@ -91,7 +587,7 @@
           ],
           "signatures": [
             {
-              "id": 8,
+              "id": 15,
               "name": "issue",
               "variant": "signature",
               "kind": 4096,
@@ -131,8 +627,8 @@
         {
           "title": "Methods",
           "children": [
-            9,
-            7
+            16,
+            14
           ]
         }
       ],
@@ -145,7 +641,7 @@
       ]
     },
     {
-      "id": 17,
+      "id": 36,
       "name": "Session",
       "variant": "declaration",
       "kind": 256,
@@ -160,7 +656,7 @@
       },
       "children": [
         {
-          "id": 18,
+          "id": 37,
           "name": "address",
           "variant": "declaration",
           "kind": 1024,
@@ -187,7 +683,7 @@
           }
         },
         {
-          "id": 20,
+          "id": 39,
           "name": "claims",
           "variant": "declaration",
           "kind": 1024,
@@ -232,7 +728,7 @@
           }
         },
         {
-          "id": 19,
+          "id": 38,
           "name": "issuedAt",
           "variant": "declaration",
           "kind": 1024,
@@ -262,9 +758,9 @@
         {
           "title": "Properties",
           "children": [
-            18,
-            20,
-            19
+            37,
+            39,
+            38
           ]
         }
       ],
@@ -277,7 +773,7 @@
       ]
     },
     {
-      "id": 21,
+      "id": 40,
       "name": "SessionStore",
       "variant": "declaration",
       "kind": 256,
@@ -292,7 +788,7 @@
       },
       "children": [
         {
-          "id": 22,
+          "id": 41,
           "name": "issue",
           "variant": "declaration",
           "kind": 2048,
@@ -306,7 +802,7 @@
           ],
           "signatures": [
             {
-              "id": 23,
+              "id": 42,
               "name": "issue",
               "variant": "signature",
               "kind": 4096,
@@ -328,7 +824,7 @@
               ],
               "parameters": [
                 {
-                  "id": 24,
+                  "id": 43,
                   "name": "address",
                   "variant": "param",
                   "kind": 32768,
@@ -348,7 +844,7 @@
                   }
                 },
                 {
-                  "id": 25,
+                  "id": 44,
                   "name": "claims",
                   "variant": "param",
                   "kind": 32768,
@@ -386,7 +882,7 @@
           ]
         },
         {
-          "id": 29,
+          "id": 48,
           "name": "revoke",
           "variant": "declaration",
           "kind": 2048,
@@ -400,7 +896,7 @@
           ],
           "signatures": [
             {
-              "id": 30,
+              "id": 49,
               "name": "revoke",
               "variant": "signature",
               "kind": 4096,
@@ -422,7 +918,7 @@
               ],
               "parameters": [
                 {
-                  "id": 31,
+                  "id": 50,
                   "name": "token",
                   "variant": "param",
                   "kind": 32768,
@@ -441,7 +937,7 @@
           ]
         },
         {
-          "id": 26,
+          "id": 45,
           "name": "validate",
           "variant": "declaration",
           "kind": 2048,
@@ -455,7 +951,7 @@
           ],
           "signatures": [
             {
-              "id": 27,
+              "id": 46,
               "name": "validate",
               "variant": "signature",
               "kind": 4096,
@@ -477,7 +973,7 @@
               ],
               "parameters": [
                 {
-                  "id": 28,
+                  "id": 47,
                   "name": "token",
                   "variant": "param",
                   "kind": 32768,
@@ -493,7 +989,7 @@
                 "types": [
                   {
                     "type": "reference",
-                    "target": 17,
+                    "target": 36,
                     "name": "Session",
                     "package": "@valve-tech/siwe-store"
                   },
@@ -511,9 +1007,9 @@
         {
           "title": "Methods",
           "children": [
-            22,
-            29,
-            26
+            41,
+            48,
+            45
           ]
         }
       ],
@@ -524,6 +1020,116 @@
           "character": 17
         }
       ]
+    },
+    {
+      "id": 6,
+      "name": "AnyNonceStore",
+      "variant": "declaration",
+      "kind": 2097152,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Either nonce-store shape. Handler code that only ever "
+          },
+          {
+            "kind": "code",
+            "text": "`await`"
+          },
+          {
+            "kind": "text",
+            "text": "s the\nresults can type against this union — "
+          },
+          {
+            "kind": "code",
+            "text": "`await`"
+          },
+          {
+            "kind": "text",
+            "text": " is a no-op on the\nsync store's plain values."
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "nonce-store.ts",
+          "line": 46,
+          "character": 12
+        }
+      ],
+      "type": {
+        "type": "union",
+        "types": [
+          {
+            "type": "reference",
+            "target": 13,
+            "name": "NonceStore",
+            "package": "@valve-tech/siwe-store"
+          },
+          {
+            "type": "reference",
+            "target": 7,
+            "name": "AsyncNonceStore",
+            "package": "@valve-tech/siwe-store"
+          }
+        ]
+      }
+    },
+    {
+      "id": 24,
+      "name": "AnySessionStore",
+      "variant": "declaration",
+      "kind": 2097152,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Either session-store shape. Handler code that only ever "
+          },
+          {
+            "kind": "code",
+            "text": "`await`"
+          },
+          {
+            "kind": "text",
+            "text": "s\nthe results can type against this union — "
+          },
+          {
+            "kind": "code",
+            "text": "`await`"
+          },
+          {
+            "kind": "text",
+            "text": " is a no-op on the\nsync store's plain values."
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "session-store.ts",
+          "line": 54,
+          "character": 12
+        }
+      ],
+      "type": {
+        "type": "union",
+        "types": [
+          {
+            "type": "reference",
+            "target": 40,
+            "name": "SessionStore",
+            "package": "@valve-tech/siwe-store"
+          },
+          {
+            "type": "reference",
+            "target": 25,
+            "name": "AsyncSessionStore",
+            "package": "@valve-tech/siwe-store"
+          }
+        ]
+      }
     },
     {
       "id": 1,
@@ -572,7 +1178,7 @@
       "sources": [
         {
           "fileName": "nonce-store.ts",
-          "line": 30,
+          "line": 52,
           "character": 16
         }
       ],
@@ -594,7 +1200,7 @@
           "sources": [
             {
               "fileName": "nonce-store.ts",
-              "line": 30,
+              "line": 52,
               "character": 16
             }
           ],
@@ -627,7 +1233,7 @@
                       "sources": [
                         {
                           "fileName": "nonce-store.ts",
-                          "line": 30,
+                          "line": 52,
                           "character": 48
                         }
                       ],
@@ -651,7 +1257,7 @@
           ],
           "type": {
             "type": "reference",
-            "target": 6,
+            "target": 13,
             "name": "NonceStore",
             "package": "@valve-tech/siwe-store"
           }
@@ -659,7 +1265,7 @@
       ]
     },
     {
-      "id": 12,
+      "id": 19,
       "name": "createMemorySessionStore",
       "variant": "declaration",
       "kind": 64,
@@ -667,13 +1273,13 @@
       "sources": [
         {
           "fileName": "session-store.ts",
-          "line": 37,
+          "line": 60,
           "character": 16
         }
       ],
       "signatures": [
         {
-          "id": 13,
+          "id": 20,
           "name": "createMemorySessionStore",
           "variant": "signature",
           "kind": 4096,
@@ -689,13 +1295,13 @@
           "sources": [
             {
               "fileName": "session-store.ts",
-              "line": 37,
+              "line": 60,
               "character": 16
             }
           ],
           "parameters": [
             {
-              "id": 14,
+              "id": 21,
               "name": "opts",
               "variant": "param",
               "kind": 32768,
@@ -705,14 +1311,14 @@
               "type": {
                 "type": "reflection",
                 "declaration": {
-                  "id": 15,
+                  "id": 22,
                   "name": "__type",
                   "variant": "declaration",
                   "kind": 65536,
                   "flags": {},
                   "children": [
                     {
-                      "id": 16,
+                      "id": 23,
                       "name": "ttlMs",
                       "variant": "declaration",
                       "kind": 1024,
@@ -722,7 +1328,7 @@
                       "sources": [
                         {
                           "fileName": "session-store.ts",
-                          "line": 37,
+                          "line": 60,
                           "character": 50
                         }
                       ],
@@ -736,7 +1342,7 @@
                     {
                       "title": "Properties",
                       "children": [
-                        16
+                        23
                       ]
                     }
                   ]
@@ -746,7 +1352,7 @@
           ],
           "type": {
             "type": "reference",
-            "target": 21,
+            "target": 40,
             "name": "SessionStore",
             "package": "@valve-tech/siwe-store"
           }
@@ -758,21 +1364,30 @@
     {
       "title": "Interfaces",
       "children": [
+        7,
+        25,
+        13,
+        36,
+        40
+      ]
+    },
+    {
+      "title": "Type Aliases",
+      "children": [
         6,
-        17,
-        21
+        24
       ]
     },
     {
       "title": "Functions",
       "children": [
         1,
-        12
+        19
       ]
     }
   ],
   "packageName": "@valve-tech/siwe-store",
-  "packageVersion": "0.21.0",
+  "packageVersion": "0.22.0",
   "symbolIdMap": {
     "0": {
       "packageName": "@valve-tech/siwe-store",
@@ -807,129 +1422,224 @@
     "6": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/nonce-store.ts",
-      "qualifiedName": "NonceStore"
+      "qualifiedName": "AnyNonceStore"
     },
     "7": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/nonce-store.ts",
-      "qualifiedName": "NonceStore.issue"
+      "qualifiedName": "AsyncNonceStore"
     },
     "8": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/nonce-store.ts",
-      "qualifiedName": "NonceStore.issue"
+      "qualifiedName": "AsyncNonceStore.issue"
     },
     "9": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/nonce-store.ts",
-      "qualifiedName": "NonceStore.consume"
+      "qualifiedName": "AsyncNonceStore.issue"
     },
     "10": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/nonce-store.ts",
-      "qualifiedName": "NonceStore.consume"
+      "qualifiedName": "AsyncNonceStore.consume"
     },
     "11": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/nonce-store.ts",
-      "qualifiedName": "nonce"
+      "qualifiedName": "AsyncNonceStore.consume"
     },
     "12": {
       "packageName": "@valve-tech/siwe-store",
-      "packagePath": "src/session-store.ts",
-      "qualifiedName": "createMemorySessionStore"
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "nonce"
     },
     "13": {
       "packageName": "@valve-tech/siwe-store",
-      "packagePath": "src/session-store.ts",
-      "qualifiedName": "createMemorySessionStore"
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "NonceStore"
     },
     "14": {
       "packageName": "@valve-tech/siwe-store",
-      "packagePath": "src/session-store.ts",
-      "qualifiedName": "opts"
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "NonceStore.issue"
     },
     "15": {
       "packageName": "@valve-tech/siwe-store",
-      "packagePath": "src/session-store.ts",
-      "qualifiedName": "__type"
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "NonceStore.issue"
     },
     "16": {
       "packageName": "@valve-tech/siwe-store",
-      "packagePath": "src/session-store.ts",
-      "qualifiedName": "__type.ttlMs"
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "NonceStore.consume"
     },
     "17": {
       "packageName": "@valve-tech/siwe-store",
-      "packagePath": "src/session-store.ts",
-      "qualifiedName": "Session"
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "NonceStore.consume"
     },
     "18": {
       "packageName": "@valve-tech/siwe-store",
-      "packagePath": "src/session-store.ts",
-      "qualifiedName": "Session.address"
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "nonce"
     },
     "19": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/session-store.ts",
-      "qualifiedName": "Session.issuedAt"
+      "qualifiedName": "createMemorySessionStore"
     },
     "20": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/session-store.ts",
-      "qualifiedName": "Session.claims"
+      "qualifiedName": "createMemorySessionStore"
     },
     "21": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/session-store.ts",
-      "qualifiedName": "SessionStore"
+      "qualifiedName": "opts"
     },
     "22": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/session-store.ts",
-      "qualifiedName": "SessionStore.issue"
+      "qualifiedName": "__type"
     },
     "23": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/session-store.ts",
-      "qualifiedName": "SessionStore.issue"
+      "qualifiedName": "__type.ttlMs"
     },
     "24": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/session-store.ts",
-      "qualifiedName": "address"
+      "qualifiedName": "AnySessionStore"
     },
     "25": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/session-store.ts",
-      "qualifiedName": "claims"
+      "qualifiedName": "AsyncSessionStore"
     },
     "26": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/session-store.ts",
-      "qualifiedName": "SessionStore.validate"
+      "qualifiedName": "AsyncSessionStore.issue"
     },
     "27": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/session-store.ts",
-      "qualifiedName": "SessionStore.validate"
+      "qualifiedName": "AsyncSessionStore.issue"
     },
     "28": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/session-store.ts",
-      "qualifiedName": "token"
+      "qualifiedName": "address"
     },
     "29": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/session-store.ts",
-      "qualifiedName": "SessionStore.revoke"
+      "qualifiedName": "claims"
     },
     "30": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/session-store.ts",
-      "qualifiedName": "SessionStore.revoke"
+      "qualifiedName": "AsyncSessionStore.validate"
     },
     "31": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "AsyncSessionStore.validate"
+    },
+    "32": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "token"
+    },
+    "33": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "AsyncSessionStore.revoke"
+    },
+    "34": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "AsyncSessionStore.revoke"
+    },
+    "35": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "token"
+    },
+    "36": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "Session"
+    },
+    "37": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "Session.address"
+    },
+    "38": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "Session.issuedAt"
+    },
+    "39": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "Session.claims"
+    },
+    "40": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "SessionStore"
+    },
+    "41": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "SessionStore.issue"
+    },
+    "42": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "SessionStore.issue"
+    },
+    "43": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "address"
+    },
+    "44": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "claims"
+    },
+    "45": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "SessionStore.validate"
+    },
+    "46": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "SessionStore.validate"
+    },
+    "47": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "token"
+    },
+    "48": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "SessionStore.revoke"
+    },
+    "49": {
+      "packageName": "@valve-tech/siwe-store",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "SessionStore.revoke"
+    },
+    "50": {
       "packageName": "@valve-tech/siwe-store",
       "packagePath": "src/session-store.ts",
       "qualifiedName": "token"

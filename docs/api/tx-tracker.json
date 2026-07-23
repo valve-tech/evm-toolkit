@@ -1,11 +1,179 @@
 {
   "schemaVersion": "2.0",
   "id": 0,
-  "name": "@valve-tech/tx-tracker v0.21.0",
+  "name": "@valve-tech/tx-tracker v0.22.0",
   "variant": "project",
   "kind": 1,
   "flags": {},
   "children": [
+    {
+      "id": 605,
+      "name": "UnknownChainIdError",
+      "variant": "declaration",
+      "kind": 128,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Thrown when a coordinator method names a "
+          },
+          {
+            "kind": "code",
+            "text": "`chainId`"
+          },
+          {
+            "kind": "text",
+            "text": " that no entry in\n"
+          },
+          {
+            "kind": "code",
+            "text": "`chains`"
+          },
+          {
+            "kind": "text",
+            "text": " registered. A typo'd chain must never look like \"no\nevents\" — same no-silent-downgrade rule as the rest of the toolkit."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 606,
+          "name": "constructor",
+          "variant": "declaration",
+          "kind": 512,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 39,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 607,
+              "name": "UnknownChainIdError",
+              "variant": "signature",
+              "kind": 16384,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "multi-tracker.ts",
+                  "line": 39,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 608,
+                  "name": "chainId",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                },
+                {
+                  "id": 609,
+                  "name": "known",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "typeOperator",
+                    "operator": "readonly",
+                    "target": {
+                      "type": "array",
+                      "elementType": {
+                        "type": "intrinsic",
+                        "name": "number"
+                      }
+                    }
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": 605,
+                "name": "UnknownChainIdError",
+                "package": "@valve-tech/tx-tracker"
+              },
+              "overwrites": {
+                "type": "reference",
+                "target": -1,
+                "name": "Error.constructor",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ],
+          "overwrites": {
+            "type": "reference",
+            "target": -1,
+            "name": "Error.constructor",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        },
+        {
+          "id": 610,
+          "name": "chainId",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 37,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Constructors",
+          "children": [
+            606
+          ]
+        },
+        {
+          "title": "Properties",
+          "children": [
+            610
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "multi-tracker.ts",
+          "line": 36,
+          "character": 13
+        }
+      ],
+      "extendedTypes": [
+        {
+          "type": "reference",
+          "target": {
+            "packageName": "typescript",
+            "packagePath": "lib/lib.es5.d.ts",
+            "qualifiedName": "Error"
+          },
+          "name": "Error",
+          "package": "typescript",
+          "externalUrl": "#"
+        }
+      ]
+    },
     {
       "id": 536,
       "name": "WaitForPendingTimeoutError",
@@ -1538,6 +1706,214 @@
         {
           "fileName": "selectors.ts",
           "line": 50,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 611,
+      "name": "CreateMultiChainTrackerOptions",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Factory options for "
+          },
+          {
+            "kind": "inline-tag",
+            "tag": "@link",
+            "text": "createMultiChainTracker",
+            "target": 602
+          },
+          {
+            "kind": "text",
+            "text": "."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 612,
+          "name": "chains",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "One "
+              },
+              {
+                "kind": "code",
+                "text": "`createTxTracker`"
+              },
+              {
+                "kind": "text",
+                "text": " options entry per chain. "
+              },
+              {
+                "kind": "code",
+                "text": "`chainId`"
+              },
+              {
+                "kind": "text",
+                "text": " values\nmust be unique; each entry brings its own "
+              },
+              {
+                "kind": "code",
+                "text": "`ChainSource`"
+              },
+              {
+                "kind": "text",
+                "text": " (the\nper-chain ChainSource invariant) and may carry its own store,\nthresholds, and "
+              },
+              {
+                "kind": "code",
+                "text": "`onError`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 84,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "typeOperator",
+            "operator": "readonly",
+            "target": {
+              "type": "array",
+              "elementType": {
+                "type": "reference",
+                "target": 4,
+                "name": "CreateTxTrackerOptions",
+                "package": "@valve-tech/tx-tracker"
+              }
+            }
+          }
+        },
+        {
+          "id": 613,
+          "name": "onError",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Coordinator-level error sink. Receives the "
+              },
+              {
+                "kind": "code",
+                "text": "`chainId`"
+              },
+              {
+                "kind": "text",
+                "text": " alongside\nthe method name so a shared sink can attribute failures. Composes\nwith (never replaces) any per-entry "
+              },
+              {
+                "kind": "code",
+                "text": "`onError`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 90,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 614,
+              "name": "__type",
+              "variant": "declaration",
+              "kind": 65536,
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 615,
+                  "name": "__type",
+                  "variant": "signature",
+                  "kind": 4096,
+                  "flags": {},
+                  "parameters": [
+                    {
+                      "id": 616,
+                      "name": "chainId",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "number"
+                      }
+                    },
+                    {
+                      "id": 617,
+                      "name": "method",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      }
+                    },
+                    {
+                      "id": 618,
+                      "name": "err",
+                      "variant": "param",
+                      "kind": 32768,
+                      "flags": {},
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "unknown"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            612,
+            613
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "multi-tracker.ts",
+          "line": 77,
           "character": 17
         }
       ]
@@ -3139,6 +3515,1400 @@
       ]
     },
     {
+      "id": 619,
+      "name": "MultiChainTxEvent",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "One fan-in emission: a per-chain "
+          },
+          {
+            "kind": "code",
+            "text": "`TxEvent`"
+          },
+          {
+            "kind": "text",
+            "text": " tagged with its chain."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 620,
+          "name": "chainId",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 51,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 621,
+          "name": "event",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 52,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 255,
+            "name": "TxEvent",
+            "package": "@valve-tech/tx-tracker"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            620,
+            621
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "multi-tracker.ts",
+          "line": 50,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 622,
+      "name": "MultiChainTxSubscription",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Handle returned by the coordinator's bulk-track methods. Wraps one\nper-chain "
+          },
+          {
+            "kind": "code",
+            "text": "`TxSubscription`"
+          },
+          {
+            "kind": "text",
+            "text": " per registered chain."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 623,
+          "name": "perChain",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The underlying per-chain bulk subscriptions, keyed by chainId —\nthe escape hatch for per-chain "
+              },
+              {
+                "kind": "code",
+                "text": "`events()`"
+              },
+              {
+                "kind": "text",
+                "text": " iteration or targeted\nteardown."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 65,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.es2015.collection.d.ts",
+              "qualifiedName": "ReadonlyMap"
+            },
+            "typeArguments": [
+              {
+                "type": "intrinsic",
+                "name": "number"
+              },
+              {
+                "type": "reference",
+                "target": 102,
+                "name": "TxSubscription",
+                "package": "@valve-tech/tx-tracker"
+              }
+            ],
+            "name": "ReadonlyMap",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        },
+        {
+          "id": 632,
+          "name": "stop",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 73,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 633,
+              "name": "stop",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Stop the bulk subscription on every chain."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "multi-tracker.ts",
+                  "line": 73,
+                  "character": 2
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        },
+        {
+          "id": 624,
+          "name": "subscribe",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 71,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 625,
+              "name": "subscribe",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Imperative subscription to per-hash events across every chain,\ntagged with the originating "
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`chainId`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": ". Returns an unsubscribe\nhandle covering all chains."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "multi-tracker.ts",
+                  "line": 71,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 626,
+                  "name": "cb",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "reflection",
+                    "declaration": {
+                      "id": 627,
+                      "name": "__type",
+                      "variant": "declaration",
+                      "kind": 65536,
+                      "flags": {},
+                      "signatures": [
+                        {
+                          "id": 628,
+                          "name": "__type",
+                          "variant": "signature",
+                          "kind": 4096,
+                          "flags": {},
+                          "parameters": [
+                            {
+                              "id": 629,
+                              "name": "event",
+                              "variant": "param",
+                              "kind": 32768,
+                              "flags": {},
+                              "type": {
+                                "type": "reference",
+                                "target": 619,
+                                "name": "MultiChainTxEvent",
+                                "package": "@valve-tech/tx-tracker"
+                              }
+                            }
+                          ],
+                          "type": {
+                            "type": "intrinsic",
+                            "name": "void"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 630,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "signatures": [
+                    {
+                      "id": 631,
+                      "name": "__type",
+                      "variant": "signature",
+                      "kind": 4096,
+                      "flags": {},
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "void"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            623
+          ]
+        },
+        {
+          "title": "Methods",
+          "children": [
+            632,
+            624
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "multi-tracker.ts",
+          "line": 59,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 634,
+      "name": "MultiChainTxTracker",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Public surface returned by "
+          },
+          {
+            "kind": "inline-tag",
+            "tag": "@link",
+            "text": "createMultiChainTracker",
+            "target": 602
+          },
+          {
+            "kind": "text",
+            "text": "."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 641,
+          "name": "chainIds",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 102,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 642,
+              "name": "chainIds",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Registered chainIds, in entry order."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "multi-tracker.ts",
+                  "line": 102,
+                  "character": 2
+                }
+              ],
+              "type": {
+                "type": "array",
+                "elementType": {
+                  "type": "intrinsic",
+                  "name": "number"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": 646,
+          "name": "getTxStatus",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 110,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 647,
+              "name": "getTxStatus",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [],
+                "blockTags": [
+                  {
+                    "tag": "@throws",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "if the chainId is not registered."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "multi-tracker.ts",
+                  "line": 110,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 648,
+                  "name": "chainId",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                },
+                {
+                  "id": 649,
+                  "name": "hash",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "union",
+                "types": [
+                  {
+                    "type": "reference",
+                    "target": 341,
+                    "name": "TxStatus",
+                    "package": "@valve-tech/tx-tracker"
+                  },
+                  {
+                    "type": "literal",
+                    "value": null
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": 639,
+          "name": "ready",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 100,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 640,
+              "name": "ready",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Resolves when every member tracker's rehydration completed."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "multi-tracker.ts",
+                  "line": 100,
+                  "character": 2
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        },
+        {
+          "id": 635,
+          "name": "start",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 96,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 636,
+              "name": "start",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Start every member tracker. Sources are the caller's to start."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "multi-tracker.ts",
+                  "line": 96,
+                  "character": 2
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        },
+        {
+          "id": 637,
+          "name": "stop",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 98,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 638,
+              "name": "stop",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Stop every member tracker."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "multi-tracker.ts",
+                  "line": 98,
+                  "character": 2
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        },
+        {
+          "id": 655,
+          "name": "subscribe",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 118,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 656,
+              "name": "subscribe",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [],
+                "blockTags": [
+                  {
+                    "tag": "@throws",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "if the chainId is not registered."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "multi-tracker.ts",
+                  "line": 118,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 657,
+                  "name": "chainId",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                },
+                {
+                  "id": 658,
+                  "name": "hash",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 659,
+                  "name": "cb",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "reflection",
+                    "declaration": {
+                      "id": 660,
+                      "name": "__type",
+                      "variant": "declaration",
+                      "kind": 65536,
+                      "flags": {},
+                      "signatures": [
+                        {
+                          "id": 661,
+                          "name": "__type",
+                          "variant": "signature",
+                          "kind": 4096,
+                          "flags": {},
+                          "parameters": [
+                            {
+                              "id": 662,
+                              "name": "event",
+                              "variant": "param",
+                              "kind": 32768,
+                              "flags": {},
+                              "type": {
+                                "type": "reference",
+                                "target": 255,
+                                "name": "TxEvent",
+                                "package": "@valve-tech/tx-tracker"
+                              }
+                            }
+                          ],
+                          "type": {
+                            "type": "intrinsic",
+                            "name": "void"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "id": 663,
+                  "name": "options",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": 75,
+                    "name": "TrackOptions",
+                    "package": "@valve-tech/tx-tracker"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 664,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "signatures": [
+                    {
+                      "id": 665,
+                      "name": "__type",
+                      "variant": "signature",
+                      "kind": 4096,
+                      "flags": {},
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "void"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": 666,
+          "name": "subscribeAll",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 129,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 667,
+              "name": "subscribeAll",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Fan-in over every member tracker's event stream, each event\ntagged with its "
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`chainId`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": ". Returns an unsubscribe handle\ncovering all chains."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "multi-tracker.ts",
+                  "line": 129,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 668,
+                  "name": "cb",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "reflection",
+                    "declaration": {
+                      "id": 669,
+                      "name": "__type",
+                      "variant": "declaration",
+                      "kind": 65536,
+                      "flags": {},
+                      "signatures": [
+                        {
+                          "id": 670,
+                          "name": "__type",
+                          "variant": "signature",
+                          "kind": 4096,
+                          "flags": {},
+                          "parameters": [
+                            {
+                              "id": 671,
+                              "name": "event",
+                              "variant": "param",
+                              "kind": 32768,
+                              "flags": {},
+                              "type": {
+                                "type": "reference",
+                                "target": 619,
+                                "name": "MultiChainTxEvent",
+                                "package": "@valve-tech/tx-tracker"
+                              }
+                            }
+                          ],
+                          "type": {
+                            "type": "intrinsic",
+                            "name": "void"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "type": {
+                "type": "reflection",
+                "declaration": {
+                  "id": 672,
+                  "name": "__type",
+                  "variant": "declaration",
+                  "kind": 65536,
+                  "flags": {},
+                  "signatures": [
+                    {
+                      "id": 673,
+                      "name": "__type",
+                      "variant": "signature",
+                      "kind": 4096,
+                      "flags": {},
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "void"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": 650,
+          "name": "track",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 112,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 651,
+              "name": "track",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [],
+                "blockTags": [
+                  {
+                    "tag": "@throws",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "if the chainId is not registered."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "multi-tracker.ts",
+                  "line": 112,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 652,
+                  "name": "chainId",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                },
+                {
+                  "id": 653,
+                  "name": "hash",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 654,
+                  "name": "options",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": 75,
+                    "name": "TrackOptions",
+                    "package": "@valve-tech/tx-tracker"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es2018.asynciterable.d.ts",
+                  "qualifiedName": "AsyncIterable"
+                },
+                "typeArguments": [
+                  {
+                    "type": "reference",
+                    "target": 255,
+                    "name": "TxEvent",
+                    "package": "@valve-tech/tx-tracker"
+                  }
+                ],
+                "name": "AsyncIterable",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        },
+        {
+          "id": 643,
+          "name": "tracker",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 108,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 644,
+              "name": "tracker",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "The underlying per-chain tracker — the escape hatch to the full\nsingle-chain API ("
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`group`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": ", "
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`capabilities`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": ", …)."
+                  }
+                ],
+                "blockTags": [
+                  {
+                    "tag": "@throws",
+                    "content": [
+                      {
+                        "kind": "text",
+                        "text": "if the chainId is not registered."
+                      }
+                    ]
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "multi-tracker.ts",
+                  "line": 108,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 645,
+                  "name": "chainId",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": 22,
+                "name": "TxTracker",
+                "package": "@valve-tech/tx-tracker"
+              }
+            }
+          ]
+        },
+        {
+          "id": 674,
+          "name": "trackFromAddress",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 131,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 675,
+              "name": "trackFromAddress",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Track txs sent from "
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`address`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": " on every registered chain."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "multi-tracker.ts",
+                  "line": 131,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 676,
+                  "name": "address",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 677,
+                  "name": "options",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": 84,
+                    "name": "BulkTrackOptions",
+                    "package": "@valve-tech/tx-tracker"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": 622,
+                "name": "MultiChainTxSubscription",
+                "package": "@valve-tech/tx-tracker"
+              }
+            }
+          ]
+        },
+        {
+          "id": 682,
+          "name": "trackPredicate",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 141,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 683,
+              "name": "trackPredicate",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Track txs matching "
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`match`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": " on every registered chain."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "multi-tracker.ts",
+                  "line": 141,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 684,
+                  "name": "match",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "reflection",
+                    "declaration": {
+                      "id": 685,
+                      "name": "__type",
+                      "variant": "declaration",
+                      "kind": 65536,
+                      "flags": {},
+                      "signatures": [
+                        {
+                          "id": 686,
+                          "name": "__type",
+                          "variant": "signature",
+                          "kind": 4096,
+                          "flags": {},
+                          "parameters": [
+                            {
+                              "id": 687,
+                              "name": "tx",
+                              "variant": "param",
+                              "kind": 32768,
+                              "flags": {},
+                              "type": {
+                                "type": "reference",
+                                "target": {
+                                  "packageName": "@valve-tech/chain-source",
+                                  "packagePath": "src/types.ts",
+                                  "qualifiedName": "RawTx"
+                                },
+                                "name": "RawTx",
+                                "package": "@valve-tech/chain-source"
+                              }
+                            }
+                          ],
+                          "type": {
+                            "type": "intrinsic",
+                            "name": "boolean"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "id": 688,
+                  "name": "options",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": 84,
+                    "name": "BulkTrackOptions",
+                    "package": "@valve-tech/tx-tracker"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": 622,
+                "name": "MultiChainTxSubscription",
+                "package": "@valve-tech/tx-tracker"
+              }
+            }
+          ]
+        },
+        {
+          "id": 678,
+          "name": "trackToAddress",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 136,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 679,
+              "name": "trackToAddress",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "comment": {
+                "summary": [
+                  {
+                    "kind": "text",
+                    "text": "Track txs sent to "
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`address`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": " on every registered chain."
+                  }
+                ]
+              },
+              "sources": [
+                {
+                  "fileName": "multi-tracker.ts",
+                  "line": 136,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 680,
+                  "name": "address",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 681,
+                  "name": "options",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": 84,
+                    "name": "BulkTrackOptions",
+                    "package": "@valve-tech/tx-tracker"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": 622,
+                "name": "MultiChainTxSubscription",
+                "package": "@valve-tech/tx-tracker"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Methods",
+          "children": [
+            641,
+            646,
+            639,
+            635,
+            637,
+            655,
+            666,
+            650,
+            643,
+            674,
+            682,
+            678
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "multi-tracker.ts",
+          "line": 94,
+          "character": 17
+        }
+      ]
+    },
+    {
       "id": 392,
       "name": "PersistedSubscription",
       "variant": "declaration",
@@ -3272,14 +5042,14 @@
       ]
     },
     {
-      "id": 605,
+      "id": 692,
       "name": "ReplaceTransactionNewGas",
       "variant": "declaration",
       "kind": 256,
       "flags": {},
       "children": [
         {
-          "id": 606,
+          "id": 693,
           "name": "maxFeePerGas",
           "variant": "declaration",
           "kind": 1024,
@@ -3297,7 +5067,7 @@
           }
         },
         {
-          "id": 607,
+          "id": 694,
           "name": "maxPriorityFeePerGas",
           "variant": "declaration",
           "kind": 1024,
@@ -3319,8 +5089,8 @@
         {
           "title": "Properties",
           "children": [
-            606,
-            607
+            693,
+            694
           ]
         }
       ],
@@ -3333,14 +5103,14 @@
       ]
     },
     {
-      "id": 608,
+      "id": 695,
       "name": "ReplaceTransactionOptions",
       "variant": "declaration",
       "kind": 256,
       "flags": {},
       "children": [
         {
-          "id": 612,
+          "id": 699,
           "name": "newGas",
           "variant": "declaration",
           "kind": 1024,
@@ -3354,13 +5124,13 @@
           ],
           "type": {
             "type": "reference",
-            "target": 605,
+            "target": 692,
             "name": "ReplaceTransactionNewGas",
             "package": "@valve-tech/tx-tracker"
           }
         },
         {
-          "id": 609,
+          "id": 696,
           "name": "original",
           "variant": "declaration",
           "kind": 1024,
@@ -3374,13 +5144,13 @@
           ],
           "type": {
             "type": "reference",
-            "target": 613,
+            "target": 700,
             "name": "ReplaceTransactionOriginal",
             "package": "@valve-tech/tx-tracker"
           }
         },
         {
-          "id": 610,
+          "id": 697,
           "name": "walletClient",
           "variant": "declaration",
           "kind": 1024,
@@ -3395,7 +5165,7 @@
           "type": {
             "type": "reflection",
             "declaration": {
-              "id": 611,
+              "id": 698,
               "name": "__type",
               "variant": "declaration",
               "kind": 65536,
@@ -3408,9 +5178,9 @@
         {
           "title": "Properties",
           "children": [
-            612,
-            609,
-            610
+            699,
+            696,
+            697
           ]
         }
       ],
@@ -3423,14 +5193,14 @@
       ]
     },
     {
-      "id": 613,
+      "id": 700,
       "name": "ReplaceTransactionOriginal",
       "variant": "declaration",
       "kind": 256,
       "flags": {},
       "children": [
         {
-          "id": 618,
+          "id": 705,
           "name": "chainId",
           "variant": "declaration",
           "kind": 1024,
@@ -3450,7 +5220,7 @@
           }
         },
         {
-          "id": 616,
+          "id": 703,
           "name": "data",
           "variant": "declaration",
           "kind": 1024,
@@ -3479,7 +5249,7 @@
           }
         },
         {
-          "id": 615,
+          "id": 702,
           "name": "nonce",
           "variant": "declaration",
           "kind": 1024,
@@ -3497,7 +5267,7 @@
           }
         },
         {
-          "id": 614,
+          "id": 701,
           "name": "to",
           "variant": "declaration",
           "kind": 1024,
@@ -3524,7 +5294,7 @@
           }
         },
         {
-          "id": 617,
+          "id": 704,
           "name": "value",
           "variant": "declaration",
           "kind": 1024,
@@ -3548,11 +5318,11 @@
         {
           "title": "Properties",
           "children": [
-            618,
-            616,
-            615,
-            614,
-            617
+            705,
+            703,
+            702,
+            701,
+            704
           ]
         }
       ],
@@ -15302,6 +17072,100 @@
       ]
     },
     {
+      "id": 602,
+      "name": "createMultiChainTracker",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "multi-tracker.ts",
+          "line": 158,
+          "character": 16
+        }
+      ],
+      "signatures": [
+        {
+          "id": 603,
+          "name": "createMultiChainTracker",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Create a multi-chain coordinator over one "
+              },
+              {
+                "kind": "code",
+                "text": "`TxTracker`"
+              },
+              {
+                "kind": "text",
+                "text": " per chain.\n\nThe registered chain set is fixed at construction — a coordinator\nwith mutable membership would need rules for orphaned subscriptions\nthat the thin-multiplexer design deliberately avoids. Construct a\nnew coordinator when the chain set changes."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@throws",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "if "
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`chains`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": " is empty or contains a duplicate\n  "
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`chainId`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": "."
+                  }
+                ]
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "multi-tracker.ts",
+              "line": 158,
+              "character": 16
+            }
+          ],
+          "parameters": [
+            {
+              "id": 604,
+              "name": "options",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "target": 611,
+                "name": "CreateMultiChainTrackerOptions",
+                "package": "@valve-tech/tx-tracker"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 634,
+            "name": "MultiChainTxTracker",
+            "package": "@valve-tech/tx-tracker"
+          }
+        }
+      ]
+    },
+    {
       "id": 471,
       "name": "createTxGroup",
       "variant": "declaration",
@@ -15914,7 +17778,7 @@
       ]
     },
     {
-      "id": 602,
+      "id": 689,
       "name": "replaceTransaction",
       "variant": "declaration",
       "kind": 64,
@@ -15928,7 +17792,7 @@
       ],
       "signatures": [
         {
-          "id": 603,
+          "id": 690,
           "name": "replaceTransaction",
           "variant": "signature",
           "kind": 4096,
@@ -15961,14 +17825,14 @@
           ],
           "parameters": [
             {
-              "id": 604,
+              "id": 691,
               "name": "options",
               "variant": "param",
               "kind": 32768,
               "flags": {},
               "type": {
                 "type": "reference",
-                "target": 608,
+                "target": 695,
                 "name": "ReplaceTransactionOptions",
                 "package": "@valve-tech/tx-tracker"
               }
@@ -16238,6 +18102,7 @@
     {
       "title": "Classes",
       "children": [
+        605,
         536
       ]
     },
@@ -16251,6 +18116,7 @@
         379,
         84,
         465,
+        611,
         4,
         249,
         131,
@@ -16258,10 +18124,13 @@
         389,
         156,
         171,
+        619,
+        622,
+        634,
         392,
-        605,
-        608,
-        613,
+        692,
+        695,
+        700,
         396,
         75,
         312,
@@ -16337,12 +18206,13 @@
         374,
         371,
         149,
+        602,
         471,
         1,
         152,
         435,
         456,
-        602,
+        689,
         533,
         501,
         476
@@ -16350,7 +18220,7 @@
     }
   ],
   "packageName": "@valve-tech/tx-tracker",
-  "packageVersion": "0.21.0",
+  "packageVersion": "0.22.0",
   "symbolIdMap": {
     "0": {
       "packageName": "@valve-tech/tx-tracker",
@@ -19359,85 +21229,520 @@
     },
     "602": {
       "packageName": "@valve-tech/tx-tracker",
-      "packagePath": "src/replace-transaction.ts",
-      "qualifiedName": "replaceTransaction"
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "createMultiChainTracker"
     },
     "603": {
       "packageName": "@valve-tech/tx-tracker",
-      "packagePath": "src/replace-transaction.ts",
-      "qualifiedName": "replaceTransaction"
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "createMultiChainTracker"
     },
     "604": {
       "packageName": "@valve-tech/tx-tracker",
-      "packagePath": "src/replace-transaction.ts",
+      "packagePath": "src/multi-tracker.ts",
       "qualifiedName": "options"
     },
     "605": {
       "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "UnknownChainIdError"
+    },
+    "606": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "UnknownChainIdError.__constructor"
+    },
+    "607": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "UnknownChainIdError"
+    },
+    "608": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "chainId"
+    },
+    "609": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "known"
+    },
+    "610": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "UnknownChainIdError.chainId"
+    },
+    "611": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "CreateMultiChainTrackerOptions"
+    },
+    "612": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "CreateMultiChainTrackerOptions.chains"
+    },
+    "613": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "CreateMultiChainTrackerOptions.onError"
+    },
+    "614": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "615": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "616": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "chainId"
+    },
+    "617": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "method"
+    },
+    "618": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "err"
+    },
+    "619": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxEvent"
+    },
+    "620": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxEvent.chainId"
+    },
+    "621": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxEvent.event"
+    },
+    "622": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxSubscription"
+    },
+    "623": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxSubscription.perChain"
+    },
+    "624": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxSubscription.subscribe"
+    },
+    "625": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxSubscription.subscribe"
+    },
+    "626": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "cb"
+    },
+    "627": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "628": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "629": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "event"
+    },
+    "630": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "631": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "632": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxSubscription.stop"
+    },
+    "633": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxSubscription.stop"
+    },
+    "634": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker"
+    },
+    "635": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.start"
+    },
+    "636": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.start"
+    },
+    "637": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.stop"
+    },
+    "638": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.stop"
+    },
+    "639": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.ready"
+    },
+    "640": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.ready"
+    },
+    "641": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.chainIds"
+    },
+    "642": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.chainIds"
+    },
+    "643": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.tracker"
+    },
+    "644": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.tracker"
+    },
+    "645": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "chainId"
+    },
+    "646": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.getTxStatus"
+    },
+    "647": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.getTxStatus"
+    },
+    "648": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "chainId"
+    },
+    "649": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "hash"
+    },
+    "650": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.track"
+    },
+    "651": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.track"
+    },
+    "652": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "chainId"
+    },
+    "653": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "hash"
+    },
+    "654": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "options"
+    },
+    "655": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.subscribe"
+    },
+    "656": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.subscribe"
+    },
+    "657": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "chainId"
+    },
+    "658": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "hash"
+    },
+    "659": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "cb"
+    },
+    "660": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "661": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "662": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "event"
+    },
+    "663": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "options"
+    },
+    "664": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "665": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "666": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.subscribeAll"
+    },
+    "667": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.subscribeAll"
+    },
+    "668": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "cb"
+    },
+    "669": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "670": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "671": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "event"
+    },
+    "672": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "673": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "674": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.trackFromAddress"
+    },
+    "675": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.trackFromAddress"
+    },
+    "676": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "address"
+    },
+    "677": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "options"
+    },
+    "678": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.trackToAddress"
+    },
+    "679": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.trackToAddress"
+    },
+    "680": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "address"
+    },
+    "681": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "options"
+    },
+    "682": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.trackPredicate"
+    },
+    "683": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "MultiChainTxTracker.trackPredicate"
+    },
+    "684": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "match"
+    },
+    "685": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "686": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "__type"
+    },
+    "687": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "tx"
+    },
+    "688": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/multi-tracker.ts",
+      "qualifiedName": "options"
+    },
+    "689": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/replace-transaction.ts",
+      "qualifiedName": "replaceTransaction"
+    },
+    "690": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/replace-transaction.ts",
+      "qualifiedName": "replaceTransaction"
+    },
+    "691": {
+      "packageName": "@valve-tech/tx-tracker",
+      "packagePath": "src/replace-transaction.ts",
+      "qualifiedName": "options"
+    },
+    "692": {
+      "packageName": "@valve-tech/tx-tracker",
       "packagePath": "src/replace-transaction.ts",
       "qualifiedName": "ReplaceTransactionNewGas"
     },
-    "606": {
+    "693": {
       "packageName": "@valve-tech/tx-tracker",
       "packagePath": "src/replace-transaction.ts",
       "qualifiedName": "ReplaceTransactionNewGas.maxFeePerGas"
     },
-    "607": {
+    "694": {
       "packageName": "@valve-tech/tx-tracker",
       "packagePath": "src/replace-transaction.ts",
       "qualifiedName": "ReplaceTransactionNewGas.maxPriorityFeePerGas"
     },
-    "608": {
+    "695": {
       "packageName": "@valve-tech/tx-tracker",
       "packagePath": "src/replace-transaction.ts",
       "qualifiedName": "ReplaceTransactionOptions"
     },
-    "609": {
+    "696": {
       "packageName": "@valve-tech/tx-tracker",
       "packagePath": "src/replace-transaction.ts",
       "qualifiedName": "ReplaceTransactionOptions.original"
     },
-    "610": {
+    "697": {
       "packageName": "@valve-tech/tx-tracker",
       "packagePath": "src/replace-transaction.ts",
       "qualifiedName": "ReplaceTransactionOptions.walletClient"
     },
-    "611": {
+    "698": {
       "packageName": "viem",
       "packagePath": "types/utils.ts",
       "qualifiedName": "__type"
     },
-    "612": {
+    "699": {
       "packageName": "@valve-tech/tx-tracker",
       "packagePath": "src/replace-transaction.ts",
       "qualifiedName": "ReplaceTransactionOptions.newGas"
     },
-    "613": {
+    "700": {
       "packageName": "@valve-tech/tx-tracker",
       "packagePath": "src/replace-transaction.ts",
       "qualifiedName": "ReplaceTransactionOriginal"
     },
-    "614": {
+    "701": {
       "packageName": "@valve-tech/tx-tracker",
       "packagePath": "src/replace-transaction.ts",
       "qualifiedName": "ReplaceTransactionOriginal.to"
     },
-    "615": {
+    "702": {
       "packageName": "@valve-tech/tx-tracker",
       "packagePath": "src/replace-transaction.ts",
       "qualifiedName": "ReplaceTransactionOriginal.nonce"
     },
-    "616": {
+    "703": {
       "packageName": "@valve-tech/tx-tracker",
       "packagePath": "src/replace-transaction.ts",
       "qualifiedName": "ReplaceTransactionOriginal.data"
     },
-    "617": {
+    "704": {
       "packageName": "@valve-tech/tx-tracker",
       "packagePath": "src/replace-transaction.ts",
       "qualifiedName": "ReplaceTransactionOriginal.value"
     },
-    "618": {
+    "705": {
       "packageName": "@valve-tech/tx-tracker",
       "packagePath": "src/replace-transaction.ts",
       "qualifiedName": "ReplaceTransactionOriginal.chainId"

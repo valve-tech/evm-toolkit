@@ -1,0 +1,1958 @@
+{
+  "schemaVersion": "2.0",
+  "id": 0,
+  "name": "@valve-tech/siwe-store-redis v0.22.0",
+  "variant": "project",
+  "kind": 1,
+  "flags": {},
+  "children": [
+    {
+      "id": 21,
+      "name": "IoRedisLike",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "The subset of an ioredis client the adapter consumes."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 31,
+          "name": "del",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "adapters.ts",
+              "line": 52,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 32,
+              "name": "del",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "adapters.ts",
+                  "line": 52,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 33,
+                  "name": "key",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "name": "get",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "adapters.ts",
+              "line": 51,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 29,
+              "name": "get",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "adapters.ts",
+                  "line": 51,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 30,
+                  "name": "key",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "union",
+                    "types": [
+                      {
+                        "type": "intrinsic",
+                        "name": "string"
+                      },
+                      {
+                        "type": "literal",
+                        "value": null
+                      }
+                    ]
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "name": "set",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "adapters.ts",
+              "line": 45,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 23,
+              "name": "set",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "adapters.ts",
+                  "line": 45,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 24,
+                  "name": "key",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 25,
+                  "name": "value",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 26,
+                  "name": "px",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "type": {
+                    "type": "literal",
+                    "value": "PX"
+                  }
+                },
+                {
+                  "id": 27,
+                  "name": "milliseconds",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "unknown"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Methods",
+          "children": [
+            31,
+            28,
+            22
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "adapters.ts",
+          "line": 44,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "name": "NodeRedisV5Like",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "The subset of a node-redis v5 client the adapter consumes."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 48,
+          "name": "del",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "adapters.ts",
+              "line": 20,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 49,
+              "name": "del",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "adapters.ts",
+                  "line": 20,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 50,
+                  "name": "key",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        },
+        {
+          "id": 45,
+          "name": "get",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "adapters.ts",
+              "line": 19,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 46,
+              "name": "get",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "adapters.ts",
+                  "line": 19,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 47,
+                  "name": "key",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "union",
+                    "types": [
+                      {
+                        "type": "intrinsic",
+                        "name": "string"
+                      },
+                      {
+                        "type": "literal",
+                        "value": null
+                      }
+                    ]
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        },
+        {
+          "id": 35,
+          "name": "set",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "adapters.ts",
+              "line": 14,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 36,
+              "name": "set",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "adapters.ts",
+                  "line": 14,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 37,
+                  "name": "key",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 38,
+                  "name": "value",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 39,
+                  "name": "options",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "type": {
+                    "type": "reflection",
+                    "declaration": {
+                      "id": 40,
+                      "name": "__type",
+                      "variant": "declaration",
+                      "kind": 65536,
+                      "flags": {},
+                      "children": [
+                        {
+                          "id": 41,
+                          "name": "expiration",
+                          "variant": "declaration",
+                          "kind": 1024,
+                          "flags": {
+                            "isOptional": true
+                          },
+                          "sources": [
+                            {
+                              "fileName": "adapters.ts",
+                              "line": 17,
+                              "character": 16
+                            }
+                          ],
+                          "type": {
+                            "type": "reflection",
+                            "declaration": {
+                              "id": 42,
+                              "name": "__type",
+                              "variant": "declaration",
+                              "kind": 65536,
+                              "flags": {},
+                              "children": [
+                                {
+                                  "id": 43,
+                                  "name": "type",
+                                  "variant": "declaration",
+                                  "kind": 1024,
+                                  "flags": {},
+                                  "sources": [
+                                    {
+                                      "fileName": "adapters.ts",
+                                      "line": 17,
+                                      "character": 31
+                                    }
+                                  ],
+                                  "type": {
+                                    "type": "literal",
+                                    "value": "PX"
+                                  }
+                                },
+                                {
+                                  "id": 44,
+                                  "name": "value",
+                                  "variant": "declaration",
+                                  "kind": 1024,
+                                  "flags": {},
+                                  "sources": [
+                                    {
+                                      "fileName": "adapters.ts",
+                                      "line": 17,
+                                      "character": 43
+                                    }
+                                  ],
+                                  "type": {
+                                    "type": "intrinsic",
+                                    "name": "number"
+                                  }
+                                }
+                              ],
+                              "groups": [
+                                {
+                                  "title": "Properties",
+                                  "children": [
+                                    43,
+                                    44
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ],
+                      "groups": [
+                        {
+                          "title": "Properties",
+                          "children": [
+                            41
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "unknown"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Methods",
+          "children": [
+            48,
+            45,
+            35
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "adapters.ts",
+          "line": 13,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "name": "RedisClientLike",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "The three Redis commands the stores use.\n\n- "
+          },
+          {
+            "kind": "code",
+            "text": "`set`"
+          },
+          {
+            "kind": "text",
+            "text": " writes a string value, applying "
+          },
+          {
+            "kind": "code",
+            "text": "`options.PX`"
+          },
+          {
+            "kind": "text",
+            "text": " as a\n  server-side TTL when present.\n- "
+          },
+          {
+            "kind": "code",
+            "text": "`get`"
+          },
+          {
+            "kind": "text",
+            "text": " reads a live value or resolves "
+          },
+          {
+            "kind": "code",
+            "text": "`null`"
+          },
+          {
+            "kind": "text",
+            "text": " (missing or expired).\n- "
+          },
+          {
+            "kind": "code",
+            "text": "`del`"
+          },
+          {
+            "kind": "text",
+            "text": " deletes and resolves the number of keys removed — its\n  atomic \"did I win\" count is the single-use nonce primitive."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 60,
+          "name": "del",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 38,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 61,
+              "name": "del",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "types.ts",
+                  "line": 38,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 62,
+                  "name": "key",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        },
+        {
+          "id": 57,
+          "name": "get",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 37,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 58,
+              "name": "get",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "types.ts",
+                  "line": 37,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 59,
+                  "name": "key",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "union",
+                    "types": [
+                      {
+                        "type": "intrinsic",
+                        "name": "string"
+                      },
+                      {
+                        "type": "literal",
+                        "value": null
+                      }
+                    ]
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        },
+        {
+          "id": 52,
+          "name": "set",
+          "variant": "declaration",
+          "kind": 2048,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 32,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 53,
+              "name": "set",
+              "variant": "signature",
+              "kind": 4096,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "types.ts",
+                  "line": 32,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 54,
+                  "name": "key",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 55,
+                  "name": "value",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                },
+                {
+                  "id": 56,
+                  "name": "options",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "type": {
+                    "type": "reference",
+                    "target": 63,
+                    "name": "RedisSetOptions",
+                    "package": "@valve-tech/siwe-store-redis"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": {
+                  "packageName": "typescript",
+                  "packagePath": "lib/lib.es5.d.ts",
+                  "qualifiedName": "Promise"
+                },
+                "typeArguments": [
+                  {
+                    "type": "intrinsic",
+                    "name": "unknown"
+                  }
+                ],
+                "name": "Promise",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Methods",
+          "children": [
+            60,
+            57,
+            52
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 31,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "RedisNonceStoreOptions",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Options for "
+          },
+          {
+            "kind": "inline-tag",
+            "tag": "@link",
+            "text": "createRedisNonceStore",
+            "target": 1
+          },
+          {
+            "kind": "text",
+            "text": "."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 5,
+          "name": "client",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The Redis client (or an adapter — see "
+              },
+              {
+                "kind": "code",
+                "text": "`adapters.ts`"
+              },
+              {
+                "kind": "text",
+                "text": ")."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "nonce-store.ts",
+              "line": 27,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 51,
+            "name": "RedisClientLike",
+            "package": "@valve-tech/siwe-store-redis"
+          }
+        },
+        {
+          "id": 7,
+          "name": "keyPrefix",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Key prefix, so several apps can share one Redis without nonce\ncollisions. Default "
+              },
+              {
+                "kind": "code",
+                "text": "`'siwe:nonce:'`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "nonce-store.ts",
+              "line": 34,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 6,
+          "name": "ttlSeconds",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Nonce TTL in seconds. Default 300 (5 minutes)."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "nonce-store.ts",
+              "line": 29,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            5,
+            7,
+            6
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "nonce-store.ts",
+          "line": 25,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "name": "RedisSessionStoreOptions",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Options for "
+          },
+          {
+            "kind": "inline-tag",
+            "tag": "@link",
+            "text": "createRedisSessionStore",
+            "target": 8
+          },
+          {
+            "kind": "text",
+            "text": "."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 12,
+          "name": "client",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "The Redis client (or an adapter — see "
+              },
+              {
+                "kind": "code",
+                "text": "`adapters.ts`"
+              },
+              {
+                "kind": "text",
+                "text": ")."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "session-store.ts",
+              "line": 29,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 51,
+            "name": "RedisClientLike",
+            "package": "@valve-tech/siwe-store-redis"
+          }
+        },
+        {
+          "id": 14,
+          "name": "keyPrefix",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Key prefix, so several apps can share one Redis without session\ncollisions. Default "
+              },
+              {
+                "kind": "code",
+                "text": "`'siwe:session:'`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "session-store.ts",
+              "line": 36,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 13,
+          "name": "ttlMs",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Session TTL in milliseconds. Default 1_800_000 (30 minutes)."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "session-store.ts",
+              "line": 31,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            12,
+            14,
+            13
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "session-store.ts",
+          "line": 27,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 63,
+      "name": "RedisSetOptions",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Options for "
+          },
+          {
+            "kind": "inline-tag",
+            "tag": "@link",
+            "text": "RedisClientLike.set",
+            "target": 52
+          },
+          {
+            "kind": "text",
+            "text": "."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 64,
+          "name": "PX",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "TTL in milliseconds (Redis "
+              },
+              {
+                "kind": "code",
+                "text": "`PX`"
+              },
+              {
+                "kind": "text",
+                "text": "). The client MUST apply this as a\nserver-side expiry — the stores never re-check TTLs client-side;\nRedis expiry is the single source of truth."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 19,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            64
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 13,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "createRedisNonceStore",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "comment": {
+        "summary": [],
+        "blockTags": [
+          {
+            "tag": "@fileoverview",
+            "content": [
+              {
+                "kind": "text",
+                "text": "Public API of "
+              },
+              {
+                "kind": "code",
+                "text": "`@valve-tech/siwe-store-redis`"
+              },
+              {
+                "kind": "text",
+                "text": ".\n\nRedis-backed implementations of "
+              },
+              {
+                "kind": "code",
+                "text": "`@valve-tech/siwe-store`"
+              },
+              {
+                "kind": "text",
+                "text": "'s async\ncontracts — "
+              },
+              {
+                "kind": "code",
+                "text": "`AsyncNonceStore`"
+              },
+              {
+                "kind": "text",
+                "text": " (single-use, TTL'd, atomic consume via\nDEL) and "
+              },
+              {
+                "kind": "code",
+                "text": "`AsyncSessionStore`"
+              },
+              {
+                "kind": "text",
+                "text": " (opaque CSPRNG tokens, Redis expiry).\nBring your own client: everything types against the minimal\n"
+              },
+              {
+                "kind": "code",
+                "text": "`RedisClientLike`"
+              },
+              {
+                "kind": "text",
+                "text": " surface; node-redis v4 fits directly, adapters\ncover node-redis v5 and ioredis."
+              }
+            ]
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "nonce-store.ts",
+          "line": 38,
+          "character": 16
+        }
+      ],
+      "signatures": [
+        {
+          "id": 2,
+          "name": "createRedisNonceStore",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Create a Redis-backed single-use nonce store."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "nonce-store.ts",
+              "line": 38,
+              "character": 16
+            }
+          ],
+          "parameters": [
+            {
+              "id": 3,
+              "name": "options",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "target": 4,
+                "name": "RedisNonceStoreOptions",
+                "package": "@valve-tech/siwe-store-redis"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@valve-tech/siwe-store",
+              "packagePath": "src/nonce-store.ts",
+              "qualifiedName": "AsyncNonceStore"
+            },
+            "name": "AsyncNonceStore",
+            "package": "@valve-tech/siwe-store"
+          }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "createRedisSessionStore",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "session-store.ts",
+          "line": 59,
+          "character": 16
+        }
+      ],
+      "signatures": [
+        {
+          "id": 9,
+          "name": "createRedisSessionStore",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Create a Redis-backed opaque session store."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "session-store.ts",
+              "line": 59,
+              "character": 16
+            }
+          ],
+          "parameters": [
+            {
+              "id": 10,
+              "name": "options",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "target": 11,
+                "name": "RedisSessionStoreOptions",
+                "package": "@valve-tech/siwe-store-redis"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "@valve-tech/siwe-store",
+              "packagePath": "src/session-store.ts",
+              "qualifiedName": "AsyncSessionStore"
+            },
+            "name": "AsyncSessionStore",
+            "package": "@valve-tech/siwe-store"
+          }
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "fromIoRedis",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "adapters.ts",
+          "line": 59,
+          "character": 16
+        }
+      ],
+      "signatures": [
+        {
+          "id": 16,
+          "name": "fromIoRedis",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Adapt an ioredis client — ioredis takes SET options as positional\narguments, so "
+              },
+              {
+                "kind": "code",
+                "text": "`{ PX }`"
+              },
+              {
+                "kind": "text",
+                "text": " maps onto "
+              },
+              {
+                "kind": "code",
+                "text": "`('PX', milliseconds)`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "adapters.ts",
+              "line": 59,
+              "character": 16
+            }
+          ],
+          "parameters": [
+            {
+              "id": 17,
+              "name": "client",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "target": 21,
+                "name": "IoRedisLike",
+                "package": "@valve-tech/siwe-store-redis"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 51,
+            "name": "RedisClientLike",
+            "package": "@valve-tech/siwe-store-redis"
+          }
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "name": "fromNodeRedisV5",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "adapters.ts",
+          "line": 28,
+          "character": 16
+        }
+      ],
+      "signatures": [
+        {
+          "id": 19,
+          "name": "fromNodeRedisV5",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Adapt a node-redis **v5** client — v5 moved SET's TTL options under\nan "
+              },
+              {
+                "kind": "code",
+                "text": "`expiration`"
+              },
+              {
+                "kind": "text",
+                "text": " object, so "
+              },
+              {
+                "kind": "code",
+                "text": "`{ PX }`"
+              },
+              {
+                "kind": "text",
+                "text": " maps onto\n"
+              },
+              {
+                "kind": "code",
+                "text": "`{ expiration: { type: 'PX', value } }`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "adapters.ts",
+              "line": 28,
+              "character": 16
+            }
+          ],
+          "parameters": [
+            {
+              "id": 20,
+              "name": "client",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "target": 34,
+                "name": "NodeRedisV5Like",
+                "package": "@valve-tech/siwe-store-redis"
+              }
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 51,
+            "name": "RedisClientLike",
+            "package": "@valve-tech/siwe-store-redis"
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Interfaces",
+      "children": [
+        21,
+        34,
+        51,
+        4,
+        11,
+        63
+      ]
+    },
+    {
+      "title": "Functions",
+      "children": [
+        1,
+        8,
+        15,
+        18
+      ]
+    }
+  ],
+  "packageName": "@valve-tech/siwe-store-redis",
+  "packageVersion": "0.22.0",
+  "symbolIdMap": {
+    "0": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/index.ts",
+      "qualifiedName": ""
+    },
+    "1": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "createRedisNonceStore"
+    },
+    "2": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "createRedisNonceStore"
+    },
+    "3": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "options"
+    },
+    "4": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "RedisNonceStoreOptions"
+    },
+    "5": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "RedisNonceStoreOptions.client"
+    },
+    "6": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "RedisNonceStoreOptions.ttlSeconds"
+    },
+    "7": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/nonce-store.ts",
+      "qualifiedName": "RedisNonceStoreOptions.keyPrefix"
+    },
+    "8": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "createRedisSessionStore"
+    },
+    "9": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "createRedisSessionStore"
+    },
+    "10": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "options"
+    },
+    "11": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "RedisSessionStoreOptions"
+    },
+    "12": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "RedisSessionStoreOptions.client"
+    },
+    "13": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "RedisSessionStoreOptions.ttlMs"
+    },
+    "14": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/session-store.ts",
+      "qualifiedName": "RedisSessionStoreOptions.keyPrefix"
+    },
+    "15": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "fromIoRedis"
+    },
+    "16": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "fromIoRedis"
+    },
+    "17": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "client"
+    },
+    "18": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "fromNodeRedisV5"
+    },
+    "19": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "fromNodeRedisV5"
+    },
+    "20": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "client"
+    },
+    "21": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "IoRedisLike"
+    },
+    "22": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "IoRedisLike.set"
+    },
+    "23": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "IoRedisLike.set"
+    },
+    "24": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "key"
+    },
+    "25": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "value"
+    },
+    "26": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "px"
+    },
+    "27": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "milliseconds"
+    },
+    "28": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "IoRedisLike.get"
+    },
+    "29": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "IoRedisLike.get"
+    },
+    "30": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "key"
+    },
+    "31": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "IoRedisLike.del"
+    },
+    "32": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "IoRedisLike.del"
+    },
+    "33": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "key"
+    },
+    "34": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "NodeRedisV5Like"
+    },
+    "35": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "NodeRedisV5Like.set"
+    },
+    "36": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "NodeRedisV5Like.set"
+    },
+    "37": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "key"
+    },
+    "38": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "value"
+    },
+    "39": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "options"
+    },
+    "40": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "__type"
+    },
+    "41": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "__type.expiration"
+    },
+    "42": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "__type"
+    },
+    "43": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "__type.type"
+    },
+    "44": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "__type.value"
+    },
+    "45": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "NodeRedisV5Like.get"
+    },
+    "46": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "NodeRedisV5Like.get"
+    },
+    "47": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "key"
+    },
+    "48": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "NodeRedisV5Like.del"
+    },
+    "49": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "NodeRedisV5Like.del"
+    },
+    "50": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/adapters.ts",
+      "qualifiedName": "key"
+    },
+    "51": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RedisClientLike"
+    },
+    "52": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RedisClientLike.set"
+    },
+    "53": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RedisClientLike.set"
+    },
+    "54": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "key"
+    },
+    "55": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "value"
+    },
+    "56": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "options"
+    },
+    "57": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RedisClientLike.get"
+    },
+    "58": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RedisClientLike.get"
+    },
+    "59": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "key"
+    },
+    "60": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RedisClientLike.del"
+    },
+    "61": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RedisClientLike.del"
+    },
+    "62": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "key"
+    },
+    "63": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RedisSetOptions"
+    },
+    "64": {
+      "packageName": "@valve-tech/siwe-store-redis",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RedisSetOptions.PX"
+    }
+  },
+  "files": {
+    "entries": {
+      "1": "packages/siwe-store-redis/src/index.ts"
+    },
+    "reflections": {
+      "1": 0
+    }
+  }
+}

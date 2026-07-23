@@ -5,6 +5,13 @@ here. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.
 and this package adheres to the valve-tech/evm-toolkit synchronized
 release line.
 
+## [0.22.0] — 2026-07-23
+
+### Notes
+
+- Synchronized release — no changes to this package. Bumped in
+  lockstep with the rest of the toolkit.
+
 ## [0.21.0] — 2026-07-15
 
 ### Changed

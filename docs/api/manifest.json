@@ -6,7 +6,7 @@
     {
       "name": "@valve-tech/chain-source",
       "slug": "chain-source",
-      "version": "0.21.0",
+      "version": "0.22.0",
       "description": "Canonical EVM chain-observation primitive: a unified push-or-poll source for new blocks, mempool snapshots, on-demand receipt + tx lookups, and capability disclosure (HTTP / WS / per-method gating). Used as the shared foundation by @valve-tech/gas-oracle and @valve-tech/tx-tracker; consumable directly by anyone building their own derived view on chain state. viem-native. Part of the valve-tech/evm-toolkit synchronized release line — implementation lands in subsequent 0.3.x releases per docs/tx-tracker-spec.md.",
       "html": "chain-source/index.html",
       "json": "chain-source.json"
@@ -14,7 +14,7 @@
     {
       "name": "@valve-tech/gas-oracle",
       "slug": "gas-oracle",
-      "version": "0.21.0",
+      "version": "0.22.0",
       "description": "Multi-tier gas-fee oracle for EVM chains. Computes slow/standard/fast/instant tier recommendations from block-included tips, mempool pending tips, and base-fee trend, with a configurable downside-decay cap and a chain-aware EIP-1559 priority cutoff. viem-native — pass it a PublicClient and it does the rest. Ships viem-actions and viem-transport subpaths for drop-in client extension and transport-wrapping.",
       "html": "gas-oracle/index.html",
       "json": "gas-oracle.json"
@@ -22,7 +22,7 @@
     {
       "name": "@valve-tech/rpc-collector",
       "slug": "rpc-collector",
-      "version": "0.21.0",
+      "version": "0.22.0",
       "description": "Zero-dependency EVM RPC endpoint collector. Resolves a chainId to a privacy-ranked list of public RPC endpoints sourced from the DefiLlama/chainlist dataset (vendored and code-generated, so nothing is fetched or resolved at runtime), and converts that list into a ready-to-use viem transport or ethers provider. Every endpoint carries its privacy tracking rating. Part of the valve-tech/evm-toolkit synchronized release line.",
       "html": "rpc-collector/index.html",
       "json": "rpc-collector.json"
@@ -30,15 +30,23 @@
     {
       "name": "@valve-tech/siwe-store",
       "slug": "siwe-store",
-      "version": "0.21.0",
+      "version": "0.22.0",
       "description": "Server-side state for SIWE (Sign-In with Ethereum) that viem/siwe deliberately leaves to the app: a single-use, TTL'd nonce store (atomic consume, delete-before-TTL-check so a race-loser cannot reuse) and an opaque CSPRNG session store bound to an address. Ships interfaces (the contract for Redis/SQL implementations) plus in-memory defaults; pairs viem/siwe for the crypto/message/validation half. Part of the valve-tech/evm-toolkit synchronized release line.",
       "html": "siwe-store/index.html",
       "json": "siwe-store.json"
     },
     {
+      "name": "@valve-tech/siwe-store-redis",
+      "slug": "siwe-store-redis",
+      "version": "0.22.0",
+      "description": "Redis-backed SIWE nonce + session stores implementing @valve-tech/siwe-store's async contracts (AsyncNonceStore / AsyncSessionStore). Single-use nonce consume is atomic (Redis DEL), TTLs are enforced server-side by Redis expiry, and sessions are opaque CSPRNG tokens bound to an address. Bring your own client: the stores type against a minimal RedisClientLike surface (node-redis v4 matches directly; adapters for node-redis v5 and ioredis ship in the package), so this package itself has zero runtime dependencies. Part of the valve-tech/evm-toolkit synchronized release line.",
+      "html": "siwe-store-redis/index.html",
+      "json": "siwe-store-redis.json"
+    },
+    {
       "name": "@valve-tech/trueblocks-sdk",
       "slug": "trueblocks-sdk",
-      "version": "0.21.0",
+      "version": "0.22.0",
       "description": "Typed TypeScript HTTP client to a running TrueBlocks chifra daemon. Wraps chifra's REST surface (the same one served by `chifra daemon`) with TS types generated from the upstream OpenAPI spec; no Go runtime, no shelling-out.",
       "html": "trueblocks-sdk/index.html",
       "json": "trueblocks-sdk.json",
@@ -47,7 +55,7 @@
     {
       "name": "@valve-tech/tx-flight-react",
       "slug": "tx-flight-react",
-      "version": "0.21.0",
+      "version": "0.22.0",
       "description": "React UI primitives for rendering an in-flight transaction strip. Provider with multi-instance scoping (id + storage key), three add methods (addWithWalletAdapter for callers using @valve-tech/wallet-adapter, addByHash for raw hash + chain via @valve-tech/tx-tracker, addManual for back-fill), pluggable storage (localStorage default, IndexedDB and memory adapters included), atomic + layout components for headless composition, SSR-safe (the package's React-side hooks are client-only; storage adapters no-op on the server). Part of the valve-tech/evm-toolkit synchronized release line.",
       "html": "tx-flight-react/index.html",
       "json": "tx-flight-react.json"
@@ -55,7 +63,7 @@
     {
       "name": "@valve-tech/tx-tracker",
       "slug": "tx-tracker",
-      "version": "0.21.0",
+      "version": "0.22.0",
       "description": "Per-tx state machine for EVM chains: emits neutral observations (`seen-in-mempool`, `seen-in-block`, `replaced-by`, `vanished-from-block`, `unseen-for-N-blocks`, etc.) so wallet UIs, indexers, and relays can write their own interpretations on top. Three consumption shapes (callback, async iterator, snapshot) over one push-based core. Per-method capability detection — works on HTTP, WS, both, or neither. Part of the valve-tech/evm-toolkit synchronized release line — implementation lands in subsequent 0.3.x releases per docs/tx-tracker-spec.md.",
       "html": "tx-tracker/index.html",
       "json": "tx-tracker.json"
@@ -63,7 +71,7 @@
     {
       "name": "@valve-tech/unchained-reader",
       "slug": "unchained-reader",
-      "version": "0.21.0",
+      "version": "0.22.0",
       "description": "Browser-safe, zero-dependency reader for the TrueBlocks Unchained Index. Resolves the index manifest, fetches bloom filters and index chunks from any IPFS gateway, and parses the binary bloom/chunk formats client-side into address appearances — no chifra daemon, no backend, no API key. Pairs with @valve-tech/trueblocks-sdk (which talks to a running daemon); this package reads the published index directly. Part of the valve-tech/evm-toolkit synchronized release line.",
       "html": "unchained-reader/index.html",
       "json": "unchained-reader.json"
@@ -71,7 +79,7 @@
     {
       "name": "@valve-tech/viem-errors",
       "slug": "viem-errors",
-      "version": "0.21.0",
+      "version": "0.22.0",
       "description": "Cause-chain-aware error utilities for viem-based dapps. Detect EIP-1193 user rejections (4001 / class name / message regex), extract decoded custom Solidity error names from anywhere in viem's nested cause chain, map raw RPC/wallet/contract errors to short user-friendly messages with overridable patterns, and route wagmi-style onError sinks through one helper. Pure functions, no runtime dependencies. Part of the valve-tech/evm-toolkit synchronized release line.",
       "html": "viem-errors/index.html",
       "json": "viem-errors.json"
@@ -79,7 +87,7 @@
     {
       "name": "@valve-tech/wallet-adapter",
       "slug": "wallet-adapter",
-      "version": "0.21.0",
+      "version": "0.22.0",
       "description": "Framework-agnostic vocabulary + runtime helpers for EVM dapp wallet integration. WalletAdapter interface (sign + send), WriteHookParams full lifecycle with rich TxContext payloads (chainId + original request) on every event so consumers don't side-channel; six named hooks (onAwaitingSignature, onTransactionHash, onConfirmed, onFailed, onDropped, onReplaced) plus complementary onPhase(event) discriminated-union shape derived from the WritePhaseSteps phase-map; sendTransactionWithHooks + awaitReceiptWithHooks helpers that fire the hooks at real boundaries (with awaitReceiptWithHooks fetching the containing block once on behalf of all downstream consumers); typed WalletRejectedError + ContractRevertedError for instanceof-discriminated catch; plus TX_STATUS / TX_FLOW / TrackedTx for tx-state UI. Lets SDKs and dapps share one contract instead of each redefining it. Part of the valve-tech/evm-toolkit synchronized release line.",
       "html": "wallet-adapter/index.html",
       "json": "wallet-adapter.json"
@@ -87,7 +95,7 @@
     {
       "name": "@valve-tech/wallet-crypto",
       "slug": "wallet-crypto",
-      "version": "0.21.0",
+      "version": "0.22.0",
       "description": "Wallet-derived encryption keys + AES-GCM authenticated envelopes for viem-based dapps. Deterministic, versioned keys derived from a personal_sign signature (same wallet + same purpose + same version → same CryptoKey, across devices). Non-extractable WebCrypto AES-GCM encrypt/decrypt with AAD binding. Pure functions, no runtime storage. Part of the valve-tech/evm-toolkit synchronized release line.",
       "html": "wallet-crypto/index.html",
       "json": "wallet-crypto.json"
@@ -95,7 +103,7 @@
     {
       "name": "@valve-tech/wallet-key-session",
       "slug": "wallet-key-session",
-      "version": "0.21.0",
+      "version": "0.22.0",
       "description": "Memory-only lifecycle for a wallet-derived encryption key in viem-based dapps. Derives the (non-extractable) CryptoKey once per session, never persists it, and wipes it on disconnect / account-change / tab-close. Pairs @valve-tech/wallet-crypto. The derivation itself is injected, so the lifecycle is unit-testable without a wallet. Browser-safe — no node imports, no persistent storage. Part of the valve-tech/evm-toolkit synchronized release line.",
       "html": "wallet-key-session/index.html",
       "json": "wallet-key-session.json"
