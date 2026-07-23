@@ -1,0 +1,77 @@
+{
+  "name": "@valve-tech/rpc-collector",
+  "version": "0.21.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "description": "Zero-dependency EVM RPC endpoint collector. Resolves a chainId to a privacy-ranked list of public RPC endpoints sourced from the DefiLlama/chainlist dataset (vendored and code-generated, so nothing is fetched or resolved at runtime), and converts that list into a ready-to-use viem transport or ethers provider. Every endpoint carries its privacy tracking rating. Part of the valve-tech/evm-toolkit synchronized release line.",
+  "license": "MIT",
+  "homepage": "https://github.com/valve-tech/evm-toolkit/tree/main/packages/rpc-collector#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valve-tech/evm-toolkit.git",
+    "directory": "packages/rpc-collector"
+  },
+  "bugs": {
+    "url": "https://github.com/valve-tech/evm-toolkit/issues"
+  },
+  "keywords": [
+    "ethereum",
+    "evm",
+    "viem",
+    "ethers",
+    "rpc",
+    "chainlist",
+    "endpoints",
+    "privacy",
+    "transport",
+    "provider"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./viem": {
+      "types": "./dist/viem.d.ts",
+      "import": "./dist/viem.js"
+    },
+    "./ethers": {
+      "types": "./dist/ethers.d.ts",
+      "import": "./dist/ethers.js"
+    }
+  },
+  "files": [
+    "dist",
+    "skills",
+    "README.md",
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p .",
+    "typecheck": "tsc -p . --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "refresh:vendor": "node scripts/refresh-vendor.mjs",
+    "generate:data": "node scripts/generate-data.mjs",
+    "prepare": "yarn build"
+  },
+  "peerDependencies": {
+    "ethers": "^6.0.0",
+    "viem": "^2.0.0"
+  },
+  "peerDependenciesMeta": {
+    "ethers": {
+      "optional": true
+    },
+    "viem": {
+      "optional": true
+    }
+  }
+}

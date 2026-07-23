@@ -6,6 +6,15 @@ this file. Per-package details live in each `packages/*/CHANGELOG.md`.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- **`@valve-tech/rpc-collector`** (new package) — resolves a chainId to a
+  privacy-ranked list of public RPC endpoints from a vendored
+  DefiLlama/chainlist dataset, and converts them into a viem transport or
+  ethers provider. Zero runtime dependencies.
+
 ## [0.21.0] — 2026-07-15
 
 ### Added

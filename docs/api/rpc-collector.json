@@ -1,0 +1,1543 @@
+{
+  "schemaVersion": "2.0",
+  "id": 0,
+  "name": "@valve-tech/rpc-collector v0.21.0",
+  "variant": "project",
+  "kind": 1,
+  "flags": {},
+  "children": [
+    {
+      "id": 19,
+      "name": "EmptyEndpointSetError",
+      "variant": "declaration",
+      "kind": 128,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Thrown when an adapter is handed an empty endpoint list. Building a\ntransport with no endpoints would produce a client that fails on every\ncall, so we refuse loudly instead."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 20,
+          "name": "constructor",
+          "variant": "declaration",
+          "kind": 512,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 58,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 21,
+              "name": "EmptyEndpointSetError",
+              "variant": "signature",
+              "kind": 16384,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "types.ts",
+                  "line": 58,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 22,
+                  "name": "adapter",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": 19,
+                "name": "EmptyEndpointSetError",
+                "package": "@valve-tech/rpc-collector"
+              },
+              "overwrites": {
+                "type": "reference",
+                "target": -1,
+                "name": "Error.constructor",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ],
+          "overwrites": {
+            "type": "reference",
+            "target": -1,
+            "name": "Error.constructor",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        },
+        {
+          "id": 23,
+          "name": "adapter",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 56,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Constructors",
+          "children": [
+            20
+          ]
+        },
+        {
+          "title": "Properties",
+          "children": [
+            23
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 55,
+          "character": 13
+        }
+      ],
+      "extendedTypes": [
+        {
+          "type": "reference",
+          "target": {
+            "packageName": "typescript",
+            "packagePath": "lib/lib.es5.d.ts",
+            "qualifiedName": "Error"
+          },
+          "name": "Error",
+          "package": "typescript",
+          "externalUrl": "#"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "name": "UnknownChainError",
+      "variant": "declaration",
+      "kind": 128,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Thrown when no chain in the dataset matches the requested id or name."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 25,
+          "name": "constructor",
+          "variant": "declaration",
+          "kind": 512,
+          "flags": {},
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 41,
+              "character": 2
+            }
+          ],
+          "signatures": [
+            {
+              "id": 26,
+              "name": "UnknownChainError",
+              "variant": "signature",
+              "kind": 16384,
+              "flags": {},
+              "sources": [
+                {
+                  "fileName": "types.ts",
+                  "line": 41,
+                  "character": 2
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 27,
+                  "name": "chain",
+                  "variant": "param",
+                  "kind": 32768,
+                  "flags": {},
+                  "type": {
+                    "type": "union",
+                    "types": [
+                      {
+                        "type": "intrinsic",
+                        "name": "string"
+                      },
+                      {
+                        "type": "intrinsic",
+                        "name": "number"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "target": 24,
+                "name": "UnknownChainError",
+                "package": "@valve-tech/rpc-collector"
+              },
+              "overwrites": {
+                "type": "reference",
+                "target": -1,
+                "name": "Error.constructor",
+                "package": "typescript",
+                "externalUrl": "#"
+              }
+            }
+          ],
+          "overwrites": {
+            "type": "reference",
+            "target": -1,
+            "name": "Error.constructor",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        },
+        {
+          "id": 28,
+          "name": "chain",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 39,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "union",
+            "types": [
+              {
+                "type": "intrinsic",
+                "name": "string"
+              },
+              {
+                "type": "intrinsic",
+                "name": "number"
+              }
+            ]
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Constructors",
+          "children": [
+            25
+          ]
+        },
+        {
+          "title": "Properties",
+          "children": [
+            28
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 38,
+          "character": 13
+        }
+      ],
+      "extendedTypes": [
+        {
+          "type": "reference",
+          "target": {
+            "packageName": "typescript",
+            "packagePath": "lib/lib.es5.d.ts",
+            "qualifiedName": "Error"
+          },
+          "name": "Error",
+          "package": "typescript",
+          "externalUrl": "#"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "name": "CollectRpcsOptions",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "children": [
+        {
+          "id": 32,
+          "name": "allowedTracking",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Restrict to these tracking ratings. Omit to get every endpoint,\nordered privacy-first — nothing is silently dropped."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 30,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "typeOperator",
+            "operator": "readonly",
+            "target": {
+              "type": "array",
+              "elementType": {
+                "type": "reference",
+                "target": 42,
+                "name": "Tracking",
+                "package": "@valve-tech/rpc-collector"
+              }
+            }
+          }
+        },
+        {
+          "id": 30,
+          "name": "chainId",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Chain to look up by id. Mutually sufficient with "
+              },
+              {
+                "kind": "code",
+                "text": "`chainName`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 23,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "union",
+            "types": [
+              {
+                "type": "intrinsic",
+                "name": "string"
+              },
+              {
+                "type": "intrinsic",
+                "name": "number"
+              }
+            ]
+          }
+        },
+        {
+          "id": 31,
+          "name": "chainName",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Chain to look up by lowercase chainlist name, e.g. "
+              },
+              {
+                "kind": "code",
+                "text": "`'ethereum'`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 25,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 34,
+          "name": "limit",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Cap the number of endpoints returned, after ordering."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 34,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 33,
+          "name": "protocol",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Wire protocol filter. Defaults to "
+              },
+              {
+                "kind": "code",
+                "text": "`'http'`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 32,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "union",
+            "types": [
+              {
+                "type": "reference",
+                "target": 41,
+                "name": "RpcProtocol",
+                "package": "@valve-tech/rpc-collector"
+              },
+              {
+                "type": "literal",
+                "value": "any"
+              }
+            ]
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            32,
+            30,
+            31,
+            34,
+            33
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 21,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "ProbedRpcEndpoint",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "A single public RPC endpoint for one chain."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 10,
+          "name": "alive",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "False only when the endpoint was probed and failed."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "probe.ts",
+              "line": 7,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 15,
+          "name": "chainId",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true,
+            "isInherited": true
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 18,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          },
+          "inheritedFrom": {
+            "type": "reference",
+            "target": 40,
+            "name": "RpcEndpoint.chainId"
+          }
+        },
+        {
+          "id": 14,
+          "name": "isOpenSource",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true,
+            "isReadonly": true,
+            "isInherited": true
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 17,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          },
+          "inheritedFrom": {
+            "type": "reference",
+            "target": 39,
+            "name": "RpcEndpoint.isOpenSource"
+          }
+        },
+        {
+          "id": 9,
+          "name": "latencyMs",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Round-trip time in ms, or null if not measured (websocket)."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "probe.ts",
+              "line": 5,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "union",
+            "types": [
+              {
+                "type": "intrinsic",
+                "name": "number"
+              },
+              {
+                "type": "literal",
+                "value": null
+              }
+            ]
+          }
+        },
+        {
+          "id": 12,
+          "name": "protocol",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true,
+            "isInherited": true
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 15,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 41,
+            "name": "RpcProtocol",
+            "package": "@valve-tech/rpc-collector"
+          },
+          "inheritedFrom": {
+            "type": "reference",
+            "target": 37,
+            "name": "RpcEndpoint.protocol"
+          }
+        },
+        {
+          "id": 13,
+          "name": "tracking",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true,
+            "isInherited": true
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 16,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 42,
+            "name": "Tracking",
+            "package": "@valve-tech/rpc-collector"
+          },
+          "inheritedFrom": {
+            "type": "reference",
+            "target": 38,
+            "name": "RpcEndpoint.tracking"
+          }
+        },
+        {
+          "id": 11,
+          "name": "url",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true,
+            "isInherited": true
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 14,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          },
+          "inheritedFrom": {
+            "type": "reference",
+            "target": 36,
+            "name": "RpcEndpoint.url"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            10,
+            15,
+            14,
+            9,
+            12,
+            13,
+            11
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "probe.ts",
+          "line": 3,
+          "character": 17
+        }
+      ],
+      "extendedTypes": [
+        {
+          "type": "reference",
+          "target": 35,
+          "name": "RpcEndpoint",
+          "package": "@valve-tech/rpc-collector"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "name": "ProbeOptions",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "children": [
+        {
+          "id": 18,
+          "name": "keepDead",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Keep failed endpoints in the result, flagged "
+              },
+              {
+                "kind": "code",
+                "text": "`alive: false`"
+              },
+              {
+                "kind": "text",
+                "text": "."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "probe.ts",
+              "line": 14,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 17,
+          "name": "timeoutMs",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true
+          },
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Per-endpoint timeout. Defaults to 3000ms."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "probe.ts",
+              "line": 12,
+              "character": 2
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            18,
+            17
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "probe.ts",
+          "line": 10,
+          "character": 17
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "name": "RpcEndpoint",
+      "variant": "declaration",
+      "kind": 256,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "A single public RPC endpoint for one chain."
+          }
+        ]
+      },
+      "children": [
+        {
+          "id": 40,
+          "name": "chainId",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 18,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        },
+        {
+          "id": 39,
+          "name": "isOpenSource",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isOptional": true,
+            "isReadonly": true
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 17,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "boolean"
+          }
+        },
+        {
+          "id": 37,
+          "name": "protocol",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 15,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 41,
+            "name": "RpcProtocol",
+            "package": "@valve-tech/rpc-collector"
+          }
+        },
+        {
+          "id": 38,
+          "name": "tracking",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 16,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": 42,
+            "name": "Tracking",
+            "package": "@valve-tech/rpc-collector"
+          }
+        },
+        {
+          "id": 36,
+          "name": "url",
+          "variant": "declaration",
+          "kind": 1024,
+          "flags": {
+            "isReadonly": true
+          },
+          "sources": [
+            {
+              "fileName": "types.ts",
+              "line": 14,
+              "character": 11
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "children": [
+            40,
+            39,
+            37,
+            38,
+            36
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 13,
+          "character": 17
+        }
+      ],
+      "extendedBy": [
+        {
+          "type": "reference",
+          "target": 8,
+          "name": "ProbedRpcEndpoint"
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "name": "RpcProtocol",
+      "variant": "declaration",
+      "kind": 2097152,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Wire protocol an endpoint speaks."
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 10,
+          "character": 12
+        }
+      ],
+      "type": {
+        "type": "union",
+        "types": [
+          {
+            "type": "literal",
+            "value": "http"
+          },
+          {
+            "type": "literal",
+            "value": "ws"
+          }
+        ]
+      }
+    },
+    {
+      "id": 42,
+      "name": "Tracking",
+      "variant": "declaration",
+      "kind": 2097152,
+      "flags": {},
+      "comment": {
+        "summary": [
+          {
+            "kind": "text",
+            "text": "Privacy tracking rating an RPC provider self-reports upstream."
+          }
+        ]
+      },
+      "sources": [
+        {
+          "fileName": "types.ts",
+          "line": 2,
+          "character": 12
+        }
+      ],
+      "type": {
+        "type": "union",
+        "types": [
+          {
+            "type": "literal",
+            "value": "none"
+          },
+          {
+            "type": "literal",
+            "value": "limited"
+          },
+          {
+            "type": "literal",
+            "value": "yes"
+          },
+          {
+            "type": "literal",
+            "value": "unspecified"
+          },
+          {
+            "type": "literal",
+            "value": "unknown"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1,
+      "name": "collectRpcs",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "collect.ts",
+          "line": 89,
+          "character": 16
+        }
+      ],
+      "signatures": [
+        {
+          "id": 2,
+          "name": "collectRpcs",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Resolve a chain to its public RPC endpoints, ordered privacy-first.\n\nPure and synchronous — the dataset is compiled into the package, so no\nnetwork access happens here. Nothing is filtered out unless you ask:\nby default every endpoint for the chain is returned, ordered so the\nleast-tracking providers come first."
+              }
+            ],
+            "blockTags": [
+              {
+                "tag": "@throws",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "if the chain is not in the dataset."
+                  }
+                ]
+              },
+              {
+                "tag": "@throws",
+                "content": [
+                  {
+                    "kind": "text",
+                    "text": "if neither "
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`chainId`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": " nor "
+                  },
+                  {
+                    "kind": "code",
+                    "text": "`chainName`"
+                  },
+                  {
+                    "kind": "text",
+                    "text": " is supplied."
+                  }
+                ]
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "collect.ts",
+              "line": 89,
+              "character": 16
+            }
+          ],
+          "parameters": [
+            {
+              "id": 3,
+              "name": "options",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "target": 29,
+                "name": "CollectRpcsOptions",
+                "package": "@valve-tech/rpc-collector"
+              }
+            }
+          ],
+          "type": {
+            "type": "array",
+            "elementType": {
+              "type": "reference",
+              "target": 35,
+              "name": "RpcEndpoint",
+              "package": "@valve-tech/rpc-collector"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "probeEndpoints",
+      "variant": "declaration",
+      "kind": 64,
+      "flags": {},
+      "sources": [
+        {
+          "fileName": "probe.ts",
+          "line": 70,
+          "character": 22
+        }
+      ],
+      "signatures": [
+        {
+          "id": 5,
+          "name": "probeEndpoints",
+          "variant": "signature",
+          "kind": 4096,
+          "flags": {},
+          "comment": {
+            "summary": [
+              {
+                "kind": "text",
+                "text": "Ping each endpoint and reorder by measured latency.\n\nOpt-in and network-bound — the rest of this package is pure. Dead\nendpoints are dropped unless "
+              },
+              {
+                "kind": "code",
+                "text": "`keepDead`"
+              },
+              {
+                "kind": "text",
+                "text": " is set. Websocket endpoints are\nnot probed; they are kept, unmeasured, and sorted after measured ones."
+              }
+            ]
+          },
+          "sources": [
+            {
+              "fileName": "probe.ts",
+              "line": 70,
+              "character": 22
+            }
+          ],
+          "parameters": [
+            {
+              "id": 6,
+              "name": "endpoints",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "typeOperator",
+                "operator": "readonly",
+                "target": {
+                  "type": "array",
+                  "elementType": {
+                    "type": "reference",
+                    "target": 35,
+                    "name": "RpcEndpoint",
+                    "package": "@valve-tech/rpc-collector"
+                  }
+                }
+              }
+            },
+            {
+              "id": 7,
+              "name": "options",
+              "variant": "param",
+              "kind": 32768,
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "target": 16,
+                "name": "ProbeOptions",
+                "package": "@valve-tech/rpc-collector"
+              },
+              "defaultValue": "{}"
+            }
+          ],
+          "type": {
+            "type": "reference",
+            "target": {
+              "packageName": "typescript",
+              "packagePath": "lib/lib.es5.d.ts",
+              "qualifiedName": "Promise"
+            },
+            "typeArguments": [
+              {
+                "type": "array",
+                "elementType": {
+                  "type": "reference",
+                  "target": 8,
+                  "name": "ProbedRpcEndpoint",
+                  "package": "@valve-tech/rpc-collector"
+                }
+              }
+            ],
+            "name": "Promise",
+            "package": "typescript",
+            "externalUrl": "#"
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Classes",
+      "children": [
+        19,
+        24
+      ]
+    },
+    {
+      "title": "Interfaces",
+      "children": [
+        29,
+        8,
+        16,
+        35
+      ]
+    },
+    {
+      "title": "Type Aliases",
+      "children": [
+        41,
+        42
+      ]
+    },
+    {
+      "title": "Functions",
+      "children": [
+        1,
+        4
+      ]
+    }
+  ],
+  "packageName": "@valve-tech/rpc-collector",
+  "packageVersion": "0.21.0",
+  "symbolIdMap": {
+    "0": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/index.ts",
+      "qualifiedName": ""
+    },
+    "1": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/collect.ts",
+      "qualifiedName": "collectRpcs"
+    },
+    "2": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/collect.ts",
+      "qualifiedName": "collectRpcs"
+    },
+    "3": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/collect.ts",
+      "qualifiedName": "options"
+    },
+    "4": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/probe.ts",
+      "qualifiedName": "probeEndpoints"
+    },
+    "5": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/probe.ts",
+      "qualifiedName": "probeEndpoints"
+    },
+    "6": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/probe.ts",
+      "qualifiedName": "endpoints"
+    },
+    "7": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/probe.ts",
+      "qualifiedName": "options"
+    },
+    "8": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/probe.ts",
+      "qualifiedName": "ProbedRpcEndpoint"
+    },
+    "9": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/probe.ts",
+      "qualifiedName": "ProbedRpcEndpoint.latencyMs"
+    },
+    "10": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/probe.ts",
+      "qualifiedName": "ProbedRpcEndpoint.alive"
+    },
+    "11": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RpcEndpoint.url"
+    },
+    "12": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RpcEndpoint.protocol"
+    },
+    "13": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RpcEndpoint.tracking"
+    },
+    "14": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RpcEndpoint.isOpenSource"
+    },
+    "15": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RpcEndpoint.chainId"
+    },
+    "16": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/probe.ts",
+      "qualifiedName": "ProbeOptions"
+    },
+    "17": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/probe.ts",
+      "qualifiedName": "ProbeOptions.timeoutMs"
+    },
+    "18": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/probe.ts",
+      "qualifiedName": "ProbeOptions.keepDead"
+    },
+    "19": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "EmptyEndpointSetError"
+    },
+    "20": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "EmptyEndpointSetError.__constructor"
+    },
+    "21": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "EmptyEndpointSetError"
+    },
+    "22": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "adapter"
+    },
+    "23": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "EmptyEndpointSetError.adapter"
+    },
+    "24": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "UnknownChainError"
+    },
+    "25": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "UnknownChainError.__constructor"
+    },
+    "26": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "UnknownChainError"
+    },
+    "27": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "chain"
+    },
+    "28": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "UnknownChainError.chain"
+    },
+    "29": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "CollectRpcsOptions"
+    },
+    "30": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "CollectRpcsOptions.chainId"
+    },
+    "31": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "CollectRpcsOptions.chainName"
+    },
+    "32": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "CollectRpcsOptions.allowedTracking"
+    },
+    "33": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "CollectRpcsOptions.protocol"
+    },
+    "34": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "CollectRpcsOptions.limit"
+    },
+    "35": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RpcEndpoint"
+    },
+    "36": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RpcEndpoint.url"
+    },
+    "37": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RpcEndpoint.protocol"
+    },
+    "38": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RpcEndpoint.tracking"
+    },
+    "39": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RpcEndpoint.isOpenSource"
+    },
+    "40": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RpcEndpoint.chainId"
+    },
+    "41": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "RpcProtocol"
+    },
+    "42": {
+      "packageName": "@valve-tech/rpc-collector",
+      "packagePath": "src/types.ts",
+      "qualifiedName": "Tracking"
+    }
+  },
+  "files": {
+    "entries": {
+      "1": "packages/rpc-collector/src/index.ts"
+    },
+    "reflections": {
+      "1": 0
+    }
+  }
+}
