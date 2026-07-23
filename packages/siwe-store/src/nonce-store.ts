@@ -23,6 +23,28 @@ export interface NonceStore {
   consume(nonce: string): boolean
 }
 
+/**
+ * Async variant of {@link NonceStore} — the contract for backends
+ * whose I/O is inherently asynchronous (Redis, SQL). Same semantics:
+ * `consume` is atomic single-use, and the delete happens before (or
+ * atomically with) the TTL check so a race-loser cannot reuse a nonce.
+ *
+ * `@valve-tech/siwe-store-redis` implements this shape.
+ */
+export interface AsyncNonceStore {
+  /** Issue a fresh SIWE-valid nonce (`generateSiweNonce`) and remember it. */
+  issue(): Promise<string>
+  /** True iff the nonce was issued, unexpired, and unconsumed. */
+  consume(nonce: string): Promise<boolean>
+}
+
+/**
+ * Either nonce-store shape. Handler code that only ever `await`s the
+ * results can type against this union — `await` is a no-op on the
+ * sync store's plain values.
+ */
+export type AnyNonceStore = NonceStore | AsyncNonceStore
+
 /** Default nonce TTL: 5 minutes. */
 const DEFAULT_TTL_SECONDS = 5 * 60
 

@@ -96,7 +96,7 @@ jobs:
           # Single source of truth for which packages publish. Consumed by
           # the publish + smoke matrices via fromJSON, and asserted
           # complete against packages/* by `verify:release-coverage`.
-          echo 'packages=["chain-source","viem-errors","wallet-adapter","gas-oracle","tx-tracker","tx-flight-react","trueblocks-sdk","wallet-key-session","siwe-store","wallet-crypto","agent-skills","unchained-reader","rpc-collector"]' >> "$GITHUB_OUTPUT"
+          echo 'packages=["chain-source","viem-errors","wallet-adapter","gas-oracle","tx-tracker","tx-flight-react","trueblocks-sdk","wallet-key-session","siwe-store","wallet-crypto","agent-skills","unchained-reader","rpc-collector","siwe-store-redis"]' >> "$GITHUB_OUTPUT"
 
   verify:
     needs: prepare

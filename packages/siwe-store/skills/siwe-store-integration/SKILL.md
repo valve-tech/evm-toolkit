@@ -72,10 +72,11 @@ state — so this choice is entirely the caller's.
    re-check. Issuance + single-use is the store's job.
 4. **Uniform failure.** Every verify failure path returns the same
    `401` — don't leak which check failed.
-5. **In-memory = single instance.** For multi-instance deploys,
-   implement `NonceStore` / `SessionStore` over Redis (or use
-   iron-session / NextAuth). Flag any in-memory store behind a load
-   balancer.
+5. **In-memory = single instance.** For multi-instance deploys, use
+   `@valve-tech/siwe-store-redis` (implements the async contracts
+   `AsyncNonceStore` / `AsyncSessionStore` over Redis — see the
+   `siwe-store-redis-integration` skill), or iron-session / NextAuth.
+   Flag any in-memory store behind a load balancer.
 
 ## Composition
 
