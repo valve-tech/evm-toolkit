@@ -1,7 +1,9 @@
 # ZK proofs over the Unchained Index — research track
 
-**Date:** 2026-06-13
-**Status:** Research track (exploratory) — not yet scheduled for implementation
+**Date:** 2026-06-13 (refreshed 2026-07-23 — see the addendum at the end)
+**Status:** Research track — refreshed; recommended next step is a
+scoped Proof-of-SQL spike (milestone 1 + Tier B evaluation), not a
+custom circuit
 **Relates to:** `2026-06-12-unchained-tx-history-design.md` (Phase 1),
 `@valve-tech/unchained-reader`, `@valve-tech/example-unchained-index-server`
 
@@ -161,3 +163,71 @@ path before committing to a custom circuit — it may collapse milestones 2–4.
 
 Implementation. This document starts the track and records the design
 intent; scheduling is a separate decision.
+
+---
+
+## Addendum — 2026-07-23 research refresh
+
+The track was parked on 2026-06-29 partly on the suspicion that
+TrueBlocks might already be building something equivalent. Refreshed
+findings:
+
+### 1. No TrueBlocks overlap — the parking concern is void
+
+A sweep of the TrueBlocks org (all public repos, issue search for
+proof/zk terms, `trueblocks-core` CHANGES, the `trueblocks-unchained`
+contract repo, `trueblocks-khedra`) shows **no zero-knowledge or
+proof-serving work**, announced or in progress, as of 2026-07-23.
+Their active threads are multi-chain indexing (Ethereum, Sepolia,
+Optimism, Gnosis) and `trueblocks-node`/khedra consolidation. If we
+want verifiable index reads, nobody upstream is building them for us.
+
+### 2. Prior art matured decisively in our favor
+
+Space and Time's **Proof of SQL** is now fully open source
+(`spaceandtimefdn/sxt-proof-of-sql`, Rust, ~5.4k stars) and under
+active development (last commit 2026-07-16, SDK + node repos likewise).
+Published performance: **sub-second proving over 1M-row tables on
+NVIDIA GPUs**. The evaluation this doc recommended ("Action: evaluate
+Proof of SQL as the Tier B implementation path") is now a
+clone-and-benchmark exercise, not a partnership conversation.
+
+Scale check against our data: chunk appearance tables run ~2M rows
+per chunk × ~5.7k chunks on PulseChain — a full-history table is
+~10^10 rows, far past the benchmark envelope. But per-chunk (or
+per-chunk-range) committed tables with per-query composition line up
+exactly with the "precompute per chunk, compose per query" question in
+the open-questions list, and with how the index itself is chunked.
+
+### 3. Recommendation
+
+Proceed as a **scoped spike, in this order** (supersedes the original
+milestones 2–4 sequencing):
+
+1. **Milestone 1 unchanged** — pin the commitment story (chunk CID +
+   on-chain manifest hash vs a publish-time ZK-friendly commitment).
+   This is prerequisite to everything and costs only analysis.
+2. **Proof-of-SQL Tier B spike** — load ONE chunk's decoded
+   appearances (`address, blockNumber, txIndex`) into an
+   sxt-committed table from a repo fixture, prove
+   `WHERE address = X`, verify client-side; measure proof size,
+   proving latency (CPU vs GPU), and commitment cost. Success
+   criterion: verified `(block, txIndex)` tuples with proof + hit-list
+   bandwidth under ~100 KB.
+3. **Only if the spike fails** on cost or commitment-anchoring, revisit
+   the custom-circuit path (Tier A bloom proofs) — otherwise skip
+   Tier A entirely, per the "is the adaptive bloom worth proving at
+   all" question, which the spike would answer with *no*.
+
+The open anchoring question stands: an SXT table commitment is not the
+on-chain UnchainedIndex manifest hash. The spike must include the
+reconciliation design (e.g., a signed mapping `chunk CID → table
+commitment` published alongside the manifest, with the CID→bytes→rows
+derivation spot-checkable by anyone re-running `unchained-reader`'s
+parsers). If the trust root can't stay the on-chain manifest, Tier B
+via SXT degrades to a *differently*-trusted server and the track
+should say so honestly.
+
+**Not scheduled here** — this addendum re-arms the track with a
+concrete, cheap first step; committing engineering time stays a
+maintainer decision.
