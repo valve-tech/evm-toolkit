@@ -182,7 +182,8 @@ evm-toolkit/                    repo root, package name @valve-tech/evm-toolkit 
 │   └── build-docs.mjs                TypeDoc JSON per pkg → docs/api/ (docs:build / docs:check)
 ├── examples/                   per-package & cross-package demos (NOT published; deps use workspace:^)
 │   ├── encrypted-vault/        full EIP-4361 SIWE + wallet-crypto + wallet-key-session + siwe-store
-│   ├── gas-dashboard/          chain-source + gas-oracle
+│   ├── gas-dashboard/          chain-source + gas-oracle (single chain, deep)
+│   ├── multi-chain-gas/        N × (chain-source + gas-oracle) side by side + threshold alerts
 │   ├── tx-write-flight/        the write path: gas-oracle + wallet-adapter + tx-tracker + tx-flight-react
 │   ├── unchained-index-server/ unchained-reader (server)
 │   └── unchained-tx-history/   trueblocks-sdk + unchained-reader
