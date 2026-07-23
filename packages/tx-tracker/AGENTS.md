@@ -148,6 +148,30 @@ sub.stop()  // does NOT stop already-auto-tracked per-hash subs
 `trackFromAddress` / `trackToAddress` / `trackPredicate`. Capped at
 `maxBulkSubscriptions: 16` by default.
 
+## Multi-chain coordinator
+
+```ts
+import { createMultiChainTracker } from '@valve-tech/tx-tracker'
+
+const multi = createMultiChainTracker({
+  chains: [
+    { source: mainnetSource, chainId: 1 },
+    { source: plsSource, chainId: 369 },
+  ],
+})
+multi.start(); await multi.ready()
+multi.subscribe(1, hash, cb)                       // routed by chainId
+multi.subscribeAll(({ chainId, event }) => { … })  // fan-in, tagged
+multi.trackFromAddress(addr)                       // fan-out to every chain
+multi.tracker(369)                                 // escape hatch: full TxTracker
+```
+
+One `TxTracker` per `chainId`; routing only — no coordinator-level
+state machine. Unknown chainIds throw `UnknownChainIdError` (never a
+silent empty stream). The chain set is fixed at construction. Types:
+`MultiChainTxTracker`, `CreateMultiChainTrackerOptions`,
+`MultiChainTxEvent`, `MultiChainTxSubscription`.
+
 ## Composing with gas-oracle
 
 One `ChainSource` shared across both — one upstream RPC poll cycle:

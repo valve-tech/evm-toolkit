@@ -159,6 +159,17 @@ export type {
   TxGroupEventStopped,
 } from './group-events.js'
 
+export {
+  createMultiChainTracker,
+  UnknownChainIdError,
+} from './multi-tracker.js'
+export type {
+  CreateMultiChainTrackerOptions,
+  MultiChainTxEvent,
+  MultiChainTxSubscription,
+  MultiChainTxTracker,
+} from './multi-tracker.js'
+
 export { replaceTransaction } from './replace-transaction.js'
 export type {
   ReplaceTransactionNewGas,

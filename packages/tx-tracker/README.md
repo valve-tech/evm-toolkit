@@ -200,6 +200,43 @@ Works for both speed-up (same nonce, higher tip) and cancel
 `reorgDepthBlocks` and retention are in **block-units, not seconds** —
 reorg safety is a depth invariant. See spec §10.1.
 
+## Multi-chain: `createMultiChainTracker`
+
+One tracker instance is one chain — mirroring `createGasOracle`. For
+apps watching several chains at once, the coordinator manages one
+`TxTracker` per `chainId` and adds routing only (each chain keeps its
+own `ChainSource`, store, and state machine):
+
+```ts
+import { createMultiChainTracker } from '@valve-tech/tx-tracker'
+
+const multi = createMultiChainTracker({
+  chains: [
+    { source: mainnetSource, chainId: 1 },
+    { source: plsSource, chainId: 369, reorgDepthBlocks: 24 },
+  ],
+})
+multi.start()
+await multi.ready()
+
+// Route to one chain — the chainId is explicit at every call site.
+multi.subscribe(1, '0xabc…', (event) => console.log(event.kind))
+
+// Fan-in across every chain, each event tagged with its chainId.
+multi.subscribeAll(({ chainId, event }) => index(chainId, event))
+
+// Fan-out: track a treasury address on every registered chain.
+const bulk = multi.trackFromAddress('0xtreasury…')
+bulk.subscribe(({ chainId, event }) => audit(chainId, event))
+```
+
+An unknown `chainId` throws `UnknownChainIdError` rather than looking
+like an idle chain, the chain set is fixed at construction, and
+`multi.tracker(chainId)` exposes the full single-chain API when you
+need `group` / `capabilities` / promise helpers. Per-chain `TxEvent`s
+are untouched — the `chainId` tag lives on the `MultiChainTxEvent`
+wrapper, so persisted types are identical to single-chain use.
+
 ## Composing with `@valve-tech/gas-oracle`
 
 One `ChainSource` shared across both — one upstream RPC poll cycle:
