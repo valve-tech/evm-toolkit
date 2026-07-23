@@ -30,6 +30,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   side (one chain-source + gas-oracle pipeline per chain), a cross-chain
   compare table, and edge-triggered threshold alerts with browser
   notifications.
+- **`examples/erc4337-write-flight`** — the full ERC-4337 write path: a
+  Coinbase Smart Account (demo-key owner), UserOperations priced from
+  gas-oracle tiers, a configurable bundler RPC with optional ERC-7677
+  paymaster, and the inclusion tx in the tx-flight-react strip
+  (`addByHash`, read-only). Ships an anvil fixture script (EntryPoint
+  0.6 + SenderCreator + Coinbase factory cloned from mainnet) for a
+  fully local bundler loop — E2E-verified against alto.
 
 ## [0.21.0] — 2026-07-15
 

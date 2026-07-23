@@ -1,0 +1,30 @@
+{
+  "name": "@valve-tech/example-erc4337-write-flight",
+  "version": "0.21.0",
+  "private": true,
+  "description": "Static web app demonstrating the FULL ERC-4337 account-abstraction write path with the evm-toolkit: a Coinbase Smart Account owned by a throwaway demo key, UserOperations priced from @valve-tech/gas-oracle tiers, sent through a configurable bundler RPC (optional paymaster sponsorship), and the resulting inclusion tx rendered in the @valve-tech/tx-flight-react strip via addByHash. Ships an anvil fixture script for a fully local bundler loop. DEMO KEYS ONLY — never real funds.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@valve-tech/chain-source": "workspace:^",
+    "@valve-tech/gas-oracle": "workspace:^",
+    "@valve-tech/tx-flight-react": "workspace:^",
+    "@valve-tech/tx-tracker": "workspace:^",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "vite": "^5.4.0"
+  }
+}
