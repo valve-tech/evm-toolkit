@@ -6,7 +6,13 @@ this file. Per-package details live in each `packages/*/CHANGELOG.md`.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [0.22.0] — 2026-07-23
+## [0.22.1] — 2026-07-23
+
+> v0.22.0 was never released: a manual name-claim of
+> `@valve-tech/siwe-store-redis` accidentally consumed the 0.22.0
+> version number with a broken (`workspace:^`) manifest, so the synced
+> line skipped straight to 0.22.1. The broken 0.22.0 artifact is
+> slated for unpublish — do not install it.
 
 ### Added
 

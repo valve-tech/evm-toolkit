@@ -1,7 +1,7 @@
 {
   "schemaVersion": "2.0",
   "id": 0,
-  "name": "@valve-tech/trueblocks-sdk v0.22.0",
+  "name": "@valve-tech/trueblocks-sdk v0.22.1",
   "variant": "project",
   "kind": 1,
   "flags": {},
@@ -5194,7 +5194,7 @@
     }
   ],
   "packageName": "@valve-tech/trueblocks-sdk",
-  "packageVersion": "0.22.0",
+  "packageVersion": "0.22.1",
   "symbolIdMap": {
     "0": {
       "packageName": "@valve-tech/trueblocks-sdk",

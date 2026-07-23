@@ -5,18 +5,12 @@ All notable changes to `@valve-tech/siwe-store-redis` are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.22.0] — 2026-07-23
+## [0.22.1] — 2026-07-23
 
-### Notes
-
-- Synchronized release — no changes since the 0.21.0 manual first
-  publish (npm name-claim). First version of this package published
-  through the OIDC release workflow.
-
-## [0.21.0] — 2026-07-23
-
-Manual first publish (npm name-claim); joined the synced release line
-mid-cycle, after the toolkit-wide v0.21.0 tag of 2026-07-15.
+First working release of this package, via the OIDC release workflow.
+(The 0.22.0 name-claim publish carried an unrewritten `workspace:^`
+peer range — unusable by consumers, *do not install*; it is slated for
+unpublish. No 0.21.0 of this package was ever published.)
 
 ### Added
 
