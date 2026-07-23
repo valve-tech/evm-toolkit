@@ -26,6 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   multi-chain coordinator managing one tracker per chainId with tagged
   fan-in (`MultiChainTxEvent`), routed delegation, and bulk fan-out
   (spec §18.3).
+- **`examples/multi-chain-gas`** — several chains' fee markets side by
+  side (one chain-source + gas-oracle pipeline per chain), a cross-chain
+  compare table, and edge-triggered threshold alerts with browser
+  notifications.
 
 ## [0.21.0] — 2026-07-15
 
