@@ -6,6 +6,22 @@ this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `createMultiChainTracker` — multi-chain coordinator (spec §18.3): a
+  thin multiplexer that manages one `TxTracker` per `chainId` and fans
+  events in/out. Delegation (`track` / `subscribe` / `getTxStatus` /
+  `tracker`) routes by chainId and throws `UnknownChainIdError` on a
+  miss; `subscribeAll` fans in every chain's events tagged as
+  `MultiChainTxEvent { chainId, event }`; `trackFromAddress` /
+  `trackToAddress` / `trackPredicate` fan out to every registered
+  chain and return a combined `MultiChainTxSubscription`. The
+  per-chain `TxEvent` envelope is unchanged — no persisted-type
+  drift. Each chain keeps its own `ChainSource`, store, and state
+  machine; the coordinator adds routing only.
+
 ## [0.21.0] — 2026-07-15
 
 ### Changed

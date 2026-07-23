@@ -124,6 +124,51 @@ registered (a later `source.start()` resumes them).
 the chain's block time. Reorg safety is a depth invariant. Spec §10.1
 has the rationale.
 
+## Multi-chain: one coordinator over per-chain trackers
+
+`createMultiChainTracker` manages one `TxTracker` per `chainId` — use
+it when the app watches the same addresses or independent txs across
+several chains. It is routing only: each chain still needs its own
+`ChainSource` (and starts it itself), its own store, and its own
+per-chain config from the table above.
+
+```ts
+import { createMultiChainTracker } from '@valve-tech/tx-tracker'
+
+const multi = createMultiChainTracker({
+  chains: [
+    { source: mainnetSource, chainId: 1 },
+    { source: plsSource, chainId: 369, reorgDepthBlocks: 24 },
+  ],
+  onError: (chainId, method, err) => log(chainId, method, err),
+})
+multi.start()
+await multi.ready()
+
+// Route per-chain: which chain is explicit at every call site.
+multi.subscribe(1, hash, (event) => render(event))
+
+// Fan-in: every chain's events, tagged.
+multi.subscribeAll(({ chainId, event }) => index(chainId, event))
+
+// Fan-out: the same treasury address on every registered chain.
+const bulk = multi.trackFromAddress(treasury)
+bulk.subscribe(({ chainId, event }) => audit(chainId, event))
+```
+
+Rules that matter when wiring it:
+
+- An unknown `chainId` **throws `UnknownChainIdError`** — it never
+  comes back as "no events", so a typo'd chain can't look idle.
+- The chain set is **fixed at construction**. Membership changes mean
+  constructing a new coordinator, not mutating this one.
+- `multi.tracker(chainId)` is the escape hatch to the full
+  single-chain API (`group`, `capabilities`, `waitForTransaction`
+  composition, …).
+- Per-chain `TxEvent`s are untouched — fan-in tagging lives on the
+  `MultiChainTxEvent` wrapper, so stores and persisted types are
+  identical to single-chain use.
+
 ## Anti-patterns to flag
 
 1. **Constructing a fresh `ChainSource` per tracker per hash.** One

@@ -1409,12 +1409,20 @@ v0.3.0 leaves receipt fetch to the consumer. v0.4.0 may add an
 opt-in `withReceipts: true` that issues the fetch lazily only when
 the consumer reads the field.
 
-### 18.3 Multi-chain tracker (NOT in v0.3.0)
+### 18.3 Multi-chain tracker (SHIPPED post-v0.21.0)
 
 `createTxTracker` is one-instance-per-chain, mirroring
 `createGasOracle`. A multi-chain registry is a wrapper, not a core
-feature. Could ship as `examples/10-multi-chain-tracker.ts` after
-v0.3.0 lands.
+feature.
+
+**Shipped 2026-07-23 as `createMultiChainTracker`** (`multi-tracker.ts`)
+— a thin multiplexer holding one `TxTracker` per `chainId`: delegation
+routes by chainId (`UnknownChainIdError` on a miss), `subscribeAll`
+fans in with a `MultiChainTxEvent { chainId, event }` wrapper (the
+per-chain `TxEvent` envelope is untouched — it crosses the store
+serialization boundary), and the bulk-track methods fan out across
+every registered chain. The chain set is fixed at construction. No
+state-machine logic lives in the coordinator.
 
 ### 18.4 Predicate-selector durability
 
