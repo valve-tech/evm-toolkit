@@ -50,11 +50,13 @@ const token = sessions.issue(fields.address)
 ## Interfaces vs. adapters
 
 This package ships the `NonceStore` / `SessionStore` **interfaces**
-(the contract for Redis/SQL/cookie backends) plus **in-memory
+(plus `AsyncNonceStore` / `AsyncSessionStore`, the async contracts for
+backends whose I/O is inherently asynchronous) and **in-memory
 defaults**. The in-memory stores are single-instance and reset on
-restart — for multi-instance production state, implement the
-interfaces over Redis, or reach for [iron-session] / [NextAuth]. This
-package intentionally ships no such adapter.
+restart — for multi-instance production state, use
+[`@valve-tech/siwe-store-redis`](../siwe-store-redis) (implements the
+async contracts over Redis), or reach for [iron-session] / [NextAuth].
+This package itself intentionally ships no backend adapter.
 
 [iron-session]: https://github.com/vvo/iron-session
 [NextAuth]: https://authjs.dev

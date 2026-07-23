@@ -1876,6 +1876,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@valve-tech/siwe-store-redis@workspace:packages/siwe-store-redis":
+  version: 0.0.0-use.local
+  resolution: "@valve-tech/siwe-store-redis@workspace:packages/siwe-store-redis"
+  dependencies:
+    "@valve-tech/siwe-store": "workspace:^"
+  peerDependencies:
+    "@valve-tech/siwe-store": "workspace:^"
+    viem: ^2.0.0
+  languageName: unknown
+  linkType: soft
+
 "@valve-tech/siwe-store@workspace:^, @valve-tech/siwe-store@workspace:packages/siwe-store":
   version: 0.0.0-use.local
   resolution: "@valve-tech/siwe-store@workspace:packages/siwe-store"

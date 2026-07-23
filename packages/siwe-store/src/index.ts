@@ -7,6 +7,15 @@
  */
 
 export { createMemoryNonceStore } from './nonce-store.js'
-export type { NonceStore } from './nonce-store.js'
+export type {
+  AnyNonceStore,
+  AsyncNonceStore,
+  NonceStore,
+} from './nonce-store.js'
 export { createMemorySessionStore } from './session-store.js'
-export type { Session, SessionStore } from './session-store.js'
+export type {
+  AnySessionStore,
+  AsyncSessionStore,
+  Session,
+  SessionStore,
+} from './session-store.js'

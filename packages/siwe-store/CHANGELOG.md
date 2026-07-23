@@ -5,6 +5,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this package adheres to the valve-tech/evm-toolkit synchronized
 release line.
 
+## [Unreleased]
+
+### Added
+
+- `AsyncNonceStore` / `AsyncSessionStore` — async variants of the
+  store contracts for backends whose I/O is inherently asynchronous
+  (Redis, SQL). Same semantics as the sync interfaces; implemented by
+  the new `@valve-tech/siwe-store-redis` sibling package.
+- `AnyNonceStore` / `AnySessionStore` — sync-or-async unions for
+  handler code that always `await`s store results.
+
 ## [0.21.0] — 2026-07-15
 
 ### Changed

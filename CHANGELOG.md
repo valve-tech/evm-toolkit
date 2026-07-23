@@ -14,6 +14,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
   privacy-ranked list of public RPC endpoints from a vendored
   DefiLlama/chainlist dataset, and converts them into a viem transport or
   ethers provider. Zero runtime dependencies.
+- **`@valve-tech/siwe-store-redis`** (new package) — Redis-backed SIWE
+  nonce + session stores implementing `@valve-tech/siwe-store`'s new
+  async contracts. Bring-your-own-client via a minimal `RedisClientLike`
+  surface (node-redis v4 direct; v5/ioredis adapters included); zero
+  runtime dependencies.
+- **`@valve-tech/siwe-store`** — `AsyncNonceStore` / `AsyncSessionStore`
+  contracts (plus `AnyNonceStore` / `AnySessionStore` unions) for
+  I/O-bound backends.
+- **`@valve-tech/tx-tracker`** — `createMultiChainTracker`: a thin
+  multi-chain coordinator managing one tracker per chainId with tagged
+  fan-in (`MultiChainTxEvent`), routed delegation, and bulk fan-out
+  (spec §18.3).
 
 ## [0.21.0] — 2026-07-15
 

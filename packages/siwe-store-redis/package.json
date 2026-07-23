@@ -1,0 +1,63 @@
+{
+  "name": "@valve-tech/siwe-store-redis",
+  "version": "0.21.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "description": "Redis-backed SIWE nonce + session stores implementing @valve-tech/siwe-store's async contracts (AsyncNonceStore / AsyncSessionStore). Single-use nonce consume is atomic (Redis DEL), TTLs are enforced server-side by Redis expiry, and sessions are opaque CSPRNG tokens bound to an address. Bring your own client: the stores type against a minimal RedisClientLike surface (node-redis v4 matches directly; adapters for node-redis v5 and ioredis ship in the package), so this package itself has zero runtime dependencies. Part of the valve-tech/evm-toolkit synchronized release line.",
+  "license": "MIT",
+  "homepage": "https://github.com/valve-tech/evm-toolkit/tree/main/packages/siwe-store-redis#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valve-tech/evm-toolkit.git",
+    "directory": "packages/siwe-store-redis"
+  },
+  "bugs": {
+    "url": "https://github.com/valve-tech/evm-toolkit/issues"
+  },
+  "keywords": [
+    "ethereum",
+    "evm",
+    "viem",
+    "siwe",
+    "eip-4361",
+    "redis",
+    "nonce",
+    "session",
+    "replay-protection",
+    "authentication",
+    "server"
+  ],
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "skills",
+    "README.md",
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p .",
+    "typecheck": "tsc -p . --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "prepare": "yarn build"
+  },
+  "devDependencies": {
+    "@valve-tech/siwe-store": "workspace:^"
+  },
+  "peerDependencies": {
+    "@valve-tech/siwe-store": "workspace:^",
+    "viem": "^2.0.0"
+  }
+}

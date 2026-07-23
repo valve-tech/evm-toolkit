@@ -28,9 +28,12 @@ import type { NonceStore, SessionStore, Session } from '@valve-tech/siwe-store'
    nonce; it deletes BEFORE the TTL check so a race-loser cannot reuse.
 2. **Opaque session token.** A CSPRNG `randomBytes(32)` base64url
    string. It carries no signed state; the binding is server-side.
-3. **Interfaces are the contract.** Redis/SQL backends implement
-   `NonceStore` / `SessionStore`; only the in-memory adapters ship.
-   In-memory stores reset on restart — not for multi-instance prod.
+3. **Interfaces are the contract.** Sync (`NonceStore` /
+   `SessionStore`) for in-process backends; async (`AsyncNonceStore` /
+   `AsyncSessionStore`) for I/O-bound ones — implemented over Redis by
+   the `@valve-tech/siwe-store-redis` sibling. Only the in-memory
+   adapters ship here. In-memory stores reset on restart — not for
+   multi-instance prod.
 
 ## The verify recipe (with viem/siwe)
 

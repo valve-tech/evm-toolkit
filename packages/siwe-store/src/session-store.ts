@@ -30,6 +30,29 @@ export interface SessionStore {
   revoke(token: string): void
 }
 
+/**
+ * Async variant of {@link SessionStore} — the contract for backends
+ * whose I/O is inherently asynchronous (Redis, SQL). Same semantics
+ * and the same opaque-token model.
+ *
+ * `@valve-tech/siwe-store-redis` implements this shape.
+ */
+export interface AsyncSessionStore {
+  /** Issue an opaque CSPRNG token bound to the address. */
+  issue(address: Address, claims?: Record<string, unknown>): Promise<string>
+  /** The bound session if the token is valid + unexpired, else null. */
+  validate(token: string): Promise<Session | null>
+  /** Invalidate a token (sign-out). */
+  revoke(token: string): Promise<void>
+}
+
+/**
+ * Either session-store shape. Handler code that only ever `await`s
+ * the results can type against this union — `await` is a no-op on the
+ * sync store's plain values.
+ */
+export type AnySessionStore = SessionStore | AsyncSessionStore
+
 /** Default session TTL: 30 minutes. */
 const DEFAULT_TTL_MS = 30 * 60 * 1000
 
