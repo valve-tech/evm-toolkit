@@ -171,6 +171,11 @@ jobs:
       # version). Mark the failed intermediate version `*unpublished*` in
       # that package's CHANGELOG.
       fail-fast: false
+      # Publish strictly one package at a time, in package-list order.
+      # 14 concurrent OIDC token exchanges intermittently 404'd on npm's
+      # side during v0.22.1 (correct trusted-publisher records; retries
+      # succeeded). Releases don't need speed — they need order.
+      max-parallel: 1
       matrix:
         package: ${{ fromJSON(needs.prepare.outputs.packages) }}
     steps:
